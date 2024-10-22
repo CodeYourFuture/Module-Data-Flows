@@ -11,10 +11,11 @@ Take a look at the following code:
 4        let x = 2;
 5        console.log(x);
 6    }
-7    console.log(x);
+7    f1();
+8    console.log(x);
 ```
 
-Explain why line 4 and line 6 output different numbers.
+Explain why line 5 and line 8 output different numbers.
 
 ## Question 2
 

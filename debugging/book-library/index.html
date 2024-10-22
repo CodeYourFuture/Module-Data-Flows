@@ -1,75 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>My Book Library</title>
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
+    <title> </title>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
-  <body class="bg-gray-100 p-8 bg-gradient-to-r from-indigo-100">
-    <h1 class="text-8xl font-bold mb-4">My Book Library</h1>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>Library</h1>
+      <p>Add books to your virtual library</p>
+    </div>
 
-    <form id="add-book" class="bg-white p-4 rounded-lg shadow-md max-w-2xl">
-      <div class="mb-4">
-        <label for="titleInput" class="block font-bold">Title:</label>
+    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
+      Add new book
+    </button>
+
+    <div id="demo" class="collapse">
+      <div class="form-group">
+        <label for="title">Title:</label>
         <input
-          id="titleInput"
-          type="text"
-          name="titleInput"
-          class="border p-2 w-full"
+          type="title"
+          class="form-control"
+          id="title"
+          name="title"
           required
         />
-      </div>
-
-      <div class="mb-4">
-        <label for="authorInput" class="block font-bold">Author:</label>
+        <label for="author">Author: </label>
         <input
-          id="authorInput"
-          type="text"
-          name="authorInput"
-          class="border p-2 w-full"
+          type="author"
+          class="form-control"
+          id="author"
+          name="author"
           required
         />
-      </div>
-
-      <div class="mb-4">
-        <label for="pagesInput" class="block font-bold">Pages:</label>
+        <label for="pages">Pages:</label>
         <input
-          id="pagesInput"
           type="number"
-          name="pagesInput"
-          class="border p-2 w-full"
-          min="1"
+          class="form-control"
+          id="pages"
+          name="pages"
           required
         />
+        <label class="form-check-label">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="check"
+            value=""
+          />Read
+        </label>
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary"
+          onclick="submit();"
+        />
       </div>
+    </div>
 
-      <div class="flex items-center mb-4">
-        <input id="readInput" name="readInput" type="checkbox" class="mr-2" />
-        <label for="readInput">Read</label>
-      </div>
-
-      <button
-        type="submit"
-        class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-      >
-        Add Book
-      </button>
-    </form>
-
-    <table class="bg-white rounded-lg shadow-md mt-8 w-full">
-      <thead>
+    <table class="table" id="display">
+      <thead class="thead-dark">
         <tr>
           <th>Title</th>
           <th>Author</th>
-          <th>Pages</th>
+          <th>Number of Pages</th>
           <th>Read</th>
-          <th>Remove</th>
+          <th></th>
         </tr>
       </thead>
-      <template id="book-row" class="max-w-3xl">
+      <tbody>
         <tr>
           <td></td>
           <td></td>
@@ -77,26 +88,9 @@
           <td></td>
           <td></td>
         </tr>
-      </template>
+      </tbody>
     </table>
 
-    <script>
-      const bookRowTemplate = document.getElementById('book-row');
-      const bookTable = document.querySelector('table');
-
-      const addBookForm = document.getElementById('add-book');
-      const titleInput = document.getElementById('titleInput');
-      const authorInput = document.getElementById('authorInput');
-      const pagesInput = document.getElementById('pagesInput');
-      const readInput = document.getElementById('readInput');
-
-      const books = [];
-
-      function addBook(e) {
-        e.preventDefault();
-
-        const book = {
-          title: titleInput.value,
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
