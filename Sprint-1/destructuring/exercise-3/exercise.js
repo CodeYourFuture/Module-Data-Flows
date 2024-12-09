@@ -6,3 +6,18 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+let total = 0;
+
+order.forEach(item => {
+  const { itemName, quantity, unitPricePence } = item;
+
+  const itemTotal = unitPricePence * quantity;
+  total += itemTotal;
+
+  const formattedPrice = (itemTotal / 100).toFixed(2); 
+  console.log(`${quantity} ${itemName} - £${formattedPrice}`);
+});
+
+const formattedTotal = (total / 100).toFixed(2);
+console.log(`Total: £${formattedTotal}`);
