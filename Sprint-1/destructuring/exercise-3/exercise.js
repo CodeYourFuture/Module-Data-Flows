@@ -7,8 +7,16 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
+// Define column widths
+const quantityColWidth = 7; // Width for the quantity column
+const itemNameColWidth = 20; // Width for the item name column
+
 // Header for the receipt
-console.log("QTY     ITEM                TOTAL");
+console.log(
+  `QTY${" ".repeat(quantityColWidth - 3)}ITEM${" ".repeat(
+    itemNameColWidth - 4
+  )}TOTAL`
+);
 
 // Initialize total cost
 let totalCostPence = 0;
@@ -24,7 +32,9 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
 
   // Log the item's details with proper formatting
   console.log(
-    `${quantity.toString().padEnd(7)}${itemName.padEnd(20)}${itemTotalPounds}`
+    `${quantity.toString().padEnd(quantityColWidth)}${itemName.padEnd(
+      itemNameColWidth
+    )}${itemTotalPounds}`
   );
 });
 
