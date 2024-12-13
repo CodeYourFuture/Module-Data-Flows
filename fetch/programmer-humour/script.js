@@ -1,6 +1,6 @@
 function fetchApiData() {
     // assign API url to a variable.
-    const url = "https://xxkcd.now.sh/?comic=latest";
+    const url = "https://xkcd.now.sh/?comic=latest";
     // get container by id
     const container = document.getElementById("container");
     
