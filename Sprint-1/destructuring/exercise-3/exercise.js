@@ -8,13 +8,15 @@ let order = [
 ];
 
 function printOrder(order){
-  let total = 0;
+  console.log(`${'QTY'.padEnd(8)}${'ITEM'.padEnd(20)}TOTAL`);
 
+  let total = 0;
   order.forEach(({itemName, quantity, unitPricePence}) => {
     const itemTotalPrice = unitPricePence / 100 * quantity;
     total += itemTotalPrice;
-    console.log(itemTotalPrice);
+    console.log(`${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${itemTotalPrice.toFixed(2)}`);
   });
+  console.log(`\nTotal: ${total.toFixed(2)}`);
 }
 
 printOrder(order);
