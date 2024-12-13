@@ -1,6 +1,6 @@
 function fetchApiData() {
     // assign API url to a variable.
-    const url = "https://xkcd.now.sh/?comic=latest";
+    const url = "https://xxkcd.now.sh/?comic=latest";
     // get container by id
     const container = document.getElementById("container");
     
@@ -22,7 +22,10 @@ function fetchApiData() {
         imgHumor.src = data.img;
         // Add image as a child to div with class container on html.
         container.appendChild(imgHumor);
-    })    
+    })
+    .catch(error => {
+        console.log("Error fetching from API Programmer humour\n", error);
+    });  
 }
 
 console.log(fetchApiData());
