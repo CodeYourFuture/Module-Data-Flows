@@ -71,9 +71,9 @@ let hogwarts = [
   },
 ];
 
-function createListGryffindor (hogwarts){
-  const listGryffindor = hogwarts.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`); 
-  
+function createListGryffindor(hogwarts) {
+  const listGryffindor = hogwarts.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+  listGryffindor.forEach((name) => console.log(name));
 }
 
 createListGryffindor(hogwarts);
