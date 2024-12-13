@@ -70,3 +70,10 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function createListGryffindor (hogwarts){
+  const listGryffindor = hogwarts.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`); 
+  
+}
+
+createListGryffindor(hogwarts);
