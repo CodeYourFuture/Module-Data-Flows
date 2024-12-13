@@ -1,30 +1,34 @@
-// =================
-// Stripped down cowsayer CLI, 
-// no libraries
-// https://nodejs.dev/learn/nodejs-accept-arguments-from-the-command-line
-// =================
+// solution1.js
 
-// 1. Accept arguments
+// 1. Accept arguments from the command line
+const args = process.argv.slice(2); // Get all arguments after `node` and the script name
+const text = args.join(' '); // Combine the arguments into one string
 
-// how will you accept arguments?
-
-// 2. Make supplies for our speech bubble
-
-let topLine = '_';
-let bottomLine = '-';
-let saying = '';
-
-// 3. Make a cow that takes a string
-
+// 2. Function to generate the cow with speech bubble
 function cowsay(saying) {
-// how will you make the speech bubble contain the text?
+    if (!saying) {
+        saying = "Mooooo"; // Default text if no argument is passed
+    }
 
-// where will the cow picture go?
+    // Create speech bubble lines based on text length
+    const bubbleWidth = saying.length + 2;
+    const topLine = "_".repeat(bubbleWidth);
+    const bottomLine = "-".repeat(bubbleWidth);
 
-// how will you account for the parameter being empty?
+    // Speech bubble + cow ASCII art
+    const cow = `
+ ${topLine}
+< ${saying} >
+ ${bottomLine}
+        \   ^__^
+         \  (oo)\\_______
+            (__)\\       )\/\\
+                ||----w |
+                ||     ||
+    `;
 
+    return cow;
 }
 
-//4. Pipe argument into cowsay function and return a cow
-
-// how will you log this to the console?
+// 3. Log the cow with the speech bubble to the console
+console.log(cowsay(text));
