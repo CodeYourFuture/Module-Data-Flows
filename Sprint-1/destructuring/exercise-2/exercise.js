@@ -70,3 +70,15 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+// Filter members of Gryffindor house and display their full names
+console.log("Task 1:");
+hogwarts
+  .filter(({ house }) => house === "Gryffindor")
+  .forEach(({ firstName, lastName }) => console.log(`${firstName} ${lastName}`));
+
+// Filter teachers with pets and display their full names
+console.log("\nTask 2:");
+hogwarts
+  .filter(({ occupation, pet }) => occupation === "teacher" && pet)
+  .forEach(({ firstName, lastName }) => console.log(`${firstName} ${lastName}`));
+
