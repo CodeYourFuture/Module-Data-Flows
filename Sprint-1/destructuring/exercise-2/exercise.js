@@ -76,4 +76,10 @@ function createListGryffindor(hogwarts) {
   listGryffindor.forEach((name) => console.log(name));
 }
 
+function createListTeacherWithPet(hogwarts) {
+  const listTeacherWithPet = hogwarts.filter(({ pet, occupation }) => occupation === "Teacher" && pet !== null).map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+  listTeacherWithPet.forEach((name) => console.log(name));
+}
+
 createListGryffindor(hogwarts);
+createListTeacherWithPet(hogwarts);
