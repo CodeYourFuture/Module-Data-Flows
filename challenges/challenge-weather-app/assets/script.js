@@ -2,7 +2,7 @@
 
 const API_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const API_UNSPLASH = "https://api.unsplash.com/search/photos";
-const WEATHER_KEY = "YOUR_OPENWEATHER_API_KEY"; // Replace with your OpenWeather API Key
+const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; 
 const UNSPLASH_KEY = "YOUR_UNSPLASH_ACCESS_KEY"; // Replace with your Unsplash Access Key
 
 // DOM Elements
