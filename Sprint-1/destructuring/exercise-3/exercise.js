@@ -18,7 +18,7 @@ function takeoutOrder(){
     console.log(`${quantity.toString().padEnd(14)}${itemName.padEnd(25)}${priceInPounds.toFixed(2).padStart(6)}`)
     
   }
-  console.log(`\nTotal: ${Total.toFixed(1)}`)
+  console.log(`\nTotal: ${Total.toFixed(2)}`)
 }
 
     
