@@ -6,3 +6,20 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+function takeoutOrder(){
+  console.log(`QTY             ITEM                     TOTAL`)
+ let Total = 0;
+
+  for(const {itemName,quantity,unitPricePence} of order){
+  const price = quantity * unitPricePence;
+  const priceInPounds = (price/100);
+    Total += priceInPounds;
+    console.log(`${quantity.toString().padEnd(14)}${itemName.padEnd(25)}${priceInPounds.toFixed(2).padStart(6)}`)
+    
+  }
+  console.log(`\nTotal: ${Total.toFixed(1)}`)
+}
+
+    
+takeoutOrder(order);
