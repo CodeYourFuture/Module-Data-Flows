@@ -2,8 +2,8 @@
 
 const API_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const API_UNSPLASH = "https://api.unsplash.com/search/photos";
-const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; // Replace with your valid OpenWeather API Key
-const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; // Replace with your valid Unsplash Access Key
+const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; 
+const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; 
 
 // DOM Elements
 const photoEl = document.getElementById("photo");
