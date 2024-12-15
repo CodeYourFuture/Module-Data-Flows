@@ -2,8 +2,8 @@
 
 const API_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const API_UNSPLASH = "https://api.unsplash.com/search/photos";
-const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; 
-const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; 
+const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; // Replace with your valid OpenWeather API Key
+const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; // Replace with your valid Unsplash Access Key
 
 // DOM Elements
 const photoEl = document.getElementById("photo");
@@ -17,66 +17,72 @@ const searchInput = document.getElementById("search-tf");
 // Default city
 let currentCity = "London";
 
-// Loading Indicator
-function toggleLoading(show) {
-  if (show) {
-    photoEl.classList.add("loading");
-  } else {
-    photoEl.classList.remove("loading");
-  }
-}
-
 // Fetch weather data
 async function fetchWeather(city) {
   const url = `${API_WEATHER}?q=${city}&appid=${WEATHER_KEY}&units=metric`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("City not found");
-  return response.json();
+  try {
+    const response = await fetch(url);
+    console.log("Fetching weather data from:", url);
+    if (!response.ok) {
+      throw new Error(`City "${city}" not found`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    throw error;
+  }
 }
 
 // Fetch Unsplash images
 async function fetchImages(query) {
   const url = `${API_UNSPLASH}?query=${query}&client_id=${UNSPLASH_KEY}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Error fetching images");
-  return response.json();
+  try {
+    const response = await fetch(url);
+    console.log("Fetching Unsplash images from:", url);
+    if (!response.ok) {
+      throw new Error("Error fetching images from Unsplash");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching Unsplash images:", error);
+    throw error;
+  }
 }
 
 // Update UI with weather and photos
 async function updateWeatherAndPhotos(city) {
   try {
-    toggleLoading(true); // Show loading indicator
+    // Display loading state
+    conditionsEl.textContent = "Loading weather data...";
+    thumbsEl.innerHTML = "";
+    photoEl.style.backgroundImage = "";
 
     // Fetch weather
     const weatherData = await fetchWeather(city);
     const description = weatherData.weather[0].description;
-    conditionsEl.textContent = `${description}, ${weatherData.main.temp}°C`;
+    const temp = weatherData.main.temp;
+    conditionsEl.textContent = `${description}, ${temp}°C`;
 
-    // Fetch images
+    // Fetch images based on weather description
     const imageData = await fetchImages(description);
-    if (!imageData.results.length) throw new Error("No images found for this weather");
-
-    // Update UI with images and credits
+    if (imageData.results.length === 0) {
+      throw new Error("No images found for this weather condition");
+    }
     displayImages(imageData.results);
+
+    // Update photographer credits
     updateCredits(imageData.results[0]);
   } catch (error) {
-    console.error(error);
+    console.error("Error updating weather and photos:", error);
+    conditionsEl.textContent = "Error: " + error.message;
     alert(error.message);
-
-    // Fallback in case of errors
-    photoEl.style.backgroundImage = "url('fallback-image-url.jpg')"; // Replace with actual fallback image URL
-    thumbsEl.innerHTML = "<p>No images available</p>";
-    conditionsEl.textContent = "Data unavailable";
-  } finally {
-    toggleLoading(false); // Hide loading indicator
   }
 }
 
-// Display images
+// Display images in main photo area and thumbnails
 function displayImages(images) {
   if (!images.length) {
-    photoEl.style.backgroundImage = "url('fallback-image-url.jpg')";
-    thumbsEl.innerHTML = `<p>No images available</p>`;
+    conditionsEl.textContent = "No images available for this weather.";
     return;
   }
 
@@ -90,16 +96,16 @@ function displayImages(images) {
     thumb.classList.add("thumb");
     thumb.style.backgroundImage = `url(${image.urls.thumb})`;
     thumb.dataset.index = index;
-    thumb.setAttribute("aria-label", `Thumbnail ${index + 1}`);
+
     thumb.addEventListener("click", () => setMainImage(images, index));
     thumbsEl.appendChild(thumb);
   });
 
-  // Set active thumbnail
+  // Highlight the first thumbnail as active
   setActiveThumbnail(0);
 }
 
-// Set the main image and update active thumbnail
+// Set the main image and highlight the active thumbnail
 function setMainImage(images, index) {
   photoEl.style.backgroundImage = `url(${images[index].urls.regular})`;
   updateCredits(images[index]);
@@ -108,15 +114,9 @@ function setMainImage(images, index) {
 
 // Update photographer credits
 function updateCredits(image) {
-  if (image && image.user) {
-    creditUserEl.textContent = image.user.name;
-    creditUserEl.href = image.user.links.html;
-    creditPlatformEl.href = "https://unsplash.com";
-  } else {
-    creditUserEl.textContent = "Unknown";
-    creditUserEl.href = "#";
-    creditPlatformEl.href = "#";
-  }
+  creditUserEl.textContent = image.user.name;
+  creditUserEl.href = image.user.links.html;
+  creditPlatformEl.href = "https://unsplash.com";
 }
 
 // Highlight the active thumbnail
@@ -127,21 +127,15 @@ function setActiveThumbnail(activeIndex) {
   });
 }
 
-// Debounce user input to prevent excessive API calls
-let debounceTimer;
+// Handle form submission for searching a city
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  clearTimeout(debounceTimer);
-
-  debounceTimer = setTimeout(() => {
-    const city = searchInput.value.trim();
-    if (city) {
-      updateWeatherAndPhotos(city);
-      searchInput.value = "";
-    }
-  }, 500); // Debounce delay of 500ms
+  const city = searchInput.value.trim();
+  if (city) {
+    updateWeatherAndPhotos(city);
+    searchInput.value = "";
+  }
 });
 
-// Initial load
+// Initial load with default city
 updateWeatherAndPhotos(currentCity);
-
