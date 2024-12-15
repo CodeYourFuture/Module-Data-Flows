@@ -3,7 +3,7 @@
 const API_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const API_UNSPLASH = "https://api.unsplash.com/search/photos";
 const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; 
-const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; // Replace with your Unsplash Access Key
+const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; 
 
 // DOM Elements
 const photoEl = document.getElementById("photo");
@@ -16,6 +16,15 @@ const searchInput = document.getElementById("search-tf");
 
 // Default city
 let currentCity = "London";
+
+// Loading Indicator
+function toggleLoading(show) {
+  if (show) {
+    photoEl.classList.add("loading");
+  } else {
+    photoEl.classList.remove("loading");
+  }
+}
 
 // Fetch weather data
 async function fetchWeather(city) {
@@ -36,6 +45,8 @@ async function fetchImages(query) {
 // Update UI with weather and photos
 async function updateWeatherAndPhotos(city) {
   try {
+    toggleLoading(true); // Show loading indicator
+
     // Fetch weather
     const weatherData = await fetchWeather(city);
     const description = weatherData.weather[0].description;
@@ -43,19 +54,31 @@ async function updateWeatherAndPhotos(city) {
 
     // Fetch images
     const imageData = await fetchImages(description);
-    displayImages(imageData.results);
+    if (!imageData.results.length) throw new Error("No images found for this weather");
 
-    // Update photographer credits
+    // Update UI with images and credits
+    displayImages(imageData.results);
     updateCredits(imageData.results[0]);
   } catch (error) {
     console.error(error);
     alert(error.message);
+
+    // Fallback in case of errors
+    photoEl.style.backgroundImage = "url('fallback-image-url.jpg')"; // Replace with actual fallback image URL
+    thumbsEl.innerHTML = "<p>No images available</p>";
+    conditionsEl.textContent = "Data unavailable";
+  } finally {
+    toggleLoading(false); // Hide loading indicator
   }
 }
 
 // Display images
 function displayImages(images) {
-  if (!images.length) return;
+  if (!images.length) {
+    photoEl.style.backgroundImage = "url('fallback-image-url.jpg')";
+    thumbsEl.innerHTML = `<p>No images available</p>`;
+    return;
+  }
 
   // Set main image
   photoEl.style.backgroundImage = `url(${images[0].urls.regular})`;
@@ -67,6 +90,7 @@ function displayImages(images) {
     thumb.classList.add("thumb");
     thumb.style.backgroundImage = `url(${image.urls.thumb})`;
     thumb.dataset.index = index;
+    thumb.setAttribute("aria-label", `Thumbnail ${index + 1}`);
     thumb.addEventListener("click", () => setMainImage(images, index));
     thumbsEl.appendChild(thumb);
   });
@@ -84,9 +108,15 @@ function setMainImage(images, index) {
 
 // Update photographer credits
 function updateCredits(image) {
-  creditUserEl.textContent = image.user.name;
-  creditUserEl.href = image.user.links.html;
-  creditPlatformEl.href = "https://unsplash.com";
+  if (image && image.user) {
+    creditUserEl.textContent = image.user.name;
+    creditUserEl.href = image.user.links.html;
+    creditPlatformEl.href = "https://unsplash.com";
+  } else {
+    creditUserEl.textContent = "Unknown";
+    creditUserEl.href = "#";
+    creditPlatformEl.href = "#";
+  }
 }
 
 // Highlight the active thumbnail
@@ -97,15 +127,21 @@ function setActiveThumbnail(activeIndex) {
   });
 }
 
-// Handle form submission
+// Debounce user input to prevent excessive API calls
+let debounceTimer;
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const city = searchInput.value.trim();
-  if (city) {
-    updateWeatherAndPhotos(city);
-    searchInput.value = "";
-  }
+  clearTimeout(debounceTimer);
+
+  debounceTimer = setTimeout(() => {
+    const city = searchInput.value.trim();
+    if (city) {
+      updateWeatherAndPhotos(city);
+      searchInput.value = "";
+    }
+  }, 500); // Debounce delay of 500ms
 });
 
 // Initial load
 updateWeatherAndPhotos(currentCity);
+
