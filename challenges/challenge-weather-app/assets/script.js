@@ -1,9 +1,8 @@
-// script.js
-
+// API URLs and Keys
 const API_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const API_UNSPLASH = "https://api.unsplash.com/search/photos";
-const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; 
-const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; 
+const WEATHER_KEY = "2af3ef06b75eef48a72ed617a00dad79"; // Replace with your OpenWeather API Key
+const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; // Replace with your Unsplash Access Key
 
 // DOM Elements
 const photoEl = document.getElementById("photo");
@@ -21,12 +20,12 @@ let currentCity = "London";
 async function fetchWeather(city) {
   const url = `${API_WEATHER}?q=${city}&appid=${WEATHER_KEY}&units=metric`;
   try {
+    console.log(`Fetching weather data for: ${city}`);
     const response = await fetch(url);
-    console.log("Fetching weather data from:", url);
-    if (!response.ok) {
-      throw new Error(`City "${city}" not found`);
-    }
-    return response.json();
+    if (!response.ok) throw new Error(`City "${city}" not found`);
+    const data = await response.json();
+    console.log("Weather Data:", data);
+    return data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
     throw error;
@@ -37,59 +36,55 @@ async function fetchWeather(city) {
 async function fetchImages(query) {
   const url = `${API_UNSPLASH}?query=${query}&client_id=${UNSPLASH_KEY}`;
   try {
+    console.log(`Fetching images for: ${query}`);
     const response = await fetch(url);
-    console.log("Fetching Unsplash images from:", url);
-    if (!response.ok) {
-      throw new Error("Error fetching images from Unsplash");
-    }
-    return response.json();
+    if (!response.ok) throw new Error("Error fetching images from Unsplash");
+    const data = await response.json();
+    console.log("Unsplash Image Data:", data);
+    return data;
   } catch (error) {
-    console.error("Error fetching Unsplash images:", error);
+    console.error("Error fetching images:", error);
     throw error;
   }
 }
 
-// Update UI with weather and photos
+// Update the UI with weather and photos
 async function updateWeatherAndPhotos(city) {
   try {
-    // Display loading state
-    conditionsEl.textContent = "Loading weather data...";
-    thumbsEl.innerHTML = "";
-    photoEl.style.backgroundImage = "";
-
-    // Fetch weather
+    // Fetch weather data
     const weatherData = await fetchWeather(city);
     const description = weatherData.weather[0].description;
-    const temp = weatherData.main.temp;
-    conditionsEl.textContent = `${description}, ${temp}°C`;
+    const temperature = weatherData.main.temp;
+    conditionsEl.textContent = `${description}, ${temperature}°C`;
 
     // Fetch images based on weather description
     const imageData = await fetchImages(description);
-    if (imageData.results.length === 0) {
-      throw new Error("No images found for this weather condition");
-    }
-    displayImages(imageData.results);
 
-    // Update photographer credits
-    updateCredits(imageData.results[0]);
+    if (imageData.results.length > 0) {
+      displayImages(imageData.results);
+      updateCredits(imageData.results[0]);
+    } else {
+      console.warn("No images found for the weather description.");
+      photoEl.style.backgroundImage = "";
+      thumbsEl.innerHTML = "";
+      creditUserEl.textContent = "No images available";
+      creditUserEl.href = "#";
+    }
   } catch (error) {
     console.error("Error updating weather and photos:", error);
-    conditionsEl.textContent = "Error: " + error.message;
     alert(error.message);
+    conditionsEl.textContent = "Error: Unable to fetch weather data.";
   }
 }
 
-// Display images in main photo area and thumbnails
+// Display images in the main photo section and thumbnails
 function displayImages(images) {
-  if (!images.length) {
-    conditionsEl.textContent = "No images available for this weather.";
-    return;
-  }
+  if (!images || images.length === 0) return;
 
-  // Set main image
+  // Set the main photo
   photoEl.style.backgroundImage = `url(${images[0].urls.regular})`;
 
-  // Populate thumbnails
+  // Clear thumbnails and repopulate
   thumbsEl.innerHTML = "";
   images.forEach((image, index) => {
     const thumb = document.createElement("div");
@@ -97,7 +92,9 @@ function displayImages(images) {
     thumb.style.backgroundImage = `url(${image.urls.thumb})`;
     thumb.dataset.index = index;
 
+    // Add click event to update main photo and credits
     thumb.addEventListener("click", () => setMainImage(images, index));
+
     thumbsEl.appendChild(thumb);
   });
 
@@ -105,10 +102,11 @@ function displayImages(images) {
   setActiveThumbnail(0);
 }
 
-// Set the main image and highlight the active thumbnail
+// Set the main photo and update active thumbnail
 function setMainImage(images, index) {
-  photoEl.style.backgroundImage = `url(${images[index].urls.regular})`;
-  updateCredits(images[index]);
+  const image = images[index];
+  photoEl.style.backgroundImage = `url(${image.urls.regular})`;
+  updateCredits(image);
   setActiveThumbnail(index);
 }
 
@@ -127,15 +125,15 @@ function setActiveThumbnail(activeIndex) {
   });
 }
 
-// Handle form submission for searching a city
+// Handle the search form submission
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const city = searchInput.value.trim();
   if (city) {
     updateWeatherAndPhotos(city);
-    searchInput.value = "";
+    searchInput.value = ""; // Clear the input field
   }
 });
 
-// Initial load with default city
+// Initial load
 updateWeatherAndPhotos(currentCity);
