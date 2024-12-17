@@ -7,7 +7,7 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -29,18 +29,26 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    !title.value ||
+    !author.value ||
+    !pages.value
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    myLibrary.push(book);
     render();
+    clearFormFields();
+
   }
+}
+// clear form fields 
+function clearFormFields() {
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -54,13 +62,13 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n-- ){
     table.deleteRow(n);
   }
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = table.insertRow(-1);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
@@ -75,11 +83,12 @@ function render() {
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     cell4.appendChild(changeBut);
+
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerHTML = readStatus;
 
@@ -90,14 +99,26 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    cell5.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delButton.id = `del-${i}`;
+    delButton.className = "btn btn-warning";
+    delButton.innerHTML = "Delete";
+    cell5.appendChild(delButton);
+
+    delButton.addEventListener("click", function () {
+      console.log('ll')
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
