@@ -19,4 +19,17 @@ function printOrder(order){
   console.log(`\nTotal: ${total.toFixed(2)}`);
 }
 
+// function printOrder(order) {
+//   console.log(`${'QTY'.padEnd(8)}${'ITEM'.padEnd(20)}TOTAL`);
+
+//   const total = order.reduce((runningTotal, { itemName, quantity, unitPricePence }) => {
+//     const itemTotalPrice = unitPricePence / 100 * quantity;
+//     runningTotal += itemTotalPrice;
+//     console.log(`${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${itemTotalPrice.toFixed(2)}`);
+//     return runningTotal;
+//   }, 0);
+
+//   console.log(`\nTotal: ${total.toFixed(2)}`);
+// }
+
 printOrder(order);
