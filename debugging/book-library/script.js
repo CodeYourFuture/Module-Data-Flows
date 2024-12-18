@@ -5,9 +5,8 @@ window.addEventListener("load", function (e) {
   render();
 });
 
-function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+function populateStorage() {  
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -17,7 +16,6 @@ function populateStorage() {
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
-  }
 }
 
 const title = document.getElementById("title");
