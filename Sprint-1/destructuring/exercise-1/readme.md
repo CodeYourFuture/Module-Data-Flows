@@ -1,4 +1,4 @@
-We can use object destructuring to extract values from an object and assign them to variables in one line.
+ We can use object destructuring to extract values from an object and assign them to variables in one line.
 
 ```js
 let person = {
