@@ -21,3 +21,20 @@ My website should be able to:
 I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
 
 I wish somebody would help me!
+
+_______________________________MY DEBUGGING PROCESSUS__________________________________________
+
+Bug 1: Website loads but doesn't show any books.
+I Fixed a typo: render() wasn't rendering correctly because populateStorage() wasn't initializing correctly.
+
+Bug 2: Error when adding a book.
+I Corrected a typo: The function attempted to push to a non-existent variable library. Replaced it with myLibrary.
+
+Bug 3: Title name used as author name.
+I Fixed in submit() function where the title was passed twice to the Book constructor.
+
+Bug 4: Delete button is broken.
+I Fixed the clicks typo (should be click) and ensured correct indexing when removing books from the array.
+
+Bug 5: Saves wrong read status.
+I Updated the Book constructor to use the check.checked value properly.
