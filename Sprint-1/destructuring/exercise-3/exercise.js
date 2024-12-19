@@ -8,9 +8,30 @@ let order = [
 ];
 
 
+function printReceipt(order) {
+  let generalTotal = 0;
+
+  order.forEach(({quantity,itemName,unitPricePence}) => {
+    if (quantity != 0 && unitPricePence.toFixed(2)/100 ) {
+      const itemPriceTotal = (quantity * unitPricePence.toFixed(2)/100);
+      generalTotal = generalTotal + itemPriceTotal;
+
+    console.log(`${quantity}\t${itemName.padEnd(16)}\t\t${itemPriceTotal}`);
+    }
+  });
+
+  console.log(`\nTotal: ${generalTotal.toFixed(2)}`);
+}
+
+console.log("QTY\tITEM\t\t\t\tTOTAL");
+printReceipt(order);
+
+
+
 
 // Chatgpt's Solution
 
+/*
 function printReceipt(order) {
   console.log("QTY\tITEM\t\t\tTOTAL");
   let totalCost = 0;
@@ -27,18 +48,4 @@ function printReceipt(order) {
 console.log("\nReceipt:");
 printReceipt(order);
 
-
-
-/*
-function printReceipt(order) {
-  order.forEach(({quantity,itemName,unitPricePence}) => {
-    if (quantity != 0 && unitPricePence/100 ) {
-    console.log(`${quantity} ${itemName} ${unitPricePence}`);
-    }
-  });
-}
-
-console.log("QTY", "ITEM", "TOTAL");
-printReceipt(order);
-console.log("\nTotal:" )
 */
