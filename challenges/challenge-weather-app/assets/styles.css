@@ -47,11 +47,9 @@
 .photo>img {
   display: block;
   width: 100%;
-  /* Stretch horizontally */
   height: 100%;
-  /* Stretch vertically */
   object-fit: cover;
-  /* Ensures proper scaling without distorting */
+  /* Ensures proper scaling without distortion */
 }
 
 .photo::before {
@@ -110,8 +108,9 @@
 }
 
 .thumb.active {
-  border: 2px solid white;
-  /* White border for the active thumbnail */
+  border: 2px solid #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  /* White border for the active thumbnail with a glowing effect */
 }
 
 .thumb:hover {
@@ -195,6 +194,27 @@
   color: #ccc;
 }
 
+/* Error message styling */
+#error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+  /* Hidden by default */
+}
+
+/* Credit Container (for photographer credits) */
+.credit-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  z-index: 10;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .photo {
@@ -232,25 +252,4 @@
   .search__btn {
     font-size: inherit;
   }
-}
-.credit-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  color: white;
-  background: rgba(0, 0, 0, 0.7);
-
-  padding: 10px;
-  z-index: 10;
-
-}
-#error-message {
-  color: red;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.thumb.active {
-  border: 2px solid #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 }
