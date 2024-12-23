@@ -70,3 +70,24 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function createListGryffindor(memberList) {
+  if (Array.isArray(memberList)) {
+    const listGryffindor = memberList.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+    listGryffindor.forEach((name) => console.log(name));
+  } else {
+    console.log("Please, pass an array as a argument");
+  }
+}
+
+function createListTeacherWithPet(memberList) {
+  if (Array.isArray(memberList)) {
+    const listTeacherWithPet = memberList.filter(({ pet, occupation }) => occupation === "Teacher" && pet !== null).map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+    listTeacherWithPet.forEach((name) => console.log(name));
+  } else {
+    console.log("Please, pass an array as a argument");
+  }
+}
+
+createListGryffindor(hogwarts);
+createListTeacherWithPet(hogwarts);
