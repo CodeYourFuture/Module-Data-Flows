@@ -21,19 +21,26 @@
       </h1>
     </header>
 
+    <!-- Photo display section -->
     <figure class="photo" id="photo"></figure>
 
+    <!-- Weather info and credits -->
     <div class="info">
-      <p class="info__item info__item--conditions" id="conditions"></p>
+      <p class="info__item info__item--conditions" id="conditions">Loading weather...</p>
       <p class="info__item info__item--credits">
-        <a href="#" id="credit-user"></a>
+        <a href="#" id="credit-user">Loading...</a>
         <span>on</span>
         <a href="#" id="credit-platform">Unsplash</a>
       </p>
     </div>
 
+    <!-- Thumbnails for the images -->
     <div class="thumbs" id="thumbs"></div>
 
+    <!-- Error message container -->
+    <div id="error-message" style="color: red; display: none;"></div>
+
+    <!-- Search controls -->
     <div class="controls">
       <form class="search" id="search">
         <label class="search__label" for="search-tf">City</label>
@@ -42,7 +49,8 @@
       </form>
     </div>
   </main>
-<script src="assets/script.js"></script>
+
+  <script src="assets/script.js"></script>
 </body>
 
 </html>
