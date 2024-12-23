@@ -8,11 +8,11 @@ const UNSPLASH_KEY = "LxKeC1occOPs3F2utkGVSjjUSb0Irq6mzvzWuG7vNS0"; // Replace w
 const photoEl = document.getElementById("photo");
 const thumbsEl = document.getElementById("thumbs");
 const conditionsEl = document.getElementById("conditions");
+const temperatureEl = document.getElementById("temperature");
 const creditUserEl = document.getElementById("credit-user");
 const creditPlatformEl = document.getElementById("credit-platform");
 const searchForm = document.getElementById("search");
 const searchInput = document.getElementById("search-tf");
-const errorMessageEl = document.getElementById("error-message"); // Add this to display errors in UI
 
 // Default city
 let currentCity = "London";
@@ -21,9 +21,11 @@ let currentCity = "London";
 async function fetchWeather(city) {
   const url = `${API_WEATHER}?q=${city}&appid=${WEATHER_KEY}&units=metric`;
   try {
+    console.log(`Fetching weather data for: ${city}`);
     const response = await fetch(url);
     if (!response.ok) throw new Error(`City "${city}" not found`);
     const data = await response.json();
+    console.log("Weather Data:", data);
     return data;
   } catch (error) {
     console.error("Error fetching weather data:", error);
@@ -35,9 +37,11 @@ async function fetchWeather(city) {
 async function fetchImages(query) {
   const url = `${API_UNSPLASH}?query=${query}&client_id=${UNSPLASH_KEY}`;
   try {
+    console.log(`Fetching images for: ${query}`);
     const response = await fetch(url);
     if (!response.ok) throw new Error("Error fetching images from Unsplash");
     const data = await response.json();
+    console.log("Unsplash Image Data:", data);
     return data;
   } catch (error) {
     console.error("Error fetching images:", error);
@@ -48,25 +52,32 @@ async function fetchImages(query) {
 // Update the UI with weather and photos
 async function updateWeatherAndPhotos(city) {
   try {
-    clearError(); // Clear previous error messages
+    // Fetch weather data
     const weatherData = await fetchWeather(city);
     const description = weatherData.weather[0].description;
     const temperature = weatherData.main.temp;
-    conditionsEl.textContent = `${description}, ${temperature}°C`;
 
+    // Update weather conditions and temperature
+    conditionsEl.textContent = `${description}`;
+    temperatureEl.textContent = `${temperature}°C`;  // Updated line for temperature
+
+    // Fetch images based on weather description
     const imageData = await fetchImages(description);
 
     if (imageData.results.length > 0) {
       displayImages(imageData.results);
       updateCredits(imageData.results[0]);
     } else {
-      showError("No images available for this weather condition.");
-      clearPhotosAndThumbnails();
+      console.warn("No images found for the weather description.");
+      photoEl.style.backgroundImage = "";
+      thumbsEl.innerHTML = "";
+      creditUserEl.textContent = "No images available";
+      creditUserEl.href = "#";
     }
   } catch (error) {
-    showError(error.message);
+    console.error("Error updating weather and photos:", error);
+    alert(error.message);
     conditionsEl.textContent = "Error: Unable to fetch weather data.";
-    clearPhotosAndThumbnails();
   }
 }
 
@@ -105,8 +116,8 @@ function setMainImage(images, index) {
 
 // Update photographer credits
 function updateCredits(image) {
-  creditUserEl.textContent = image.user.name || "Unknown";
-  creditUserEl.href = image.user.links.html || "#";
+  creditUserEl.textContent = image.user.name;
+  creditUserEl.href = image.user.links.html;
   creditPlatformEl.href = "https://unsplash.com";
 }
 
@@ -116,26 +127,6 @@ function setActiveThumbnail(activeIndex) {
   thumbs.forEach((thumb, index) => {
     thumb.classList.toggle("active", index === activeIndex);
   });
-}
-
-// Clear main photo and thumbnails
-function clearPhotosAndThumbnails() {
-  photoEl.style.backgroundImage = "";
-  thumbsEl.innerHTML = "";
-  creditUserEl.textContent = "No images available";
-  creditUserEl.href = "#";
-}
-
-// Show error messages
-function showError(message) {
-  errorMessageEl.textContent = message;
-  errorMessageEl.style.display = "block";
-}
-
-// Clear error messages
-function clearError() {
-  errorMessageEl.textContent = "";
-  errorMessageEl.style.display = "none";
 }
 
 // Handle the search form submission

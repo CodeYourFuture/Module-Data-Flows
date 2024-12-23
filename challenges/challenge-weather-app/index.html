@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
   <title>Meteoropolis</title>
   <link rel="stylesheet" href="assets/globals.css">
   <link rel="stylesheet" href="assets/styles.css">
@@ -21,26 +20,20 @@
       </h1>
     </header>
 
-    <!-- Photo display section -->
     <figure class="photo" id="photo"></figure>
 
-    <!-- Weather info and credits -->
     <div class="info">
-      <p class="info__item info__item--conditions" id="conditions">Loading weather...</p>
+      <p class="info__item info__item--conditions" id="conditions"></p>
+      <p class="info__item info__item--temperature" id="temperature"></p> <!-- Temperature added -->
       <p class="info__item info__item--credits">
-        <a href="#" id="credit-user">Loading...</a>
+        <a href="#" id="credit-user"></a>
         <span>on</span>
         <a href="#" id="credit-platform">Unsplash</a>
       </p>
     </div>
 
-    <!-- Thumbnails for the images -->
     <div class="thumbs" id="thumbs"></div>
 
-    <!-- Error message container -->
-    <div id="error-message" style="color: red; display: none;"></div>
-
-    <!-- Search controls -->
     <div class="controls">
       <form class="search" id="search">
         <label class="search__label" for="search-tf">City</label>
