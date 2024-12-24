@@ -70,35 +70,35 @@ function render() {
   // Populate the table with library books
   myLibrary.forEach((book, i) => {
     const row = table.insertRow(-1);
-    const cell1 = row.insertCell(0);
-    const cell2 = row.insertCell(1);
-    const cell3 = row.insertCell(2);
-    const cell4 = row.insertCell(3);
-    const cell5 = row.insertCell(4);
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const readCell = row.insertCell(3);
+    const actionCell = row.insertCell(4);
 
-    cell1.innerHTML = book.title;
-    cell2.innerHTML = book.author;
-    cell3.innerHTML = book.pages;
+    titleCell.innerHTML = book.title;
+    authorCell.innerHTML = book.author;
+    pagesCell.innerHTML = book.pages;
 
     // Read/Unread button
-    const changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.innerHTML = book.read ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.className = "btn btn-success";
+    toggleReadButton.innerHTML = book.read ? "Yes" : "No";
+    toggleReadButton.addEventListener("click", function () {
       myLibrary[i].read = !myLibrary[i].read;
       render();
     });
-    cell4.appendChild(changeBut);
+    readCell.appendChild(toggleReadButton);
 
     // Delete button
-    const delBut = document.createElement("button");
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("click", function () {
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
-    cell5.appendChild(delBut);
+    actionCell.appendChild(deleteButton);
   });
 }
