@@ -1,5 +1,5 @@
 let order = [
-  { itemName: "Hot cakes", quantity: 1, unitPricePence: 2 },
+  { itemName: "Hot cakes", quantity: 1, unitPricePence: 232 },
   { itemName: "Apple Pie", quantity: 2, unitPricePence: 139 },
   { itemName: "Egg McMuffin", quantity: 1, unitPricePence: 280 },
   { itemName: "Sausage McMuffin", quantity: 1, unitPricePence: 300 },
