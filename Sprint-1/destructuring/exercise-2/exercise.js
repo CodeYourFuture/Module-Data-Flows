@@ -70,3 +70,18 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task 1:
+// Function to display names of people in Gryffindor house
+function displayGryffindorMembers(hogwarts) {
+  // Loop through each person in the hogwarts array
+  hogwarts.forEach(({ firstName, lastName, house }) => {
+    // If the person belongs to Gryffindor house, log their full name
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  });
+}
+
+// Call the function to display Gryffindor members
+displayGryffindorMembers(hogwarts);
