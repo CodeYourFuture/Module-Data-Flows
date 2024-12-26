@@ -9,7 +9,7 @@
 //The question method has two parameters. The first one is the question and the second one is the user input.
 //It calls the callback function once the user enters input.
 const readline = require('readline');
-const rl = readline.createInterface({
+const readlineInterface = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
@@ -41,10 +41,10 @@ console.log('    ||     ||');
 
 // 4. Use readline to get a string from the terminal 
 // (with a prompt so it's clearer what we want)
-rl.question('What should the cow say? ', (answer) => {
+readlineInterface.question('What should the cow say? ', (answer) => {
     const saying = answer.trim() || 'Mooooo'; 
     
     cow(saying);
     
-    rl.close();
+    readlineInterface.close();
 });
