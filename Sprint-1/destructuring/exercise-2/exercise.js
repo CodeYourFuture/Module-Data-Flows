@@ -85,3 +85,18 @@ function displayGryffindorMembers(hogwarts) {
 
 // Call the function to display Gryffindor members
 displayGryffindorMembers(hogwarts);
+
+// Task 2:
+// Function to display names of teachers with pets
+function displayTeachersWithPets(hogwarts) {
+  // Loop through each person in the hogwarts array
+  hogwarts.forEach(({ firstName, lastName, occupation, pet }) => {
+    // If the person is a teacher and has a pet, log their full name
+    if (occupation === "Teacher" && pet) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  });
+}
+
+// Call the function to display teachers with pets
+displayTeachersWithPets(hogwarts);
