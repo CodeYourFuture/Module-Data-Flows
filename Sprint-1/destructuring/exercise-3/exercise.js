@@ -7,14 +7,14 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 console.log(`QTY     ITEM                TOTAL`);
-let Total = 0;
+let total = 0;
 
 order.forEach(({ itemName, quantity, unitPricePence }) => {
-  const Cost = (quantity * unitPricePence) / 100;
-  Total += Cost;
+  const cost = (quantity * unitPricePence) / 100;
+  total += cost;
   console.log(
-    `${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${Cost.toFixed(2)}`
+    `${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${cost.toFixed(2)}`
   );
 });
 
-console.log(`\nTotal: ${Total.toFixed(2)}`);
+console.log(`\nTotal: ${total.toFixed(2)}`);
