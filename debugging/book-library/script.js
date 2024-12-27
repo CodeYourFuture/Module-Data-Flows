@@ -61,27 +61,27 @@ function render() {
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
-    let cell1 = row.insertCell(0);
-    let cell2 = row.insertCell(1);
-    let cell3 = row.insertCell(2);
-    let cell4 = row.insertCell(3);
-    let cell5 = row.insertCell(4);
-    cell1.innerHTML = myLibrary[i].title;
-    cell2.innerHTML = myLibrary[i].author;
-    cell3.innerHTML = myLibrary[i].pages;
+    let titleCell = row.insertCell(0);
+    let authorCell = row.insertCell(1);
+    let pagesCell = row.insertCell(2);
+    let wasReadCell = row.insertCell(3);
+    let deleteCell = row.insertCell(4);
+    titleCell.innerHTML = myLibrary[i].title;
+    authorCell.innerHTML = myLibrary[i].author;
+    pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
-    cell4.appendChild(changeBut);
+    wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
     }
-    changeBut.innerHTML = readStatus;
+    changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
@@ -91,7 +91,7 @@ function render() {
     //add delete button to every row and render again
     let delButton = document.createElement("button");
     delBut.id = i + 5;
-    cell5.appendChild(delBut);
+    deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("clicks", function () {
