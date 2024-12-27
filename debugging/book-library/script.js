@@ -105,7 +105,6 @@ function render() {
     cell5.appendChild(delButton);
 
     delButton.addEventListener("click", function () {
-      console.log('ll')
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
