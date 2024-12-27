@@ -70,3 +70,34 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function schoolName(hogwarts) {
+  for (let i = 0; i < hogwarts.length; i++) {
+
+    // Access each object in the array
+    let { firstName, lastName, house } = hogwarts[i];
+
+    // Check if the house is Gryffindor
+
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+function teachesPet(hogwarts) {
+  for (let i=0; i< hogwarts.length; i++){
+    // Access object in the array
+    let { firstName, lastName, pet } = hogwarts[i]; //[i] loop through an array and access each item one by one
+
+    // Check if the pet is valid
+    if (pet) {
+      console.log(`${firstName} ${lastName} has a: ${pet}`);
+    }
+  }
+
+}
+
+// Call the function
+schoolName(hogwarts);
+teachesPet(hogwarts);
