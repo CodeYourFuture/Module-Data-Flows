@@ -5,14 +5,46 @@
 // =================
 
 // 1. Make  a command line interface.
+const readLine = require("node:readline");
+const reader = readLine.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
+reader.question("Write your word please: ", word => {
+    cow(word);
+    reader.close;
+});
 // 2. Make supplies for our speech bubble
-
+let topLine = "_";
+let bottomLine = "-";
+let sayingWord = ``;
+let cowAscii = `
+       /
+      /
+^__^ /
+(oo)'_______
+(__)        )-~
+   ||----w |
+   ||     ||`;
 // 3. Make a cow that takes a string
 
 const cow = (saying) => {
+    if (saying === ``){
+        saying = "Moooo";
+    }
+    
     // how did you make the cow before?
-}
+    sayingWord = `< ${saying} >`;
+    topLine += topLine.repeat(saying.length);
+    bottomLine += bottomLine.repeat(saying.length);
 
+    console.log(`
+     ${topLine}
+    ${sayingWord}
+     ${bottomLine}
+${cowAscii}   
+        `)
+}
 // 4. Use readline to get a string from the terminal 
 // (with a prompt so it's clearer what we want)
