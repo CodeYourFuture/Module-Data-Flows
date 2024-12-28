@@ -73,9 +73,15 @@ let hogwarts = [
 
 // Task 1:
 // Function to display names of people in Gryffindor house
-function displayGryffindorMembers(hogwarts) {
+function displayGryffindorMembers(hogwartsMembers) {
+  // Early return if input is null, undefined, or not an array
+  if (!hogwartsMembers || !Array.isArray(hogwartsMembers)) {
+    console.error("Invalid input: Expected an array of Hogwarts members.");
+    return;
+  }
+
   // Loop through each person in the hogwarts array
-  hogwarts.forEach(({ firstName, lastName, house }) => {
+  hogwartsMembers.forEach(({ firstName, lastName, house }) => {
     // If the person belongs to Gryffindor house, log their full name
     if (house === "Gryffindor") {
       console.log(`${firstName} ${lastName}`);
@@ -85,12 +91,19 @@ function displayGryffindorMembers(hogwarts) {
 
 // Call the function to display Gryffindor members
 displayGryffindorMembers(hogwarts);
+displayGryffindorMembers();
 
 // Task 2:
 // Function to display names of teachers with pets
-function displayTeachersWithPets(hogwarts) {
+function displayTeachersWithPets(hogwartsMembers) {
+  // Early return if input is null, undefined, or not an array
+  if (!hogwartsMembers || !Array.isArray(hogwartsMembers)) {
+    console.error("Invalid input: Expected an array of Hogwarts members.");
+    return;
+  }
+
   // Loop through each person in the hogwarts array
-  hogwarts.forEach(({ firstName, lastName, occupation, pet }) => {
+  hogwartsMembers.forEach(({ firstName, lastName, occupation, pet }) => {
     // If the person is a teacher and has a pet, log their full name
     if (occupation === "Teacher" && pet) {
       console.log(`${firstName} ${lastName}`);
@@ -100,3 +113,4 @@ function displayTeachersWithPets(hogwarts) {
 
 // Call the function to display teachers with pets
 displayTeachersWithPets(hogwarts);
+displayTeachersWithPets(null);
