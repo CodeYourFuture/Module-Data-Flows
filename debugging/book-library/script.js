@@ -30,7 +30,9 @@ const check = document.getElementById("check");
 function submit() {
   if (
     title.value == null ||
-    title.value == "" ||    
+    title.value == "" || 
+    author.value == null ||
+    author.value == "" ||   
     pages.value == null ||
     pages.value == ""
   ) {
