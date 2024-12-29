@@ -1,4 +1,5 @@
-const myWeatherApi = "http://api.openweathermap.org/data/2.5/weather?q=london&appid=6e49ae8965cb6f613d911543030f6a21";
+let city = "London";
+const myWeatherApi = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6e49ae8965cb6f613d911543030f6a21`;
 const myUnsplashApi = "https://api.unsplash.com/search/photos?query=snow&client_id=9g7Ek1p5R0VH2oqrNqOmgA9ndGUzh_2YIfYqOhazMB8";
 
 // fetch(`${myWeatherApi}`)
@@ -48,6 +49,23 @@ Promise.all([
 
     });
 
+    // entered city weather
+    let searchForm = document.querySelector("#search");
+    let searchInput = document.querySelector("#search-tf");
+    searchForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent form submission and page reload
+        let cityNew = searchInput.value.trim();
+        if (cityNew) { // Only fetch if input is not empty
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityNew}&appid=6e49ae8965cb6f613d911543030f6a21`).then(response => response.json())
+            .then((dataWeather) => {
+                let defaultCityNew = document.querySelector("#conditions");
+                defaultCityNew.innerHTML = `${dataWeather.name} ${dataWeather.weather[0].description}`;
+            })
+        }
+    })
+
+
+
      
 
 
@@ -57,4 +75,3 @@ Promise.all([
     // Handle errors
     console.error('Error fetching one or both APIs:', error);
 });
-
