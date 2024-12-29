@@ -10,7 +10,7 @@ function fetchApiData() {
         if (!response.ok) {
             throw new Error("Error with response connection");
         } else{
-        // if response is fine, return response in JSON and convert it to JS object.
+        // if response is fine, return response in JSON and convert it to JS object.            
             return response.json();
         }     
     })
@@ -22,10 +22,12 @@ function fetchApiData() {
         imgHumor.src = data.img;
         // Add image as a child to div with class container on html.
         container.appendChild(imgHumor);
+        console.log(data);
     })
     .catch(error => {
         console.log("Error fetching from API Programmer humour\n", error);
-    });  
+    }); 
+   
 }
 
-console.log(fetchApiData());
+fetchApiData();
