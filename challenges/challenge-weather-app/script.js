@@ -21,8 +21,12 @@ Promise.all([
     // Process the results together
     console.log('Data from API 1:', dataWeather);
     console.log('Data from API 2:', dataUnsplash);
+
     let defaultCity = document.querySelector("#conditions");
     defaultCity.innerHTML = `${dataWeather.name} ${dataWeather.weather[0].description}`;
+    let randomNumber = Math.floor(Math.random() * 10); // 0 to 9 to get a random image for default city
+    let randomMainImage = document.querySelector('#photo');
+    randomMainImage.innerHTML = `<img src="${dataUnsplash.results[randomNumber].urls.regular}" alt="random image">`;
 
     const thumbsDiv = document.getElementById("thumbs");
     thumbsDiv.innerHTML = ""; // Clear previous thumbnails
