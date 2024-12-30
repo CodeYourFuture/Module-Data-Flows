@@ -8,11 +8,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #c9ce8c;
+    background-color: #be7ee8;
 }
 
 h1 {
-    color: #333;
+    color: black;
     margin-bottom: 20px;
 
 }
@@ -25,7 +25,7 @@ h1 {
 }
 
 #comic-img {
-    max-width: 90%;
+    max-width: 20%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,8 +36,8 @@ button {
     font-size: 16px;
     cursor: pointer;
     margin-top: 20px;
-    background-color: #29d234;
-    color: #333;
+    background-color: #42d229;
+    color: black;
     border: none;
     border-radius: 5px;
 }
