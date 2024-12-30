@@ -72,14 +72,17 @@ let hogwarts = [
 ];
  
 
-hogwarts.forEach(person => {
-  const { firstName, lastName, house, pet, occupation } = person;
-// Task 1
-  if (house === "Gryffindor") {
-    console.log(`${firstName} ${lastName}`);
-  }
-  // Task 2
-  if (pet) {
-    console.log(`${firstName} ${lastName} has ${pet}`);
-  }
-});
+function task1AndTask2(hogwarts) {
+  hogwarts.forEach((person) => {
+    const { firstName, lastName, house, pet, occupation } = person;
+    // Task 1
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+    // Task 2
+    if (occupation === "Teacher" && pet) {
+      console.log(`${firstName} ${lastName} has ${pet}`);
+    }
+  });
+}
+
