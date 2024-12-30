@@ -70,3 +70,14 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+function task1(){
+  let result=hogwarts.filter(ele=>ele.house==="Gryffindor")
+  return result.map(ele=>ele.firstName+" "+ele.lastName)
+}
+function task2(){
+  let result=hogwarts.filter(ele=>ele.pet!==null&&ele.occupation=="Teacher"&&ele.house=="Gryffindor")
+  return result.map(({firstName,lastName})=>firstName+" "+lastName)
+
+}
+
+console.log(task2())
