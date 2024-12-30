@@ -1,0 +1,37 @@
+#gallery {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Aligns items horizontally */
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    gap: 10px; /* Adds space between items */
+}
+
+#gallery li {
+    display: inline-block; /* Makes sure list items behave like inline elements */
+}
+
+#gallery img {
+    width: 150px; 
+    height: 150px;
+    object-fit: cover; /* Ensures the image fills the size without distortion */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow */
+}
+
+button {
+    background-color: #4CAF50; 
+    color: white; 
+    font-size: 16px; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; /* Change cursor on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow */
+    transform: translateY(-2px); /* Slight upward motion on hover */
+}
