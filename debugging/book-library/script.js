@@ -2,7 +2,6 @@ let myLibrary = [];
 
 window.addEventListener("load", function () {
   populateStorage();
-  render();
 
   function populateStorage() {
     if (myLibrary.length === 0) {
@@ -27,13 +26,13 @@ window.addEventListener("load", function () {
 
   function submit() {
     if (
-      title.value == null ||
-      title.value === "" ||
-      pages.value == null ||
-      pages.value === ""
+      title.value.trim() === "" ||
+      pages.value.trim() === "" ||
+      isNaN(pages.value) ||
+      parseInt(pages.value) <= 0 ||
+      !Number.isInteger(pages.value)
     ) {
-      alert("Please fill all fields!");
-      return false;
+      alert("Please fill all fields appropriate!");
     } else {
       let book = new Book(
         title.value,
@@ -66,21 +65,20 @@ window.addEventListener("load", function () {
     // Insert updated rows and cells
     myLibrary.forEach((book, i) => {
       let row = table.insertRow();
-      let cell1 = row.insertCell(0);
-      let cell2 = row.insertCell(1);
-      let cell3 = row.insertCell(2);
-      let cell4 = row.insertCell(3);
-      let cell5 = row.insertCell(4);
-
-      cell1.innerHTML = book.title;
-      cell2.innerHTML = book.author;
-      cell3.innerHTML = book.pages;
+      let titleCell = row.insertCell(0);
+      let authorCell = row.insertCell(1);
+      let pagesCell = row.insertCell(2);
+      let wasReadCell = row.insertCell(3);
+      let deleteCell = row.insertCell(4);
+      titleCell.innerHTML = myLibrary[i].title;
+      authorCell.innerHTML = myLibrary[i].author;
+      pagesCell.innerHTML = myLibrary[i].pages;
 
       // Add a button for changing read/unread status
       let changeBut = document.createElement("button");
       changeBut.className = "btn btn-success";
-      cell4.appendChild(changeBut);
-      let readStatus = book.check ? "No" : "Yes"; 
+      wasReadCell.appendChild(changeBut);
+      let readStatus = book.check ? "Yes" : "No"; 
       changeBut.innerHTML = readStatus;
 
       changeBut.addEventListener("click", function () {
@@ -92,7 +90,7 @@ window.addEventListener("load", function () {
       let delButton = document.createElement("button");
       delButton.className = "btn btn-warning";
       delButton.innerHTML = "Delete";
-      cell5.appendChild(delButton);
+      deleteCell.appendChild(delButton);
       delButton.addEventListener("click", function () {
         alert(`You've deleted title: ${book.title}`);
         myLibrary.splice(i, 1);
