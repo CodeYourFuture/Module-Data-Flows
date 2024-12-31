@@ -22,8 +22,13 @@ function totalResult(newOrder) {
     .toFixed(2);
 }
 // console.log(newOrder);
-console.log("QTY    ITEM              TOTAL");
+// console.log("QTY    ITEM              TOTAL");
+console.log("QTY".padEnd(10) + "ITEM".padEnd(20) + "TOTAL".padEnd(6));
 newOrder.map(({ quantity, itemName, unitPricePence }) =>
-  console.log(`${quantity}    ${itemName}              ${unitPricePence}`)
+  console.log(
+    `${quantity.toString().padEnd(6)}${itemName
+      .toString()
+      .padEnd(20)}${unitPricePence.toString().padEnd(6)}`
+  )
 );
 console.log("Total: " + totalResult(newOrder));
