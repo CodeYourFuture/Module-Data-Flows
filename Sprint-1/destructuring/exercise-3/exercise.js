@@ -7,14 +7,23 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-const newOrder=order.map(({quantity,itemName,unitPricePence})=>({quantity,itemName,unitPricePence:twoDigitNumber(unitPricePence*quantity)}))
+const newOrder = order.map(({ quantity, itemName, unitPricePence }) => ({
+  quantity,
+  itemName,
+  unitPricePence: twoDigitNumber(unitPricePence * quantity),
+}));
 
-function twoDigitNumber(value){
-  return (value/100).toFixed(2)
+function twoDigitNumber(value) {
+  return (value / 100).toFixed(2);
 }
-function totalResult(newOrder){
-  return newOrder.reduce((a,{unitPricePence})=>a+Number(unitPricePence),0).toFixed(2)
-
+function totalResult(newOrder) {
+  return newOrder
+    .reduce((a, { unitPricePence }) => a + Number(unitPricePence), 0)
+    .toFixed(2);
 }
-console.log(newOrder)
-console.log("Total: "+totalResult(newOrder))
+// console.log(newOrder);
+console.log("QTY    ITEM              TOTAL");
+newOrder.map(({ quantity, itemName, unitPricePence }) =>
+  console.log(`${quantity}    ${itemName}              ${unitPricePence}`)
+);
+console.log("Total: " + totalResult(newOrder));
