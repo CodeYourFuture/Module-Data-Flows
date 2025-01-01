@@ -70,6 +70,7 @@ function render() {
     table.deleteRow(n);
   }
 
+
   // Add updated rows
   for (let i = 0; i < myLibrary.length; i++) {
     let row = table.insertRow(-1);
