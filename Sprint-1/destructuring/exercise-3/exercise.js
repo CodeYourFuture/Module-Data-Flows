@@ -13,7 +13,7 @@ console.log("QTY     ITEM                TOTAL")
 let grandTotalPence = 0;
 order.forEach(({itemName, quantity, unitPricePence })=>{
   totalPrPenc = quantity * unitPricePence;
-  grandTotalPence += totalPrPenc;
+  let grandTotalPence += totalPrPenc;
   // added toString()to insuer the guantity is string because  padEnd() only works with string
   console.log(`${quantity.toString().padEnd(8," ")}${itemName.padEnd(20," ")}${(totalPrPenc / 100).toFixed(2)}`)
 })

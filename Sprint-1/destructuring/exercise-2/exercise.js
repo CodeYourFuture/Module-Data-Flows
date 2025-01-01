@@ -72,15 +72,18 @@ let hogwarts = [
 ];
 
 // Task-1
-let names = hogwarts.filter(({house})=>house === "Gryffindor")
-.map(({firstName ,lastName})=> `${firstName} ${lastName}`)
+let names = hogwarts
+  .filter(({house})=>house === "Gryffindor")
+  .map(({firstName ,lastName})=> `${firstName} ${lastName}`)
 
 console.log(names)
 
 
 // Task-2
-let  TeachersName = hogwarts.filter(({pet ,occupation})=>pet !== null && occupation === "Teacher" )
-.map(({firstName ,lastName})=> `${firstName} ${lastName}`)
+let  TeachersName = hogwarts
+  .filter(({pet ,occupation})=>pet !== null && occupation === "Teacher" )
+  .map(({firstName ,lastName})=> `${firstName} ${lastName}`)
 
 console.log(TeachersName)
 
+ 
