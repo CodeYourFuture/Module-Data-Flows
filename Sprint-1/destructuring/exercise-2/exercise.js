@@ -70,3 +70,30 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+//TASK 1
+function gryffindorHouse(arrayInput) {
+
+  //use the destructuring as a varibale of the array
+  for (const { firstName, lastName, house } of arrayInput) {
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+//gryffindorHouse(hogwarts)
+
+//TASK 2
+
+function teachersWithPets(arrayInput) {
+
+  //use the destructuring as a varibale of the array
+  for (const { firstName, lastName, pet, occupation } of arrayInput) {
+    if (occupation === "Teacher" && pet !== null) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+teachersWithPets(hogwarts);
