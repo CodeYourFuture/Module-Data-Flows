@@ -70,3 +70,12 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+let {firstName, lastName, house, pet, occupation} = hogwarts;
+
+const houseGryffindor = hogwarts.filter(({house}) => house === 'Gryffindor');
+
+for (const {firstName, lastName} of houseGryffindor) {
+  return firstName + ' ' + lastName;
+  // console.log(firstName + ' ' + lastName);
+}
