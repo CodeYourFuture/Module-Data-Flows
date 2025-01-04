@@ -14,7 +14,7 @@ function takeoutOrder(arrayInput) {
   console.log(`${"QTY".padEnd(8)}${"ITEM".padEnd(20)}${"TOTAL"}`);
 
   for (const { itemName, quantity, unitPricePence } of arrayInput) {
-    let singularTotalPrice = ((unitPricePence / 100) * quantity);
+    let singularTotalPrice = (unitPricePence / 100) * quantity;
     //Can use padEnd to add spaces at the end of each variable
     //Total has to be adjusted according to pounds
     console.log(`${quantity.toString().padEnd(8)}${itemName.toString().padEnd(20)}${singularTotalPrice.toFixed(2)}`);
