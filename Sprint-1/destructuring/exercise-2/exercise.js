@@ -82,8 +82,6 @@ function gryffindorHouse(arrayInput) {
   }
 }
 
-//gryffindorHouse(hogwarts)
-
 //TASK 2
 
 function teachersWithPets(arrayInput) {
