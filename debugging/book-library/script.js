@@ -28,17 +28,26 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  // - Including title, author, number of pages and if I've read it
+  // - If any of the information is missing it shouldn't add the book and should show an alert(done)
+
   if (
     title.value == null ||
     title.value == "" ||
     pages.value == null ||
-    pages.value == ""
+    pages.value == "" ||
+    author.value == null ||
+    author.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.value = "";
     render();
   }
 }
@@ -54,11 +63,14 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
+  // - View a list of books that I've read
+
   let length = myLibrary.length;
+
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
@@ -75,12 +87,8 @@ function render() {
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
@@ -89,12 +97,15 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
+    // - Remove books from my list
+
+    let delBut = document.createElement("button");
     delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+
+    delBut.addEventListener("click", () => {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
