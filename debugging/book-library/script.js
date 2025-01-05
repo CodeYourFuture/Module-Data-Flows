@@ -44,5 +44,19 @@ function submit() {
     render();
   }
 }
+function Book(title, author, pages, check) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.check = check;
+}
+
+function render() {
+  let table = document.getElementById("display");
+  let rowsNumber = table.rows.length;
+  // Delete old table rows except for the header
+  for (let n = rowsNumber - 1; n > 0; n--) {
+    table.deleteRow(n);
+  }
 
 
