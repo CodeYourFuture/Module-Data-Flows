@@ -1,25 +1,25 @@
 function add(numbers){
     let sum = 0;
-    if(numbers === ""){
+    if (numbers === ""){
         return "there is no number";
     }
     let listNumber = numbers.split(",").map(Number);
     
     let negativeNumbers = [];
-    for(let elem in listNumber){
-        if(listNumber[elem] < 0){
+    for (let elem in listNumber){
+        if (listNumber[elem] < 0){
             negativeNumbers.push(listNumber[elem]) 
         }
     }
-    if(negativeNumbers.length > 0){
+    if (negativeNumbers.length > 0){
         throw new Error(`negatives not allowed: ${negativeNumbers.join(", ")}`);
     }
-    else{
-        for(let item in listNumber){
-            if(listNumber[item] > 1000){
+    else {
+        for (let item in listNumber){
+            if (listNumber[item] > 1000){
                 sum += 0;
             }
-            else{
+            else {
                 sum +=listNumber[item];
             }
             
