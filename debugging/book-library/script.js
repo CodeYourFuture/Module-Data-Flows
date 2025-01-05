@@ -72,3 +72,17 @@ for (let i = 0; i < length; i++) {
   authorCell.innerHTML = myLibrary[i].author;
   pagesCell.innerHTML = myLibrary[i].pages;
 
+// Add a delete button to every row and render again
+let delButton = document.createElement("button");
+delButton.id = i + 5;
+deleteCell.appendChild(delButton);
+delButton.className = "btn btn-warning";
+delButton.innerHTML = "Delete";
+
+delButton.addEventListener("click", function () {
+  alert(`You've deleted title: ${myLibrary[i].title}`);
+  myLibrary.splice(i, 1);
+  render();
+});
+}
+}
