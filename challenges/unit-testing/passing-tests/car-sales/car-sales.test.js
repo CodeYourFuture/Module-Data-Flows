@@ -22,3 +22,4 @@ test("Car sales", function () {
 
   expect(output).toEqual(totals);
 });
+
