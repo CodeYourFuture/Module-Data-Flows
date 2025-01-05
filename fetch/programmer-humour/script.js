@@ -3,14 +3,13 @@ let myData;
 
 async function fetchData() {
     try{
-        const response = await fetch("https://xkcd.now.sh/?comic=latest")
+        const response = await fetch("https://xkcd.now.sh/?comic=latest");
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        myData = await response.json()
-        //console.log(`${JSON.stringify(myData)}  this is api`)
+        myData = await response.json();
         let section = document.body;
         const image = document.createElement("img");
         image.src = myData.img;
@@ -22,7 +21,7 @@ async function fetchData() {
         alert("Something went wrong. Please try again later.");
     }
 
-}
+};
 
 
-fetchData()
+fetchData();
