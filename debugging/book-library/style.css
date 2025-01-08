@@ -17,3 +17,12 @@
 button.btn-info {
   margin: 20px;
 }
+.btn-success {
+  background-color: green;
+  border-color: green;
+}
+
+.btn-danger {
+  background-color: rgb(111, 30, 30);
+  border-color: red;
+}
