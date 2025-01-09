@@ -12,7 +12,7 @@ let totalPrice = 0;
 console.log('QTY     ITEM                TOTAL')
 
 for (const {itemName, quantity, unitPricePence} of order) {
-  price = ((quantity * unitPricePence) / 100);
+  price = (quantity * unitPricePence) / 100;
   totalPrice += price;
 
   console.log(`${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${price.toFixed(2)}`);

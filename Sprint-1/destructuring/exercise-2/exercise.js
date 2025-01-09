@@ -77,12 +77,10 @@ const houseGryffindor = hogwarts.filter(({house}) => house === 'Gryffindor');
 
 for (const {firstName, lastName} of houseGryffindor) {
   return firstName + ' ' + lastName;
-  // console.log(firstName + ' ' + lastName);
 }
 
 const teachers = hogwarts.filter(({occupation, pet}) => occupation === 'Teacher' && pet !== null);
 
 for (const {firstName, lastName} of teachers) {
   return firstName + ' ' + lastName;
-  // console.log(firstName + ' ' + lastName);
 }
