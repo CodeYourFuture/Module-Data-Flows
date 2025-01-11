@@ -73,7 +73,7 @@ let hogwarts = [
 
 function gryffindorHouse(obj){
   for(let index in hogwarts){
-    let {firstName, house, lastName} = hogwarts[index];
+    const {firstName, house, lastName} = hogwarts[index];
     if(house == 'Gryffindor'){
       console.log(`${parseInt(index) + 1}-` + firstName, lastName);
     }
@@ -82,9 +82,7 @@ function gryffindorHouse(obj){
 
 function havePets(obj){
   for(let index in hogwarts){
-    let {firstName} = hogwarts[index];
-    let {pet} = hogwarts[index];
-    let {lastName} = hogwarts[index];
+    const {firstName , pet, lastName} = hogwarts[index];
     if(pet != null){
       console.log(`${parseInt(index) + 1}-` + firstName, lastName);
     }
