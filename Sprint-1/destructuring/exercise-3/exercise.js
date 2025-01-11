@@ -17,18 +17,20 @@ function receipt(order){
   for(let index in order){
     let {itemName, quantity, unitPricePence} = order[index];
     if((sortedOrder[longestItemName].itemName.length - itemName.length) == 0){
-      console.log(quantity + "          " + itemName + "   " + unitPricePence);
+      let unitPriceFormatted = (unitPricePence / 100).toFixed(2); // Format to 2 decimal places
+      console.log(quantity + "          " + itemName + "   " + unitPriceFormatted);
 
     }
     else{
-      console.log(quantity + "          " + itemName + " ".repeat(sortedOrder[longestItemName].itemName.length - itemName.length) + "   " + unitPricePence);
+      let unitPriceFormatted = (unitPricePence / 100).toFixed(2); // Format to 2 decimal places
+      console.log(quantity + "          " + itemName + " ".repeat(sortedOrder[longestItemName].itemName.length - itemName.length) + "   " + unitPriceFormatted);
 
     }
     total += unitPricePence;
    
 
   }
-  console.log("Total:  " + total);
+  console.log("Total:  " + (total / 100).toFixed(2));
 }
 
 receipt(order);
