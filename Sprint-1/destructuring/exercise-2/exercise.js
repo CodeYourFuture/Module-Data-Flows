@@ -72,12 +72,10 @@ let hogwarts = [
 ];
 
 function GryffindorHouse(obj){
-  let num = 1;
   for(let index in hogwarts){
     let {firstName, house, lastName} = hogwarts[index];
     if(house == 'Gryffindor'){
-      console.log(`${num}-` + firstName, lastName);
-      num += 1;
+      console.log(`${parseInt(index) + 1}-` + firstName, lastName);
     }
   }
 }
