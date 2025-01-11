@@ -57,8 +57,6 @@ function createFilmCard(film){
     return filmCard;
 }
 
-
-
 function render(){
     // filter films 
     const filteredFilms = state.films.filter((film) => {
