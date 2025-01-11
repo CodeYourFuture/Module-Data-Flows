@@ -71,7 +71,7 @@ let hogwarts = [
   },
 ];
 
-function GryffindorHouse(obj){
+function gryffindorHouse(obj){
   for(let index in hogwarts){
     let {firstName, house, lastName} = hogwarts[index];
     if(house == 'Gryffindor'){
@@ -81,18 +81,16 @@ function GryffindorHouse(obj){
 }
 
 function havePets(obj){
-  let num = 1
   for(let index in hogwarts){
     let {firstName} = hogwarts[index];
     let {pet} = hogwarts[index];
     let {lastName} = hogwarts[index];
     if(pet != null){
-      console.log(`${num}-` + firstName, lastName);
-      num += 1;
+      console.log(`${parseInt(index) + 1}-` + firstName, lastName);
     }
   }
 }
 console.log('--Names of the people who belong to the Gryffindor house:');
-GryffindorHouse(hogwarts);
+gryffindorHouse(hogwarts);
 console.log('--Names of teachers who have pets:');
 havePets(hogwarts);
