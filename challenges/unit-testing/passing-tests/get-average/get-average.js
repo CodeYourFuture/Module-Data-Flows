@@ -1,16 +1,20 @@
 // the input is an array of numbers and strings
 // return the average of all the numbers
 // be sure to exclude the strings
-let numbers = [4, "-", 8, 11, "hello", "57", 0, 2, "hi", 22];
-function average(numbers) {
+const list = [4, "-", 8, 11, "hello", "57", 1, 2];
+function average(list) {
+    let sum = 0;
     let numCount = 0;
-    for (let item in numbers){
-        if (typeof(numbers[item]) == "number"){
+    for (let item in list){
+        if (typeof(list[item]) == "number"){
+            sum += list[item];
             numCount += 1;
         }
     }
+    console.log(sum);
     console.log(numCount);
-    return numCount;
+    return (sum / numCount).toFixed(1);
 }
-average(numbers);
+average(list);
+console.log(average(list));
 module.exports = average;
