@@ -16,10 +16,8 @@ reader.question("Write your word please: ", word => {
     reader.close;
 });
 // 2. Make supplies for our speech bubble
-let topLine = "_";
-let bottomLine = "-";
-let sayingWord = ``;
-let cowAscii = `
+
+const cowAscii = `
        /
       /
 ^__^ /
@@ -30,6 +28,9 @@ let cowAscii = `
 // 3. Make a cow that takes a string
 
 const cow = (saying) => {
+    let topLine = "_";
+    let bottomLine = "-";
+    let sayingWord = ``;
     if (saying === ``){
         saying = "Moooo";
     }
