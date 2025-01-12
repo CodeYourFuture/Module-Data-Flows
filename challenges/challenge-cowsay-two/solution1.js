@@ -21,11 +21,7 @@ reader.question('Write a word please: ', word => {
 
 // 2. Make supplies for our speech bubble
 
-let topLine = '_';
-let bottomLine = '-';
-let sayingWord = '';
-
-let cow = `
+const cow = `
         \\   ^__^
          \\  (oo)\\_______
             (__)\\       )\\/\\
@@ -35,6 +31,9 @@ let cow = `
 // 3. Make a cow that takes a string
 
 function cowSay(saying) {
+    let topLine = '_';
+    let bottomLine = '-';
+    let sayingWord = '';
     if (!saying) {
         saying = "Moo...";
     }
@@ -55,7 +54,7 @@ ${cow}`);
 
 // how will you account for the parameter being empty?
 
-}
+};
 
 //4. Pipe argument into cowsay function and return a cow
 
