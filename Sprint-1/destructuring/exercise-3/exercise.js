@@ -6,3 +6,17 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+function creatReceipt(order){
+  let total = 0;
+  console.log("QTY     ITEM                             TOTAL");
+
+  order.forEach(element => {
+    let {quantity, itemName, unitPricePence} = element;
+    let totalPriceItem = (quantity * unitPricePence) /100;
+    total += totalPriceItem;
+    console.log(`${quantity}     ${itemName.padEnd(20)}               ${totalPriceItem.toFixed(2)}`)
+  });
+  console.log(`Total: ${total.toFixed(2)}`);
+}
+creatReceipt(order);
