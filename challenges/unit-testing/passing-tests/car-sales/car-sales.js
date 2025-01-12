@@ -15,10 +15,10 @@ function sales(carsSold) {
         "Land Rover": 0,
         Toyota: 0,
       };
-    for(let key in totals){
-        for(let obj in carsSold){
-            if (key == carsSold[obj].make){
-                totals[key] += carsSold[obj].price; 
+    for(let makeCar in totals){
+        for(let car in carsSold){
+            if (makeCar == carsSold[car].make){
+                totals[makeCar] += carsSold[car].price; 
             }
         }
     }
