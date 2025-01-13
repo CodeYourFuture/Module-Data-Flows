@@ -31,6 +31,8 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    author.value == null ||
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
@@ -73,10 +75,10 @@ function render() {
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    let changeButton = document.createElement("button");
+    //changeButton.id = i;
+    changeButton.className = "btn btn-success";
+    wasReadCell.appendChild(changeButton);
     let readStatus = "";
     //Fix the logic for the "Read" statues true for "Yes", false for No
     if (myLibrary[i].check == true) {
@@ -84,9 +86,9 @@ function render() {
     } else {
       readStatus = "No";
     }
-    changeBut.innerText = readStatus;
+    changeButton.innerText = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
@@ -94,7 +96,7 @@ function render() {
     //add delete button to every row and render again
     // correct delButton in rows
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
+    //delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
