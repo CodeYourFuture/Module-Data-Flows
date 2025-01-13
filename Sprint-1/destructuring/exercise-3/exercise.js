@@ -1,5 +1,5 @@
 let order = [
-  { itemName: "Hot cakes", quantity: 1, unitPricePence: 232 },
+  { itemName: "Hot cakes", quantity: 12, unitPricePence: 232 },
   { itemName: "Apple Pie", quantity: 2, unitPricePence: 139 },
   { itemName: "Egg McMuffin", quantity: 1, unitPricePence: 280 },
   { itemName: "Sausage McMuffin", quantity: 1, unitPricePence: 300 },
@@ -7,16 +7,16 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-function creatReceipt(order){
+function createReceipt(order){
   let total = 0;
-  console.log("QTY     ITEM                             TOTAL");
+  console.log("QTY".padEnd(7) + "ITEM".padEnd(30) + "TOTAL".padStart(10));
 
   order.forEach(element => {
     let {quantity, itemName, unitPricePence} = element;
     let totalPriceItem = (quantity * unitPricePence) /100;
     total += totalPriceItem;
-    console.log(`${quantity}     ${itemName.padEnd(20)}               ${totalPriceItem.toFixed(2)}`)
+    console.log(String(quantity).padEnd(7)+ itemName.padEnd(30) + totalPriceItem.toFixed(2).padStart(10))
   });
   console.log(`Total: ${total.toFixed(2)}`);
 }
-creatReceipt(order);
+createReceipt(order);
