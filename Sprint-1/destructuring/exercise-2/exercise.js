@@ -86,16 +86,9 @@ let hogwarts = [
 
 //task2 
 
-function getTeacherPet(teacher) {
-  return teacher.pet; 
-}
-
-for (const teacher of hogwarts) {
-  if (teacher.occupation === "Teacher") { 
-    const pet = getTeacherPet(teacher);
-    if (pet) {
-      console.log(`${teacher.firstName} ${teacher.lastName} ${pet}.`);
-    }  
+ 
+for (const { firstName, lastName, occupation, pet} of hogwarts) {
+  if (occupation === "Teacher" && pet) { 
+    console.log(`${firstName} ${lastName} ${pet}.`);
   }
 }
- 
