@@ -17,7 +17,7 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
+    //render();
   }
 }
 
@@ -30,6 +30,8 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
+    author.value == null ||
+    author.value == "" ||
     title.value == null ||
     title.value == "" ||
     pages.value == null ||
@@ -41,6 +43,10 @@ function submit() {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
   }
 }
 
