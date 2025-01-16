@@ -36,7 +36,13 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
+  }
+  else if (title.value.trim() === '') {
+    alert('Title cannot be empty.');
+  }
+    else if (isNaN(parseFloat(page.value))){
+      alert('Pages must be a positive integer.');
+  else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
@@ -54,9 +60,10 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  let header = table.rows[0].cloneNode(true);
+  table.innerHTML = '';
+  table.appendChild(header);
+  
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
@@ -90,7 +97,6 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
