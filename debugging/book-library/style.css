@@ -4,9 +4,16 @@
   align-self: left;
   padding-left: 20px;
 }
-
+.jumbotron{
+  background-image: url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  height: 500px;
+  color: aliceblue;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 50px;
+}
 .btn {
   display: block;
+
 }
 
 .form-check-label {
@@ -16,4 +23,15 @@
 
 button.btn-info {
   margin: 20px;
+}
+
+.btn-danger{
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+.btn-danger:hover{
+    background-color: darkred;
+    border-color: darkred;
 }

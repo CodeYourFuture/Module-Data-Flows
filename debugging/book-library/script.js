@@ -36,9 +36,13 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
+  } else if (isNaN(pages.value) || parseInt(pages.value) < 0) {
+    // Check if pages is a non-negative number
+    alert("Please enter a valid non-negative number for pages.");
+    return false; // Prevent adding book if it is negative or not a number
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked); //passing value tittle
-    myLibrary.push(book);// syntax error (library.push)
+    myLibrary.push(book);
     render();
   }
 }
@@ -78,8 +82,12 @@ function render() {
     let readStatus = "";
     if (myLibrary[i].check == false) {
       readStatus = "No";
+      changeBut.classList.add("btn-danger");
+      changeBut.classList.remove("btn-success");
     } else {
       readStatus = "Yes";
+      changeBut.classList.add("btn-success");
+      changeBut.classList.remove("btn-danger");
     }
     changeBut.innerText = readStatus;
 
@@ -87,6 +95,7 @@ function render() {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+
 
     //add delete button to every row and render again
     let delBut = document.createElement("button"); // error type delButton
