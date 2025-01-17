@@ -73,7 +73,6 @@ function render() {
 
     // Add and handle the "Read" button
     let changeBut = document.createElement("button");
-    changeBut.id = i;
     changeBut.className = "btn btn-success";
     readStatusCell.appendChild(changeBut);
 
@@ -87,7 +86,6 @@ function render() {
 
     // Add the "Delete" button
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
     deleteButtonCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
