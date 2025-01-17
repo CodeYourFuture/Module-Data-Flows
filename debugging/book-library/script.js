@@ -16,7 +16,7 @@ function populateStorage() {
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const check = document.getElementById("read-checkbox");
 
 function submit() {
   if (!title.value || !author.value || !pages.value) {
