@@ -50,16 +50,14 @@ function Book(title, author, pages, check) {
 // Renders the table of books
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
 
-  // Clear old rows
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  // Remove the existing tbody and create a new one
+  let newTbody = document.createElement("tbody");
+  table.replaceChild(newTbody, table.tBodies[0]);
 
-  // Populate table with updated rows
+  // Populate the table with updated rows
   for (let i = 0; i < myLibrary.length; i++) {
-    let row = table.insertRow(1);
+    let row = newTbody.insertRow();
 
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
@@ -97,3 +95,4 @@ function render() {
     });
   }
 }
+
