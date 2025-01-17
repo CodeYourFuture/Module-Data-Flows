@@ -70,29 +70,28 @@ function render() {
     pagesCell.innerHTML = myLibrary[i].pages;
 
     // Add and handle the "Read" button
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    readStatusCell.appendChild(changeBut);
+    let readButton = document.createElement("button");
+    readButton.className = "btn btn-success";
+    readStatusCell.appendChild(readButton);
 
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerHTML = readStatus;
+    readButton.innerHTML = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    readButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     // Add the "Delete" button
-    let delButton = document.createElement("button");
-    deleteButtonCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
+    let deleteButton = document.createElement("button");
+    deleteButtonCell.appendChild(deleteButton);
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerHTML = "Delete";
 
-    delButton.addEventListener("click", function () {
+    deleteButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
   }
 }
-
