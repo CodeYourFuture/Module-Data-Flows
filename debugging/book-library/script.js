@@ -58,29 +58,29 @@ function render() {
     row.insertCell(2).innerText = myLibrary[i].pages;
 
     let wasReadCell = row.insertCell(3);
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    changeBut.innerText = myLibrary[i].check ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
+    let toggleButton = document.createElement("button");
+    toggleButton.dataset.index = i;
+    toggleButton.className = "btn btn-success";
+    toggleButton.innerText = myLibrary[i].check ? "Yes" : "No";
+    toggleButton.addEventListener("click", function () {
+      const index = this.dataset.index;
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(toggleButton);
 
     let deleteCell = row.insertCell(4);
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", (function(index) {
-      return function() {
-        const removedTitle = myLibrary[index].title;
-        myLibrary.splice(index, 1);
-        render();
-        alert(`You've deleted title: ${removedTitle}`);
-      };
-    })(i));
-    deleteCell.appendChild(delButton);
+    let deleteButton = document.createElement("button");
+    deleteButton.dataset.index = i;
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function () {
+      const index = this.dataset.index;
+      const removedTitle = myLibrary[index].title;
+      myLibrary.splice(index, 1);
+      render();
+      alert(`You've deleted title: ${removedTitle}`);
+    });
+    deleteCell.appendChild(deleteButton);
   }
 }
