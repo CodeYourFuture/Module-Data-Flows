@@ -59,15 +59,16 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  let tbody = table.getElementsByTagName("tbody")[0];  // Get the existing <tbody> element
+
+  // Clear all rows in the tbody (except the header row)
+  tbody.innerHTML = "";  // Clears all rows (including the initial empty one)
+  
+  
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
