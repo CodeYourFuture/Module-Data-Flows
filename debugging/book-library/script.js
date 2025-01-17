@@ -29,16 +29,19 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" || // Check for empty or whitespace-only title
+    author.value.trim() === "" || // Check for empty or whitespace-only author
+    pages.value.trim() === "" // Check for empty pages
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
+    // Validate the "pages" input (must be a positive integer)
+    if (isNaN(pages.value) || pages.value <= 0 || !Number.isInteger(Number(pages.value))) {
+      alert("Please enter a valid number of pages (positive integer).");
+      return false;
+    }
+
     //pass author value correctly
     let book = new Book(title.value, author.value, pages.value, check.checked);
     //Replace library.push(book) with myLibrary.push(book)
