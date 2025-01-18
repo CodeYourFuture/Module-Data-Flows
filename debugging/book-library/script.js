@@ -16,8 +16,7 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
-  }
+    }
 }
 
 const title = document.getElementById("title");
