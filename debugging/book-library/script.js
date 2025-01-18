@@ -31,18 +31,19 @@ function submit() {
     title.value == null ||
     title.value == "" ||
     pages.value == null ||
-    pages.value == ""
-    author.value == null || // Add author check
-    author.value == "" ||
+    pages.value == "" ||
+    author.value == null ||
+    author.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);// added author value
-    myLibrary.push(book);// changed library to myLibrary
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
   }
 }
+
 
 function Book(title, author, pages, check) {
   this.title = title;
