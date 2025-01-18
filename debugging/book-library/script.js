@@ -32,6 +32,8 @@ function submit() {
     title.value == "" ||
     pages.value == null ||
     pages.value == ""
+    author.value == null || // Add author check
+    author.value == "" ||
   ) {
     alert("Please fill all fields!");
     return false;
