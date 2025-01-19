@@ -76,10 +76,10 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
+    if (myLibrary[i].check == "false") {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
@@ -87,6 +87,29 @@ function render() {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+
+
+    // second option to booleans comparisons
+    // let changeBut = document.createElement("button");
+    // changeBut.id = i;
+    // changeBut.className = "btn btn-success";
+    // wasReadCell.appendChild(changeBut);
+    // let readStatus = "";
+
+    // // Directly check for boolean value (true or false)
+    // if (myLibrary[i].check == false) {
+    //   readStatus = "No";
+    // } else {
+    //   readStatus = "Yes";
+    // }
+
+    // changeBut.innerText = readStatus;
+
+    // changeBut.addEventListener("click", function () {
+    //   myLibrary[i].check = !myLibrary[i].check; // Toggle the read status
+    //   render();
+    // });
+
 
     //add delete button to every row and render again
     const delButton = document.createElement("button");
