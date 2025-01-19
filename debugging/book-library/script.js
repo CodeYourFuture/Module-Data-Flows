@@ -76,7 +76,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == "false") {
+    if (myLibrary[i].check == false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
@@ -88,8 +88,7 @@ function render() {
       render();
     });
 
-
-    // second option to booleans comparisons
+    // // second option to booleans comparisons
     // let changeBut = document.createElement("button");
     // changeBut.id = i;
     // changeBut.className = "btn btn-success";
@@ -110,16 +109,15 @@ function render() {
     //   render();
     // });
 
-
     //add delete button to every row and render again
     const delButton = document.createElement("button");
     delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function (index) {
+    delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(index, 1);
+      myLibrary.splice(i, 1);
       render();
     });
   }
