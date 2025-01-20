@@ -118,7 +118,7 @@ function render() {
     deleteButton.className = "btn btn-warning";
     deleteButton.innerHTML = "Delete";
     deleteButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      alert(`You are deleting: "${myLibrary[i].title}" Are you sure?!`);
       myLibrary.splice(i, 1);
       render();
     });
