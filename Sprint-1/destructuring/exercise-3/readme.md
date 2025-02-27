@@ -18,4 +18,6 @@ QTY     ITEM                TOTAL
 4       Hash Brown          1.60
 
 Total: 14.50
+
 ```
+
