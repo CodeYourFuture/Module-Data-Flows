@@ -71,16 +71,16 @@ let hogwarts = [
   },
 ];
 
-function studentsNames({firstName, lastName, house}) {
+function studentsNames({ firstName, lastName, house }) {
   if (house == "Gryffindor") {
-    console.log(firstName, lastName)
+    console.log(firstName, lastName);
   }
 }
-hogwarts.map(studentsNames)
+hogwarts.map(studentsNames);
 
-function teachersWithPets({firstName, lastName, pet, occupation}) {
+function teachersWithPets({ firstName, lastName, pet, occupation }) {
   if (pet && occupation == "Teacher") {
-    console.log(firstName, lastName)
+    console.log(firstName, lastName);
   }
 }
-hogwarts.map(teachersWithPets)
+hogwarts.map(teachersWithPets);
