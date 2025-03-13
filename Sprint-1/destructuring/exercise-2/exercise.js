@@ -70,3 +70,17 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function studentsNames({firstName, lastName, house}) {
+  if (house == "Gryffindor") {
+    console.log(firstName, lastName)
+  }
+}
+hogwarts.map(studentsNames)
+
+function teachersWithPets({firstName, lastName, pet, occupation}) {
+  if (pet && occupation == "Teacher") {
+    console.log(firstName, lastName)
+  }
+}
+hogwarts.map(teachersWithPets)
