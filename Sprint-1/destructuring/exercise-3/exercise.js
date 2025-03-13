@@ -48,5 +48,3 @@ function findMaxItemNameLength(order) {
   return Math.max(...ItemNameLengthList);
 }
 
-// this issue requires more than 1 hour
-// what would be better to use: regexp or pence to pound conversion
