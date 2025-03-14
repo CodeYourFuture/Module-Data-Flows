@@ -70,3 +70,11 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task-1 
+
+function gryffindor_checker(hogwarts) {
+  const result = hogwarts.filter(({house}) => house === "Gryffindor").map(({firstName, lastName}) => `${firstName} ${lastName}` )
+  return result.map(i=> console.log(i))
+}
+(gryffindor_checker(hogwarts))
