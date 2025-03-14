@@ -71,15 +71,15 @@ let hogwarts = [
   },
 ];
 
-// function displayGryffindor(hogwarts) {
-//   hogwarts.forEach(({ firstName, lastName, house }) => {
-//     if (house === `Gryffindor`) {
-//       console.log(firstName, lastName);
-//     }
-//   });
-// }
+function displayGryffindor(hogwarts) {
+  hogwarts.forEach(({ firstName, lastName, house }) => {
+    if (house === `Gryffindor`) {
+      console.log(firstName, lastName);
+    }
+  });
+}
 
-// displayGryffindor(hogwarts);
+displayGryffindor(hogwarts);
 
 function displayTeachersWithPet(hogwarts) {
   hogwarts.forEach(({ firstName, lastName, pet, occupation }) => {
