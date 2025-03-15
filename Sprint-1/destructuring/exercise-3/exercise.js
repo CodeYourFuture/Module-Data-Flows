@@ -8,7 +8,7 @@ let order = [
 ];
 
 function orderSummary(params) {
-  let totalCost = 0 
+  let totalCost = 0 // variable to store total cost value
 
   console.log(
     "QTY".padEnd(8) +   // aligning each header with the rest of the list
@@ -29,23 +29,3 @@ function orderSummary(params) {
 }
 
 
-
-
-
-
-
-// const [
-//   {itemName:itemName1, quantity:quantity1, unitPricePence:unitPricePence1},
-//   {itemName:itemName2, quantity:quantity2, unitPricePence:unitPricePence2},
-//   {itemName:itemName3, quantity:quantity3, unitPricePence:unitPricePence3},
-//   {itemName:itemName4, quantity:quantity4, unitPricePence:unitPricePence4},
-//   {itemName:itemName5, quantity:quantity5, unitPricePence:unitPricePence5},
-//   {itemName:itemName6, quantity:quantity6, unitPricePence:unitPricePence6}
-
-// ] = order
-
-
-
-function takeoutSummary(){
-  
-}
