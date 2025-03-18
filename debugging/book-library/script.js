@@ -33,8 +33,10 @@ function submit() {
     title.value === "" ||
     author.value === "" ||
     author.value === null ||
-    pages.value == null ||
-    pages.value < 0
+    pages.value === null ||
+    pages.value < 0 ||
+    pages.value === "" ||
+    !check.checked
   ) {
     alert("Please fill all fields!");
     return false;
