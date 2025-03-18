@@ -29,13 +29,11 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value === null ||
-    title.value === "" ||
-    author.value === "" ||
-    author.value === null ||
-    pages.value === null ||
-    pages.value < 0 ||
-    pages.value === "" ||
+    title.value.trim() === "" ||
+    author.value.trim() === "" ||
+    parseInt(pages.value) <= 0 ||
+    isNaN(pages.value) ||
+    pages.value.trim() === "" ||
     !check.checked
   ) {
     alert("Please fill all fields!");
@@ -95,7 +93,6 @@ function render() {
 
     //add delete button to every row and render again
     let delBut = document.createElement("button");
-    delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
