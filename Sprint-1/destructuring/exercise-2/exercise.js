@@ -70,3 +70,29 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+//Task 1
+function searchByHouse(arr, houseName) {
+  let result = [];
+  for (let n of arr) {
+    let { firstName, lastName, house } = n;
+    if (house === houseName) {
+      result.push(`${firstName} ${lastName}`);
+    }
+  }
+  return result.join("\n");
+}
+//Task 2
+function havePet(arr) {
+  let result = [];
+  for (let n of arr) {
+    let { firstName, lastName, pet, occupation } = n;
+    if (occupation === "Teacher" && pet !== null && pet !== undefined && pet !== "") {
+      result.push(`${firstName} ${lastName}`);
+    }
+  }
+  return result.join("\n");
+}
+
+// Test the functions
+console.log(searchByHouse(hogwarts, "Gryffindor"));
+console.log(havePet(hogwarts));
