@@ -31,14 +31,15 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
-    pages.value == null ||
+    parseInt(pages.value) <=0 ||
+    isNaN(pages.value) ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
   }
 }
@@ -77,9 +78,9 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
+      readStatus = "NO";
     } else {
-      readStatus = "No";
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
