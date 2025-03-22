@@ -31,6 +31,7 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    author.value === "" ||
     parseInt(pages.value) <=0 ||
     isNaN(pages.value) ||
     pages.value == ""
@@ -79,6 +80,7 @@ function render() {
     let readStatus = "";
     if (myLibrary[i].check == false) {
       readStatus = "NO";
+      changeBut.style.backgroundColor = "red"
     } else {
       readStatus = "Yes";
     }
