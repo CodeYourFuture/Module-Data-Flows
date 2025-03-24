@@ -8,7 +8,6 @@
 
 ## Expected result
 
-```
 QTY     ITEM                TOTAL
 1       Hot Cakes           2.32
 2       Apple Pie           2.78
@@ -18,4 +17,3 @@ QTY     ITEM                TOTAL
 4       Hash Brown          1.60
 
 Total: 14.50
-```
