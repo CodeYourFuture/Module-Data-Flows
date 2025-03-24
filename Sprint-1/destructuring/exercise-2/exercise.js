@@ -78,4 +78,10 @@ function gryffindorMembers(hogwarts) {
     .map(({ firstName, lastName }) => `${firstName} ${lastName}`);
 }
 console.log(gryffindorMembers(hogwarts));
-// 
+// - In `exercise.js` write a program that will take the `hogwarts` array as input and display the names of teachers who have pets.
+// - Use object destructuring to extract the values you need out of each element in the array.
+function teachersWithPets(hogwarts) {
+  return hogwarts.filter(({ occupation, pet }) => occupation === "Teacher" && pet)
+    .map(({ firstName, lastName }) => `${firstName} ${lastName}`);
+}
+console.log(teachersWithPets(hogwarts));
