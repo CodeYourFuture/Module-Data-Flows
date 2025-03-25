@@ -16,6 +16,7 @@ Take a look at the following code:
 ```
 
 Explain why line 5 and line 8 output different numbers.
+Answer: line 5 output local variable x (2) from the function without returning it and line 8 output global variable x (1) from the main program.
 
 ## Question 2
 
@@ -34,6 +35,7 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+Answer: output will be 10 and undefined because the first log will display global x (10) and the 2nd log will be undefined as y is declared in the function locally but isn't returned globally.
 
 ## Question 3
 
@@ -62,3 +64,4 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+Answer: first part returns 9 as x because f1 creates a copy of x and handles and stores the result but x stays the same. 2nd part returns a modified object y as { x: 10} because f2 modifies the object.
