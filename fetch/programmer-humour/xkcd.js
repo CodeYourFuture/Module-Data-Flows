@@ -1,4 +1,4 @@
-async function fetchComic() {
+const fetchComic = async ()=>{
     try {
         const response = await fetch('https://xkcd.now.sh/?comic=latest'); //try fetching data from the link 
         if (!response.ok) { //and if this is false throw a new error for the status of our response. 
@@ -12,5 +12,8 @@ async function fetchComic() {
         console.error('Error fetching comic:', error);
         document.getElementById('comic-container').innerHTML = '<p>Failed to load comic. Please try again later.</p>';
     }
-}
+
+};
+
+
 fetchComic();
