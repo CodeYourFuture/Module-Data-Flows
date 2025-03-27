@@ -1,0 +1,15 @@
+/*styling for the body, container and image*/
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    }
+#comic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+img {
+    max-width: 100%;
+    height: auto;
+    }
