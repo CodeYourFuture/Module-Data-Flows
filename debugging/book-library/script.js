@@ -1,5 +1,8 @@
 let myLibrary = [];
-
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const pages = document.getElementById("pages");
+const check = document.getElementById("check");
 window.addEventListener("load", function () {
   populateStorage();
   render();
@@ -12,19 +15,11 @@ function populateStorage() {
     myLibrary.push(book1, book2);
   }
 }
-
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
-
-
 function submit() {
   if (!title.value || !author.value || !pages.value) {
     alert("Please fill all fields!");
     return;
   }
-
   let book = new Book(title.value, author.value, pages.value, check.checked);
   myLibrary.push(book);
   render();
@@ -47,7 +42,7 @@ function render() {
       <td>${book.title}</td>
       <td>${book.author}</td>
       <td>${book.pages}</td>
-      <td><button class="btn btn-success toggle-read">${book.check ? "Yes" : "No"}</button></td>
+      <td><button class="btn toggle-read ${book.check ? 'btn-success' : 'btn-danger'}">${book.check ? "Yes" : "No"}</button></td>
       <td><button class="btn btn-warning delete-book">Delete</button></td>
     `;
 
