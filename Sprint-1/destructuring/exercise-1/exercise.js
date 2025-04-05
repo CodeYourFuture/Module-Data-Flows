@@ -4,7 +4,7 @@ const personOne = {
   favouriteFood: "Spinach",
 };
 
-// Update the parameter to this function to make it work.
+// Update the parameter to this function to make it work..
 // Don't change anything else.
 function introduceYourself(___________________________) {
   console.log(
