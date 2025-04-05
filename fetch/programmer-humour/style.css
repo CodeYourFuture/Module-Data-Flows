@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color:  #f4f4f4;
+    
+}
+
+.container {
+    margin-top: 50px;
+}
+
+img {
+    max-width: 90%;
+    height: auto;
+    margin-top: 20px;
+    border: 2px, solid black;
+    padding: 5px;
+    background: white;
+}
