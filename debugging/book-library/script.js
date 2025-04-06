@@ -7,8 +7,8 @@ window.addEventListener("load", function () {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+    const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
     myLibrary.push(book1);
     myLibrary.push(book2);
   }
@@ -40,7 +40,7 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
+  const table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   
   
@@ -55,7 +55,7 @@ function render() {
     row.insertCell(2).innerText = book.pages;
     
     
-    let readButton = document.createElement("button");
+    const readButton = document.createElement("button");
     readButton.className = "btn btn-success";
     readButton.innerText = book.check ? "Yes" : "No";
     readButton.addEventListener("click", () => {
@@ -65,7 +65,7 @@ function render() {
     row.insertCell(3).appendChild(readButton);
     
     
-    let delButton = document.createElement("button");
+    const delButton = document.createElement("button");
     delButton.className = "btn btn-warning";
     delButton.innerText = "Delete";
     delButton.addEventListener("click", () => {
