@@ -41,7 +41,7 @@ function Book(title, author, pages, check) {
 
 function render() {
   const table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const rowsNumber = table.rows.length;
   
   
   for (let n = rowsNumber - 1; n > 0; n--) {
