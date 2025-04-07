@@ -1,26 +1,23 @@
-let myLibrary = [];
+const myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
 });
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+    const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
     myLibrary.push(book1, book2);
   }
   render();
 }
-
 
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
 function submit() {
   if (
     title.value == null ||
@@ -30,11 +27,11 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  }  const book = new Book(title.value, author.value, pages.value, check.checked);
+  }
+  const book = new Book(title.value, author.value, pages.value, check.checked);
   myLibrary.push(book);
   render();
 
-  // Clear input fields
   title.value = "";
   author.value = "";
   pages.value = "";
@@ -51,12 +48,11 @@ function Book(title, author, pages, check) {
 function render() {
   const table = document.getElementById("display");
   const rows = table.rows.length;
-   for (let i = rows - 1; i > 0; i--) {
+  for (let i = rows - 1; i > 0; i--) {
     table.deleteRow(i);
   }
 
-
-   myLibrary.forEach((book, i) => {
+  myLibrary.forEach((book, i) => {
     const row = table.insertRow();
     const titleCell = row.insertCell(0);
     const authorCell = row.insertCell(1);
