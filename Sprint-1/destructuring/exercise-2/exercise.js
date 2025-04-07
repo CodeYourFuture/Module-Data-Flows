@@ -70,3 +70,13 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+//Task 1
+function revelioGryffindor() {
+  for (const { firstName, lastName, house } of hogwarts) {
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+revelioGryffindor(hogwarts)
