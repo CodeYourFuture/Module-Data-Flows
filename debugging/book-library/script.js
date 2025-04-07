@@ -25,7 +25,7 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    const book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
     clearForm();
@@ -49,7 +49,7 @@ function render() {
   }
   
   myLibrary.forEach((book, i) => {
-    let row = table.insertRow();
+    const row = table.insertRow();
     row.insertCell(0).innerText = book.title;
     row.insertCell(1).innerText = book.author;
     row.insertCell(2).innerText = book.pages;
