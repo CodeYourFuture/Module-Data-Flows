@@ -35,13 +35,19 @@ function submit() {
     title.value == null ||
     title.value == "" ||
     pages.value == null ||
-    pages.value == ""
+    pages.value == "" ||
+    author.value == null ||
+    author.value == "" 
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
+    title.value = "";
+    author.value = "";
+    pages.value = "";    check.checked = false;
+    alert(`You've added title: ${book.title}`);
     render();
   }
 }
@@ -77,7 +83,8 @@ function render() {
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
-    changeBut.className = "btn btn-success";
+    changeBut.className = "btn";
+    changeBut.className = myLibrary[i].check ? "btn btn-success" : "btn btn-danger";
     wasReadCell.appendChild(changeBut);
     let readStatus = myLibrary[i].check ? "Read" : "Unread";
     changeBut.innerText = readStatus;
