@@ -24,6 +24,8 @@ const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
+const tBody = document.querySelector(`.tBody`)
+console.log(tBody)
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
@@ -33,8 +35,7 @@ function submit() {
     author.value.trim() === "" ||
     parseInt(pages.value) <= 0 ||
     isNaN(pages.value) ||
-    pages.value.trim() === "" ||
-    !check.checked
+    pages.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -56,22 +57,20 @@ function render() {
   const table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   console.log(rowsNumber);
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  // delete old table
+  tBody.innerHTML = ``;
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tBody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
@@ -97,9 +96,10 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+      let deletedBook = myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${deletedBook[0]}`);
+     
     });
   }
 }
