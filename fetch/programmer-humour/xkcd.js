@@ -25,8 +25,7 @@ const fetchComic = async ()=>{
         altText.textContent = data.alt;
         comicContainer.appendChild(altText);
     } catch (error) {    //if their is any error cache it and console log the error 
-        console.error('Error fetching comic:', error);
-        const comicContainer = document.getElementById('comic-container');
+        console.error('Failed to load comic ... Error fetching comic:', error);
         comicContainer.textContent = 'Failed to load comic. Please try again later.';
     }
 
