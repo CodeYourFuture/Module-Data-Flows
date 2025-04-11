@@ -12,7 +12,6 @@
 </head>
 
 <body>
-  <!-- Structure -->
   <main class="content">
     <header class="header">
       <h1 class="title">
@@ -43,7 +42,81 @@
     </div>
   </main>
 
-  <!-- JS goes here -->
+  <script>
+    // Example JavaScript (you'll need to expand on this)
+    const searchForm = document.getElementById('search');
+    const cityInput = document.getElementById('search-tf');
+    const photoElement = document.getElementById('photo');
+    const conditionsElement = document.getElementById('conditions');
+    const creditUserElement = document.getElementById('credit-user');
+    const thumbsElement = document.getElementById('thumbs');
+
+    searchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const city = cityInput.value;
+
+      try {
+        // Replace with your actual API calls for weather and photos
+        const weatherData = await fetchWeatherData(city);
+        const photoData = await fetchPhotoData(city);
+
+        displayWeatherData(weatherData);
+        displayPhotoData(photoData);
+
+      } catch (error) {
+        console.error('Error:', error);
+        conditionsElement.textContent = 'Error fetching data.';
+      }
+
+    });
+
+    async function fetchWeatherData(city) {
+      // Replace with your weather API endpoint and API key
+     .,
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    }
+
+    async function fetchPhotoData(city) {
+        //Replace with your unsplash API endpoint and API key
+        const apiKey = 'YOUR_UNSPLASH_API_KEY';
+        const apiUrl = `https://api.unsplash.com/photos/random?query=${city}&client_id=${apiKey}`;
+
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return response.json();
+    }
+
+    function displayWeatherData(data) {
+
+      if (data && data.main && data.weather && data.weather[0]) {
+        const temperature = data.main.temp;
+        const description = data.weather[0].description;
+        conditionsElement.textContent = `${temperature}°C, ${description}`;
+      } else {
+        conditionsElement.textContent = 'Weather data not available.';
+      }
+    }
+
+    function displayPhotoData(data) {
+        if(data && data.urls && data.user){
+            photoElement.style.backgroundImage = `url(${data.urls.regular})`;
+            creditUserElement.textContent= data.user.name;
+            creditUserElement.href = data.user.links.html;
+        }else{
+            photoElement.style.backgroundImage = 'none';
+            conditionsElement.textContent = 'Photo data not available.';
+        }
+    }
+  </script>
 </body>
 
 </html>
