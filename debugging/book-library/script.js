@@ -1,5 +1,5 @@
 "use strict"
-let myLibrary = [];
+const myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -8,8 +8,8 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+    const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway", 
       "127",
@@ -40,7 +40,7 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    const book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
   }
@@ -54,14 +54,14 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const table = document.getElementById("display");
+  const rowsNumber = table.rows.length;
   //delete old table
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
-  let length = myLibrary.length;
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
