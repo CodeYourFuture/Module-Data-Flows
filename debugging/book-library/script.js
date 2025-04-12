@@ -29,12 +29,9 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value === null ||
-    title.value === "" ||
-    author.value === null ||
-    author.value === "" ||
-    pages.value === null ||
-    pages.value === ""
+    !(title.value.trim()) ||
+    !(author.value.trim()) ||
+    !(pages.value.trim())
   ) {
     alert("Please fill all fields!");
     return false;
@@ -103,9 +100,13 @@ function render() {
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
     delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
-    });
+      const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+      if (confirmDelete) {
+        myLibrary.splice(i, 1);
+        render();
+        alert(`You've deleted title: ${myLibrary[i].title}`);
+      } else {
+         console.log("Deletion canceled");
+      }});
   }
 }
