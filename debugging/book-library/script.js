@@ -79,18 +79,18 @@ function render() {
     toggleReadButton.addEventListener("click", function () {
     myLibrary[i].check = !myLibrary[i].check;
     render();
-  });
+   });
     wasReadCell.appendChild(toggleReadButton);
 
     // Delete Button
-    const delButton = document.createElement("button");
-    delButton.className = "btn btn-warning";
-    delButton.innerText = "Delete";
-    delButton.addEventListener("click", function () {
+    const deleteBookButton = document.createElement("button");
+    deleteBookButton.className = "btn btn-warning";
+    deleteBookButton.innerText = "Delete";
+    deleteBookButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
-    deleteCell.appendChild(delButton);
+    deleteCell.appendChild(deleteBookButton);
   }
 }
