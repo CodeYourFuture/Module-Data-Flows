@@ -72,15 +72,15 @@ function render() {
     authorCell.innerHTML = book.author;
     pagesCell.innerHTML = book.pages;
 
-    // Read/Unread Toggle Button
-    const changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.innerText = book.check ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
-      render();
-    });
-    wasReadCell.appendChild(changeBut);
+  // Read/Unread Toggle Button
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.className = "btn btn-success";
+    toggleReadButton.innerText = book.check ? "Yes" : "No";
+    toggleReadButton.addEventListener("click", function () {
+    myLibrary[i].check = !myLibrary[i].check;
+    render();
+  });
+    wasReadCell.appendChild(toggleReadButton);
 
     // Delete Button
     const delButton = document.createElement("button");
