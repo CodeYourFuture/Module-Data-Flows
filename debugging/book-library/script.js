@@ -30,31 +30,33 @@ const check = document.getElementById("check");
 function submit() {
   if (
     title.value == null ||
-    title.value == "" ||
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
   }
 }
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
+class Book {
+  constructor(title, author, pages, check) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.check = check;
+  }
 }
 
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n-- ) {
     table.deleteRow(n);
   }
   //insert updated row and cells
