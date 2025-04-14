@@ -1,5 +1,5 @@
 "use strict"
-const img = document.querySelector(img)
+const img = document.querySelector("img");
 
 const fetchData = async () => {
     const response = await fetch("https://xkcd.now.sh/?comic=latest");
