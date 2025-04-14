@@ -28,12 +28,8 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    title.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
+  if (!title.value.trim() || !author.value.trim() ||
+    !pages.value.trim()) {
     alert("Please fill all fields!");
     return false;
   } else {
@@ -41,6 +37,10 @@ function submit() {
     myLibrary.push(book);
     render();
   }
+  title.value = ""; // to reset the form when the book is added 
+  author.value = "";
+  pages.value = "";
+  check.value = false;
 }
 
 class Book {
