@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 const myLibrary = [];
 
 window.addEventListener("load", function (e) {
@@ -11,7 +11,7 @@ function populateStorage() {
     const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
     const book2 = new Book(
       "The Old Man and the Sea",
-      "Ernest Hemingway", 
+      "Ernest Hemingway",
       "127",
       true
     );
@@ -40,7 +40,12 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    const book = new Book(title.value, author.value, pages.value, check.checked);
+    const book = new Book(
+      title.value,
+      author.value,
+      pages.value,
+      check.checked
+    );
     myLibrary.push(book);
     render();
   }
