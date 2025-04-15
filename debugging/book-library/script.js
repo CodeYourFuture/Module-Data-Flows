@@ -68,18 +68,18 @@ function render() {
   //insert updated row and cells
   const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = table.insertRow(1);
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeButton = document.createElement("button");
+    const changeButton = document.createElement("button");
     changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
@@ -97,7 +97,7 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
     deleteButton.id = i + 5;
     deleteCell.appendChild(deleteButton);
     deleteButton.className = "btn btn-warning";
