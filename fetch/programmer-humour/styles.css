@@ -1,11 +1,9 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 img {
-    margin: auto;
-    margin-top: 30vh;
-
-
+  margin: auto;
+  margin-top: 30vh;
 }
