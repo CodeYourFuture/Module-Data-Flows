@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
+    <!-- Adding an appropriate title -->
+    <title>Sam's Book Library</title>
     <meta
       charset="utf-8"
       name="viewport"
@@ -30,16 +31,18 @@
     <div id="demo" class="collapse">
       <div class="form-group">
         <label for="title">Title:</label>
+        <!-- fixing type from title to text -->
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
           required
         />
+        <!-- fixing type from author to text -->
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -81,13 +84,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <!-- removing empty <tr> to prevent blank row on page load -->
       </tbody>
     </table>
 
