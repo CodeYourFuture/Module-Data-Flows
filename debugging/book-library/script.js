@@ -31,14 +31,19 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    //adding author validation
+    author.value == null ||
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    //creating new book using the correct author and read status
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    //fixing typo(corrected variable name casing)
+    myLibrary.push(book);
     render();
   }
 }
@@ -54,13 +59,15 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  //adding missing closing parenthesis
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    //appending the row to the end of the table
+    let row = table.insertRow(-1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -74,30 +81,35 @@ function render() {
     let changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+   
+
+    //setting the button text based on read status (fixing logic by assigning correct boolean value)
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check == true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
     }
     changeBut.innerText = readStatus;
+    wasReadCell.appendChild(changeBut);
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
-    });
+    // fixed: using one consistent button variable
+let delButton = document.createElement("button");
+delButton.id = `delete-${i}`; // optional: clearer ID
+delButton.className = "btn btn-warning";
+delButton.innerHTML = "Delete";
+deleteCell.appendChild(delButton);
+
+// using correct button variable name
+delButton.addEventListener("click", function () {
+  alert(`You've deleted title: ${myLibrary[i].title}`);
+  myLibrary.splice(i, 1);
+  render();
+});
   }
 }
