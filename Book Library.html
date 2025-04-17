@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" type="text/css" href="Book Library.css">
+</head>
+<body>
+    <h1 BOOK LIBRARY</h1>
+    <div id="LibraryBooks">
+        <button id="borrowButton">Borrow Book</button>
+        <button id="deleteButton">Delete Book</button>
+        <button id="addBook">Add Book</button>
+        <button id="removeBook">Remove Book</button>
+
+        <ul id="bookList">
+            <!-- Books will be populated here -->
+        </ul>
+    </div>
+
+    <script>
+        class BookLibrary {
+            constructor() {
+                this.books = [
+                    { title: "Mindset", author: "Dr. Carol Dweck" },
+                    { title: "Robinson Crusoe", author: "Daniel Defoe" },
+                    { title: "Catcher in the Rye", author: "J.D. Salinger" },
+                    { title: "1984", author: "George Orwell" },
+                    { title: "Civilization", author: "Neil Ferguson" },
+                    { title: "80 Days around the World", author: "Jules Verne" },
+                    { title: "Little Prince", author: "Antoine de Saint-Exupery" },
+                    { title: "How to win friends and influence people", author: "Dale Carnegie" },
+                    { title: "The Psychology of Money", author: "Morgan Housel" },
+                    { title: "The Alchemist", author: "Paulo Coelho" },
+                    { title: "The Lord of the Rings", author: "J.R.R. Tolkien" },
+                    { title: "The Hobbit", author: "J.R.R. Tolkien" },
+                    { title: "Harry Potter", author: "J.K. Rowling" },
+                    { title: "The Three Musketeers", author: "Alexandre Dumas" },
+                    { title: "Animal Farm", author: "George Orwell" },
+                    { title: "Overthinking", author: "Ryan Creed" },
+                    { title: "How to get on with anyone", author: "Katherine Stothart" },
+                    { title: "Critical Thinking", author: "Jerrell Foreman" },
+                    { title: "Emotional Intelligence", author: "Hanson" },
+                    { title: "Fahrenheit 451", author: "Ray Bradbury" },
+                ];
+            }
+
+            updateList() {
+                const ul = document.getElementById('bookList');
+                ul.innerHTML = '';
+                this.books.forEach(book => {
+                    const li = document.createElement('li');
+                    li.textContent = `${book.title} - ${book.author}`;
+                    ul.appendChild(li);
+                });
+            }
+
+            addBook() {
+                let title = prompt("Enter the title of the book:");
+                let author = prompt("Enter the author:");
+                if (title && author) {
+                    this.books.push({ title, author });
+                    alert("Book added successfully!");
+                    this.updateList();
+                } else {
+                    alert("Both title and author are required.");
+                }
+            }
+
+            borrowBook() {
+                let bookToBorrow = prompt("Enter the book you want to borrow:");
+                let book = this.books.find(b => b.title.toLowerCase() === bookToBorrow.toLowerCase());
+                alert(book ? "Book borrowed successfully!" : "Book not available!");
+            }
+
+            deleteBook() {
+                let bookToDelete = prompt("Enter the title of the book to delete:");
+                let index = this.books.findIndex(b => b.title.toLowerCase() === bookToDelete.toLowerCase());
+                if (index !== -1) {
+                    this.books.splice(index, 1);
+                    alert("Book deleted successfully!");
+                    this.updateList();
+                } else {
+                    alert("Book not found!");
+                }
+            }
+
+            removeBook() {
+                this.deleteBook(); // same logic for now
+            }
+        }
+
+        const library = new BookLibrary();
+        library.updateList();
+
+        document.getElementById("addBook").addEventListener("click", () => library.addBook());
+        document.getElementById("borrowButton").addEventListener("click", () => library.borrowBook());
+        document.getElementById("deleteButton").addEventListener("click", () => library.deleteBook());
+        document.getElementById("removeBook").addEventListener("click", () => library.removeBook());
+    </script>
+</body>
+</html>
