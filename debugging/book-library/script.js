@@ -6,7 +6,12 @@ window.addEventListener("load", function (e) {
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
+
+  const storedLibrary = localStorage.getItem("myLibrary");
+
+  if (storedLibrary) {
+    myLibrary = JSON.parse(storedLibrary);
+  } else {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -16,9 +21,10 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
+  }
     render();
   }
-}
+
 
 const title = document.getElementById("title");
 const author = document.getElementById("author");
@@ -32,11 +38,46 @@ function submit() {
     !pages.value.trim()) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
+  } 
+  if (isNaN(pages.value) || Number(pages.value) <= 0) {
+    alert("Please enter a valid number of pages!");
+    return false;
   }
+
+  const isValidText = (text) => /^[a-zA-Z\s]{3,}$/.test(text);
+
+  if (!isValidText(title.value)) {
+    alert("Please enter a valid title with at least 3 alphabetic characters!");
+    return false;
+  }
+
+  if (!isValidText(author.value)) {
+    alert("Please enter a valid author name with at least 3 alphabetic characters!");
+    return false;
+  }
+
+  // Check if the author's name is the same as the book title
+  if (title.value.trim().toLowerCase() === author.value.trim().toLowerCase()) {
+    alert("The author's name cannot be the same as the book title!");
+    return false;
+  }
+
+  const isDuplicate = myLibrary.some(
+    (book) =>
+      book.title.toLowerCase() === title.value.toLowerCase() &&
+      book.author.toLowerCase() === author.value.toLowerCase()
+  );
+
+  if (isDuplicate) {
+    alert("This book already exists in your library!");
+    return false;
+  }
+
+    const book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+    render();
+  
   title.value = ""; // to reset the form when the book is added 
   author.value = "";
   pages.value = "";
@@ -53,53 +94,49 @@ class Book {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- ) {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+  const tableBody = document.querySelector("#display tbody");
+
+  //clear all rows except the header
+  tableBody.innerHTML = "";
+  
+  //insert updated rows
+  
+  myLibrary.forEach((book, i) => {
+    let row = tableBody.insertRow();
+
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
-    changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
-
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    
+    changeBut.innerText = book.check ? "Yes" : "No";
+    changeBut.addEventListener("click", () => {
+      book.check = !book.check;
+      localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
       render();
     });
 
     //add delete button to every row and render again
     let delBut = document.createElement("button");
-    delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      alert(`You've deleted title: ${book.title}`);
       myLibrary.splice(i, 1);
+      localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
       render();
     });
-  }
+  });
 }
+
