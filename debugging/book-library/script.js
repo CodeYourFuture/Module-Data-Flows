@@ -37,7 +37,7 @@ function submit() {
     alert("Please fill all fields correctly. Pages must be a positive integer.");
     return;
   } 
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title, author, pages, check.checked);
     myLibrary.push(book);    
     render();
   
@@ -90,12 +90,12 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.textContent = "Delete";
+    deleteCell.appendChild(deleteBtn);
+ 
+    deleteBtn.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
