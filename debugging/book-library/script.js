@@ -28,6 +28,10 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  if (!Number.isInteger(Number(pages.value))) {
+    alert("Number of pages can not be a float number");
+    return false;
+  }
   if (
     title.value.trim() === "" ||
     pages.value === "" ||
