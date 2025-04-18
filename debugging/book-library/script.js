@@ -72,19 +72,18 @@ function render() {
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    const changeBtn = document.createElement("button");
+    changeBtn.className = "btn btn-success";
+    wasReadCell.appendChild(changeBtn);
     let readStatus = "";
     if (myLibrary[i].check == false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
     }
-    changeBut.innerText = readStatus;
+    changeBtn.innerText = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    changeBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
