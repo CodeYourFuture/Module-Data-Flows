@@ -56,7 +56,7 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) { //вот я вижу что кавычки открываються но не вижу их закрытие, возможно в этом ошибка?
+  for (let n = rowsNumber - 1; n > 0; n--) { 
     table.deleteRow(n);
   }
   //insert updated row and cells
@@ -89,9 +89,6 @@ function render() {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
-
-
-
 
     let delButton = document.createElement("button");
     delButton.id = i + 5;
