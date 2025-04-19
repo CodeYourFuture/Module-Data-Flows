@@ -53,30 +53,29 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  const oldTbody = table.querySelector("tbody");
+  const newTbody = document.createElement("tbody");
+  table.replaceChild(newTbody, oldTbody);
+
+  myLibrary.forEach((book, index) => {
+    const row = newTbody.insertRow();
+
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const readCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
+
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
 
     //add and wait for action for read/unread button
     const changeBtn = document.createElement("button");
     changeBtn.className = "btn btn-success";
-    wasReadCell.appendChild(changeBtn);
+    readCell.appendChild(changeBtn);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (book.check == false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
@@ -84,7 +83,7 @@ function render() {
     changeBtn.innerText = readStatus;
 
     changeBtn.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+      book.check = !book.check;
       render();
     });
 
@@ -95,9 +94,9 @@ function render() {
     deleteCell.appendChild(deleteBtn);
  
     deleteBtn.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+      alert(`You've deleted title: ${book.title}`);
+      myLibrary.splice(index, 1);
       render();
     });
-  }
+  });
 }
