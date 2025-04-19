@@ -70,3 +70,44 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+//1
+// const newItem = oldItem.filter(({ propWeWant }) => propWeWant === 'propValue')
+
+const sortingHat = (hogwarts) => {
+  // filter gryffindor
+  const filtered = hogwarts.filter(({ house }) => house === "Gryffindor");
+
+  // return names
+  let gryffindor = [];
+  filtered.forEach(({ firstName, lastName }) => {
+    gryffindor.push(`${firstName} ${lastName}`);
+  })
+
+  return gryffindor;
+}
+  
+//2
+// const newItem = oldItem.filter(({ propWeWant1, propWeWant2 }) => propWeWant 1 === 'propValue' && propWeWant2 === 'propValue2')
+// or if checking if prop exists
+// const newItem = oldItem.filter(({ propWeWant1, propWeWant2 }) => propWeWant 1 === 'propValue' && propWeWant2)
+const findTeachersWithPets = (hogwarts) => {
+  let teachersWithPets = [];
+
+  // filter teachers
+  // const filtered = hogwarts.filter(({ occupation, pet }) => occupation === 'Teacher');
+
+  // check for pets
+  // const withPets = filtered.filter(({ pet }) => pet));
+
+//filter for teachers with pets
+  const filtered = hogwarts.filter(({ occupation, pet }) => occupation === 'Teacher' && pet);
+
+
+  filtered.forEach(({ firstName, lastName }) => {
+    teachersWithPets.push(`${firstName} ${lastName}`);
+  })
+
+  return teachersWithPets;
+}
