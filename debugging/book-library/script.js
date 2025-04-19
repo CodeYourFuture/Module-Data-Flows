@@ -25,27 +25,32 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
 function submit() {
+  // Trimming white spaces in values and validating user input
   if (
-    title.value == null ||
-    title.value == "" ||
-    //adding author validation
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" ||
+    author.value.trim() === "" ||
+    pages.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    //creating new book using the correct author and read status
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    //fixing typo(corrected variable name casing)
-    myLibrary.push(book);
-    render();
   }
+  //Adding validation to check pages is a positive whole number
+  const pagesValue = Number(pages.value);
+  if (!Number.isInteger(pagesValue) || pagesValue <= 0) {
+    alert("Please enter a valid number for pages.");
+    return false;
+  }
+
+  // GPT: Create and add new Book
+  let book = new Book(
+    title.value.trim(),
+    author.value.trim(),
+    pagesValue,
+    check.checked
+  );
+  myLibrary.push(book);
+  render();
 }
 
 function Book(title, author, pages, check) {
