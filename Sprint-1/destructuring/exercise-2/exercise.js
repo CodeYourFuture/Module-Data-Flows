@@ -72,7 +72,8 @@ let hogwarts = [
 ];
 
 //Task 1
-function revelioGryffindor() {
+//added "hogwarts" as parameter following cjyuan's feedback
+function revelioGryffindor(hogwarts) {
   for (const { firstName, lastName, house } of hogwarts) {
     if (house === "Gryffindor") {
       console.log(`${firstName} ${lastName} is a Gryffindor`);
