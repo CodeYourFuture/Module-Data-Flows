@@ -24,10 +24,8 @@ line 97 typo
 5. When I add a book that I say I've read - it saves the wrong answer
 line 80 no should be first
 
-I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
 
-I wish somebody would help me!
 Other bugs:
 6. Changing status of Read changes status of all books 
-redundant <td> in HTML
+redundant <td> in HTML not isolating each row
 

@@ -77,9 +77,9 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
@@ -94,7 +94,7 @@ function render() {
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
