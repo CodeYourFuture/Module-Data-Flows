@@ -71,13 +71,15 @@ let hogwarts = [
   },
 ];
 
+
+// Task 1 Display the names of people in Gryffindor hpuse
 hogwarts.forEach(({ firstName, lastName, house }) => {
   if (house.toLowerCase() === "gryffindor") {
     console.log(`${firstName} ${lastName}`);
   }
 });
 
-console.log("");
+console.log("-----------------------------------------------------------------------------------------");
 
 // Task 2: Teachers with Pets
 hogwarts.forEach(({ firstName, lastName, occupation, pet }) => {

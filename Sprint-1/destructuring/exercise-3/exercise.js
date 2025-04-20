@@ -21,4 +21,4 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
   );
 });
 
-console.log(`\nTotal: ${totalCost.toFixed(2)}`);
+console.log(`\nTotal: ${totalCost.toFixed(2)}`)
