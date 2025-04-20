@@ -62,7 +62,7 @@ function render() {
 
   //delete old table
   tbody.innerHTML = ""; 
-
+""
    
   //insert updated row and cells
   myLibrary.forEach((book, index) => {
