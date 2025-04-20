@@ -31,8 +31,12 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    author.value == null ||
+    author.value == "" ||
     pages.value == null ||
-    pages.value == ""
+    pages.value == ""||
+    check.checked == null||
+    check.checked == ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -40,6 +44,10 @@ function submit() {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
   }
 }
 
