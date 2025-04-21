@@ -1,7 +1,8 @@
+const XKCD_API_URL = 'https://xkcd.now.sh/?comic=latest';
+
 async function fetchLatestXKCD() {
-   const url = 'https://xkcd.now.sh/?comic=latest';
   try {
-    const response = await fetch(url);
+    const response = await fetch(XKCD_API_URL);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -20,4 +21,8 @@ async function fetchLatestXKCD() {
   }
 }
 
-fetchLatestXKCD();
+window.addEventListener("load", () => {
+  console.log("Page is fully loaded");
+  fetchLatestXKCD();
+});
+
