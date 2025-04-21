@@ -16,7 +16,7 @@ Take a look at the following code:
 ```
 
 Explain why line 5 and line 8 output different numbers.
-
+It happens because of the local and global scope being different, line 5 is 2 and line 8 is 1.
 ## Question 2
 
 Take a look at the following code:
@@ -34,6 +34,7 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+f1 does not return anything, so console.log is undefined, line 33 will be an error because of the local scope of y.
 
 ## Question 3
 
@@ -62,3 +63,8 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+f1(x) does not print, 9 because of the x being passeed by value
+console.log(y) prints { x: 10 } because object is referenced and changed
+
+f1(x) doesn’t print, so console.log(x) will still prints 9
+Because objects are passed by reference, f2(y) changes the property and line 62 will print {x:10}.
