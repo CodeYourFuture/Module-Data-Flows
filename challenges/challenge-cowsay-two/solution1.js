@@ -5,26 +5,51 @@
 // =================
 
 // 1. Accept arguments
-
-// how will you accept arguments?
+const args = process.argv.slice(2); // Get arguments after node and script name
+const saying = args.join(' '); // Join arguments into a single string
 
 // 2. Make supplies for our speech bubble
 
 let topLine = '_';
 let bottomLine = '-';
-let saying = '';
 
 // 3. Make a cow that takes a string
 
 function cowsay(saying) {
-// how will you make the speech bubble contain the text?
+  if (!saying) {
+    saying = "Moo!"; // Default saying if none provided
+  }
 
-// where will the cow picture go?
+  const maxLength = saying.length;
+  const topBorder = ' ' + topLine.repeat(maxLength + 2);
+  const bottomBorder = ' ' + bottomLine.repeat(maxLength + 2);
 
-// how will you account for the parameter being empty?
+  let speechBubble = '';
 
+  if (maxLength === 0) {
+    speechBubble = `
+ ${topBorder}
+<  >
+ ${bottomBorder}
+    `;
+  } else {
+
+    speechBubble = `
+ ${topBorder}
+< ${saying} >
+ ${bottomBorder}
+    `;
+  }
+  const cow = `
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||
+    `;
+  return speechBubble + cow;
 }
 
 //4. Pipe argument into cowsay function and return a cow
 
-// how will you log this to the console?
+console.log(cowsay(saying));
