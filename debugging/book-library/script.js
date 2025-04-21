@@ -20,14 +20,18 @@ function populateStorage() {
   }
 }
 
+
+
+//check the right input from forms and if its ok -> add the new book (object in array)
+//via Book function and start render function
+function submit() {
+
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
+  
   if (
     title.value == null ||
     title.value == "" ||
@@ -35,8 +39,7 @@ function submit() {
     author.value == "" ||
     pages.value == null ||
     pages.value == ""
-    //check.checked == null||
-    //check.checked == ""
+    
   ) {
     alert("Please fill all fields!");
     return false;
