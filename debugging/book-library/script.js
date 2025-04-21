@@ -28,7 +28,7 @@ function submit() {
   const author = document.getElementById("author");
   const pages = document.getElementById("pages");
   const check = document.getElementById("check");
-  
+
   if (!title.value || !pages.value)
    {
     alert("Please fill all fields!");
@@ -81,9 +81,9 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
