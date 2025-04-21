@@ -13,11 +13,15 @@ My website should be able to:
 ## Bugs to be fixed
 
 1. Website loads but doesn't show any books
+line 57 synthax error in render
 2. Error in console when you try to add a book
+line 41 the original code tried pushing to a wrong array name
 3. It uses the title name as the author name
+in line 40 title.value was repeated
 4. Delete button is broken
+line 92 inconsistent name deleteBut
+line 97 typo
 5. When I add a book that I say I've read - it saves the wrong answer
+line 80 no should be first
 
-I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
 
-I wish somebody would help me!
