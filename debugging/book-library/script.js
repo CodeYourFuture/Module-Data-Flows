@@ -34,9 +34,9 @@ function submit() {
     author.value == null ||
     author.value == "" ||
     pages.value == null ||
-    pages.value == ""||
-    check.checked == null||
-    check.checked == ""
+    pages.value == ""
+    //check.checked == null||
+    //check.checked == ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -84,11 +84,14 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+
+   // if (myLibrary[i].check == true) {
+     // readStatus = "Yes";
+    //} else {
+      //readStatus = "No";
+    //}
+    readStatus = myLibrary[i].check ? "Yes" : "No";
+
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
