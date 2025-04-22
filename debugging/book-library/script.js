@@ -1,11 +1,21 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
-  populateStorage();
+window.addEventListener("load", () => {
+  if (myLibrary.length === 0) {
+    myLibrary.push(new Book("Robinson Crusoe", "Daniel Defoe", 252, true));
+    myLibrary.push(new Book("The Old Man and the Sea", "Ernest Hemingway", 127, false));
+  }
   render();
 });
 
-function populateStorage() {
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+}
+
+/*function populateStorage() {
   if (myLibrary.length == 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
@@ -18,45 +28,45 @@ function populateStorage() {
     myLibrary.push(book2);
     render();
   }
-}
-
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+}*/
+function submit() {
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  const pages = parseInt(document.getElementById("pages").value);
+  const read = document.getElementById("check").checked;
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
-    render();
+if (!title || !author || isNaN(pages) || pages <= 0) {
+    alert("Please fill in all fields correctly.");
+    return;
   }
-}
-
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
+  
+   myLibrary.push(new Book(title, author, pages, read));
+  render();
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
+  const tBody = document.querySelector(".tBody");
+  tBody.innerHTML = "";
+
+  myLibrary.forEach((book, index) => {
+    const row = tBody.insertRow();
+
+    row.insertCell().textContent = book.title;
+    row.insertCell().textContent = book.author;
+    row.insertCell().textContent = book.pages;
+
+    const readCell = row.insertCell();
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = book.read ? "Yes" : "No";
+    toggleBtn.addEventListener("click", () => {
+      book.read = !book.read;
+      render();
+    });
+     readCell.appendChild(toggleBtn);
+
+     /*
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
@@ -100,4 +110,15 @@ function render() {
       render();
     });
   }
+}
+*/
+const deleteCell = row.insertCell();
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+      myLibrary.splice(index, 1);
+      render();
+    });
+    deleteCell.appendChild(deleteBtn);
+  });
 }
