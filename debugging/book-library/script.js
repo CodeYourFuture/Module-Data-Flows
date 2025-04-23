@@ -26,21 +26,30 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
+
+  const titleValue = title.value.trim();
+  const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
+
+  if (titleValue === "" || authorValue === "") {
+    alert("Title and author cannot be empty or just spaces!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
   }
+
+  if (!/^\d+$/.test(pagesValue) || parseInt(pagesValue, 10) <= 0) {
+    alert("Please enter a valid positive number for pages!");
+    return false;
+  }
+
+  let book = new Book(titleValue, authorValue, pagesValue, check.checked);
+  myLibrary.push(book);
+  render();
+
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
+  return false;
 }
 
 function Book(title, author, pages, check) {
@@ -51,48 +60,45 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table rows except header
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  const table = document.getElementById("display");
+  const tbody = table.getElementsByTagName("tbody")[0];
 
-    // read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = myLibrary[i].check ? "Yes" : "No"; // Correct logic
-    changeBut.innerText = readStatus;
+  tbody.innerHTML = "";
 
-    changeBut.addEventListener("click", function () {
+  // Insert updated rows
+  for (let i = 0; i < myLibrary.length; i++) {
+    let row = tbody.insertRow();
+
+    let titleCell = row.insertCell();
+    titleCell.textContent = myLibrary[i].title;
+
+    let authorCell = row.insertCell();
+    authorCell.textContent = myLibrary[i].author;
+
+    let pagesCell = row.insertCell();
+    pagesCell.textContent = myLibrary[i].pages;
+
+    // Read/Unread button cell
+    let wasReadCell = row.insertCell();
+    let readStatusButton = document.createElement("button");
+    readStatusButton.className = "btn btn-success";
+    readStatusButton.innerText = myLibrary[i].check ? "Yes" : "No";
+    readStatusButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+    wasReadCell.appendChild(readStatusButton);
 
-    // delete button
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
+    // Delete button cell
+    let deleteCell = row.insertCell();
+    let deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
+    deleteCell.appendChild(deleteButton);
   }
 }
