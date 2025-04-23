@@ -1,46 +1,36 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Book Library</title>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
-
-  <body class="container mt-4">
-    <h2>Book Library</h2>
-
-    <!-- Form to add a new book -->
-    <div class="mb-4">
-      <div class="form-row">
-        <div class="form-group col-md-3">
-          <input type="text" id="title" class="form-control" placeholder="Title" />
-        </div>
-        <div class="form-group col-md-3">
-          <input type="text" id="author" class="form-control" placeholder="Author" />
-        </div>
-        <div class="form-group col-md-2">
-          <input type="number" id="pages" class="form-control" placeholder="Pages" />
-        </div>
-        <div class="form-group col-md-2 d-flex align-items-center">
-          <input type="checkbox" id="check" class="mr-2" />
-          <label for="check" class="mb-0">Read?</label>
-        </div>
-        <div class="form-group col-md-2">
-          <button onclick="submit()" class="btn btn-primary btn-block">Add</button>
-        </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Library</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>My Book Library</h1>
+    <form id="bookForm">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" required>
       </div>
-    </div>
+      <div class="mb-3">
+        <label for="author" class="form-label">Author</label>
+        <input type="text" class="form-control" id="author" required>
+      </div>
+      <div class="mb-3">
+        <label for="pages" class="form-label">Pages</label>
+        <input type="number" class="form-control" id="pages" required>
+      </div>
+      <div class="mb-3">
+        <label for="check" class="form-check-label">Read?</label>
+        <input type="checkbox" class="form-check-input" id="check">
+      </div>
+      <button type="button" class="btn btn-primary" onclick="submit()">Add Book</button>
+    </form>
 
-    <!-- Book table -->
-    <table id="display" class="table table-bordered">
-      <thead class="thead-dark">
+    <table class="table mt-4">
+      <thead>
         <tr>
           <th>Title</th>
           <th>Author</th>
@@ -49,114 +39,10 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- Rows will be dynamically added here -->
+      <tbody id="display">
+        <!-- Books will be displayed here -->
       </tbody>
     </table>
-
-    <!-- Script Section (unchanged JS from your code) -->
-    <script>
-      let myLibrary = [];
-
-      window.addEventListener("load", function () {
-        populateStorage();
-        render();
-      });
-
-      function populateStorage() {
-        if (myLibrary.length === 0) {
-          let bookList = [
-            new Book("Robison Crusoe", "Daniel Defoe", "252", true),
-            new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true),
-            new Book("The Great Gatsby", "F. Scott Fitzgerald", "180", true),
-            new Book("The Catcher in the Rye", "J.D Salinger", "277", true),
-            new Book("The Alchemist", "Paulo Coelho", "208", true),
-            new Book("Harry Potter", "J.K Rowling", "309", true),
-            new Book("The Lord of the Rings", "J.R.R Tolkien", "1178", true),
-            new Book("The Hobbit", "J.R.R Tolkien", "310", true),
-            new Book("The Three Musketeers", "Alexandre Dumas", "700", true),
-            new Book("The Little Prince", "Antoine de Saint-Exupery", "96", true),
-            new Book("The Psychology of Money", "Morgan Housel", "256", true),
-            new Book("How to Win Friends", "Dale Carnegie", "288", true),
-            new Book("Civilization", "Niall Ferguson", "512", true),
-            new Book("Around the World in 80 Days", "Jules Verne", "240", true),
-            new Book("Animal Farm", "George Orwell", "112", true),
-            new Book("Overthinking", "Ryan Creed", "256", true),
-            new Book("Get on with Anyone", "Katherine Stothart", "256", true),
-            new Book("Critical Thinking", "Jerrell Foreman", "256", true),
-            new Book("Emotional Intelligence", "Hanso", "256", true),
-            new Book("Fahrenheit 451", "Ray Bradbury", "256", true)
-          ];
-          myLibrary.push(...bookList);
-        }
-      }
-
-      function Book(title, author, pages, check) {
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.check = check;
-      }
-
-      function submit() {
-        const titleInput = document.getElementById("title").value;
-        const authorInput = document.getElementById("author").value;
-        const pagesInput = document.getElementById("pages").value;
-        const isRead = document.getElementById("check").checked;
-
-        if (!titleInput || !authorInput || !pagesInput) {
-          alert("Please fill all fields!");
-          return;
-        }
-
-        const newBook = new Book(titleInput, authorInput, pagesInput, isRead);
-        myLibrary.push(newBook);
-
-        // Clear form inputs
-        document.getElementById("title").value = "";
-        document.getElementById("author").value = "";
-        document.getElementById("pages").value = "";
-        document.getElementById("check").checked = false;
-
-        render();
-      }
-
-      function render() {
-        const table = document.getElementById("display").getElementsByTagName("tbody")[0];
-        table.innerHTML = ""; // Clear table body
-
-        myLibrary.forEach((book, index) => {
-          let row = table.insertRow();
-
-          row.insertCell(0).textContent = book.title;
-          row.insertCell(1).textContent = book.author;
-          row.insertCell(2).textContent = book.pages;
-
-          // Read toggle button
-          let readCell = row.insertCell(3);
-          let readBtn = document.createElement("button");
-          readBtn.className = "btn btn-sm " + (book.check ? "btn-success" : "btn-secondary");
-          readBtn.textContent = book.check ? "Yes" : "No";
-          readBtn.onclick = () => {
-            myLibrary[index].check = !myLibrary[index].check;
-            render();
-          };
-          readCell.appendChild(readBtn);
-
-          // Delete button
-          let deleteCell = row.insertCell(4);
-          let delBtn = document.createElement("button");
-          delBtn.className = "btn btn-sm btn-danger";
-          delBtn.textContent = "Delete";
-          delBtn.onclick = () => {
-            if (confirm(`Delete "${book.title}"?`)) {
-              myLibrary.splice(index, 1);
-              render();
-            }
-          };
-          deleteCell.appendChild(delBtn);
-        });
-      }
-    </script>
-  </body>
+  </div>
+</body>
 </html>
