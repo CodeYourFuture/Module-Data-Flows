@@ -2,11 +2,7 @@
 <html>
   <head>
     <title>Book Library</title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -17,78 +13,48 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
-  <body>
-    <div class="jumbotron text-center">
-      <h1>Library</h1>
-      <p>Add books to your virtual library</p>
-    </div>
+  <body class="container mt-4">
+    <h2>Book Library</h2>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
-      Add new book
-    </button>
-
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
+    <!-- Form to add a new book -->
+    <div class="mb-4">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <input type="text" id="title" class="form-control" placeholder="Title" />
+        </div>
+        <div class="form-group col-md-3">
+          <input type="text" id="author" class="form-control" placeholder="Author" />
+        </div>
+        <div class="form-group col-md-2">
+          <input type="number" id="pages" class="form-control" placeholder="Pages" />
+        </div>
+        <div class="form-group col-md-2 d-flex align-items-center">
+          <input type="checkbox" id="check" class="mr-2" />
+          <label for="check" class="mb-0">Read?</label>
+        </div>
+        <div class="form-group col-md-2">
+          <button onclick="submit()" class="btn btn-primary btn-block">Add</button>
+        </div>
       </div>
     </div>
 
-    <table class="table" id="display">
+    <!-- Book table -->
+    <table id="display" class="table table-bordered">
       <thead class="thead-dark">
         <tr>
           <th>Title</th>
           <th>Author</th>
-          <th>Number of Pages</th>
+          <th>Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <!-- Rows will be dynamically added here -->
       </tbody>
     </table>
+
+    <!-- Script Section (unchanged JS from your code) -->
+ 
   </body>
 </html>
