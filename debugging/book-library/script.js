@@ -1,4 +1,4 @@
-  <script>
+
   let myLibrary = [];
 
   // Move constructor function to the top
@@ -43,4 +43,4 @@
   }
 
   // ... rest of the code (submit(), render()) remains unchanged ...
-</script>
+
