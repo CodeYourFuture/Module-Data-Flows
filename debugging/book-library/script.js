@@ -30,6 +30,12 @@ if (!title || !author || isNaN(pages) || pages <= 0) {
   render();
 }
 
+document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("pages").value = "";
+  document.getElementById("check").checked = false;
+
+
 function render() {
   const tBody = document.querySelector(".tBody");
   tBody.innerHTML = "";
