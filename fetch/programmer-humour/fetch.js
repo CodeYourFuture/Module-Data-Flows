@@ -1,5 +1,5 @@
 "use strict";
-const img = document.querySelector("img");
+const imgElem = document.querySelector("img");
 const errorMessage = document.querySelector("#errorMessage");
 
 const fetchData = async () => {
@@ -13,5 +13,5 @@ const fetchData = async () => {
   }
 };
 fetchData().then((data) => {
-  img.setAttribute("src", data.img);
+  imgElem.setAttribute("src", data.img);
 });

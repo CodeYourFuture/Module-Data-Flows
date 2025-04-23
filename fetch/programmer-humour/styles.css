@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-img {
+#funnyPicture {
   margin: auto;
   margin-top: 30vh;
 }
