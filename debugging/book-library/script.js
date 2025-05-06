@@ -1,6 +1,6 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
   render();
 });
@@ -29,16 +29,23 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" || // Check for empty or whitespace-only title
+    author.value.trim() === "" || // Check for empty or whitespace-only author
+    pages.value.trim() === "" // Check for empty pages
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    // Validate the "pages" input (must be a positive integer)
+    if (isNaN(pages.value) || pages.value <= 0 || !Number.isInteger(Number(pages.value))) {
+      alert("Please enter a valid number of pages (positive integer).");
+      return false;
+    }
+
+    //pass author value correctly
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    //Replace library.push(book) with myLibrary.push(book)
+    myLibrary.push(book);
     render();
   }
 }
@@ -52,15 +59,16 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
+  let tbody = table.getElementsByTagName("tbody")[0];  // Get the existing <tbody> element
+
+  // Clear all rows in the tbody (except the header row)
+  tbody.innerHTML = "";  // Clears all rows (including the initial empty one)
+  
+  
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -71,30 +79,25 @@ function render() {
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+    let toggleReadButton = document.createElement("button");
+    //changeBut.id = i; No need to assign an ID here
+    toggleReadButton.className = "btn btn-success";
+    wasReadCell.appendChild(toggleReadButton);
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
+    toggleReadButton.innerText = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    toggleReadButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    let deleteButton = document.createElement("button");
+    //delButton.id = i; // Use `i` directly for the delete button's ID
+    deleteCell.appendChild(deleteButton);
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
