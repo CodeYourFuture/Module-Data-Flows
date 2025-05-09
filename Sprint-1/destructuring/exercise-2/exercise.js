@@ -70,3 +70,25 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+
+//Task 1
+
+//function getfirstname(Student) {
+// console.log(Student.firstName);
+//}
+
+//for (const student of hogwarts){
+//  getfirstname(student);
+//}
+
+
+//task2 
+
+ 
+for (const { firstName, lastName, occupation, pet} of hogwarts) {
+  if (occupation === "Teacher" && pet) { 
+    console.log(`${firstName} ${lastName} ${pet}.`);
+  }
+}
