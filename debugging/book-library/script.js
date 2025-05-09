@@ -36,9 +36,13 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
+  } else if (isNaN(pages.value) || parseInt(pages.value) < 0) {
+    // Check if pages is a non-negative number
+    alert("Please enter a valid non-negative number for pages.");
+    return false; // Prevent adding book if it is negative or not a number
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked); //passing value tittle
+    myLibrary.push(book);
     render();
   }
 }
@@ -54,7 +58,7 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n--) { // syntax error missing )
     table.deleteRow(n);
   }
   //insert updated row and cells
@@ -77,9 +81,13 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+      changeBut.classList.add("btn-danger");
+      changeBut.classList.remove("btn-success");
+    } else {
+      readStatus = "Yes";
+      changeBut.classList.add("btn-success");
+      changeBut.classList.remove("btn-danger");
     }
     changeBut.innerText = readStatus;
 
@@ -88,13 +96,15 @@ function render() {
       render();
     });
 
+
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
+    let delBut = document.createElement("button"); // error type delButton
     delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {
+      //syntax error Clicks
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
