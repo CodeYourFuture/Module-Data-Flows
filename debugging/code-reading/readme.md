@@ -17,6 +17,8 @@ Take a look at the following code:
 
 Explain why line 5 and line 8 output different numbers.
 
+The variable at line 5 is global, so it returns 1, while the variable at line 8 is local to the function. Thus, when the function is called, it logs the x variable from its scope.
+
 ## Question 2
 
 Take a look at the following code:
@@ -34,6 +36,8 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+The output will be 10 and undefined, as the y variable is scoped within the function and can't be accessed globally.
 
 ## Question 3
 
@@ -62,3 +66,5 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+The output will be 9 and {x: 10} because of the different ways the variables are passed. In f1, x is passed by value, so the function doesn't alter its original value. In f2, y is passed by reference, so changes within the function modify the original value of y.
