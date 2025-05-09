@@ -70,3 +70,29 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task-1 
+
+function gryffindorChecker(hogwarts) {
+
+  const result = hogwarts.filter(({house}) => house === "Gryffindor") // filters out each member of hose Gryffindor
+
+  .map(({firstName, lastName}) => `${firstName} ${lastName}` ) // Extracts the first and last names of each member
+
+  return result.map(i=> console.log(i)) // prints out each member
+}
+
+
+// Task 2
+
+function petChecker(hogwarts){
+  const result = hogwarts.filter(({pet, occupation}) => (pet !== null && occupation === "Teacher")) // filters out each teacher having a pet
+  
+  .map(({firstName, lastName}) => `${firstName} ${lastName}`) // Extracts the first and last names of each member
+
+  return result.map(i=> console.log(i)) // prints out each member
+}
+
+
+
+
