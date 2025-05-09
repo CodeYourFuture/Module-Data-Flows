@@ -1,19 +1,88 @@
+
+
+
+
+
+body {
+  padding: 20px;
+}
+
+.jumbotron {
+  margin-bottom: 30px;
+}
+
 .form-group {
-  width: 400px;
-  height: 300px;
-  align-self: left;
-  padding-left: 20px;
+  max-width: 500px;
+  padding: 20px;
+  margin: 20px auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="title"],
+.form-group input[type="author"],
+.form-group input[type="number"] {
+  margin-bottom: 10px;
+}
+
+/* Fix form check spacing */
+.form-check-label {
+  padding-left: 5px;
+  margin: 10px 0;
 }
 
 .btn {
   display: block;
-}
-
-.form-check-label {
-  padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin-top: 15px;
 }
 
 button.btn-info {
-  margin: 20px;
+  margin: 20px auto;
 }
+
+table {
+  width: 95%;
+  margin: 30px auto;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table .btn {
+  margin: 0 auto;
+  display: inline-block;
+}
+
+@media (max-width: 576px) {
+  .form-group {
+    width: 90%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
