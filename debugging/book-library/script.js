@@ -24,7 +24,9 @@ function submit() {
   if (
     title.value.trim() === "" ||
     author.value.trim() === "" ||
-    pages.value.trim() === ""
+    pages.value.trim() === "" ||
+    isNaN(pages.value.trim()) ||
+    Number(pages.value.trim()) <= 0
   ) {
     alert("Please fill all fields!");
     return false;
