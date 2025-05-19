@@ -24,9 +24,7 @@ function submit() {
   if (
     title.value.trim() === "" ||
     author.value.trim() === "" ||
-    pages.value.trim() === "" ||
-    isNaN(pages.value.trim()) ||
-    Number(pages.value.trim()) <= 0
+    pages.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -45,28 +43,29 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const table = document.getElementById("display");
+  const oldTbody = table.querySelector("tbody");
 
-  
- while (table.rows.length > 1) {
-  table.deleteRow(1);
-}
+  if (oldTbody) {
+    table.removeChild(oldTbody);
+  }
 
+  const newTbody = document.createElement("tbody");
 
   for (let i = 0; i < myLibrary.length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = document.createElement("tr");
 
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    const titleCell = document.createElement("td");
+    titleCell.textContent = myLibrary[i].title;
 
-    let changeBut = document.createElement("button");
+    const authorCell = document.createElement("td");
+    authorCell.textContent = myLibrary[i].author;
+
+    const pagesCell = document.createElement("td");
+    pagesCell.textContent = myLibrary[i].pages;
+
+    const wasReadCell = document.createElement("td");
+    const changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     changeBut.innerText = myLibrary[i].check ? "Yes" : "No";
@@ -76,15 +75,27 @@ function render() {
     });
     wasReadCell.appendChild(changeBut);
 
-    let delBut = document.createElement("button");
+    const deleteCell = document.createElement("td");
+    const delBut = document.createElement("button");
     delBut.id = i + 5;
     delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
+    delBut.innerText = "Delete";
     delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
     deleteCell.appendChild(delBut);
+
+    row.appendChild(titleCell);
+    row.appendChild(authorCell);
+    row.appendChild(pagesCell);
+    row.appendChild(wasReadCell);
+    row.appendChild(deleteCell);
+
+    newTbody.appendChild(row);
   }
+
+  table.appendChild(newTbody);
 }
+
