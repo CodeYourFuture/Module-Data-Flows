@@ -47,9 +47,10 @@ function render() {
   let rowsNumber = table.rows.length;
 
   
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+ while (table.rows.length > 1) {
+  table.deleteRow(1);
+}
+
 
   for (let i = 0; i < myLibrary.length; i++) {
     let row = table.insertRow(1);
