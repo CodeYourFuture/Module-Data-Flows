@@ -50,7 +50,7 @@ function submit() {
     author.value.trim() === "" ||
     pages.value.trim() === ""
   ) {
-    message.innerText = "❗ Please fill all fields.";
+    message.innerText = " Please fill all fields.";
     return;
   }
 
@@ -58,7 +58,7 @@ function submit() {
     (book) => book.title.toLowerCase() === title.value.trim().toLowerCase()
   );
   if (duplicate) {
-    message.innerText = "⚠️ A book with this title already exists.";
+    message.innerText = " A book with this title already exists.";
     return;
   }
 
