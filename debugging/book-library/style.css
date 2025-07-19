@@ -1,4 +1,3 @@
-
 body {
   background-color: #f8f9fa;
   font-family: 'Segoe UI', sans-serif;
@@ -13,6 +12,7 @@ body {
 #addBookForm {
   border: 1px solid #dee2e6;
   border-radius: 8px;
+  background-color: #ffffff;
 }
 
 input[type="text"],
@@ -31,6 +31,10 @@ table td {
   vertical-align: middle;
 }
 
-#search {
-  margin-bottom: 20px;
+.btn-success {
+  background-color: #218838 !important; 
+}
+
+.btn-info {
+  background-color: #117a8b !important; 
 }
