@@ -70,3 +70,12 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function fullName (personalInfoList) {
+  for( let i of personalInfoList){
+    let {firstName , lastName} = i
+    console.log(`${firstName} ${lastName}`)
+  }
+}
+
+fullName(hogwarts)
