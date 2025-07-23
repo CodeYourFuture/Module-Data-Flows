@@ -49,13 +49,21 @@ function render() {
   const oldTbody = table.querySelector("tbody");
   if (oldTbody) {
     table.removeChild(oldTbody);
+  }
 
     const newTbody = document.createElement("tbody");
     myLibrary.forEach((book, index) => {
       const row = document.createElement("tr");
+
       const titleCell = document.createElement("td");
+      titleCell.textContent = book.title;
+
       const authorCell = document.createElement("td");
+      authorCell.textContent = book.author;
+
       const pagesCell = document.createElement("td");
+      pagesCell.textContent = book.pages;
+
       const readCell = document.createElement("td");
       const toggleBtn = document.createElement("button");
       toggleBtn.className = "btn btn-success";
@@ -77,11 +85,11 @@ function render() {
       });
       actionCell.appendChild(deleteBtn);
 
-      row.appendChild(actionCell);
       row.appendChild(titleCell);
       row.appendChild(authorCell);
       row.appendChild(pagesCell);
       row.appendChild(readCell);
+      row.appendChild(actionCell);
 
       newTbody.appendChild(row);
     });
