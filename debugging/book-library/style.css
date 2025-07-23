@@ -1,19 +1,43 @@
 .form-group {
-  width: 400px;
-  height: 300px;
-  align-self: left;
-  padding-left: 20px;
+  max-width: 400px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 .btn {
   display: block;
-}
-
-.form-check-label {
-  padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  width: 100%;
+  margin-top: 10px;
 }
 
 button.btn-info {
-  margin: 20px;
+  margin: 20px auto;
+  width: auto;
+  display: inline-block;
+}
+
+.form-check-label {
+  padding-left: 8px;
+  margin: 8px 0;
+}
+
+table {
+  margin-top: 30px;
+}
+
+.btn-success {
+  width: 70px;
+}
+
+.btn-warning {
+  width: 100px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
 }
