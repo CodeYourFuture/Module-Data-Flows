@@ -6,3 +6,12 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+let sum
+function receipt (order){
+  for({itemName,quantity,unitPricePence} of order) {
+    order.reduce((acc,curr)=> acc +curr,0)
+    console.log(`QTY ${quantity}  ITEM ${itemName} TOTAL ${unitPricePence}`)
+
+  }
+}
+receipt(order)
