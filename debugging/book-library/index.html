@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
     <meta
       charset="utf-8"
       name="viewport"
       content="width=device-width, initial-scale=1.0"
+    />
+    <title>Chi's Book Library</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/favicon.ico"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,7 +18,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -22,16 +26,17 @@
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
     </div>
-
+    
+  <div class="container">
     <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
       Add new book
     </button>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
+    <div id="formContainer" class="collapse">
+      <form id="bookForm" class="form-group">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +44,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -53,41 +58,37 @@
           name="pages"
           required
         />
-        <label class="form-check-label">
+        <div class="form-check-mt-2">
           <input
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
-          />Read
-        </label>
-        <input
+            name="read"
+          />
+        <label class="form-check-label" for="check">Read</label>
+        </div>
+        <button
           type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
+          class="btn btn-primary mt-3"
+          id="submitBook"
+        >
+          Submit
+        </button>
+      </form> 
       </div>
-    </div>
 
-    <table class="table" id="display">
+    <table class="table mt-4" id="display">
       <thead class="thead-dark">
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>Number of Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <!-- Book entries will be dynamically added here -->
       </tbody>
     </table>
 
