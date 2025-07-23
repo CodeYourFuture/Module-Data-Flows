@@ -8,7 +8,7 @@ let order = [
 ];
 function receipt(order) {
   let sum = 0;
-  console.log("QTY     ITEM                TOTAL"); //Prints a header for the table
+  console.log("QTY   ITEM                TOTAL"); //Prints a header for the table
   for (let { itemName, quantity, unitPricePence } of order) {
     let lineTotal = (quantity * unitPricePence) / 100;//Converts pence to pounds 
     sum += lineTotal; //keeps a running total of all order cost.
