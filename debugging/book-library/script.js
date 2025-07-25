@@ -76,15 +76,12 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
-    changeBut.id = i;
+    changeBut.id = "read-" + i;
     changeBut.className = "btn btn-success";
+    changeBut.innerText = myLibrary[i].check ? "Yes" : "No";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    
+   
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
