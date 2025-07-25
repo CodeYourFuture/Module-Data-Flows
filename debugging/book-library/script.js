@@ -59,14 +59,15 @@ function render() {
    table.deleteRow(n);
   }
   //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+  
+  for (let i = 0; i < myLibrary.length; i++) {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
+    
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
