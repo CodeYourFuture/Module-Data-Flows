@@ -31,8 +31,10 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    pages.value == null || 
+    pages.value == "" || 
+    author.value == null || 
+    author.value == "" 
   ) {
     alert("Please fill all fields!");
     return false;
@@ -53,8 +55,10 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
+  console.log(myLibrary)
+
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
@@ -76,7 +80,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check == true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
@@ -91,7 +95,7 @@ function render() {
     //add delete button to every row and render again
     let delButton = document.createElement("button");
     delButton.id = i + 5;
-    deleteCell.appendChild(delBut);
+    deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
     delButton.addEventListener("click", function () {
