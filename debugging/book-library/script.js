@@ -52,11 +52,11 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  console.log(myLibrary)
+  
 
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+ for (let n = rowsNumber - 1; n > 0; n--) {
+   table.deleteRow(n);
   }
   //insert updated row and cells
   let length = myLibrary.length;
