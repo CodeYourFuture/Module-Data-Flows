@@ -70,3 +70,22 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+const isGryffindor = (person) => person.house ==="Gryffindor"
+
+const finalNames = hogwarts.filter(isGryffindor)
+
+finalNames.forEach(({firstName,lastName})=> {
+  console.log(`${firstName} ${lastName}`)
+})
+
+console.log("******************************")
+
+const isTeacher =(job) => job.occupation ==='Teacher'
+finalOccupation = hogwarts.filter(isTeacher)
+
+finalOccupation.forEach(({pet,firstName}) => {
+  if (pet!== null){
+      console.log(`${firstName} ${pet}`)
+  }
+})
