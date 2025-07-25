@@ -67,7 +67,7 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    
+
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
@@ -80,7 +80,7 @@ function render() {
     wasReadCell.appendChild(changeBut);
     
    
-    changeBut.innerText = readStatus;
+    
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
@@ -89,10 +89,11 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
+    delButton.id = "delete-" + i;
     delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
+    delButton.innerText = "Delete";
+    deleteCell.appendChild(delButton);
+
     delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
