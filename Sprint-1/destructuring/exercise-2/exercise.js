@@ -75,6 +75,17 @@ const GryffindorHouse = hogwarts
   .filter(({ house }) => house === "Gryffindor")
   .map(function ({ firstName, lastName }) {
     return `${firstName} ${lastName}`;
-  }).join('\n');
+  }).join("\n");
 
 console.log(GryffindorHouse);
+
+const hogwartsTeachers = hogwarts
+  .filter(({ occupation, pet }) => occupation === "Teacher"  && pet)
+  .map(function ({ firstName, lastName, pet }) {
+    if (pet) {
+      return `${firstName} ${lastName}`;
+    }
+  })
+  .join("\n");
+
+console.log(hogwartsTeachers);
