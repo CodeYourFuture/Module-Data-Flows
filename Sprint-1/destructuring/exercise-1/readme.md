@@ -30,4 +30,9 @@ console.log(`Batman is ${firstName}, ${lastName}`);
 # Exercise
 
 - What is the syntax to destructure the object `personOne` in exercise.js?
+
+The syntax to destructure the object personOne is by using curly braces to extract specific properties by their key names. For example:
+const { name, age, favouriteFood } = personOne;
+This creates three variables — name, age, and favouriteFood — with the values from the object.
+
 - Update the parameter of the function `introduceYourself` to use destructuring on the object that gets passed in.
