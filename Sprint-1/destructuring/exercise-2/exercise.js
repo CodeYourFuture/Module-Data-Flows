@@ -95,4 +95,5 @@ function teachersWhoHasPets(hogwarts) {
 
 
 priintGryffindors(hogwarts);
+
 teachersWhoHasPets(hogwarts);

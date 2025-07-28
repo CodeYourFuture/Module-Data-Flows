@@ -27,4 +27,5 @@ function printoutOrder(order){
   console.log('-----------------------------------');
   console.log('Thank you for your order!');
 }
+
 printoutOrder(order);
