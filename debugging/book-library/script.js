@@ -1,6 +1,6 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
   render();
 });
@@ -12,8 +12,7 @@ function populateStorage() {
       "The Old Man and the Sea",
       "Ernest Hemingway",
       "127",
-      true
-    );
+      true);
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
@@ -58,17 +57,17 @@ function render() {
     table.deleteRow(n);
   }
   //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+
+  myLibrary.forEach((book, i) => {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.innerText = book.title;
+    authorCell.innerText = book.author;
+    pagesCell.innerText = book.pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
@@ -99,5 +98,5 @@ function render() {
       myLibrary.splice(i, 1);
       render();
     });
-  }
+  });
 }
