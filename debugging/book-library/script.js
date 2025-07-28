@@ -51,14 +51,14 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+  while(table.rows.length > 1) {
+    table.deleteRow(1);
   }
+  
+  //delete old table
+  for (let i = 0; i < myLibrary.length; i++) {
+    const book = myLibrary[i];
   //insert updated row and cells
-
-  myLibrary.forEach((book, i) => {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
@@ -91,5 +91,5 @@ function render() {
       render();
     });
     deleteCell.appendChild(delBut);
-  });
+  }
 }
