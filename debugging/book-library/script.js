@@ -40,6 +40,10 @@ submitBtn.addEventListener("click", function(e) {
   e.preventDefault(); 
   submit();
   render();
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
 });
 
 function Book(title, author, pages, check) {
