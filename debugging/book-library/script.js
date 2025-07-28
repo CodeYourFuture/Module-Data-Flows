@@ -1,4 +1,4 @@
-let myLibrary = [];
+const myLibrary = [];
 
 window.addEventListener("load", function () {
   populateStorage();
@@ -6,7 +6,7 @@ window.addEventListener("load", function () {
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
+  if (myLibrary.length === 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -30,9 +30,9 @@ function submit() {
   if (
     title.value.trim() === "" ||
     author.value.trim() === "" ||
-    pages.value.trim() === "" ||
+    pages.value.trim() === "" 
   
-  ) {
+   ) {
     alert("Please fill all fields!");
     return false;
   } else {
@@ -88,5 +88,6 @@ function render() {
       myLibrary.splice(i, 1);
       render();
     });
+    deleteCell.appendChild(delBut);
   });
 }
