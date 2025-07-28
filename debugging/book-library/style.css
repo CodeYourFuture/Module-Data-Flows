@@ -1,19 +1,25 @@
 .form-group {
-  width: 100%;
   max-width: 400px;
-  padding-left: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
 }
 
-.form-group .btn {
-  display: block;
-  margin-top: 10px;
+.btn {
+  margin: 10px 0;
 }
 
 .form-check-label {
-  padding-left: 20px;
-  margin: 5px 0;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
 }
 
 button.btn-info {
-  margin: 20px;
+  margin: 20px auto;
+  display: block;
 }
