@@ -23,19 +23,24 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" ||
+    author.value.trim() === "" ||
+    pages.value === ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
-    library.push(book);
+    myLibrary.push(book);
   
   }
 }
+const submitBtn = document.getElementById("submit");
+submitBtn.addEventListener("click", function(e) {
+  e.preventDefault(); 
+  submit();
+  render();
+});
 
 function Book(title, author, pages, check) {
   this.title = title;
