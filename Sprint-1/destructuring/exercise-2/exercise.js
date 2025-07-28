@@ -70,3 +70,20 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Common function
+function createName({firstName, lastName}) {
+  console.log(`${firstName} ${lastName}`)
+}
+
+// Task 1
+console.log('### Task 1 ###')
+
+const isGryffindor = hogwarts.filter(({house}) => house === "Gryffindor").map(createName)
+
+console.log('')
+
+// Task 2
+console.log('### Task 2 ###')
+
+const teacherWithPet = hogwarts.filter(({pet, occupation}) => pet !== null && occupation === "Teacher").map(createName)
