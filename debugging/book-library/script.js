@@ -1,4 +1,4 @@
-const myLibrary = [];
+const myLibrary = JSON.parse(localStorage.getItem("library")) || [];
 
 window.addEventListener("load", function () {
   populateStorage();
@@ -15,7 +15,7 @@ function populateStorage() {
       true);
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
+    localStorage.setItem("library", JSON.stringify(myLibrary));
   }
 }
 
@@ -38,6 +38,7 @@ function submit() {
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
+    localStorage.setItem("library", JSON.stringify(myLibrary));
     render();
   }
 }
@@ -75,6 +76,7 @@ function render() {
     changeBut.innerText = book.check ? "Yes" : "No";
     changeBut.addEventListener("click", function () {
     myLibrary[i].check = !myLibrary[i].check;
+    localStorage.setItem("library", JSON.stringify(myLibrary));
       render();
     });
     wasReadCell.appendChild(changeBut);
@@ -86,6 +88,7 @@ function render() {
     delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
+      localStorage.setItem("library", JSON.stringify(myLibrary));
       render();
     });
     deleteCell.appendChild(delBut);
