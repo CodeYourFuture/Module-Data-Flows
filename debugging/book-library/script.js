@@ -7,7 +7,7 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true); // Correcting the book's name to Robinson instead of Robison
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -16,7 +16,7 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
+   // removing render() here as it is already called in line 5
   }
 }
 
@@ -31,14 +31,16 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    author.value == null || // adding author to the validation
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);  // Correcting the repetition of title.value and replacing it with author.value
+    myLibrary.push(book);  // Correcting with the right function name
     render();
   }
 }
@@ -54,7 +56,7 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n--) {  // Adding a missing parenthesis
     table.deleteRow(n);
   }
   //insert updated row and cells
@@ -73,10 +75,17 @@ function render() {
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
+
+    // Adding option of btn-danger if status is not read
+    if (myLibrary[i].check === true) {
     changeBut.className = "btn btn-success";
+    } else {
+  changeBut.className = "btn btn-danger";
+}
+
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check === true) { // Changing the condition from false to true to validate the condition yes and using === instead of == to check for value and type
       readStatus = "Yes";
     } else {
       readStatus = "No";
@@ -89,12 +98,12 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
+    let delBut = document.createElement("button");  // Correcting the function name from delButton to delBut to match following code
     delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {  // correcting using the correct term: click instead of clicks
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
