@@ -1,95 +1,64 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>"Sara's-Library" </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sara's Library</title>
 
-  <body>
-    <div class="jumbotron text-center">
-      <h1>Sara's Library</h1>
-      <p>Lets add my Favorite books to the virtual library</p>
-    </div>
+  <!-- JS dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
-      Add new book
-    </button>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  />
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>Sara's Library</h1>
+    <p>Let's add my favorite books to the virtual library</p>
+  </div>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit" 
-          id="submit-btn"
-           value="Submit" 
-           class="btn btn-primary" 
-        />
+  <button data-toggle="collapse" data-target="#demo" class="btn btn-info mb-3" type="button">
+    Add new book
+  </button>
+
+  <div id="demo" class="collapse">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" required />
+
+      <label for="author" class="mt-2">Author:</label>
+      <input type="text" class="form-control" id="author" name="author" required />
+
+      <label for="pages" class="mt-2">Pages:</label>
+      <input type="number" class="form-control" id="pages" name="pages" min="1" required />
+
+      <div class="form-check mt-2">
+        <input type="checkbox" class="form-check-input" id="check" />
+        <label class="form-check-label" for="check">Read</label>
       </div>
+
+      <input type="submit" id="submit-btn" value="Submit" class="btn btn-primary mt-3" />
     </div>
+  </div>
 
-    <table class="table" id="display">
-      <thead class="thead-dark">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Number of Pages</th>
-          <th>Read</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="tablebody">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tbody>
-    </table>
+  <table class="table" id="display">
+    <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Number of Pages</th>
+        <th>Read</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="tablebody"></tbody>
+  </table>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
-
