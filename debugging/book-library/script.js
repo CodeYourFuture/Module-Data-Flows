@@ -35,10 +35,9 @@ document.getElementById("submit-btn").addEventListener("click", function (event)
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" ||
+    author.value.trim() === "" ||  //adding a check for author input field as well. using trim() to ensure proper input is entered.
+    pages.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -65,51 +64,46 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--){
+
+  // Delete old rows except the header
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+
+  // Use forEach for safe indexing and event handling
+  myLibrary.forEach((book, index) => {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
+    titleCell.innerHTML = book.title;
+    authorCell.innerHTML = book.author;
+    pagesCell.innerHTML = book.pages;
+
+    // Read toggle button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
     changeButton.className = "btn btn-success";
+    changeButton.innerText = book.check ? "Yes" : "No";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";  //Replaced yes and No to correct logic.
-    } else {
-      readStatus = "Yes";
-    }
-    changeButton.innerText = readStatus;
 
-    changeButton.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    changeButton.addEventListener("click", () => {
+      myLibrary[index].check = !myLibrary[index].check;
       render();
     });
 
-    //add delete button to every row and render again
+    // Delete button
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+    deleteCell.appendChild(delButton);
+
+    delButton.addEventListener("click", () => {
+      alert(`You've deleted title: ${book.title}`);
+      myLibrary.splice(index, 1);
       render();
     });
-  }
+  });
 }
