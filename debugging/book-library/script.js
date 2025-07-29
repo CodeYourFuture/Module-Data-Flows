@@ -63,13 +63,16 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let tableBody = document.getElementById("tablebody");
-tableBody.innerHTML = ""; // clear all rows
-
+  let table = document.getElementById("display");
+  let rowsNumber = table.rows.length;
+  //delete old table
+  for (let n = rowsNumber - 1; n > 0; n--){
+    table.deleteRow(n);
+  }
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = tableBody.insertRow(1);
+    let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
