@@ -14,8 +14,12 @@ function populateStorage() {
       "127",
       true
     );
+    let book3 = new Book("Pride and Prejudice","Jane Austen","147", false);
+    let book4 = new Book("Rich dad Poor dad"," Robert Kiyosaki", "336", true);
     myLibrary.push(book1);
     myLibrary.push(book2);
+    myLibrary.push(book3);
+    myLibrary.push(book4)
     render();
   }
 }
@@ -38,8 +42,12 @@ function submit() {
     return false;
   } else {
     let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    myLibrary.push(book);
     render();
+    title.value ="";
+    author.value = "";
+    pages.value = "";
+    check.checked = false
   }
 }
 
@@ -48,13 +56,14 @@ function Book(title, author, pages, check) {
   this.author = author;
   this.pages = pages;
   this.check = check;
+  
 }
 
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
@@ -76,7 +85,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check == true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
@@ -89,15 +98,16 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
+    let delBut = document.createElement("button");
     delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
   }
 }
+
