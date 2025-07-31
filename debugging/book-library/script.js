@@ -9,7 +9,6 @@ function populateStorage() {
   if (myLibrary.length == 0) {
     const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
     const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
-
     myLibrary.push(book1);
     myLibrary.push(book2);
     //render();                                                                                   // Already called in 'load' event
@@ -41,6 +40,7 @@ if (
   alert(`Title and Author must each be at least ${minLength} characters long and contain only letters.`); 
   return;
 }
+
   if (
     title.value == null ||                                                                        // Clear form fields after successful submission
     title.value == "" ||
@@ -96,10 +96,8 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-
     readStatus = myLibrary[i].check ? "Yes" : "No";                                               // Correct read status logic for not read
     changeBut.innerText = readStatus;
-
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();

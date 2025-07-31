@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Book Library</title>                                                                 <!--set page title-->
   <meta charset="utf-8" />                                                                    <!--correct character encoding-->
@@ -11,18 +10,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-
 <body>
   <div class="jumbotron text-center">
     <h1>My Library</h1>                                                                       <!--improve header text-->
     <p>Add books to your virtual library</p>
   </div>
-
   <button data-toggle="collapse" data-target="#add-books" class="btn btn-info">
     Add new book
   </button>
-
-
   <div id="add-books" class="collapse">                                                       <!--use more descriptive ID for the collapse element-->
     <form id="book-form">                                                                     <!--form element for better semantics-->
       <div class="form-group">
@@ -36,12 +31,10 @@
           <input type="checkbox" class="form-check-input" id="check" />
           <label class="form-check-label" for="check">Read</label>
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>                         <!--remove onclick attribute for better form handling-->
       </div>
     </form>
   </div>
-
   <table class="table" id="display">
     <thead class="thead-dark">
       <tr>
@@ -55,8 +48,6 @@
     <!-- for rendered rows -->
     </tbody>
   </table>
-
   <script src="script.js"></script>
 </body>
-
 </html>
