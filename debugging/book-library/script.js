@@ -7,7 +7,7 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -16,10 +16,10 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
   }
 }
 
+const form = document.getElementById("book-form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
@@ -27,12 +27,12 @@ const check = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function submit() {
+function submitNewBook() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value === null ||
+    title.value === "" ||
+    pages.value === null ||
+    pages.value === ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -40,13 +40,19 @@ function submit() {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
+    form.reset();
   }
 }
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  submitNewBook();
+});
 
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.pages = Number(pages);
   this.check = check;
 }
 
@@ -66,8 +72,8 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
@@ -76,7 +82,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == true) {
+    if (myLibrary[i].check === true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
