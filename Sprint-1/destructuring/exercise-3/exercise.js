@@ -6,3 +6,8 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+ function printReceipt({itemName, quantity, unitPricePence}){
+  const totalPrice= quantity * unitPricePence;
+  console.log(`${itemName} ${quantity} ${unitPricePence}`);
+ }
+ order.forEach(printReceipt);
