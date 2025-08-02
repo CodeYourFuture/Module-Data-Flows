@@ -13,8 +13,8 @@ function receipt(order) {
     let lineTotal = (quantity * unitPricePence) / 100;//Converts pence to pounds 
     sum += lineTotal; //keeps a running total of all order cost.
 
-    console.log(
-      `${quantity.toString().padEnd(6)}${itemName.padEnd(22)}${lineTotal.toFixed(2)}`//.padEnd(n) adds spaces to the end of a string until it reaches n characters long
+  console.log(
+    `${quantity.toString().padEnd(6)}${itemName.padEnd(22)}${lineTotal.toFixed(2)}`//.padEnd(n) adds spaces to the end of a string until it reaches n characters long
     );
   }
 
