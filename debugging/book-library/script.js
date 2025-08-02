@@ -19,16 +19,21 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  if (!title.value || !author.value || !pages.value) {
-    alert("Please fill all fields!");
+  const titleValue = title.value.trim();
+  const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
+
+  if (!titleValue || !authorValue || !pagesValue) {
+    alert("Please fill in all fields before submitting!");
     return false;
   }
 
-  let book = new Book(title.value, author.value, pages.value, check.checked);
+  const book = new Book(titleValue, authorValue, pagesValue, check.checked);
   myLibrary.push(book);
+
   render();
 
-  // Reset form
+  // Clear the form
   title.value = "";
   author.value = "";
   pages.value = "";
