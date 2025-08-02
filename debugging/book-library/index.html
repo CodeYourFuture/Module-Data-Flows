@@ -23,15 +23,25 @@
       <p>Add books to your virtual library</p>
     </div>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
-      Add new book
-    </button>
-    <button class="btn btn-success mt-2" onclick="viewReadBooks()">
-      View Read Books
-    </button>
-    <button class="btn btn-secondary mt-2" onclick="render()">
-  View All Books
-    </button>
+    <div class="container mb-3">
+      <div class="row">
+        <div class="col-md-4">
+          <button data-toggle="collapse" data-target="#demo" class="btn btn-info btn-block">
+            Add New Book
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-success btn-block" onclick="viewReadBooks()">
+            View Read Books
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-secondary btn-block" onclick="render()">
+            View All Books
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div id="demo" class="collapse">
       <div class="form-group">
