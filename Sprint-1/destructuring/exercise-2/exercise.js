@@ -70,3 +70,21 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+console.log("List of persons in Gryffindor:");
+for (person of hogwarts){
+  let {firstName, lastName, house} = person;
+  if (house === "Gryffindor"){
+    console.log(`${firstName} ${lastName}`)
+  }
+}
+console.log("End list \n");
+
+console.log("List of teachers with pets:");
+for (person of hogwarts){
+  let {firstName, lastName, pet, occupation} = person;
+  if (occupation === "Teacher" && pet){
+    console.log(`${firstName} ${lastName}`)
+  }
+}
+console.log("End list \n");
