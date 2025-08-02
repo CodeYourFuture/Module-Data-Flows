@@ -59,6 +59,34 @@ function render() {
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
+
+  function viewReadBooks() {
+  let table = document.getElementById("display");
+  let rowsNumber = table.rows.length;
+
+  // Clear existing rows (except header)
+  for (let n = rowsNumber - 1; n > 0; n--) {
+    table.deleteRow(n);
+  }
+
+  // Filter only read books
+  const readBooks = myLibrary.filter(book => book.check === true);
+
+  for (let i = 0; i < readBooks.length; i++) {
+    let row = table.insertRow(1);
+    let titleCell = row.insertCell(0);
+    let authorCell = row.insertCell(1);
+    let pagesCell = row.insertCell(2);
+    let wasReadCell = row.insertCell(3);
+    let deleteCell = row.insertCell(4);
+
+    titleCell.innerHTML = readBooks[i].title;
+    authorCell.innerHTML = readBooks[i].author;
+    pagesCell.innerHTML = readBooks[i].pages;
+    wasReadCell.innerText = "Yes";
+    deleteCell.innerHTML = "-";
+  }
+}
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
