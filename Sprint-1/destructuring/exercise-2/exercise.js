@@ -70,30 +70,3 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
-
-function priintGryffindors(hogwarts) {
-  for (let i = 0; i < hogwarts.length; i++) {
-    let { firstName, lastName, house, pet, occupation } = hogwarts[i];
-    if (house === "Gryffindor") {
-      console.log(
-        `${firstName} ${lastName}`
-      );
-    }
-  }
-}
-
-function teachersWhoHasPets(hogwarts) {
-  for (let i = 0; i < hogwarts.length; i++) {
-    let { firstName, lastName, house, pet, occupation } = hogwarts[i];
-    if (pet !== null && occupation === "Teacher") {
-      console.log(
-        `${firstName} ${lastName}`
-      );
-    }
-  }
-}
-
-
-priintGryffindors(hogwarts);
-
-teachersWhoHasPets(hogwarts);
