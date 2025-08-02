@@ -48,6 +48,11 @@ function submit() {
   } else {
     render();
   }
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
+  return false;
 }
 
 function Book(title, author, pages, check) {
