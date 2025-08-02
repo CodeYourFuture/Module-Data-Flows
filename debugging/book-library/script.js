@@ -43,6 +43,11 @@ function submit() {
     myLibrary.push(book);
     render();
   }
+  if (check.checked) {
+    viewReadBooks();
+  } else {
+    render();
+  }
 }
 
 function Book(title, author, pages, check) {
