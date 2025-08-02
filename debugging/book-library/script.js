@@ -72,16 +72,12 @@ function render() {
 
   function viewReadBooks() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  clearTable(table);
 
-  // Clear existing rows (except header)
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+  const readBooks = myLibrary.filter(book => book.check === true);
   }
 
   // Filter only read books
-  const readBooks = myLibrary.filter(book => book.check === true);
-
   for (let i = 0; i < readBooks.length; i++) {
     let row = table.insertRow(1);
     row.insertCell(0).innerText = readBooks[i].title;
@@ -89,12 +85,13 @@ function render() {
     row.insertCell(2).innerText = readBooks[i].pages;
     row.insertCell(3).innerText = "Yes";
     row.insertCell(4).innerHTML = "-"; 
-
-    titleCell.innerHTML = readBooks[i].title;
-    authorCell.innerHTML = readBooks[i].author;
-    pagesCell.innerHTML = readBooks[i].pages;
-    wasReadCell.innerText = "Yes";
-    deleteCell.innerHTML = "-";
+  }
+}
+function clearTable(table) {
+  let rowsNumber = table.rows.length;
+  //delete old table
+  for (let n = rowsNumber - 1; n > 0; n--) {
+    table.deleteRow(n);
   }
 }
   //insert updated row and cells
