@@ -74,11 +74,11 @@ function render() {
 
   for (let i = 0; i < readBooks.length; i++) {
     let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    row.insertCell(0).innerText = readBooks[i].title;
+    row.insertCell(1).innerText = readBooks[i].author;
+    row.insertCell(2).innerText = readBooks[i].pages;
+    row.insertCell(3).innerText = "Yes";
+    row.insertCell(4).innerHTML = "-"; 
 
     titleCell.innerHTML = readBooks[i].title;
     authorCell.innerHTML = readBooks[i].author;
