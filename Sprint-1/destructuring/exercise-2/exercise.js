@@ -86,8 +86,7 @@ gryffindorHouse(hogwarts);
 // Task 2
 
 function teacherWithPets(people) {
-  people.forEach(person => {
-    const { firstName, lastName, occupation, pet } = person;
+  people.forEach(({ firstName, lastName, occupation, pet }) => {
     if (occupation === "Teacher" && pet !== null) {
       console.log(`${firstName} ${lastName}`);
     }
