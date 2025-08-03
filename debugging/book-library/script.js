@@ -45,7 +45,7 @@ function submit() {
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.pages = parseInt(pages) || 0;
   this.check = check;
 }
 
