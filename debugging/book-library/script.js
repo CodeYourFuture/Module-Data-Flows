@@ -57,46 +57,38 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const tableBody = document.querySelector("#display tbody");
+  tableBody.innerHTML = "";
   
 
-  //delete old table
- for (let n = rowsNumber - 1; n > 0; n--) {
-   table.deleteRow(n);
-  }
+ 
   //insert updated row and cells
   
   for (let i = 0; i < myLibrary.length; i++) {
-    let row = table.insertRow(1);
+    let row = tableBody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
 
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = "read-" + i;
+    const changeBut = document.createElement("button");
     changeBut.className = "btn btn-success";
     changeBut.innerText = myLibrary[i].check ? "Yes" : "No";
-    wasReadCell.appendChild(changeBut);
-    
-   
-    
-
-    changeBut.addEventListener("click", function () {
+    changeBut.addEventListener("click",  () => {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+    wasReadCell.appendChild(changeBut);
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delButton.id = "delete-" + i;
+    const delButton = document.createElement("button");
+    
     delButton.className = "btn btn-warning";
     delButton.innerText = "Delete";
     deleteCell.appendChild(delButton);
