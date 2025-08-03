@@ -74,8 +74,7 @@ let hogwarts = [
 // Task 1
 
 function gryffindorHouse(people) {
-  people.forEach(person => {
-    const { firstName, lastName, house } = person;
+  people.forEach(({ firstName, lastName, house }) => {
     if (house === "Gryffindor") {
       console.log(`${firstName} ${lastName}`);
     }
