@@ -72,8 +72,7 @@ let hogwarts = [
 ];
 
 console.log("List of persons in Gryffindor:");
-for (person of hogwarts){
-  let {firstName, lastName, house} = person;
+for (const {firstName, lastName, pet, occupation} of hogwarts){
   if (house === "Gryffindor"){
     console.log(`${firstName} ${lastName}`)
   }
@@ -81,8 +80,7 @@ for (person of hogwarts){
 console.log("End list \n");
 
 console.log("List of teachers with pets:");
-for (person of hogwarts){
-  let {firstName, lastName, pet, occupation} = person;
+for (const {firstName, lastName, pet, occupation} of hogwarts){
   if (occupation === "Teacher" && pet){
     console.log(`${firstName} ${lastName}`)
   }
