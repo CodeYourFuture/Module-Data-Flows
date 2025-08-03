@@ -27,6 +27,10 @@ function submit() {
     alert("Please fill in all fields before submitting!");
     return false;
   }
+  if (isNaN(pagesValue) || parseInt(pagesValue) <= 0) {
+    alert("Please enter a valid number of pages!");
+    return false;
+  }
 
   const book = new Book(titleValue, authorValue, pagesValue, check.checked);
   myLibrary.push(book);
