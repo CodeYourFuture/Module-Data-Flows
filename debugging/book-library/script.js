@@ -72,24 +72,24 @@ function render() {
     authorCell.innerText = book.author;
     pagesCell.innerText = book.pages;
 
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.innerText = book.check ? "Yes" : "No";
-    changeBut.onclick = () => {
+    let changeBtn = document.createElement("button");
+    changeBtn.className = "btn btn-success";
+    changeBtn.innerText = book.check ? "Yes" : "No";
+    changeBtn.onclick = () => {
       book.check = !book.check;
       render();
     };
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(changeBtn);
 
-    let delButton = document.createElement("button");
-    delButton.className = "btn btn-warning";
-    delButton.innerText = "Delete";
-    delButton.onclick = () => {
+    let delBtn = document.createElement("button");
+    delBtn.className = "btn btn-warning";
+    delBtn.innerText = "Delete";
+    delBtn.onclick = () => {
       alert(`You've deleted title: ${book.title}`);
       myLibrary.splice(i, 1);
       render();
     };
-    deleteCell.appendChild(delButton);
+    deleteCell.appendChild(delBtn);
   });
 }
 
