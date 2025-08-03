@@ -77,27 +77,27 @@ function render() {
     pagesCell.textContent = book.pages;
 
     //add and wait for action for read/unread button
-    const changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.innerText = book.check ? "Yes" : "No";
-    changeBut.addEventListener("click",  () => {
+    const toggleReadButton = document.createElement("button");
+    toggleReadButton.className = "btn btn-success";
+    toggleReadButton.innerText = book.check ? "Yes" : "No";
+    toggleReadButton.addEventListener("click",  () => {
       myLibrary[index].check = !myLibrary[index].check;
       render();
     });
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(toggleReadButton);
 
     //add delete button to every row and render again
-    const delButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
     
-    delButton.className = "btn btn-warning";
-    delButton.innerText = "Delete";
-    delButton.addEventListener("click",  () => {
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click",  () => {
       const deletedTitle = book.title;
      myLibrary.splice(index, 1);
       render();
       alert(`You've deleted title: ${deletedTitle}`);
     });   
-       deleteCell.appendChild(delButton);
+       deleteCell.appendChild(deleteButton);
   
   });
 }
