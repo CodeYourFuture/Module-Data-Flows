@@ -92,12 +92,13 @@ function render() {
     deleteButton.className = "btn btn-warning";
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click",  () => {
-      const deletedTitle = book.title;
+      const confirmDelete = confirm(`Are you sure you want to delete "${book.title}"?`);
+  if (confirmDelete) {
      myLibrary.splice(index, 1);
       render();
-      alert(`You've deleted title: ${deletedTitle}`);
-    });   
-       deleteCell.appendChild(deleteButton);
-  
+      
+}
+});
+ deleteCell.appendChild(deleteButton);
   });
 }
