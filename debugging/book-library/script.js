@@ -7,11 +7,11 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book("The Old Man and the Sea","Ernest Hemingway","127", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
     myLibrary.push(book1);
     myLibrary.push(book2);
- }
+  }
 }
 
 const title = document.getElementById("title");
@@ -30,14 +30,14 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title.value, author.value, parseInt(pages.value), check.checked);
     myLibrary.push(book);
-  
   }
 }
+
 const submitBtn = document.getElementById("submit");
-submitBtn.addEventListener("click", function(e) {
-  e.preventDefault(); 
+submitBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   submit();
   render();
   title.value = "";
@@ -63,7 +63,7 @@ function render() {
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(i+1);
+    let row = table.insertRow(i + 1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -72,14 +72,13 @@ function render() {
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
-   
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.dataset.index = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    readStatus = myLibrary[i].check ? "Yes" : "No";
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
@@ -90,13 +89,13 @@ function render() {
 
     //add delete button to every row and render again
     let delBut = document.createElement("button");
-    delBut.dataset.index = i; 
+    delBut.dataset.index = i;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
-      const index = parseInt(this.dataset.index)
+      const index = parseInt(this.dataset.index);
       myLibrary.splice(index, 1);
       render();
     });
