@@ -80,8 +80,7 @@ function render() {
     changeBut.dataset.index = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
+    changeBut.innerText = myLibrary[i].check ? "Yes" : "No";
 
     changeBut.addEventListener("click", function () {
       const index = parseInt(this.dataset.index);
