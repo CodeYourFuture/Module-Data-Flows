@@ -29,10 +29,13 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, parseInt(pages.value), check.checked);
+  } 
+  if (isNaN(parseInt(pages.value)) || parseInt(pages.value) <= 0) {
+    alert("Please enter a valid positive number for pages!");
+    return false;
+  }  
+    let book = new Book(title.value.trim(), author.value.trim(), parseInt(pages.value), check.checked);
     myLibrary.push(book);
-  }
 }
 
 const submitBtn = document.getElementById("submit");
