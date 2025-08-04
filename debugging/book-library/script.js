@@ -7,42 +7,52 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+       127,
       true);
     myLibrary.push(book1, book2);
     localStorage.setItem("library", JSON.stringify(myLibrary));
   }
 }
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleEl = document.getElementById("title");
+const authorEl = document.getElementById("author");
+const pagesEl = document.getElementById("pages");
+const checkEl = document.getElementById("check");
 
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
   if (
-    title.value.trim() === "" ||
-    author.value.trim() === "" ||
-    pages.value.trim() === "" 
+    titleEl.value.trim() === "" ||
+    authorEl.value.trim() === "" ||
+    pagesEl.value.trim() === "" 
   
    ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+  } 
+  let pageCount = parseInt(pagesEl.value.trim());
+  if (pageCount <= 0 || isNaN(pageCount)) {
+    alert("Please enter a valid page number");
+    return false;
+  }
+    let book = new Book(
+      titleEl.value.trim(),
+       authorEl.value.trim(),
+        pageCount,
+         checkEl.checked
+    );   
     myLibrary.push(book);
     localStorage.setItem("library", JSON.stringify(myLibrary));
     render();
     document.getElementById("book-form").reset();
     $("#demo").collapse("hide");
   }
-}
+
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -52,18 +62,13 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const tableBody = document.querySelector("#display tbody");
+  tableBody.innerHTML = "";//clears the rows
   
-  
-  //delete old table
-  for (let n = rowsNumber-1; n > 0; n--) {
-    table.deleteRow(n);
-  }
   //insert updated row and cells
-
     myLibrary.forEach((book,i) => {
-    let row = table.insertRow(1);
+      let row = tableBody.insertRow();
+
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -79,8 +84,8 @@ function render() {
     changeBut.className = "btn btn-success";
     changeBut.innerText = book.check ? "Yes" : "No";
     changeBut.addEventListener("click",() => {
-    book.check = !book.check;
-    localStorage.setItem("library", JSON.stringify(myLibrary));
+      book.check = !book.check;
+      localStorage.setItem("library", JSON.stringify(myLibrary));
       render();
     });
     wasReadCell.appendChild(changeBut);
@@ -90,10 +95,13 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click",() => {
-      alert(`You've deleted title: ${book.title}`);
+      
       myLibrary.splice(i, 1);
       localStorage.setItem("library", JSON.stringify(myLibrary));
       render();
+      alert(`You've deleted title: ${book.title}`);
+      
+
     });
     deleteCell.appendChild(delBut);
   });
