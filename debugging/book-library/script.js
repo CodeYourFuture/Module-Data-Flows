@@ -30,9 +30,9 @@ const check = document.getElementById("check");
 function submit() {
   if (
     title.value == null ||
-    title.value == "" ||
+    author.value == "" ||
     pages.value == null ||
-    pages.value == ""
+    !check.checked
   ) {
     alert("Please fill all fields!");
     return false;
