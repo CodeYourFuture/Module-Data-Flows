@@ -1,121 +1,127 @@
 const myLibrary = [];
 
-window.addEventListener("load", function () {                                                     // 'e' parameter is not used
+window.addEventListener("load", function () {                                                 // 'e' parameter is not used
   populateStorage();
   render();
 });
 
+function Book(title, author, pages, isRead) {                                                 // Changed 'check' to 'isRead' for more descriptive parameter name
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.isRead = isRead;
+}
+
 function populateStorage() {
   if (myLibrary.length == 0) {
-    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);                     // Changed page numbers to actual numbers, not strings
+    const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
     myLibrary.push(book1);
     myLibrary.push(book2);
-    //render();                                                                                   // Already called in 'load' event
+    //render();                                                                               // Already called in 'load' event
   }
 }
 
-document.getElementById("book-form").addEventListener("submit", function (e) {                    // Add event listener to stop page reload on form submit
+document.getElementById("book-form").addEventListener("submit", function (e) {                // Added event listener to stop page reload on form submit
   e.preventDefault();
   submitForm();
 });
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function submitForm() {                                                                           // Rename function to avoid confusion with global 'submit' function
-  const title = document.getElementById("title");                                                 // Move form elements previously declared outside of function / in global scope
+function submitForm() {                                                                       // Rename function to avoid confusion with global 'submit' function
+  const title = document.getElementById("title");                                             // Moved form elements previously declared outside of function / in global scope
   const author = document.getElementById("author");
   const pages = document.getElementById("pages");
   const check = document.getElementById("check");
+
   const titleValue = title.value.trim();
   const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
   const minLength = 3;
 
-if (
-  titleValue.length < minLength ||
-  authorValue.length < minLength ||
-  !/^(?=(?:.*[A-Za-z]){3,})[A-Za-z ]+$/.test(titleValue) ||                                       // Validate input for minimum length and character type
-  !/^(?=(?:.*[A-Za-z]){3,})[A-Za-z ]+$/.test(authorValue)
-) {
-  alert(`Title and Author must each be at least ${minLength} characters long and contain only letters.`); 
-  return;
-}
 
-  if (
-    title.value == null ||                                                                        // Clear form fields after successful submission
-    title.value == "" ||
-    author.value == null ||                                                                       
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    const book = new Book(title.value, author.value, pages.value, check.checked);                 // Correct 'author' key
-    myLibrary.push(book);                                                                         // Correct array name
-    render();
-
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
+  if (titleValue.length < minLength || authorValue.length < minLength) {
+    alert(`Title and Author must each be at least ${minLength} characters long.`);
+    return;
   }
-}
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
+  const allowedCharacters = /^[\w\s&.,:;!()\-']+$/;                                           // Relaxed regex to allow digits and common punctuation
+
+  if (!allowedCharacters.test(titleValue) || !allowedCharacters.test(authorValue)) {
+    alert("Title and Author contain invalid characters.");
+    return;
+  }
+
+  if (titleValue === "" || authorValue === "" || pagesValue === "") {                         // Removed unnecessary null checks: instead, alert if strings are empty
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  if (!/^\d+$/.test(pagesValue)) {
+    alert("Page number must be a whole number.");                                             // Added validation to reject values with decimals
+    return;
+  }
+
+  const newBook = new Book(titleValue, authorValue, parseInt(pagesValue, 10), isRead.checked); // parseInt for page numbers 
+  myLibrary.push(newBook);
+  render();
+
+  title.value = "";                                                                           // Clear form fields and reset after successful submission
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
 }
 
 function render() {
   const table = document.getElementById("display");
-  const rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {                                                      // Add missing closing bracket
-    table.deleteRow(n);
-  }
+  const tbody = table.querySelector("tbody");                                                 // Clear table efficiently by setting innerHTML to empty string
+  tbody.innerHTML = "";
+
   //insert updated row and cells
-  const length = myLibrary.length;                                                                // Change to 'const' for variables
-  for (let i = 0; i < length; i++) {
-    const row = table.insertRow(1);
-    const titleCell = row.insertCell(0);
+  myLibrary.forEach((book, index) => {
+    const row = tbody.insertRow();                                                            // tbody to insert rows
+    const titleCell = row.insertCell(0);                                                      // Change to 'const' for variables
     const authorCell = row.insertCell(1);
     const pagesCell = row.insertCell(2);
-    const wasReadCell = row.insertCell(3);
+    const statusCell = row.insertCell(3);
     const deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+
+    titleCell.textContent = book.title;                                                       // TextContent not innerHTML to avoid unintended HTML rendering
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
 
     //add and wait for action for read/unread button
-    const changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    readStatus = myLibrary[i].check ? "Yes" : "No";                                               // Correct read status logic for not read
-    changeBut.innerText = readStatus;
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    const toggleButton = document.createElement("button");                                    // Create read status toggle button
+    toggleButton.className = "btn btn-sm btn-success";
+    toggleButton.textContent = book.isRead ? "Read" : "Not Read";                             // Ternary operator for improved readability
+
+    toggleButton.setAttribute("data-index", index);                                           // Add data-index attribute for consistency
+
+    toggleButton.addEventListener("click", function () {
+      const i = parseInt(this.getAttribute("data-index"), 10);
+      myLibrary[i].isRead = !myLibrary[i].isRead;
       render();
     });
 
-    //add delete button to every row and render again
-    const delButton = document.createElement("button");
-    delButton.className = "btn btn-warning";                                                      // Correct delButton variable name
-    delButton.innerHTML = "Delete";
-    delButton.setAttribute("data-index", i);                                                      // Add data attribute to identify the book index
-    deleteCell.appendChild(delButton);
+    statusCell.appendChild(toggleButton);                                                     // Append the button to the status cell
 
-    delButton.addEventListener("click", function () {                                             // Click not clicks
-      const index = parseInt(this.getAttribute("data-index"), 10);                                // Get index from button's data attribute and convert from string to number (base 10)
-      if (confirm(`You're about to delete "${myLibrary[index].title}". Continue?`)) {             // Require user confirmation before deletion
-        myLibrary.splice(index, 1);
+    //add delete button to every row and render again
+    const deleteButton = document.createElement("button");                                    // Improved variable names for readability and consistency
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.setAttribute("data-index", index);                                           // Use data-index attribute to identify book index
+    deleteCell.appendChild(deleteButton);
+
+    deleteButton.addEventListener("click", function () {                                      // 'click' not 'clicks'
+      const i = parseInt(this.getAttribute("data-index"), 10);                                // Get index and convert from string to number (base 10)
+      if (confirm(`You're about to delete "${myLibrary[i].title}". Continue?`)) {             // Require user confirmation before deletion
+        myLibrary.splice(i, 1);
         render();
       }
     });
-  }
+
+    deleteCell.appendChild(deleteButton);
+  });
 }
