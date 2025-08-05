@@ -1,17 +1,21 @@
 .form-group {
   width: 400px;
-  height: 300px;
-  align-self: left;
   padding-left: 20px;
+  align-self: flex-start;
 }
 
-.btn {
+.form-group .btn {
   display: block;
+  margin-top: 10px;
 }
 
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0;
+}
+
+.form-check-input {
+  margin-right: 5px;
 }
 
 button.btn-info {
