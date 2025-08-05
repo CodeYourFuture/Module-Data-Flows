@@ -36,8 +36,8 @@ function submitBook() {
   }
 
   const pagesNumber = parseInt(pagesInput, 10);
-  if (isNaN(pagesNumber) || pagesNumber <= 0) {
-    alert("Page count must be a positive number!");
+  if (isNaN(pagesNumber) || pagesNumber < 0) {
+    alert("Page count must be zero or greater!");
     return;
   }
 
