@@ -4,8 +4,8 @@ window.addEventListener("load", function () {
   populateLibrary();
   render();
   document.getElementById("bookForm").addEventListener("submit", function (e) {
-      e.preventDefault(); // Prevent page refresh
-      submitBook ();
+    e.preventDefault();
+    submitBook();
   });
 });
 
@@ -18,9 +18,8 @@ function Book(title, author, pages, read) {
 
 function populateLibrary() {
   if (myLibrary.length === 0) {
-    const book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    const book2 = new Book("The Old Man and the Sea","Ernest Hemingway",
-    "127",true);
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
     myLibrary.push(book1, book2);
   }
 }
@@ -45,20 +44,16 @@ function submitBook() {
   const newBook = new Book(titleInput, authorInput, pagesNumber, readInput);
   myLibrary.push(newBook);
   render();
-  // Optionally reset the form
   document.getElementById("bookForm").reset();
 }
 
 function render() {
   const table = document.getElementById("display");
-  const oldTbody = table.querySelector("tbody");
-  if (oldTbody) {
-    table.removeChild(oldTbody);
-  }
+  const tbody = table.querySelector("tbody");
+  tbody.innerHTML = ""; // Clear all rows
 
-    const newTbody = document.createElement("tbody");
-    myLibrary.forEach((book, index) => {
-      const row = document.createElement("tr");
+  myLibrary.forEach((book, index) => {
+    const row = document.createElement("tr");
 
     const titleCell = document.createElement("td");
     titleCell.textContent = book.title;
@@ -69,26 +64,31 @@ function render() {
     const pagesCell = document.createElement("td");
     pagesCell.textContent = book.pages;
 
-      const readCell = document.createElement("td");
-      const toggleBtn = document.createElement("button");
-      toggleBtn.className = "btn btn-success";
-      toggleBtn.innerText = book.read ? "Yes" : "No";
-      toggleBtn.addEventListener("click", () => {
-        book.read = !book.read;
-        render();
-      });
-      readCell.appendChild(toggleBtn);
+    const readCell = document.createElement("td");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.className = "btn btn-success btn-sm";
+    toggleBtn.innerText = book.read ? "Yes" : "No";
+    toggleBtn.addEventListener("click", () => {
+      book.read = !book.read;
+      render();
+    });
+    readCell.appendChild(toggleBtn);
 
-      const actionCell = document.createElement("td");
-      const deleteBtn = document.createElement("button");
-      deleteBtn.className = "btn btn-warning";
-      deleteBtn.innerText = "Delete";
-      deleteBtn.addEventListener("click", () => {
-        alert(`Deleted: ${book.title}`);
-        myLibrary.splice(index, 1);
+    const actionCell = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-warning btn-sm";
+    deleteBtn.innerText = "Delete";
+    deleteBtn.setAttribute("data-index", index);
+
+    deleteBtn.addEventListener("click", function () {
+      const idx = parseInt(this.getAttribute("data-index"), 10);
+      if (confirm(`Are you sure you want to delete "${myLibrary[idx].title}"?`)) {
+        myLibrary.splice(idx, 1);
         render();
-      });
-      actionCell.appendChild(deleteBtn);
+      }
+    });
+
+    actionCell.appendChild(deleteBtn);
 
     row.appendChild(titleCell);
     row.appendChild(authorCell);
@@ -96,7 +96,6 @@ function render() {
     row.appendChild(readCell);
     row.appendChild(actionCell);
 
-      newTbody.appendChild(row);
-    });
-    table.appendChild(newTbody);
-  }
+    tbody.appendChild(row);
+  });
+}
