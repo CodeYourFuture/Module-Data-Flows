@@ -31,7 +31,7 @@ function submit() {
    console.log("Title:", title.value.trim());
   console.log("Author:", author.value.trim());
   console.log("Pages:", pages.value.trim());
-  
+
   if (
     !title.value.trim() ||
     !author.value.trim() ||
@@ -46,9 +46,7 @@ function submit() {
   return false;
 }
 
-
-
-    let book = new Book(
+  let book = new Book(
       title.value.trim(), 
       author.value.trim(), 
       parseInt(pages.value.trim(), 10), 
@@ -57,6 +55,10 @@ function submit() {
     myLibrary.push(book);
     render();
 
+title.value = "";
+author.value = "";
+pages.value = "";
+check.checked = false;
 }
 
 function Book(title, author, pages, check) {
