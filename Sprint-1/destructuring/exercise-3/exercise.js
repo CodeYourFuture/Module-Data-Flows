@@ -7,19 +7,20 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-function getTotalOfOrder (order) {
-  let Total = 0;
-  console.log("QTY".padEnd(8), "ITEM".padEnd(24), "TOTAL");
-    order.forEach(({itemName, quantity, unitPricePence}) => {
-      const QTY = quantity;
-      const ITEM = itemName;
-      const TOTAL = ((unitPricePence * quantity)/100);
-      Total = Total + TOTAL;
-      console.log(`${String(QTY).padEnd(6)}   ${String(ITEM).padEnd(24)} ${(TOTAL.toFixed(2)).padStart(4)}`);
-    })
-  
-    console.log(`\nTotal:  ${Total.toFixed(2)}`)
+function getTotalOfOrder() {
+  let totalOfOrder = 0;
+  console.log(`QTY      ITEM                     TOTAL`);
+  order.forEach(({ itemName, quantity, unitPricePence }) => {
+    const totalOfItem = (unitPricePence * quantity) / 100;
+    totalOfOrder += totalOfItem;
+    console.log(
+      `${String(quantity).padEnd(6)}   ${String(itemName).padEnd(
+        24
+      )} ${totalOfItem.toFixed(2).padStart(4)}`
+    );
+  });
+
+  console.log(`\nTotal:  ${totalOfOrder.toFixed(2)}`);
 }
 
-
-getTotalOfOrder(order);
+getTotalOfOrder();
