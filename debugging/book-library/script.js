@@ -38,12 +38,19 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);  // Correcting the repetition of title.value and replacing it with author.value
+  } 
+  
+  const pagesNumber = Number(pages.value);
+  if (isNaN(pagesNumber) || pagesNumber <= 0) {
+    alert("Please enter a valid, positive number of pages.");
+    return false;
+  }
+  
+    let book = new Book(title.value, author.value, pagesNumber, check.checked);  // Correcting the repetition of title.value and replacing it with author.value
     myLibrary.push(book);  // Correcting with the right function name
     render();
   }
-}
+
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -104,9 +111,12 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click", function () {  // correcting using the correct term: click instead of clicks
+      const confirmDelete = confirm(`Are you sure you want to delete "${myLibrary[i].title}"?`);
+      if (confirmDelete) {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
+      }
     });
   }
 }
