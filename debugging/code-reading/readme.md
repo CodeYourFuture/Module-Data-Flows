@@ -34,6 +34,7 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+Variable x is global, and y is local that's why console.log(y) is undefined, and console.log(f1()) gives 10 and undefined.
 
 ## Question 3
 
@@ -62,3 +63,4 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+We pass the object y into the function as a reference to the original object `y`, that's why it is changed after some manipulation with the object by function f2, while a number 9 as a value in the first case was copied to the function and was changed just inside the function.
