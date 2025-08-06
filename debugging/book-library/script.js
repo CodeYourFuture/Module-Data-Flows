@@ -29,18 +29,28 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    !title.value.trim() ||
+    !author.value.trim() ||
+    !pages.value.trim() 
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+  } 
+  if (isNaN(pages.value) || Number(pages.value) <= 0) {
+    alert("Invalid number of pages!");
+    return false;
+  }
+
+
+    let book = new Book(
+      title.value.trim(), 
+      author.value.trim(), 
+      parseInt(pages.value.trim(), 10), 
+      check.checked
+    );
     myLibrary.push(book);
     render();
-  }
+
 }
 
 function Book(title, author, pages, check) {
@@ -75,12 +85,8 @@ function render() {
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    let readStatus = myLibrary[i].check ? "Yes" : "No"
+    
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
