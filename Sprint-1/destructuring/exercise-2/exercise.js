@@ -71,19 +71,19 @@ let hogwarts = [
   },
 ];
 for (let i =0 ; i <hogwarts.length; i++){
-  if (hogwarts[i].house=='Gryffindor'){
-    console.log(`${hogwarts[i].firstName} ${hogwarts[i].lastName} `)
-  }
-}
+  const { firstName, lastName, house } = hogwarts[i];  // <-- added destructuring
+  if (house === 'Gryffindor') {
+    console.log(`${firstName} ${lastName}`);
+}}
 console.log('');
 
 // names of teachers who have pets.
 function pets(list){
   for (let i =0 ; i <list.length; i++){
-  if(list[i].occupation === 'Teacher' && list[i].pet){
-    let {firstName,lastName,house, pet,occupation} = list[i]
-    console.log(`${firstName} ${lastName} `)
-  }
+    const { firstName, lastName, house, pet, occupation } = list[i];  // moved destructuring to top
+    if (occupation === 'Teacher' && pet) {
+      console.log(`${firstName} ${lastName}`);
+    }
 }
 }
 pets(hogwarts)
