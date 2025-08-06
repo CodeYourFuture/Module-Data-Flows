@@ -16,4 +16,9 @@
 
 button.btn-info {
   margin: 20px;
+  color: rgb(16, 16, 16);
+}
+
+button.btn.btn-success {
+  color: rgb(16, 16, 16);
 }
