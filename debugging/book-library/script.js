@@ -2,7 +2,7 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
+
 });
 
 function populateStorage() {
@@ -36,9 +36,13 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+  } else if (pages.value < 1) {
+    alert("Please enter a valid number of pages!");
+    return false;
+  }
+  else {
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
   }
 }
@@ -53,14 +57,18 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
+  console.log(rowsNumber);
+ 
+
+
+
+  //delete old rows (not the headers)
+ let tbody = table.getElementsByTagName("tbody")[0];
+tbody.innerHTML = ""; 
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();// new row 
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -76,7 +84,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check == true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
@@ -89,12 +97,12 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
+    let delBut = document.createElement("button");  
+    delBut.id = `del${i}`;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
