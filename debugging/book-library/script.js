@@ -8,12 +8,7 @@ window.addEventListener("load", function (e) {
 function populateStorage() {
   if (myLibrary.length == 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127",true);
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
@@ -54,9 +49,9 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
+  // for (let n = rowsNumber - 1; n > 0; n-- {
+  //   table.deleteRow(n);
+  // }
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
@@ -90,11 +85,11 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delButton.id = i + 5;
+    deleteCell.appendChild(delButton);
+    delButton.className = "btn btn-warning";
+    delButton.innerHTML = "Delete";
+    delButton.addEventListener("clicks", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
