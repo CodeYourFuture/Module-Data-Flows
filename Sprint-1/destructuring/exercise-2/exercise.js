@@ -70,19 +70,23 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
-function tellMyHouse (hogwarts){
-  for({house,firstName,lastName} of hogwarts){
-    if(house === "Gryffindor"){
-    console.log(`${firstName} ${lastName}`) //gives a list of people with Gryffindor house
-  }}
+
+function tellMyHouse(hogwarts) {
+  for ({ house, firstName, lastName } of hogwarts) {
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`); //gives a list of people with Gryffindor house
+    }
+  }
 }
 
-tellMyHouse(hogwarts) 
- 
-function havePets (hogwarts){
-  for({pet,firstName,lastName} of hogwarts ){
-    if(pet !== null){
-      console.log(`${firstName} ${lastName}`) //gives a list of people with teachers who have pets.
-  }}
+tellMyHouse(hogwarts);
+
+function havePets(hogwarts) {
+  for ({ pet, firstName, lastName } of hogwarts) {
+    if (pet !== null) {
+      console.log(`${firstName} ${lastName}`); //gives a list of people with teachers who have pets.
+    }
+  }
 }
-havePets(hogwarts)
+
+havePets(hogwarts);
