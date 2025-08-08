@@ -34,11 +34,17 @@ function submit() {
     author.value== null ||
     author.value== "" ||
     pages.value == "" ||
-    pages.value == null 
+    pages.value == null   
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
+  } else 
+    if (Number(pages.value) <= 0) {
+  alert("Please enter a valid number of pages!");
+  return false;
+} else
+    
+    {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
