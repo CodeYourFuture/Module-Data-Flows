@@ -104,9 +104,10 @@ function render() {
     delButton.className = "btn btn-warning";
     delButton.textContent = "Delete";
     delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedBook = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${deletedBook}`);
     });
   }
 }
