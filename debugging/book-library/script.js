@@ -43,6 +43,11 @@ function submit() {
     myLibrary.push(book);
     render();
   }
+  title.value = "";
+author.value = "";
+pages.value = "";
+check.checked = false;
+return true;
 
 }
 
