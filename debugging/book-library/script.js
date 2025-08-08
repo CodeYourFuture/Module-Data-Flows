@@ -28,22 +28,15 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
+  if (title.value == "" || author.value == "" || pages.value == "") {
     alert("Please fill all fields!");
     return false;
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
-    title.value = ''
-    author.value = ''
-    pages.value = ''
+    title.value = "";
+    author.value = "";
+    pages.value = "";
     check.checked = false;
     render();
   }
