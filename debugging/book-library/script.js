@@ -41,6 +41,7 @@ function submit() {
     myLibrary.push(book);
     render();
   }
+
 }
 
 function Book(title, author, pages, check) {
@@ -69,7 +70,8 @@ function render() {
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
-
+   
+    
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
@@ -77,9 +79,9 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
