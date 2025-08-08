@@ -56,48 +56,40 @@ function render() {
 
   //delete old table
   tbody.innerHTML = "";
-  
+
   //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow();
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+myLibrary.forEach((book, index) => {
+    const row = tbody.insertRow();
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+    // Use textContent for plain text
+    row.insertCell().textContent = book.title;
+    row.insertCell().textContent = book.author;
+    row.insertCell().textContent = book.pages;
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    // Read/Unread toggle button
+    const readCell = row.insertCell();
+    const readToggleBtn = document.createElement("button");
+    readToggleBtn.className = "btn btn-success";
+    readToggleBtn.type = "button";
+    readToggleBtn.textContent = book.read ? "Yes" : "No";
+    readToggleBtn.addEventListener("click", () => {
+      myLibrary[index].read = !myLibrary[index].read;
       render();
     });
-
-    //add delete button to every row and render again
-    let delBut = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
+    readCell.appendChild(readToggleBtn);
+    
+    // Delete button
+    const deleteCell = row.insertCell();
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.type = "button";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+      const removedTitle = myLibrary[index].title;
+      myLibrary.splice(index, 1); 
+      render();                   
+      alert(`Deleted: ${removedTitle}`); 
     });
-  }
+    deleteCell.appendChild(deleteBtn);
+  });
 }
