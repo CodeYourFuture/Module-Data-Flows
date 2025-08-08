@@ -28,14 +28,14 @@ const readCheckbox = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null || title.value.trim() === "" ||
-    author.value == null || author.value.trim() === "" ||
-    pages.value == null || pages.value.trim() === ""  
+    titleInput.value.trim() === "" ||
+    authorInput.value.trim() === "" ||
+    pagesInput.value.trim() === ""  
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(titleInput.value, authorInput.value, pagesInput.value, readCheckbox.checked);
     myLibrary.push(book);
     render();
   }
