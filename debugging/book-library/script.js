@@ -29,20 +29,20 @@ const formElCheck = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    formElTitle.value == "" ||
-    formElAuthor.value == "" ||
+    formElTitle.value.trim() == "" ||
+    formElAuthor.value.trim() == "" ||
     formElPages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     let book = new Book(
-      formElTitle.value,
-      formElAuthor.value,
+      formElTitle.value.trim(),
+      formElAuthor.value.trim(),
       formElPages.value,
       formElCheck.checked
     );
-    console.log(author.value);
+
     myLibrary.push(book);
     formElTitle.value = "";
     formElAuthor.value = "";
