@@ -31,6 +31,16 @@ function submit() {
     alert("Please provide a title, an author, and a positive whole number of pages.");
     return;
   }
+
+  const book = new Book(titleValue, authorValue, pagesValue, checkInput.checked);
+  myLibrary.push(book);
+
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
+
+  render();
 }
 
 function Book(title, author, pages, read) {
