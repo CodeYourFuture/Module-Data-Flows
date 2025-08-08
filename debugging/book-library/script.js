@@ -19,24 +19,34 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkBox = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
   if (
-    title.value == "" ||
-    author.value == "" ||
-    pages.value == "" ||
-    !check.checked
+    /^\d+$/.test(titleInput.value) ||
+    /^\d+$/.test(authorInput.value)
   ) {
-    alert("Please fill all fields!");
+    alert("Title and author cannot be only numbers!");
+    return false;
+  }
+  if (
+    titleInput.value.trim() === "" ||
+    authorInput.value.trim() === ""
+  ) {
+    alert("Title and author cannot be empty or only spaces!");
+    return false;
+  }
+  const pageCount = Number(pagesInput.value);
+  if (isNaN(pageCount) || pageCount <= 0) {
+    alert("Please enter a valid positive number for pages!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(titleInput.value.trim(), authorInput.value.trim(), pagesInput.value, checkBox.checked);
     myLibrary.push(book);
     render();
   }
