@@ -104,9 +104,12 @@ function render() {
     deleteButton.className = "btn btn-warning";
     deleteButton.innerHTML = "Delete";
     deleteButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      setTimeout(() => {
+        alert(`You've deleted title: ${deletedTitle}`);
+      }, 0);
     });
   }
 }
