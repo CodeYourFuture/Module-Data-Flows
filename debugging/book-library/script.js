@@ -27,7 +27,7 @@ function submitNewBook() {
   let pages = Number(pagesInput.value.trim());
   let isRead = checkReadStatus.checked;
 
-  if (!title || !author || !pages || isNaN(pages) || pages <= 0) {
+  if (!title || !author || !pages || !Number.isInteger(pages) || pages <= 0) {
     alert("Please fill all fields correctly!");
     return false;
   }
