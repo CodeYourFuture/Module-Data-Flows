@@ -31,30 +31,26 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
-    author.value== null ||
-    author.value== "" ||
+    author.value == null ||
+    author.value == "" ||
     pages.value == "" ||
-    pages.value == null   
+    pages.value == null
   ) {
     alert("Please fill all fields!");
     return false;
-  } else 
-    if (Number(pages.value) <= 0) {
-  alert("Please enter a valid number of pages!");
-  return false;
-} else
-    
-    {
+  } else if (Number(pages.value) <= 0) {
+    alert("Please enter a valid number of pages!");
+    return false;
+  } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
   }
   title.value = "";
-author.value = "";
-pages.value = "";
-check.checked = false;
-return true;
-
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
+  return true;
 }
 
 function Book(title, author, pages, check) {
@@ -83,8 +79,7 @@ function render() {
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
-   
-    
+
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
