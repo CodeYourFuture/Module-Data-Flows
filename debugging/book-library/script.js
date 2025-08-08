@@ -20,24 +20,34 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const formElTitle = document.getElementById("title");
+const formElAuthor = document.getElementById("author");
+const formElPages = document.getElementById("pages");
+const formElCheck = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (title.value == "" || author.value == "" || pages.value == "") {
+  if (
+    formElTitle.value == "" ||
+    formElAuthor.value == "" ||
+    formElPages.value == ""
+  ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(
+      formElTitle.value,
+      formElAuthor.value,
+      formElPages.value,
+      formElCheck.checked
+    );
+    console.log(author.value);
     myLibrary.push(book);
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
+    formElTitle.value = "";
+    formElAuthor.value = "";
+    formElPages.value = "";
+    formElCheck.checked = false;
     render();
   }
 }
