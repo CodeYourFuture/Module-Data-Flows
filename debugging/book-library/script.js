@@ -56,7 +56,7 @@ function Book(title, author, pages, check) {
 
 function render() {
   const table = document.getElementById("display");
-  const tbody = table.getElementsByTagName("tbody")[0];
+  const tbody = table.tBodies[0];
 
   // Efficiently remove all rows
   tbody.innerHTML = "";
@@ -77,7 +77,7 @@ function render() {
     // Read/unread button
     const changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
-    changeButton.innerText = book.check ? "Yes" : "No";
+    changeButton.textContent = book.check ? "Yes" : "No";
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
@@ -87,12 +87,17 @@ function render() {
     // Delete button
     const deleteButton = document.createElement("button");
     deleteButton.className = "btn btn-warning";
-    deleteButton.innerText = "Delete";
+    deleteButton.textContent = "Delete";
+
     deleteButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
+      const index = myLibrary.indexOf(book);
+      if (index !== -1) {
+        myLibrary.splice(index, 1); // remove in place
+        render();
+        alert(`"${book.title}" has been deleted successfully.`);
+      }
     });
+
     deleteCell.appendChild(deleteButton);
   });
 }
