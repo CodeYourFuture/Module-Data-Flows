@@ -1,11 +1,14 @@
 let myLibrary = [];
 
-if (typeof window !== "undefined") {
-  window.addEventListener("load", function (e) {
-    populateStorage();
-    render();
-  });
-}
+window.addEventListener("load", function () {
+  populateStorage();
+  render();
+});
+
+const titleElement = document.getElementById("title");
+const authorElement = document.getElementById("author");
+const pagesElement = document.getElementById("pages");
+const checkButton = document.getElementById("check");
 
 function populateStorage() {
   if (myLibrary.length == 0) {
@@ -20,11 +23,6 @@ function populateStorage() {
     myLibrary.push(book2);
   }
 }
-
-const titleElement = document.getElementById("title");
-const authorElement = document.getElementById("author");
-const pagesElement = document.getElementById("pages");
-const checkButton = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
@@ -89,14 +87,14 @@ function render() {
     wasReadCell.appendChild(changeButton);
 
     // Delete button
-    const delButton = document.createElement("button");
-    delButton.className = "btn btn-warning";
-    delButton.innerText = "Delete";
-    delButton.addEventListener("click", function () {
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-warning";
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
-    deleteCell.appendChild(delButton);
+    deleteCell.appendChild(deleteButton);
   });
 }
