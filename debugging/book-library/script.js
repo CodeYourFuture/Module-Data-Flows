@@ -90,12 +90,9 @@ function render() {
     deleteButton.textContent = "Delete";
 
     deleteButton.addEventListener("click", function () {
-      const index = myLibrary.indexOf(book);
-      if (index !== -1) {
-        myLibrary.splice(index, 1); // remove in place
-        render();
-        alert(`"${book.title}" has been deleted successfully.`);
-      }
+      myLibrary.splice(i, 1);
+      render();
+      alert(`"${book.title}" has been deleted successfully.`);
     });
 
     deleteCell.appendChild(deleteButton);
