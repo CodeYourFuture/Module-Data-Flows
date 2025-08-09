@@ -68,9 +68,10 @@
       toggleReadBtn.textContent = book.check ? "Yes" : "No";
       wasReadCell.appendChild(toggleReadBtn);
 
-      toggleReadBtn.addEventListener("click", function () {
-        myLibrary[i].check = !myLibrary[i].check;
-        render();
+      toggleReadBtn.addEventListener("click", function (e) {
+      const idx = e.target.dataset.index;
+      myLibrary[idx].check = !myLibrary[idx].check;
+      render();
       });
 
       // ---------------------------
@@ -83,13 +84,14 @@
       deleteBtn.textContent = "Delete";
       deleteCell.appendChild(deleteBtn);
 
-      deleteBtn.addEventListener("click", function () {
-        const confirmDelete = confirm(
-          `Are you sure you want to delete title: ${book.title}?`
-        );
-        if (confirmDelete) {
-          myLibrary.splice(i, 1);
-          render();
+      deleteBtn.addEventListener("click", function (e) {
+      const idx = e.target.dataset.index;
+      const confirmDelete = confirm(
+        `Are you sure you want to delete title: ${myLibrary[idx].title}?`
+      );
+      if (confirmDelete) {
+        myLibrary.splice(idx, 1);
+        render();
           // Optional: Post-delete notification
           // alert(`Book "${book.title}" deleted successfully.`);
         }
