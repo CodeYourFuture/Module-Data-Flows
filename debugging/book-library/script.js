@@ -28,25 +28,23 @@ function populateStorage() {
 //via Book function and start render function
 
 function submit() {
-  if (!titleElement.value.trim() || !pagesElement.value.trim()) {
+  const title = titleElement.value.trim();
+  const author = authorElement.value.trim();
+  const pages = parseInt(pagesElement.value.trim(), 10);
+  const isRead = checkButton.checked;
+
+  if (!title || !author || !pages) {
     alert("Please fill all fields!");
     return false;
-  } else if (
-    !Number.isInteger(Number(pagesElement.value)) ||
-    Number(pagesElement.value) <= 0
-  ) {
+  }
+  if (!Number.isInteger(pages) || Number(pages) <= 0) {
     alert("Pages must be a positive number.");
     return;
-  } else {
-    let book = new Book(
-      titleElement.value,
-      authorElement.value,
-      parseInt(pagesElement.value, 10),
-      checkButton.checked
-    );
-    myLibrary.push(book);
-    render();
   }
+  const book = new Book(title, author, pages, isRead);
+  myLibrary.push(book);
+
+  render();
 }
 
 function Book(title, author, pages, check) {
