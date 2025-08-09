@@ -30,7 +30,7 @@ function submit() {
   if (
     titleInputEl.value == "" ||
     authorInputEl.value == "" ||
-    pagesInputEl.value == "" 
+    pagesInputEl.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -38,7 +38,12 @@ function submit() {
     alert("Please enter a valid number of pages!");
     return false;
   } else {
-    let book = new Book(titleInputEl.value, authorInputEl.value, pagesInputEl.value, checkInputEl.checked);
+    let book = new Book(
+      titleInputEl.value,
+      authorInputEl.value,
+      pagesInputEl.value,
+      checkInputEl.checked
+    );
     myLibrary.push(book);
     render();
   }
@@ -59,13 +64,10 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  //delete old table
-  // for (let n = rowsNumber - 1; n > 0; n--) {
-  //   table.deleteRow(n);
-  // }
+  //delete old table rows
   let tableTbody = document.querySelector("#display tbody");
-  tableTbody.innerHTML="";
-  // //insert updated row and cells
+  tableTbody.innerHTML = "";
+  //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = tableTbody.insertRow(-1);
@@ -80,7 +82,7 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
+   
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
@@ -98,7 +100,7 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
+  
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
