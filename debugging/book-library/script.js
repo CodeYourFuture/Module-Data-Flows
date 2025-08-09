@@ -28,28 +28,34 @@ const formElCheck = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    formElTitle.value.trim() == "" ||
-    formElAuthor.value.trim() == "" ||
-    formElPages.value == ""
-  ) {
+  // Store pre-processed/sanitized/normalized input into variables
+  const title = formElTitle.value.trim();
+  const author = formElAuthor.value.trim();
+  const pages = parseInt(formElPages.value, 10); // ensure number
+  const isRead = formElCheck.checked;
+
+  if (title == "" || author == "" || isNaN(pages)) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(
-      formElTitle.value.trim(),
-      formElAuthor.value.trim(),
-      formElPages.value,
-      formElCheck.checked
-    );
-
-    myLibrary.push(book);
-    formElTitle.value = "";
-    formElAuthor.value = "";
-    formElPages.value = "";
-    formElCheck.checked = false;
-    render();
   }
+
+  // Check added to make sure the page number is positive and within a reasonable range
+  // According to Wikipedia, largest book by page count is 100100 pages
+  if (pages <= 0 || pages > 100000) {
+    alert("Please enter a valid page count (1–100000).");
+    return;
+  }
+
+  const book = new Book(title, author, pages, isRead);
+  myLibrary.push(book);
+
+  // Clear form fields
+  formElTitle.value = "";
+  formElAuthor.value = "";
+  formElPages.value = "";
+  formElCheck.checked = false;
+
+  render();
 }
 
 function Book(title, author, pages, check) {
@@ -81,15 +87,10 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    myLibrary[i].check ? (readStatus = "Yes") : (readStatus = "No");
     changeButton.innerText = readStatus;
 
     changeButton.addEventListener("click", function () {
@@ -99,7 +100,6 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.textContent = "Delete";
