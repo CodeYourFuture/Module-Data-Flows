@@ -34,18 +34,64 @@ function loadLibrary() {
   }
 }
 
+function sanitize(input) {
+  const div = document.createElement("div");
+  div.textContent = input;
+  return div.innerHTML;
+}
+
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  if (!title.value || !pages.value) {
-    alert("Please fill all fields!");
+  const titleValue = title.value.trim();
+  const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
+
+  const namePattern = /^[a-zA-Z\s]+$/;
+  const numberPattern = /^[1-9]\d*$/;
+
+  if (!titleValue || !authorValue || !pagesValue) {
+    alert("Please fill in all fields.");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
+  }
+
+  if (!namePattern.test(titleValue)) {
+    alert("Title must contain only letters and spaces.");
+    return false;
+  }
+
+  if (!namePattern.test(authorValue)) {
+    alert("Author name must contain only letters and spaces.");
+    return false;
+  }
+
+  if (!numberPattern.test(pagesValue)) {
+    alert("Pages must be a positive number.");
+    return false;
+  }
+
+  const safeTitle = sanitize(titleValue);
+  const safeAuthor = sanitize(authorValue);
+  const safePages = sanitize(pagesValue);
+
+  const book = new Book(safeTitle, safeAuthor, safePages, check.checked);
+  myLibrary.push(book);
+  saveLibrary();
+  render();
+
+  // Reset form
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
+}
+
+function clearLibrary() {
+  if (confirm("Are you sure you want to delete all books?")) {
+    myLibrary = [];
     saveLibrary();
     render();
   }
@@ -55,7 +101,6 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
 
-  // Clear old rows
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
@@ -96,5 +141,12 @@ function render() {
       saveLibrary();
       render();
     });
+  }
+
+  // Optional: update read count
+  const readCount = myLibrary.filter(book => book.check).length;
+  const readDisplay = document.getElementById("readCount");
+  if (readDisplay) {
+    readDisplay.textContent = `Books read: ${readCount}`;
   }
 }
