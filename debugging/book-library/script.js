@@ -2,16 +2,15 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
@@ -20,27 +19,41 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
+
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
+  // Trim 
+  const title = titleInput.value ? titleInput.value.trim() : "";
+  const author = authorInput.value ? authorInput.value.trim() : "";
+  const pagesRawInput = pagesInput.value ? pagesInput.value.trim() : "";
+  const pages = Number(pagesRawInput);
+
+  // Input validation
+  if (!title || !author || !pagesRawInput) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
   }
+  if (title.length === 0 || author.length === 0) {
+    alert("Title and author cannot be empty or only spaces.");
+    return false;
+  }
+  // Author name must only contain letters and spaces
+  if (!/^[A-Za-z\s]+$/.test(author)) {
+    alert("Author name must only contain letters and spaces.");
+    return false;
+  }
+  if (pagesRawInput === "" || isNaN(pages) || !Number.isInteger(pages) || pages <= 0) {
+    alert("Page count must be a positive integer.");
+    return false;
+  }
+
+  let book = new Book(title, author, pages, checkInput.checked);
+  myLibrary.push(book);
+  render();
 }
 
 function Book(title, author, pages, check) {
@@ -52,12 +65,11 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+  // while loop for efficiently removing all rows except the header
+  while (table.rows.length > 1) {
+    table.deleteRow(1);
   }
-  //insert updated row and cells
+  // Insert updated rows and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
@@ -70,17 +82,12 @@ function render() {
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
+    // Add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
@@ -88,7 +95,7 @@ function render() {
       render();
     });
 
-    //add delete button to every row and render again
+    // Add delete button to every row and render again
     let delBut = document.createElement("button");
     delBut.id = i + 5;
     deleteCell.appendChild(delBut);
