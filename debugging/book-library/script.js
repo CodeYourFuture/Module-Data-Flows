@@ -27,29 +27,25 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function bookSubmit() {
-  const pagesFloat = parseFloat(pagesInput.value);
+  let bookPagesFloat = parseFloat(pagesInput.value);
+  let bookTitle = titleInput.value.toString().trim();
+  let bookAuthor = authorInput.value.toString().trim();
+  let bookCheck = check.checked;
 
   if (
-    titleInput.value.toString().trim() === "" ||
-    authorInput.value.toString().trim() === "" ||
-    !Number.isInteger(pagesFloat) ||
-    pagesFloat <= 0
+    bookTitle === "" ||
+    bookAuthor === "" ||
+    !Number.isInteger(bookPagesFloat) ||
+    bookPagesFloat <= 0
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(
-      titleInput.value,
-      authorInput.value,
-      pagesFloat,
-      check.checked
-    );
+    let book = new Book(bookTitle, bookAuthor, bookPagesFloat, bookCheck);
     myLibrary.push(book);
     render();
-    (titleInput.value = ""),
-      (authorInput.value = ""),
-      (pagesInput.value = ""),
-      (check.checked = false);
+    titleInput.value = authorInput.value = pagesInput.value = "";
+    check.checked = false;
   }
 }
 
@@ -61,8 +57,6 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  console.count("render called");
-
   let table = document.getElementById("display");
   table.tBodies[0].innerHTML = "";
 
@@ -83,13 +77,7 @@ function render() {
     changeButton.dataset.index = parseInt(index);
     changeButton.dataset.action = "toggle-book";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-    if (myLibrary[index].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeButton.innerText = readStatus;
+    changeButton.innerText = myLibrary[index].check ? "Yes" : "No";
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
@@ -107,9 +95,6 @@ document.getElementById("display").addEventListener("click", function (e) {
   const index = Number(target.dataset.index);
   const action = target.dataset.action;
 
-  console.log(myLibrary[index]);
-  console.log(myLibrary[index].check);
-
   if (action === "toggle-book") {
     myLibrary[index].check = !myLibrary[index].check;
     render();
@@ -119,7 +104,7 @@ document.getElementById("display").addEventListener("click", function (e) {
     myLibrary.splice(index, 1);
     render();
     setTimeout(() => {
-      confirm(`${deletion} has been successfully deleted!`);
+      alert(`${deletion} has been successfully deleted!`);
     }, 50);
   }
 });
