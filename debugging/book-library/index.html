@@ -55,6 +55,8 @@
         <label for="pages">Pages:</label>
         <input
           type="number"
+          step="1"
+          min="1"
           class="form-control"
           id="pages"
           name="pages"
@@ -69,10 +71,10 @@
           />Read
         </label>
         <input
-          type="submit"
+          type="button"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
+          onclick="bookSubmit()"
         />
       </div>
     </div>
@@ -87,6 +89,7 @@
           <th>Delete</th>
         </tr>
       </thead>
+      <tbody></tbody>
     </table>
 
     <script src="script.js"></script>
