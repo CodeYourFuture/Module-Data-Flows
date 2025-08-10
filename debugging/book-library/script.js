@@ -2,12 +2,11 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  //render(); Avoids unnecessary double rendering.
 });
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true); //Pages stored as string "252". fixed it by removing the quote.
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -25,30 +24,43 @@ const authorInputEl = document.getElementById("author");
 const pagesInputEl = document.getElementById("pages");
 const checkInputEl = document.getElementById("check");
 
-
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  const validation = validationDataInput(...);
-if (!validation.valid) {
-  alert(validation.message);
-  return false;
+  const validation = validationDataInput(
+    titleInputEl.value,
+    authorInputEl.value,
+    pagesInputEl.value
+  );
+  if (!validation.valid) {
+    alert(validation.message);
+    return false;
+  }
+  const cleanTitle = santilizationDataInput(titleInputEl.value);
+  const cleanAuthor = santilizationDataInput(authorInputEl.value);
+  const cleanPages = santilizationDataInput(pagesInputEl.value);
+
+  let book = new Book(
+    cleanTitle,
+    cleanAuthor,
+    Number(cleanPages),
+    checkInputEl.checked
+  );
+  myLibrary.push(book);
+  render();
+
+  titleInputEl.value = "";
+  authorInputEl.value = "";
+  pagesInputEl.value = "";
+  checkInputEl.checked = false;
+  return true;
 }
 
-const cleanTitle = santilizationDataInput(titleInputEl.value);
-const cleanAuthor = santilizationDataInput(authorInputEl.value);
-const cleanPages = santilizationDataInput(pagesInputEl.value);
-
-let book = new Book(cleanTitle, cleanAuthor, Number(cleanPages), checkInputEl.checked);
-myLibrary.push(book);
-render();
-
-titleInputEl.value = "";
-authorInputEl.value = "";
-pagesInputEl.value = "";
-checkInputEl.checked = false;
-return true;
-
+function Book(title, author, pages, check) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.check = check;
 }
 
 function render() {
