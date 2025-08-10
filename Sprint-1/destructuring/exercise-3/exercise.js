@@ -19,8 +19,9 @@ function printOrder(order) {
     maxNameLength = 4;
   }
   console.log("QTY" + " ".repeat(4) + "ITEM" + " ".repeat(maxNameLength) + "TOTAL");
-  for (const item of order) {
-    console.log(item.quantity + " ".repeat(maxNumberLength - numberDigitsQuantity(item.quantity) + 4) + item.itemName + " ".repeat(maxNameLength - item.itemName.length + 4) + convertPenceToPounds(item.unitPricePence));
+  for (let i = 0; i < order.length; i++) {
+    const { itemName, quantity, unitPricePence } = order[i];
+    console.log(quantity + " ".repeat(maxNumberLength - numberDigitsQuantity(quantity) + 4) + itemName + " ".repeat(maxNameLength - itemName.length + 4) + convertPenceToPounds(unitPricePence));
   }
 }
 
@@ -33,8 +34,9 @@ function numberDigitsQuantity(number) {
 
 function findLongestQuantityNumberLength(order) {
   let max = 0;
-  for (const item of order) {
-    const numberLength = numberDigitsQuantity(item.quantity)
+  for (let i = 0; i < order.length; i++) {
+    const { itemName, quantity } = order[i];
+    const numberLength = numberDigitsQuantity(quantity)
     if (numberLength > max) {
       max = numberLength;
     }
@@ -44,9 +46,11 @@ function findLongestQuantityNumberLength(order) {
 
 function findLongestItemNameLength(order) {
   let max = 0;
-  for (const item of order) {
-    if (item.itemName.length > max) {
-      max = item.itemName.length;
+  for (let i = 0; i < order.length; i++) {
+    const { itemName, quantity } = order[i];
+    const numberLength = numberDigitsQuantity(quantity)
+    if (itemName.length > max) {
+      max = itemName.length;
     }
   }
   return max;

@@ -73,16 +73,21 @@ let hogwarts = [
 
 function displayGryffindor(hogwarts) {
   for (const person of hogwarts) {
-    if (person.house == "Gryffindor") {
-      console.log(person.firstName + " " + person.lastName);
+
+  }
+  for (let i = 0; i < hogwarts.length; i++) {
+    const { firstName, lastName, house, pet, occupation } = hogwarts[i];
+    if (house == "Gryffindor") {
+      console.log(firstName + " " + lastName);
     }
   }
 }
 
 function displayTeachersWithPet(hogwarts) {
-  for (const person of hogwarts) {
-    if (person.occupation == "Teacher" && person.pet != null) {
-      console.log(person.firstName + " " + person.lastName);
+  for (let i = 0; i < hogwarts.length; i++) {
+    const { firstName, lastName, house, pet, occupation } = hogwarts[i];
+    if (occupation == "Teacher" && pet != null) {
+      console.log(firstName + " " + lastName);
     }
   }
 }
