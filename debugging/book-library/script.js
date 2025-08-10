@@ -33,17 +33,22 @@ const check = document.getElementById("check");
 function submit() {
   // the .value is a string.
   //  we do not need to check if the .value is null as input element will always return a string even empty one.
-  let pagesToNumber = Number(inputPages.value)
+  let sanitizedTitle = inputTitle.value.trim();
+  let sanitizedAuthor = inputAuthor.value.trim();
+  let pagesToNumber = Number(inputPages.value);
+  // using Math.round to handle decimals.
+  let sanitizedPages = Math.round(pagesToNumber);
+
   if (
-    inputTitle.value.trim() === "" ||
-    inputAuthor.value.trim() === "" ||
-    isNaN(pagesToNumber) ||
-    pagesToNumber<= 0
+    sanitizedTitle=== "" ||
+    sanitizedAuthor=== "" ||
+    isNaN(sanitizedPages) ||
+    sanitizedPages<= 0
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(inputTitle.value,inputAuthor.value, pagesToNumber, check.checked);
+    let book = new Book(sanitizedTitle,sanitizedAuthor, sanitizedPages, check.checked);
     myLibrary.push(book);
     render();
     inputTitle.value ="";
@@ -83,12 +88,8 @@ function render() {
     let changeReadStatusBtn= document.createElement("button");
     changeReadStatusBtn.className = "btn btn-success";
     wasReadCell.appendChild(changeReadStatusBtn);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    
+    const readStatus = myLibrary[i].check ? 'Yes' : 'No'
     changeReadStatusBtn.textContent = readStatus;
 
     changeReadStatusBtn.addEventListener("click", function () {
@@ -102,9 +103,9 @@ function render() {
     deleteBtn .className = "btn btn-warning";
     deleteBtn .textContent = "Delete";
     deleteBtn .addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${myLibrary[i].title}`);
     });
   }
 }
