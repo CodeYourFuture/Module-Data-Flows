@@ -53,10 +53,9 @@ class Book {
 
 function render() {
   const table = document.getElementById("display");
+  const tableBody = table.querySelector("tbody");
   //delete old table
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
-  }
+    tableBody.innerHTML = "";
   //insert updated row and cells
   myLibrary.forEach((book, index) => {
     const row = table.insertRow(1);
