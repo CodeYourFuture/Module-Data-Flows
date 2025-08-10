@@ -111,3 +111,29 @@ function render() {
     });
   }
 }
+function validationDataInput(title,author,pages){
+ if (title.trim() === "" || author.trim() === "" || pages.trim() === "") {
+   return { valid: false, message: "Please fill all fields!" };
+ };
+ if (title.trim().length > 100) {
+   return { valid: false, message: "Book Title must be less than 100 character!" };
+ }
+ if (author.trim().length > 50) {
+   return {
+     valid: false,
+     message: "Book Author must be less than 50 character!",
+   };
+ }
+ if (!Number.isInteger(Number(pages)) || Number(pages) <= 0) {
+   return { valid: false, message: "Please enter a valid number of pages." };
+ }
+ return { valid: true };
+}
+
+function santilizationDataInput(inputData){
+return inputData
+  .trim()
+  .replace(/<[^>]*>?/gm, "")
+  .replace(/\s+/g, " ");
+  
+}
