@@ -30,12 +30,12 @@ function submit() {
     alert("Please fill all fields correctly!");
     return false;
   } else {
-    let book = new Book(titleInput.value.trim(), authorInput.value.trim(), Number(pagesInput.value.trim()), checkInput.checked);
+    let book = new Book(titleInput.value.trim(), authorInput.value.trim(),  pagesNumber, checkInput.checked);
     myLibrary.push(book);
 //clear input after submitting
     titleInput.value = "";
     authorInput.value = "";
-    pagesInput.value = "";
+     pagesInput.value  = "";
     checkInput.checked = false;
 
     render();
@@ -56,7 +56,7 @@ function render() {
   table.tBodies[0].innerHTML = ""
 
   for (let i = 0; i < myLibrary.length; i++) {
-    let row =  table.tBodies[0].insertRow();
+    let row =  table.tBodies[0].insertRow(0);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -72,7 +72,7 @@ function render() {
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].check === false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
@@ -110,4 +110,3 @@ function showToast(message) {
   document.body.appendChild(toast);
   setTimeout(() => document.body.removeChild(toast), 3000);
 }
-
