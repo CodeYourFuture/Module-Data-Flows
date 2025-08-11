@@ -38,10 +38,10 @@ function submit() {
   render();
 
   // Clear the form
-  title.value = "";
-  author.value = "";
-  pages.value = "";
-  check.checked = false;
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckBox.checked = false;
 
   return false;
 }
