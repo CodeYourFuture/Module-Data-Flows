@@ -54,7 +54,7 @@ function Book(title, author, pages, check) {
 }
 
 function clearTable() {
-  let table = document.getElementById("display");
+  const table = document.getElementById("display");
   while (table.rows.length > 1) {
     table.deleteRow(1);
   }
