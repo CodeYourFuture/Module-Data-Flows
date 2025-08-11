@@ -39,12 +39,13 @@ function submit() {
   clearForm();
 
   return false;
+}
 
-  // Clear the form
-  function clearForm() {
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
+// Clear the form
+function clearForm() {
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
     readCheckBox.checked = false;
   }
 
