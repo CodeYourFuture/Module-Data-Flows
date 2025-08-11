@@ -72,13 +72,13 @@ function render() {
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
 
-    titleCell.innerText = book.title;
-    authorCell.innerText = book.author;
-    pagesCell.innerText = book.pages;
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
 
     let changeBtn = document.createElement("button");
     changeBtn.className = "btn btn-success";
-    changeBtn.innerText = book.check ? "Yes" : "No";
+    changeBtn.textContent = book.check ? "Yes" : "No";
     changeBtn.onclick = () => {
       book.check = !book.check;
       render();
@@ -87,7 +87,7 @@ function render() {
 
     let delBtn = document.createElement("button");
     delBtn.className = "btn btn-warning";
-    delBtn.innerText = "Delete";
+    delBtn.textContent = "Delete";
     delBtn.onclick = () => {
       if (confirm(`Are you sure you want to delete the book titled: ${book.title}?`)) {
         alert(`You've deleted title: ${book.title}`);
