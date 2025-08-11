@@ -69,7 +69,6 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
@@ -85,16 +84,26 @@ function render() {
       render();
     });
 
-    //add delete button to every row and render again
-    let deleteButton = document.createElement("button");
-    deleteButton.id = i + 5;
-    deleteCell.appendChild(deleteButton);
-    deleteButton.className = "btn btn-warning";
-    deleteButton.innerHTML = "Delete";
-    deleteButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
-    });
+  //add delete button to every row and render again
+  let deleteButton = document.createElement("button");
+  deleteCell.appendChild(deleteButton);
+  deleteButton.className = "btn btn-warning";
+  deleteButton.innerHTML = "Delete";
+
+  deleteButton.addEventListener("click", function () {
+  confirm(`Are you sure you want to delete title: ${myLibrary[i].title}?`)
+  const deletedTitle = myLibrary[i].title;
+  myLibrary.splice(i, 1);
+  render();
+  showToast(`You've deleted title: ${deletedTitle}`);
+ });
+  //pop up notification at the bottom of the screen for deletion.
+  function showToast(message) {
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.classList.add('toast-message'); // add a CSS class instead of inline styles
+  document.body.appendChild(toast);
+  setTimeout(() => document.body.removeChild(toast), 3000);
+    }
   }
 }
