@@ -6,44 +6,49 @@ window.addEventListener("load", function () {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
     myLibrary.push(book1, book2);
     render();
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
 
 function addBook() {
   if (
-    title.value.trim() === "" ||
-    author.value.trim() === "" ||
-    pages.value.trim() === ""
+    titleInput.value.trim() === "" ||
+    authorInput.value.trim() === "" ||
+    pagesInput.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    clearForm();
-    render();
   }
+
+  if (!Number.isInteger(Number(pagesInput.value)) || Number(pagesInput.value) <= 0) {
+    alert("Pages must be a positive number.");
+    return;
+  }
+
+  let book = new Book(
+    titleInput.value.trim(),
+    authorInput.value.trim(),
+    Number(pagesInput.value),
+    readCheckbox.checked
+  );
+  myLibrary.push(book);
+  clearForm();
+  render();
 }
 
 function clearForm() {
-  title.value = "";
-  author.value = "";
-  pages.value = "";
-  check.checked = false;
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckbox.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -55,38 +60,37 @@ function Book(title, author, pages, check) {
 
 function render() {
   let tableBody = document.querySelector("#display tbody");
-  tableBody.innerHTML = ""; // Clear old rows
+  tableBody.innerHTML = "";
 
   myLibrary.forEach((book, i) => {
     let row = tableBody.insertRow();
 
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
+    row.insertCell(0).textContent = book.title;
+    row.insertCell(1).textContent = book.author;
+    row.insertCell(2).textContent = book.pages;
+
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
 
-    titleCell.textContent = book.title;
-    authorCell.textContent = book.author;
-    pagesCell.textContent = book.pages;
-
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.innerText = book.check ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
+    let toggleReadBtn = document.createElement("button");
+    toggleReadBtn.className = "btn btn-success";
+    toggleReadBtn.textContent = book.check ? "Yes" : "No";
+    toggleReadBtn.addEventListener("click", function () {
       book.check = !book.check;
       render();
     });
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(toggleReadBtn);
 
-    let delButton = document.createElement("button");
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${book.title}`);
-      myLibrary.splice(i, 1);
-      render();
+    let deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", function () {
+      if (confirm(`Are you sure you want to delete: ${book.title}?`)) {
+        myLibrary.splice(i, 1);
+        render();
+        alert(`Deleted title: ${book.title}`);
+      }
     });
-    deleteCell.appendChild(delButton);
+    deleteCell.appendChild(deleteBtn);
   });
 }
