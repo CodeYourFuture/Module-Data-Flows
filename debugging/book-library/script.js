@@ -21,16 +21,21 @@ const checkInput = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  const pagesNumber = Number(pagesInput.value.trim())
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const numOfPages = pagesInput.value.trim();
+  const pagesNumber = Number(pagesInput.value.trim());
+  const bookIsRead = checkInput.checked;
+
   if (
-    titleInput.value.trim() === "" ||
-    authorInput.value.trim() === "" ||
-    pagesInput.value.trim() === "" || !Number.isInteger(pagesNumber) || pagesNumber <= 0
+    title === "" ||
+    author=== "" ||
+    numOfPages === "" || !Number.isInteger(pagesNumber) || pagesNumber <= 0
   ) {
     alert("Please fill all fields correctly!");
     return false;
   } else {
-    let book = new Book(titleInput.value.trim(), authorInput.value.trim(),  pagesNumber, checkInput.checked);
+    let book = new Book(title, author, pagesNumber, bookIsRead );
     myLibrary.push(book);
 //clear input after submitting
     titleInput.value = "";
