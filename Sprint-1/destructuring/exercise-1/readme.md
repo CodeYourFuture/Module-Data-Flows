@@ -30,4 +30,5 @@ console.log(`Batman is ${firstName}, ${lastName}`);
 # Exercise
 
 - What is the syntax to destructure the object `personOne` in exercise.js?
+    This means when you call introduceYourself(personOne), the function extracts the name, age, and favouriteFood properties directly from the passed object and assigns them to variables with those names inside the function.
 - Update the parameter of the function `introduceYourself` to use destructuring on the object that gets passed in.
