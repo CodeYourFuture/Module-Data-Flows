@@ -3,11 +3,9 @@ let myLibrary = [];
 window.addEventListener("load", function (e) {
   loadLibrary();
   if(myLibrary.length===0){
-  populateStorage();
-  
-}
+    populateStorage();
+  }
   render();
-
 });
 
 function populateStorage() {
@@ -21,7 +19,7 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    protectMyLibrary();
+    saveLibrary();
   }
 }
 
@@ -29,6 +27,8 @@ const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput= document.getElementById("pages");
 const checkInput = document.getElementById("check");
+const bookForm = document.getElementById("book-form");
+
 
 
 function submit() {
@@ -49,24 +49,23 @@ function submit() {
   }
   let book = new Book(title, author, pages, checkInput.checked);
   myLibrary.push(book);
-  protectMyLibrary();
+  saveLibrary();
   render();
-    
-  titleInput.value = "";
-  authorInput.value = "";
-  pagesInput.value = "";
-  checkInput.checked = false;
-  
+
+  bookForm.reset(); 
 }
 
-function protectMyLibrary(){
+
+function saveLibrary(){
   localStorage.setItem("myLibrary" , JSON.stringify(myLibrary));
 }
 
 function loadLibrary() {
   const storedLibrary = localStorage.getItem("myLibrary");
   if (storedLibrary) {
-    myLibrary = JSON.parse(storedLibrary);
+    myLibrary = JSON.parse(storedLibrary).map(
+      book => new Book(book.title, book.author, book.pages, book.check)
+    );
   }
 }
 
@@ -101,7 +100,7 @@ function render() {
     changeButton.textContent = book.check ? "Yes" : "No";
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
-      protectMyLibrary();
+      saveLibrary();
       render();
   });
   wasReadCell.appendChild(changeButton);
@@ -111,7 +110,7 @@ function render() {
   deleteButton.addEventListener("click", function () {
     const deletedTitle = myLibrary[i].title;
     myLibrary.splice(i, 1);
-    protectMyLibrary();
+    saveLibrary();
     render();
     alert(`You've deleted title: ${deletedTitle}`);
     
