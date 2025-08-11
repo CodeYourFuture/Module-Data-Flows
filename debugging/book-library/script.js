@@ -46,7 +46,7 @@ function clearForm() {
   titleInput.value = "";
   authorInput.value = "";
   pagesInput.value = "";
-    readCheckBox.checked = false;
+  readCheckBox.checked = false;
   }
 
 function Book(title, author, pages, check) {
