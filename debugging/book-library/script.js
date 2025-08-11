@@ -96,26 +96,27 @@ function render() {
     authorCell.textContent = book.author;
     pagesCell.textContent = book.pages;
 
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.textContent = book.check ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
+    let changeButton = document.createElement("button");
+    changeButton.className = "btn btn-success";
+    changeButton.textContent = book.check ? "Yes" : "No";
+    changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       protectMyLibrary();
       render();
   });
-  wasReadCell.appendChild(changeBut);
-  let delBut = document.createElement("button");
-    delBut.className = "btn btn-warning";
-    delBut.innerText = "Delete";
-    delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      protectMyLibrary();
-      render();
+  wasReadCell.appendChild(changeButton);
+  let deleteButton = document.createElement("button");
+  deleteButton.className = "btn btn-warning";
+  deleteButton.innerText = "Delete";
+  deleteButton.addEventListener("click", function () {
+    const deletedTitle = myLibrary[i].title;
+    myLibrary.splice(i, 1);
+    protectMyLibrary();
+    render();
+    alert(`You've deleted title: ${deletedTitle}`);
     
     });
-    deleteCell.appendChild(delBut);
+    deleteCell.appendChild(deleteButton);
   });
 }
 
