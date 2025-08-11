@@ -109,9 +109,13 @@ function render() {
     deleteBtn.className = "btn btn-warning";
     deleteBtn.innerHTML = "Delete";
     deleteBtn.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      setTimeout(() => {
+        alert(`You've successfully deleted the book titled: ${deletedTitle}`);
+      }, 250);  
+      
     });
   }
 }
