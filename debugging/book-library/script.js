@@ -70,11 +70,11 @@ function render() {
 
   //Clear all rows at once
   tbody.innerHTML = "";
-  
+
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow(0);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
