@@ -91,19 +91,23 @@ function render() {
   deleteButton.innerHTML = "Delete";
 
   deleteButton.addEventListener("click", function () {
-  confirm(`Are you sure you want to delete title: ${myLibrary[i].title}?`)
+  if(confirm(`Are you sure you want to delete title: ${myLibrary[i].title}?`)){
   const deletedTitle = myLibrary[i].title;
   myLibrary.splice(i, 1);
   render();
   showToast(`You've deleted title: ${deletedTitle}`);
+  }
  });
-  //pop up notification at the bottom of the screen for deletion.
-  function showToast(message) {
-  const toast = document.createElement('div');
-  toast.textContent = message;
-  toast.classList.add('toast-message'); // add a CSS class instead of inline styles
-  document.body.appendChild(toast);
-  setTimeout(() => document.body.removeChild(toast), 3000);
-    }
+
   }
 }
+
+//pop up notification at the bottom of the screen for deletion.
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.classList.add('toast-message');
+  document.body.appendChild(toast);
+  setTimeout(() => document.body.removeChild(toast), 3000);
+}
+
