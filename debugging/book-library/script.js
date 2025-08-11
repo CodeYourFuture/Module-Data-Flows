@@ -19,32 +19,38 @@ function populateStorage() {
   }
 }
 
-const titleInput  = document.getElementById("title");
-const authorInput  = document.getElementById("author");
-const pagesInput  = document.getElementById("pages");
-const readCheckbox  = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function submit() {
-  if (
-    titleInput.value ==  '' ||
-    authorInput.value == "" ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, parseInt(pages.value), check.checked);
-    myLibrary.push(book);
-    render();
-  }
-  document.querySelectorAll('.form-group input').forEach(input => {
-  if (input.type !== 'submit' && input.type !== 'checkbox') {
-    input.value = '';
-  }
-});
-}
+let formBook = document.getElementById('formBook')
+formBook.addEventListener('submit',
+  function submitBook(event) {
+    event.preventDefault();
+    if (
+      titleInput.value.trim() == '' ||
+      authorInput.value.trim() == '' ||
+      pagesInput.value.trim() == ''
+    ) {
+      alert("Please fill all fields!");
+      return false;
+    } else {
+      const pagesNum = Number(pagesInput.value.trim());
+      if (!Number.isInteger(pagesNum) || pagesNum <= 0) {
+        alert("Please enter a valid, positive number of pages.");
+        return false;
+      }
+      let book = new Book(titleInput.value, authorInput.value, parseInt(pagesInput.value), readCheckbox.checked);
+      myLibrary.push(book);
+      render();
+    }
+    formBook.reset()
+      ;
+  })
+
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -57,10 +63,11 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
+  const tbody = document.querySelector("#display tbody");
+  const rows = tbody.rows;
+  for (let i = rows.length - 1; i >= 0; i--) {
+    tbody.deleteRow(i);
   }
-
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
@@ -70,21 +77,17 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.textContent  = myLibrary[i].title;
-    authorCell.textContent  = myLibrary[i].author;
-    pagesCell.textContent  = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.textContent  = readStatus;
+    myLibrary[i].check == true ? readStatus = "Yes" : readStatus = 'No';
+    changeBut.textContent = readStatus;
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
@@ -92,11 +95,11 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let deleteBtn  = document.createElement("button");
-    deleteCell.appendChild(deleteBtn );
-    deleteBtn .className = "btn btn-warning";
-    deleteBtn .textContent  = "Delete";
-    deleteBtn .addEventListener("click", function () {
+    let deleteBtn = document.createElement("button");
+    deleteCell.appendChild(deleteBtn);
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", function () {
       const deletedBookTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       alert(`You've deleted title: ${deletedBookTitle}`);
