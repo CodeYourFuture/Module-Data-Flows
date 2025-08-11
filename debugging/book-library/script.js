@@ -26,10 +26,10 @@ const checkInput = document.getElementById("check");
 
 
 function submit() {
-  // Trim 
-  const title = titleInput.value ? titleInput.value.trim() : "";
-  const author = authorInput.value ? authorInput.value.trim() : "";
-  const pagesRawInput = pagesInput.value ? pagesInput.value.trim() : "";
+  // Trim inputs
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pagesRawInput = pagesInput.value.trim();
   const pages = Number(pagesRawInput);
 
   // Input validation
@@ -37,16 +37,13 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   }
-  if (title.length === 0 || author.length === 0) {
-    alert("Title and author cannot be empty or only spaces.");
-    return false;
-  }
+  
   // Author name must only contain letters and spaces
   if (!/^[A-Za-z\s]+$/.test(author)) {
     alert("Author name must only contain letters and spaces.");
     return false;
   }
-  if (pagesRawInput === "" || isNaN(pages) || !Number.isInteger(pages) || pages <= 0) {
+  if (!Number.isInteger(pages)) {
     alert("Page count must be a positive integer.");
     return false;
   }
@@ -65,30 +62,31 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  // while loop for efficiently removing all rows except the header
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
+  let tbody = table.querySelector("tbody");
+  if(!tbody) {
+    tbody = document.createElement("tbody");
+    table.appendChild(tbody);
   }
+  tbody.innerHTML = ""; // Clear existing rows
   // Insert updated rows and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     // Add and wait for action for read/unread button
     let changeBut = document.createElement("button");
-    changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
+    changeBut.textContent = readStatus;
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
@@ -97,10 +95,9 @@ function render() {
 
     // Add delete button to every row and render again
     let delBut = document.createElement("button");
-    delBut.id = i + 5;
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
+    delBut.textContent = "Delete";
     delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
