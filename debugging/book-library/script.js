@@ -32,23 +32,31 @@ const checkInput = document.getElementById("check");
 
 
 function submit() {
+
   const title =titleInput.value.trim();
   const author=authorInput.value.trim();
-  const pages=pagesInput.value.trim();
+  const pages=Number(pagesInput.value.trim());
+
+
   if (title === "" || author === "" || pages === "") {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title, author, pages, checkInput.checked);
-    myLibrary.push(book);
-    protectMyLibrary();
-    render();
-    
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
-    checkInput.checked = false;
+  } 
+
+  if (isNaN(pages) || pages <= 0) {
+    alert("Please enter a valid positive number for pages.");
+    return false;
   }
+  let book = new Book(title, author, pages, checkInput.checked);
+  myLibrary.push(book);
+  protectMyLibrary();
+  render();
+    
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
+  
 }
 
 function protectMyLibrary(){
