@@ -36,15 +36,17 @@ function submit() {
   myLibrary.push(book);
 
   render();
-
-  // Clear the form
-  titleInput.value = "";
-  authorInput.value = "";
-  pagesInput.value = "";
-  readCheckBox.checked = false;
+  clearForm();
 
   return false;
-}
+
+  // Clear the form
+  function clearForm() {
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    readCheckBox.checked = false;
+  }
 
 function Book(title, author, pages, check) {
   this.title = title;
