@@ -22,14 +22,14 @@ const checkInput = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    titleInput.value === "" ||
-    authorInput.value === "" ||
-    pagesInput.value === ""
+    titleInput.value.trim() === "" ||
+    authorInput.value.trim() === "" ||
+    pagesInput.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(titleInput.value, authorInput.value, pagesInput.value, checkInput.checked);
+    let book = new Book(titleInput.value.trim(), authorInput.value.trim(), Number(pagesInput.value.trim()), checkInput.checked.trim());
     myLibrary.push(book);
     titleInput.value = "";
     authorInput.value = "";
