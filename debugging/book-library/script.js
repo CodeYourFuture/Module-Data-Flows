@@ -13,15 +13,15 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckBox = document.getElementById("check");
 
 function submit() {
-  const titleValue = title.value.trim();
-  const authorValue = author.value.trim();
-  const pagesValue = pages.value.trim();
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = pagesInput.value.trim();
 
   if (!titleValue || !authorValue || !pagesValue) {
     alert("Please fill in all fields before submitting!");
