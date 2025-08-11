@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
+    <title>Saleh's Library</title>
     <meta
       charset="utf-8"
       name="viewport"
@@ -28,10 +28,10 @@
     </button>
 
     <div id="demo" class="collapse">
-      <div class="form-group">
+      <form class="form-group" autocomplete="off" onsubmit="submit(); return false;">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +39,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -53,21 +53,19 @@
           name="pages"
           required
         />
-        <label class="form-check-label">
+        <div class="form-check mb-2">
           <input
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
-          />Read
-        </label>
-        <input
+          />
+          <label class="form-check-label" for="check">Read</label>
+      </div>
+      <input
           type="submit"
           value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
-      </div>
+          class="btn btn-primary"/>
+      </form>
     </div>
 
     <table class="table" id="display">
@@ -77,18 +75,10 @@
           <th>Author</th>
           <th>Number of Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Delete</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody id="book-list"></tbody>
     </table>
 
     <script src="script.js"></script>
