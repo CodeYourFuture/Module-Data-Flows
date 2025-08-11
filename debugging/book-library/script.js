@@ -55,8 +55,9 @@ function Book(title, author, pages, check) {
 
 function clearTable() {
   const table = document.getElementById("display");
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
+  const tbody = table.querySelector("tbody") || table;
+  while (tbody.children.length > 0) {
+    tbody.removeChild(tbody.lastChild);
   }
 }
 
