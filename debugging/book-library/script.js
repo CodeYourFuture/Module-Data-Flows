@@ -25,33 +25,29 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput= document.getElementById("pages");
+const checkInput = document.getElementById("check");
 
 
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == "" ||
-    author.value=="" ||
-    author.value==null
-  ) {
+  const title =titleInput.value.trim();
+  const author=authorInput.value.trim();
+  const pages=pagesInput.value.trim();
+  if (title === "" || author === "" || pages === "") {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title, author, pages, checkInput.checked);
     myLibrary.push(book);
     protectMyLibrary();
     render();
     
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    checkInput.checked = false;
   }
 }
 
