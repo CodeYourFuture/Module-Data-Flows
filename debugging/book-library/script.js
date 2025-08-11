@@ -32,7 +32,7 @@ function submit() {
     return false;
   }
 
-  const book = new Book(titleValue, authorValue, pagesValue, check.checked);
+  const book = new Book(titleValue, authorValue, pagesValue, readCheckBox.checked);
   myLibrary.push(book);
 
   render();
