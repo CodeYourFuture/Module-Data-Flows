@@ -89,9 +89,11 @@ function render() {
     delBtn.className = "btn btn-warning";
     delBtn.innerText = "Delete";
     delBtn.onclick = () => {
-      alert(`You've deleted title: ${book.title}`);
-      myLibrary.splice(i, 1);
-      render();
+      if (confirm(`Are you sure you want to delete the book titled: ${book.title}?`)) {
+        alert(`You've deleted title: ${book.title}`);
+        myLibrary.splice(i, 1);
+        render();
+      }
     };
     deleteCell.appendChild(delBtn);
   });
