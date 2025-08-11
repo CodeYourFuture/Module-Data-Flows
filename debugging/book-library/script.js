@@ -88,6 +88,7 @@ function render() {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+    
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
