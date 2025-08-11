@@ -57,7 +57,7 @@ function clearTable() {
   const table = document.getElementById("display");
   const tbody = table.querySelector("tbody") || table;
   while (tbody.children.length > 0) {
-    tbody.removeChild(tbody.lastChild);
+    tbody.removeChild(tbody.lastElementChild);
   }
 }
 
@@ -91,9 +91,9 @@ function render() {
     delBtn.textContent = "Delete";
     delBtn.onclick = () => {
       if (confirm(`Are you sure you want to delete the book titled: ${book.title}?`)) {
-        alert(`You've deleted title: ${book.title}`);
         myLibrary.splice(i, 1);
         render();
+        alert(`You've deleted title: ${book.title}`);
       }
     };
     deleteCell.appendChild(delBtn);
@@ -108,10 +108,10 @@ function viewReadBooks() {
     .filter(book => book.check)
     .forEach(book => {
       let row = table.insertRow(1);
-      row.insertCell(0).innerText = book.title;
-      row.insertCell(1).innerText = book.author;
-      row.insertCell(2).innerText = book.pages;
-      row.insertCell(3).innerText = "Yes";
-      row.insertCell(4).innerText = "-";
+      row.insertCell(0).textContent = book.title;
+      row.insertCell(1).textContent = book.author;
+      row.insertCell(2).textContent = book.pages;
+      row.insertCell(3).textContent = "Yes";
+      row.insertCell(4).textContent = "-";
     });
 }
