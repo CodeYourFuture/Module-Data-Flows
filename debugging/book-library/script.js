@@ -27,18 +27,35 @@ const readCheckbox = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  titleInput.value = titleInput.value.trim().replace(/\s+/g, " ");
+  authorInput.value = authorInput.value.trim().replace(/\s+/g, " ");
+  pagesInput.value = pagesInput.value.trim();
+
   if (
-    titleInput.value.trim() === "" ||
-    authorInput.value.trim() === "" ||
-    pagesInput.value.trim() === ""  
+    titleInput.value === "" ||
+    authorInput.value === "" ||
+    pagesInput.value === ""  
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(titleInput.value, authorInput.value, pagesInput.value, readCheckbox.checked);
-    myLibrary.push(book);
-    render();
+  } 
+
+  if (isNaN(pagesInput.value) || pagesInput.value <= 0 || pagesInput.value > 20000) {
+  alert("Please enter a valid page count (1–20000).");
+  return false;
   }
+  
+  let book = new Book(
+    titleInput.value,
+    authorInput.value,
+    parseInt(pagesInput.value, 10),
+    readCheckbox.checked
+  );
+
+  myLibrary.push(book);
+  render();
+
+
 }
 
 function Book(title, author, pages, check) {
