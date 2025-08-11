@@ -1,48 +1,57 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
+const form = document.getElementById("book-form")
+const tbody = document.getElementById("book-list");
+
+
+window.addEventListener("load", function () {
   populateStorage();
   render();
 });
 
+form.addEventListener("submit", handleSubmit);
 
 function populateStorage() {
   if (myLibrary.length == 0) {
      myLibrary.push(
-       new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+       new Book("Robison Crusoe", "Daniel Defoe", "252", true),
        new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true)
      );
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+function handleSubmit(event) {
+  event.preventDefault();
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
-  const title = titleInput.value.trim();
-  const author = authorInput.value.trim();
-  const pages = Number(pagesInput.value);
-  const read = readCheckbox.checked;
+  const bookData = {
+    title: titleInput.value.trim(),
+    author: authorInput.value.trim(),
+    pages: Number(pagesInput.value),
+    read: readCheckbox.checked
+  };
 
-  
-  if (
-    !title ||
-    !author ||
-    !Number.isInteger(pages) ||
-    pages <= 0
-  ) {
+  if (!isValidBook(bookData)) {
     alert("Please enter valid book details.");
-    return false;
+    return;
   }
 
-  myLibrary.push(new Book(title, author, pages, read));
+  myLibrary.push(new Book(bookData.title, bookData.author, bookData.pages, bookData.read));
   render();
+  clearForm();
+}
 
-  
+// Validation
+function isValidBook({ title, author, pages }) {
+  return title && author && Number.isInteger(pages) && pages > 0;
+}
+
+// Reset form
+function clearForm() {
   titleInput.value = "";
   authorInput.value = "";
   pagesInput.value = "";
@@ -58,15 +67,7 @@ class Book {
   }
 }
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
-}
-
 function render() {
-   const tbody = document.getElementById("book-list");
    tbody.innerHTML = ""; 
 
   myLibrary.forEach((book, index) => {
@@ -87,6 +88,7 @@ function render() {
     
     const readCell = row.insertCell();
     const toggleReadBtn = document.createElement("button");
+    toggleReadBtn.type = "button";
     toggleReadBtn.className = "btn btn-success";
     toggleReadBtn.textContent = book.read ? "Yes" : "No";
     toggleReadBtn.addEventListener("click", function () {
