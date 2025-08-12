@@ -67,9 +67,10 @@ function clearTable() {
 function render() {
   clearTable();
   let table = document.getElementById("display");
+  let tbody = table.querySelector("tbody");
 
   myLibrary.forEach((book, i) => {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
