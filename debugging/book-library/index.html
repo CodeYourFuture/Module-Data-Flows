@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
+    <title> Mayowa Book Library</title>
     <meta
       charset="utf-8"
       name="viewport"
@@ -19,8 +19,8 @@
 
   <body>
     <div class="jumbotron text-center">
-      <h1>Library</h1>
-      <p>Add books to your virtual library</p>
+      <h1>Mayowa Books Library</h1>
+      <p>Platform where hardwork and reading is appreciated</p>
     </div>
 
     <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
@@ -28,10 +28,11 @@
     </button>
 
     <div id="demo" class="collapse">
+      <form id="form" onsubmit="submit(); return false;">
       <div class="form-group">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +40,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -65,9 +66,9 @@
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
         />
       </div>
+      </form>
     </div>
 
     <table class="table" id="display">
@@ -81,13 +82,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
       </tbody>
     </table>
 
