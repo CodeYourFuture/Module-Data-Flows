@@ -27,26 +27,19 @@ const checkBox = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    /^\d+$/.test(titleInput.value) ||
-    /^\d+$/.test(authorInput.value)
-  ) {
-    alert("Title and author cannot be only numbers!");
-    return false;
-  }
-  if (
-    titleInput.value.trim() === "" ||
-    authorInput.value.trim() === ""
-  ) {
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = Number(pagesInput.value);
+  const isChecked = checkBox.checked;
+  if (titleValue === "" || authorValue === "") {
     alert("Title and author cannot be empty or only spaces!");
     return false;
   }
-  const pageCount = Number(pagesInput.value);
-  if (isNaN(pageCount) || pageCount <= 0) {
+  if (isNaN(pagesValue) || pagesValue <= 0) {
     alert("Please enter a valid positive number for pages!");
     return false;
   } else {
-    let book = new Book(titleInput.value.trim(), authorInput.value.trim(), pagesInput.value, checkBox.checked);
+    let book = new Book(titleValue, authorValue, pagesValue, isChecked);
     myLibrary.push(book);
     render();
   }
