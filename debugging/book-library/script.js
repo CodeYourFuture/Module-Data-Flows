@@ -30,11 +30,12 @@ let formBook = document.getElementById('formBook')
 formBook.addEventListener('submit',
   function submitBook(event) {
     event.preventDefault();
-    if (
-      titleInput.value.trim() == '' ||
-      authorInput.value.trim() == '' ||
-      pagesInput.value.trim() == ''
-    ) {
+    let title = titleInput.value.trim();
+    let author = authorInput.value.trim();
+    let pagesStr = pagesInput.value.trim();
+    let isRead = readCheckbox.checked;
+
+    if (title === '' || author === '' || pagesStr === '') {
       alert("Please fill all fields!");
       return false;
     } else {
@@ -43,7 +44,7 @@ formBook.addEventListener('submit',
         alert("Please enter a valid, positive number of pages.");
         return false;
       }
-      let book = new Book(titleInput.value, authorInput.value, parseInt(pagesInput.value), readCheckbox.checked);
+      let book = new Book(title, author, pagesNum, isRead);
       myLibrary.push(book);
       render();
     }
@@ -65,13 +66,11 @@ function render() {
   //delete old table
   const tbody = document.querySelector("#display tbody");
   const rows = tbody.rows;
-  for (let i = rows.length - 1; i >= 0; i--) {
-    tbody.deleteRow(i);
-  }
+  tbody.innerHTML = '';
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
