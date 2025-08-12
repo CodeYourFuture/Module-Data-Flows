@@ -70,3 +70,21 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+
+
+
+  
+  // Iterate through the hogwarts array and log the first name, last name, and pet of each person in Gryffindor house.
+  for (let person of hogwarts) {
+    const { firstName, lastName, house } = person;
+    if (house === "Gryffindor") {
+      console.log( `${firstName}, ${lastName}`);
+    }
+  }
+
+
+
+
+
