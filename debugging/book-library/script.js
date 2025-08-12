@@ -35,6 +35,7 @@ function submit() {
     alert("Title and author cannot be empty or only spaces!");
     return false;
   }
+  const pageCount = Number(pagesInput.value);
   if (isNaN(pagesValue) || pagesValue <= 0) {
     alert("Please enter a valid positive number for pages!");
     return false;
@@ -77,12 +78,7 @@ function render() {
     changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    const readStatus = myLibrary[i].check ? "Yes" : "No";
     changeButton.innerText = readStatus;
 
     changeButton.addEventListener("click", function () {
