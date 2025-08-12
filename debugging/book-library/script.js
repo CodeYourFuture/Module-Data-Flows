@@ -41,8 +41,8 @@ function submit() {
   } 
 
   if (isNaN(pagesInput.value) || pagesInput.value <= 0 || pagesInput.value > 10000) {
-  alert("Please enter a valid page count (1–10000).");
-  return false;
+    alert("Please enter a valid page count (1–10000).");
+    return false;
   }
 
   let book = new Book(
