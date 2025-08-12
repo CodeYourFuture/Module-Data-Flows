@@ -35,8 +35,7 @@ function submit() {
     alert("Title and author cannot be empty or only spaces!");
     return false;
   }
-  const pageCount = Number(pagesInput.value);
-  if (isNaN(pagesValue) || pagesValue <= 0) {
+  if (!Number.isInteger(pagesValue) || pagesValue <= 0) {
     alert("Please enter a valid positive number for pages!");
     return false;
   } else {
