@@ -174,6 +174,8 @@ function createStatusButton(book, index) {
     const btn = document.createElement("button");
     btn.className = book.isRead ? "btn btn-success btn-sm" : "btn btn-danger btn-sm";
     btn.textContent = book.isRead ? "Read" : "Not Read";
+    btn.title = `Mark "${book.title}" as ${book.isRead ? "unread" : "read"}`; // Use book parameter
+    btn.setAttribute("aria-label", btn.title); // Accessibility improvement
     btn.onclick = () => toggleReadStatus(index);
     return btn;
 }
