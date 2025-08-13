@@ -43,7 +43,6 @@ function submit() {
     return false;
   }
 
-  // create and add the book
   const book = new Book(
     title.value.trim(),
     author.value.trim(),
@@ -52,8 +51,14 @@ function submit() {
   );
   myLibrary.push(book);
   render();
+  
+ 
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
+  
   return true;
-}
 }
 
 function Book(title, author, pages, check) {
@@ -70,7 +75,7 @@ function render() {
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
-  //insert updated row and cells
+
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
@@ -83,7 +88,7 @@ function render() {
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = String(myLibrary[i].pages);
 
-    //add and wait for action for read/unread button
+   
     let changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
