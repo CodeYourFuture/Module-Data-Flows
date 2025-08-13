@@ -4,6 +4,13 @@ window.addEventListener("load", function () {
   console.log("Page loaded, initializing library...");
   populateStorage();
   render();
+  const form = document.getElementById("bookForm"); 
+  if (form) {
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      addBook();
+    });
+  }
 });
 
 function Book(title, author, pages, isRead) {
