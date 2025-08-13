@@ -83,9 +83,7 @@ function render() {
     let changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-    myLibrary[i].check === false ? (readStatus = "No") : (readStatus = "Yes");
-
+    let readStatus = myLibrary[i].check === false ? "No" : "Yes";
     changeButton.innerText = readStatus;
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
