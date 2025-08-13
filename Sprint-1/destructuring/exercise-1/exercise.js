@@ -6,9 +6,9 @@ const personOne = {
 
 // Update the parameter to this function to make it work.
 // Don't change anything else.
+// Use object destructuring in introduceYourself parameter
 function introduceYourself({ name, age, favouriteFood }) {
-  // Use the destructured variables in the console.log statement.
-  // Don't change anything else.
+
   console.log(
     `Hello, my name is ${name}. I am ${age} years old and my favourite food is ${favouriteFood}.`
   );

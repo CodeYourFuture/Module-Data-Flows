@@ -29,5 +29,27 @@ console.log(`Batman is ${firstName}, ${lastName}`);
 
 # Exercise
 
-- What is the syntax to destructure the object `personOne` in exercise.js?
-- Update the parameter of the function `introduceYourself` to use destructuring on the object that gets passed in.
+1 - What is the syntax to destructure the object `personOne` in exercise.js?
+
+For the personOne example, the destructuring syntax would be:
+
+```
+let { name, age, favouriteFood } = personOne;
+
+That pulls the three properties out of personOne into separate variables.
+
+```
+2 - Update the parameter of the function `introduceYourself` to use destructuring on the object that gets passed in.
+
+```
+To update the parameter of introduceYourself function to use destructuring, I would write:
+
+function introduceYourself({ name, age, favouriteFood }) {
+  console.log(
+    `Hello, my name is ${name}. I am ${age} years old and my favourite food is ${favouriteFood}.`
+  );
+}
+This way, the function immediately unpacks those properties from the object is passed in, without 
+needing separate variable assignments.
+
+```
