@@ -84,32 +84,56 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
-    changeBut.className = "btn btn-success";
+    changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
+  
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
-
-    changeBut.addEventListener("click", function () {
+    
+    changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
+    deleteCell.appendChild(delButton);
+    delButton.className = "btn btn-warning";
+    delButton.innerHTML = "Delete";
+    delButton.addEventListener("click", function () {
+      if (confirm(`Are you sure you want to delete: ${myLibrary[i].title}`)) {
+        myLibrary.splice(i, 1);
+        render();
+        alert("Book deleted successfully.");
+      }
     });
   }
+}
+
+function validationDataInput(title, author, pages) {
+  if (title.trim() === "" || author.trim() === "" || pages.trim() === "") {
+    return { valid: false, message: "Please fill all fields!" };
+  }
+  if (title.trim().length > 100) {
+    return {
+      valid: false,
+      message: "Book Title must be less than 100 character!",
+    };
+  }
+  if (author.trim().length > 50) {
+    return {
+      valid: false,
+      message: "Book Author must be less than 50 character!",
+    };
+  }
+  if (!Number.isInteger(Number(pages)) || Number(pages) <= 0) {
+    return { valid: false, message: "Please enter a valid number of pages." };
+  }
+  return { valid: true };
+}
+
+function santilizationDataInput(inputData) {
+  return inputData
+    .trim()
+    .replace(/<[^>]*>?/gm, "")
+    .replace(/\s+/g, " ");
 }
