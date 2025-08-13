@@ -86,7 +86,11 @@ function render() {
     changeBtn.textContent = book.check ? "Yes" : "No";
     changeBtn.onclick = () => {
       book.check = !book.check;
-      render();
+      if (book.check) {
+        viewReadBooks();
+      } else {
+        render();
+      }
     };
     wasReadCell.appendChild(changeBtn);
 
@@ -107,15 +111,40 @@ function render() {
 function viewReadBooks() {
   clearTable();
   let table = document.getElementById("display");
+  let tbody = table.querySelector("tbody");
 
   myLibrary
     .filter(book => book.check)
     .forEach(book => {
-      let row = table.insertRow(1);
+      let row = tbody.insertRow();
       row.insertCell(0).textContent = book.title;
       row.insertCell(1).textContent = book.author;
       row.insertCell(2).textContent = book.pages;
-      row.insertCell(3).textContent = "Yes";
-      row.insertCell(4).textContent = "-";
+
+      let changeBtn = document.createElement("button");
+      let wasReadCell = row.insertCell(3);
+    changeBtn.className = "btn btn-success";
+    changeBtn.textContent = "Yes";
+    changeBtn.onclick = () => {
+    book.check = !book.check;
+    if (book.check) {
+      changeBtn.textContent = "Yes";
+    }
+    viewReadBooks();
+  };
+  wasReadCell.appendChild(changeBtn);
+
+   let deleteCell = row.insertCell(4);
+      let delBtn = document.createElement("button");
+      delBtn.className = "btn btn-warning";
+      delBtn.textContent = "Delete";
+      delBtn.onclick = () => {
+        if (confirm(`Are you sure you want to delete ${book.title}?`)) {
+          myLibrary.splice(myLibrary.indexOf(book), 1);
+          viewReadBooks(); // Refresh the filtered view
+        }
+      };
+      deleteCell.appendChild(delBtn);
     });
+  }
 }
