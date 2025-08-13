@@ -182,6 +182,7 @@ function createDeleteButton(book, index) {
     const btn = document.createElement("button");
     btn.className = "btn btn-warning btn-sm";
     btn.textContent = "Delete";
+    btn.title = `Delete "${book.title}"`;
     btn.onclick = () => deleteBook(index);
     return btn;
 }
