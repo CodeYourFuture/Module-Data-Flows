@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title> My Book Library </title>
+    <title>My Book Library</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -15,74 +15,152 @@
   </head>
 
   <body>
-    <div class="jumbotron text-center">
-      <h1>Library</h1>
-      <p>Add books to your virtual library</p>
-    </div>
+    <div class="container">
+      <header>
+        <div class="jumbotron text-center">
+          <h1>My Book Library</h1>
+          <p>Add books to your virtual library and track your reading progress</p>
+        </div>
+      </header>
 
-    <div class="text-center mb-3">
-      <button class="btn btn-info" data-toggle="collapse" data-target="#demo">Add New Book</button>
-      <button class="btn btn-success" onclick="viewReadBooks()">View Read Books</button>
-      <button class="btn btn-secondary" onclick="render()">View All Books</button>
-    </div>
+      <main>
+        <nav class="text-center mb-3" role="navigation" aria-label="Library actions">
+          <button 
+            class="btn btn-info" 
+            data-toggle="collapse" 
+            data-target="#demo"
+            aria-expanded="false"
+            aria-controls="demo"
+          >
+            Add New Book
+          </button>
+          <button 
+            class="btn btn-success" 
+            onclick="viewReadBooks()"
+            aria-describedby="view-read-help"
+          >
+            View Read Books
+          </button>
+          <button 
+            class="btn btn-secondary" 
+            onclick="render()"
+            aria-describedby="view-all-help"
+          >
+            View All Books
+          </button>
+          <div class="sr-only">
+            <div id="view-read-help">Shows only books you have marked as read</div>
+            <div id="view-all-help">Shows all books in your library</div>
+          </div>
+        </nav>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="text"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-          /> I have read this book
-        </label>
-        <button
-          type="button"
-          class="btn btn-primary"
-          onclick="submit();"
-        > Add Book
-      </button>
-      </div>
-    </div>
+        <section>
+          <div id="demo" class="collapse">
+            <form onsubmit="return submit();" class="form-group" aria-labelledby="form-heading">
+              <h2 id="form-heading" class="sr-only">Add New Book Form</h2>
+              
+              <div class="form-group">
+                <label for="title">Book Title *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  required
+                  aria-describedby="title-help"
+                  placeholder="Enter the book title"
+                />
+                <small id="title-help" class="form-text text-muted">
+                  Enter the full title of the book
+                </small>
+              </div>
 
-    <table class="table" id="display">
-      <thead class="thead-dark">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Number of Pages</th>
-          <th>Read</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        </tr>
-      </tbody>
-    </table>
+              <div class="form-group">
+                <label for="author">Author *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="author"
+                  name="author"
+                  required
+                  aria-describedby="author-help"
+                  placeholder="Enter the author's name"
+                />
+                <small id="author-help" class="form-text text-muted">
+                  Enter the author's full name
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="pages">Number of Pages *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="pages"
+                  name="pages"
+                  required
+                  min="1"
+                  aria-describedby="pages-help"
+                  placeholder="Enter number of pages"
+                />
+                <small id="pages-help" class="form-text text-muted">
+                  Enter the total number of pages in the book
+                </small>
+              </div>
+
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="check"
+                  name="read-status"
+                  aria-describedby="check-help"
+                />
+                <label class="form-check-label" for="check">
+                  I have read this book
+                </label>
+                <small id="check-help" class="form-text text-muted">
+                  Check this box if you have already read this book
+                </small>
+              </div>
+
+              <button type="submit" class="btn btn-primary" aria-describedby="submit-help">
+                Add Book to Library
+              </button>
+              <small id="submit-help" class="form-text text-muted">
+                Click to add this book to your library
+              </small>
+            </form>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sr-only">Book Library Table</h2>
+          <table 
+            class="table table-striped" 
+            id="display"
+            role="table"
+            aria-label="Library books table"
+            aria-describedby="table-description"
+          >
+            <caption id="table-description" class="sr-only">
+              A table showing all books in your library with their details and actions
+            </caption>
+            <thead class="thead-dark">
+              <tr role="row">
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Number of Pages</th>
+                <th scope="col">Read Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
 
     <script src="script.js"></script>
   </body>
