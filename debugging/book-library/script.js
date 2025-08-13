@@ -87,8 +87,12 @@ function render() {
     changeBtn.onclick = () => {
       book.check = !book.check;
       if (book.check) {
+        changeBtn.textContent = "Yes";
+        changeBtn.className = "btn btn-success";
         viewReadBooks();
       } else {
+        changeBtn.textContent = "No";
+        changeBtn.className = "btn btn-danger";
         render();
       }
     };
@@ -123,28 +127,28 @@ function viewReadBooks() {
 
       let changeBtn = document.createElement("button");
       let wasReadCell = row.insertCell(3);
-    changeBtn.className = "btn btn-success";
-    changeBtn.textContent = "Yes";
-    changeBtn.onclick = () => {
-    book.check = !book.check;
-    if (book.check) {
+      changeBtn.className = "btn btn-success";
       changeBtn.textContent = "Yes";
-    }
-    viewReadBooks();
-  };
-  wasReadCell.appendChild(changeBtn);
+      changeBtn.onclick = () => {
+        book.check = !book.check;
+        if (book.check) {
+          changeBtn.textContent = "Yes";
+        } else {
+          render();
+        }
+      };
+      wasReadCell.appendChild(changeBtn);
 
-   let deleteCell = row.insertCell(4);
+      let deleteCell = row.insertCell(4);
       let delBtn = document.createElement("button");
       delBtn.className = "btn btn-warning";
       delBtn.textContent = "Delete";
       delBtn.onclick = () => {
         if (confirm(`Are you sure you want to delete ${book.title}?`)) {
           myLibrary.splice(myLibrary.indexOf(book), 1);
-          viewReadBooks(); // Refresh the filtered view
+          viewReadBooks();
         }
       };
       deleteCell.appendChild(delBtn);
     });
   }
-}
