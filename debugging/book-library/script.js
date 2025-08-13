@@ -17,8 +17,8 @@ function populateStorage() {
   if (myLibrary.length === 0) {
     let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
-    let book3 = new Book("To Kill a Mockingbird", "Harper Lee", 324, false);
-    
+    let book3 = new Book("How to Code", "Seddiq Azam", 324, false);
+
     myLibrary.push(book1, book2, book3);
     console.log("Added initial books:", myLibrary);
   }
