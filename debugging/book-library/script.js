@@ -180,16 +180,6 @@ function createStatusButton(book, index) {
     return btn;
 }
 
-function createDeleteButton(book, index) {
-    const btn = document.createElement("button");
-    btn.className = "btn btn-warning btn-sm";
-    btn.textContent = "Delete";
-    btn.title = `Delete "${book.title}"`;
-    btn.setAttribute("aria-label", `Delete ${book.title}`); // Accessibility improvement
-    btn.onclick = () => deleteBook(index);
-    return btn;
-}
-
 function clearTable() {
     const tbody = document.querySelector("#display tbody");
     if (tbody) {
@@ -220,16 +210,30 @@ function toggleReadStatus(index) {
     }
 }
 
-function deleteBook(index) {
-    const book = myLibrary[index];
-    if (book) {
+function deleteBook(title, author) {
+    const index = myLibrary.findIndex(book => 
+        book.title === title && book.author === author
+    );
+    
+    if (index !== -1) {
+        const book = myLibrary[index];
         if (confirm(`Are you sure you want to delete "${book.title}" from your library?`)) {
             const deletedBook = myLibrary.splice(index, 1)[0];
             console.log(`Deleted book "${deletedBook.title}" from library`);
             render();
             showAlert(`"${deletedBook.title}" has been removed from your library!`, "warning");
         }
+    } else {
+        console.error("Book not found:", title, author);
     }
+}
+
+function createDeleteButton(book, index) {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-warning btn-sm";
+    btn.textContent = "Delete";
+    btn.onclick = () => deleteBook(book.title, book.author);
+    return btn;
 }
 
 function viewReadBooks() {
