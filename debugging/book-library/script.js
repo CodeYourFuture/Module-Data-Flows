@@ -183,6 +183,7 @@ function createDeleteButton(book, index) {
     btn.className = "btn btn-warning btn-sm";
     btn.textContent = "Delete";
     btn.title = `Delete "${book.title}"`;
+    btn.setAttribute("aria-label", `Delete ${book.title}`); // Accessibility improvement
     btn.onclick = () => deleteBook(index);
     return btn;
 }
