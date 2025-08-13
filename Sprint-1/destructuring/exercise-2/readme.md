@@ -33,5 +33,18 @@ Albus Dumbledore
 ### Expected result
 
 ```
+
+Hello, my name is Harry Potter. I am a Student at Hogwarts and I belong to the Gryffindor house.
+I have a pet Owl.
+Hello, my name is Ron Weasley. I am a Student at Hogwarts and I belong to the Gryffindor house.
+I have a pet Scabbers.
+Hello, my name is Hermione Granger. I am a Student at Hogwarts and I belong to the Gryffindor house.
+I have a pet Cat.
+Hello, my name is Minerva McGonagall. I am a Teacher at Hogwarts and I belong to the Gryffindor house.
+I don't have a pet.
+Hello, my name is Albus Dumbledore. I am a Teacher at Hogwarts and I belong to the Gryffindor house.
+I have a pet Phoenix.
+
+
 Albus Dumbledore
 ```
