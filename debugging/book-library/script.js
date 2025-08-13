@@ -32,7 +32,6 @@ function populateStorage() {
 }
 
 function addBook() {
-  console.log("Add book button clicked!");
   
   const titleInput = document.getElementById("title");
   const authorInput = document.getElementById("author");
