@@ -98,35 +98,25 @@ function highlightEmptyFields(title, author, pages) {
 }
 
 function clearForm() {
-  const titleInput = document.getElementById("title");
-  const authorInput = document.getElementById("author");
-  const pagesInput = document.getElementById("pages");
-  const checkInput = document.getElementById("check");
-  
-  if (titleInput) {
-    titleInput.value = "";
-    titleInput.classList.remove("is-invalid", "is-valid");
+  const form = document.getElementById("bookForm"); 
+  if (!form) {
+    console.error("Form element not found!");
+    return;
   }
-  if (authorInput) {
-    authorInput.value = "";
-    authorInput.classList.remove("is-invalid", "is-valid");
-  }
-  if (pagesInput) {
-    pagesInput.value = "";
-    pagesInput.classList.remove("is-invalid", "is-valid");
-  }
-  if (checkInput) {
-    checkInput.checked = false;
-  }
-  
-  console.log("Form cleared");
+
+  form.reset();
+
+  form.querySelectorAll(".is-invalid, .is-valid").forEach(input => {
+    input.classList.remove("is-invalid", "is-valid");
+  });
+
+  console.log("Form cleared using .reset()");
 }
 
 function render() {
   console.log("Rendering library with", myLibrary.length, "books");
   clearTable();
   
-  // Hide the form when switching to all books view
   if (typeof $ !== 'undefined') {
     $("#demo").collapse('hide');
   } else {
