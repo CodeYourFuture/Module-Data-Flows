@@ -1,103 +1,270 @@
+// Book class (must be defined before use)
+class Book {
+  constructor(title, author, pages, check) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.check = check;
+  }
+}
+
+// initialise an empty array to hold my book library
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
-  populateStorage();
-  render();
+// DOM elements (using destructuring assignment)
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
+const progressHeaderEl = document.getElementById("progress-header");
+const progressBarEl = document.getElementById("progress-bar");
+const tableEl = document.getElementById("display");
+// add event listener for the add book button
+document.addEventListener("DOMContentLoaded", () => {
+  const bookForm = document.getElementById("bookForm");
+  if (bookForm) {
+    bookForm.addEventListener("submit", (event) => {
+      // prevent the default form submission
+      event.preventDefault();
+      submit();
+    });
+  }
+  // add event listener for clear all button
+  const delAllBooksBtn = document.getElementById("delAllBooksBtn");
+  // check if the button exists before adding the event listeners to prevent errors if the button is not present in the DOM
+  if (delAllBooksBtn) {
+    delAllBooksBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to delete all books?")) {
+        myLibrary.length = 0;
+        saveToStorage();
+        render();
+      }
+    });
+  }
 });
 
+// function to save the book library to localStorage
+function saveToStorage() {
+  // convert myLibrary array to a JSON string and save it
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+// function to load my library from localStorage
+function loadFromStorage() {
+  // retrieve the JSON string from localStorage and parse it back to an array
+  const stored = localStorage.getItem("myLibrary");
+  // only parse if there is something stored
+  if (stored) {
+    // clear the array in place
+    myLibrary.length = 0;
+    // add loaded books to the existing array
+    myLibrary.push(...JSON.parse(stored));
+  }
+}
+
+// function to display the current number of books read vs unread
+function updateProgressBar() {
+  // check if progressHeader and progressBar exist in the DOM
+  if (!progressHeaderEl || !progressBarEl) {
+    console.error(
+      "Progress bar or header not found in the DOM. Progress tracking will not be displayed."
+    );
+    return;
+  }
+  // get the length of the my library array
+  const totalBooks = myLibrary.length;
+  // filter the books that are read (check is true)
+  const readBooks = myLibrary.filter((book) => book.check).length;
+  // calculate the percentage of books read
+  // if totalBooks is 0, set percent to 0 to avoid division by zero otherwise calculate the percentage and round it
+  const percent =
+    totalBooks === 0 ? 0 : Math.round((readBooks / totalBooks) * 100);
+
+  // update the progress bar text
+  progressHeaderEl.innerText = `Read ${readBooks} out of ${totalBooks} books`;
+
+  //  update the progress bar width (the percentage will be reflected in the width of the styling of the bar)
+  progressBarEl.style.width = percent + "%";
+}
+
 function populateStorage() {
+  // add default books to myLibrary if it's empty on initial setup
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
+    myLibrary.push(book1, book2);
     render();
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+// clear the form after submission
+function clearForm() {
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
+}
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
+// validate book input
+function validateBookInput(titleValue, authorValue, pagesValue) {
+  // add validation for empty fields in form
+  if (titleValue == "" || authorValue == "" || pagesValue == "") {
+    return { error: "Please fill all fields!" };
+  }
+  // validate the author - use regex for letters, spaces, and hyphens, apostrophes, and periods
+  const authorPattern = /^[A-Za-z\s\-'.]+$/;
+  // use .test() when trying to match a regex pattern against a string
+  if (!authorPattern.test(authorValue.trim())) {
+    return {
+      error:
+        "Please enter a valid author name (letters, spaces, hyphens, apostrophes, and periods only).",
+    };
+  }
+  // check if pagesValue is a valid integer string and convert to a number
+  if (!/^\d+$/.test(pagesValue) || Number(pagesValue) <= 0) {
+    return { error: "Please enter a valid whole number for pages." };
+  }
+  // return an error, but if no error return null
+  return { error: null };
+}
+
+// handle form submission - trim the inputs then validate them, if ok, convert the pages value to a number then check if it exists in the array and if not then add the new book (object in array)
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
+  // trim all inputs for leading/trailing spaces
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = pagesInput.value.trim();
+
+  // call the validation function
+  const validationResult = validateBookInput(
+    titleValue,
+    authorValue,
+    pagesValue
+  );
+  // if there is an error, alert the user and return false to prevent submission
+  if (validationResult.error) {
+    alert(validationResult.error);
     return false;
+  }
+  // convert the pages value to a number by using the validated pagesValue
+  const pagesNum = Number(pagesValue);
+
+  // check if the book already exists in myLibrary
+  const duplicate = myLibrary.some(
+    (book) => book.title === titleValue && book.author === authorValue
+  );
+  if (duplicate) {
+    alert("This book is already in your library.");
+    return false;
+  }
+
+  // create a new book object and add it to myLibrary and save to storage (use the converted pages value in pagesNum that has been validated rather than the object's pages.value - therefore book.pages is now a number)
+  let book = new Book(titleValue, authorValue, pagesNum, checkInput.checked);
+  myLibrary.push(book);
+  saveToStorage(); // save the book after adding
+  render();
+  clearForm();
+}
+
+// render the table with books from myLibrary
+function render() {
+  // get the tbody element or if it doesn't exist, return early to prevent errors
+  const tbody = tableEl.querySelector("tbody");
+  if (!tbody) return;
+  // clear all rows at once by setting innerHTML to an empty string
+  tbody.innerHTML = "";
+
+  // update the progress bar after deleting rows
+  updateProgressBar();
+
+  // for each book and index (the unique ID that is used for the button) in myLibrary, create a new row in the table
+  myLibrary.forEach((book, i) => createBookRow(book, i));
+}
+
+// create a table row for each book
+function createBookRow(book, i) {
+  const { title, author, pages, check } = book;
+  let row = tableEl.insertRow(1); // insert new row at position 1 to keep the header intact
+  let titleCell = row.insertCell(0);
+  let authorCell = row.insertCell(1);
+  let pagesCell = row.insertCell(2);
+  let wasReadCell = row.insertCell(3);
+  let deleteCell = row.insertCell(4);
+  // use textContent to ensure no HTML is injected and remains plain text
+  titleCell.textContent = title;
+  authorCell.textContent = author;
+  // textContent coerces the value of pages to a string
+  pagesCell.textContent = pages;
+
+  // center the pages cell
+  pagesCell.className = "text-center";
+
+  //add and wait for action for read/unread button
+  let toggleReadBtn = document.createElement("button");
+  // append the button to the wasReadCell row
+  wasReadCell.appendChild(toggleReadBtn);
+  // the button state reflects the read status of the book
+  setReadButtonState(toggleReadBtn, check);
+  // when clicked the button will toggle the read status indicated by the handleToggleRead function
+  toggleReadBtn.addEventListener("click", () => handleToggleRead(i));
+
+  //add delete button to every row and render again
+  let delBookBtn = document.createElement("button");
+  deleteCell.appendChild(delBookBtn);
+  delBookBtn.className = "btn btn-warning";
+  delBookBtn.innerHTML = "Delete";
+  delBookBtn.addEventListener("click", () => {
+    handleDeleteBook(i);
+  });
+}
+
+function setReadButtonState(btn, isRead) {
+  // set the button text based on the read status
+  if (isRead) {
+    btn.innerHTML = "Read";
+    btn.className = "btn btn-success";
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    btn.innerHTML = "Unread";
+    btn.className = "btn btn-danger";
+  }
+}
+
+// toggle the read status of a book
+function handleToggleRead(index) {
+  // toggle the read status of the book at the given index
+  myLibrary[index].check = !myLibrary[index].check;
+  // save to storage and re-render
+  saveToStorage();
+  render();
+}
+
+// delete a book from the library
+function handleDeleteBook(index) {
+  // confirm with the user that they want to delete the book
+  if (confirm("Are you sure you want to delete this book?")) {
+    alert("You have deleted title: " + myLibrary[index].title);
+    // remove the book at the given index from myLibrary
+    myLibrary.splice(index, 1);
+    saveToStorage();
     render();
   }
 }
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
-}
-
-function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
+// when the window loads, we want to load the saved books from local storage
+window.addEventListener("load", function (e) {
+  // load saved books from local storage
+  loadFromStorage();
+  // only add default books if myLibrary is empty
+  // this prevents overwriting existing books
+  if (myLibrary.length === 0) {
+    populateStorage();
   }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  render();
+});
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
-
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
-      render();
-    });
-
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
-    });
-  }
-}
+module.exports = { Book, saveToStorage, loadFromStorage, myLibrary };
