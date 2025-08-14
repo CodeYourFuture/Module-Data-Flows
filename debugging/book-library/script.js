@@ -31,19 +31,25 @@ const check = document.getElementById("check");
 function submit() {
   const cleanTitle = title.value.trim();
   const cleanAuthor = author.value.trim();
-  const cleanPages = parseInt(pages.value, 10);
+
+  if (!/^[1-9]\d*$/.test(pages.value.trim())) {    // plain positive whole numbers like 1, 25, 300 — no letters, no decimal points, no scientific notation 
+    alert("Pages must be a positive whole number without letters or symbols.");
+    return false;
+  }
+
+  const cleanPages = parseInt(pages.value.trim(), 10);
 
   if (!cleanTitle|| !cleanAuthor) {  // title and author doesn't allowed to contain only space characters
     alert("Title and Author cannot be empty or spaces only."); 
     return false;
-  } else if (isNaN(cleanPages) || cleanPages <= 0) {   // the value of type of pages must be a integer 
+    
+  } if (isNaN(cleanPages) || cleanPages <= 0) {   // the value of type of pages must be a integer 
     alert("Pages must be a positive whole number.");
     return false;
-  } else {
+  } 
     let book = new Book(cleanTitle, cleanAuthor, pages.value, check.checked);  //// title and author be allowed to contain leading or trailing space characters, we storage using parseInt
     myLibrary.push(book);
-    render();
-  }
+    render(); 
 }
 
 function Book(title, author, pages, check) {
