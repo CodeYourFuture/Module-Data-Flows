@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <title>Saleh's Library</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -28,10 +26,10 @@
     </button>
 
     <div id="demo" class="collapse">
-      <div class="form-group">
+      <form class="form-group" autocomplete="off" id="book-form">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +37,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -53,21 +51,19 @@
           name="pages"
           required
         />
-        <label class="form-check-label">
+        <div class="form-check mb-2">
           <input
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
-          />Read
-        </label>
-        <input
+          />
+          <label class="form-check-label" for="check">Read</label>
+      </div>
+      <input
           type="submit"
           value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
-      </div>
+          class="btn btn-primary"/>
+      </form>
     </div>
 
     <table class="table" id="display">
@@ -77,18 +73,10 @@
           <th>Author</th>
           <th>Number of Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Delete</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody id="book-list"></tbody>
     </table>
 
     <script src="script.js"></script>
