@@ -26,4 +26,11 @@ module.exports = removeVowels;
   let result = removeVowels('samuel');
 
   what is the value of result?
+
+  - Split 'samuel' into characters: ['s', 'a', 'm', 'u', 'e', 'l']
+  - Exclude vowels: ['s', 'm', 'l']
+  - Join result: 'sml'
+
+  The value of result is: 'sml'
+
 */
