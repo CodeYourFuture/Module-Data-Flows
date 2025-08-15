@@ -2,44 +2,59 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
+    let book3 = new Book("Pride and Prejudice","Jane Austen",147, false);
+    let book4 = new Book("Rich dad Poor dad"," Robert Kiyosaki", 336, true);
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
+    myLibrary.push(book3);
+    myLibrary.push(book4)
   }
+  render()
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
+const inputTitle = document.getElementById("title");
+const inputAuthor = document.getElementById("author");
+const inputPages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  // the .value is a string.
+  //  we do not need to check if the .value is null as input element will always return a string even empty one.
+  let sanitizedTitle = inputTitle.value.trim();
+  let sanitizedAuthor = inputAuthor.value.trim();
+  let pagesToNumber = Number(inputPages.value);
+  // using Math.round to handle decimals.
+  let sanitizedPages = Math.round(pagesToNumber);
+
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    sanitizedTitle=== "" ||
+    sanitizedAuthor=== "" ||
+    isNaN(sanitizedPages) ||
+    sanitizedPages<= 0
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(sanitizedTitle,sanitizedAuthor, sanitizedPages, check.checked);
+    myLibrary.push(book);
     render();
+    inputTitle.value ="";
+    inputAuthor.value = "";
+    inputPages.value = "";
+    check.checked = false;
   }
 }
 
@@ -48,56 +63,62 @@ function Book(title, author, pages, check) {
   this.author = author;
   this.pages = pages;
   this.check = check;
+  
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
+  let tableBody = document.getElementById("display").getElementsByTagName("tbody")[0];
+  tableBody.innerHTML = ''
+  
   let length = myLibrary.length;
+
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tableBody.insertRow(0);
     let titleCell = row.insertCell(0);
+    titleCell.textContent = myLibrary[i].title;
     let authorCell = row.insertCell(1);
+    authorCell.textContent = myLibrary[i].author;
     let pagesCell = row.insertCell(2);
+    pagesCell.textContent = myLibrary[i].pages;
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    //change from innerHTML to textContent to ensures that user input is treated as plain text and not as executable HTML, preventing XSS attacks
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+    let changeReadStatusBtn= document.createElement("button");
+    changeReadStatusBtn.className = "btn btn-success";
+    wasReadCell.appendChild(changeReadStatusBtn);
+    
+    const readStatus = myLibrary[i].check ? 'Yes' : 'No'
+    changeReadStatusBtn.textContent = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    changeReadStatusBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+    let deleteBtn = document.createElement("button");
+    deleteCell.appendChild(deleteBtn);
+    deleteBtn .className = "btn btn-warning";
+    deleteBtn .textContent = "Delete";
+    deleteBtn .addEventListener("click", function () {
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${myLibrary[i].title}`);
     });
   }
 }
+
+//Questions : 
+//Should title and author be allowed to contain only space characters leading or trailing space characters?
+//Yes, title and author fields can contain leading or trailing space characters, but these should be trimmed before the data is stored or displayed.
+
+//What type of value should we use to store the page count?
+// the input field, which is a string, should be converted to a number using a function like Number() or parseInt()
+
+//What kinds of input values should be rejected?
+//1. Empty or whitespace-only strings for the title and author.
+//2. Non-numeric values for the page count.
+//3. Zero or negative numbers for the page count.
+//4. harmful characters or scripts. 
