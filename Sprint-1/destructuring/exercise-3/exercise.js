@@ -6,3 +6,28 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+function orderSummary(params) {
+  let totalCost = 0 // variable to store total cost value
+  const paddingSpaceQTY = 8
+  const paddingSpaceItem = 16
+  const paddingSpaceTotal = 12
+  console.log(
+    "QTY".padEnd(paddingSpaceQTY) +   // aligning each header with the rest of the list
+    "ITEM".padEnd(paddingSpaceItem) + 
+    "TOTAL".padStart(paddingSpaceTotal)
+  );
+  order.forEach(({quantity, itemName, unitPricePence})=> {  // calculating the total quantity and displaying each item
+
+    let total = (quantity * unitPricePence) / 100
+    
+    console.log(
+      `${quantity.toString().padEnd(paddingSpaceQTY)}` +  // aligning each Item with the header
+      `${itemName.padEnd(paddingSpaceItem)}` + 
+      `${(total.toFixed(2)).padStart(paddingSpaceTotal)}`)
+    return totalCost += total
+  })
+  console.log(`Total: ${totalCost.toFixed(2)}`)
+}
+
+orderSummary(order)
