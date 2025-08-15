@@ -17,6 +17,8 @@ Take a look at the following code:
 
 Explain why line 5 and line 8 output different numbers.
 
+-They output different numbers because line 5 logs the value of x within the function scope and line 8 logs the value of x in the global scope.
+
 ## Question 2
 
 Take a look at the following code:
@@ -34,6 +36,8 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+-The first console.log(f1()) will print 10 because x is global and accessible inside f1(). The second console.log(y) throws a ReferenceError because y is declared with let inside the function, making it impossible to access from outside the function's scope.
 
 ## Question 3
 
@@ -62,3 +66,6 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+-The output of console.log(x) is 9 because x stores a primitive number. f1(x) only gets a copy of the variable and doesn't change the original.
+The output of console.log(y) is  { x: 10 } because f2(y) has access to the actual object by reference and increments x by 1.
