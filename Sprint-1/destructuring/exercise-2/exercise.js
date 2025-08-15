@@ -70,3 +70,15 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function displayHogwartsNames ({firstName,lastName}){
+console.log(`${firstName} ${lastName}`);
+}
+hogwarts.forEach(displayHogwartsNames);
+
+function teachersWithPets({firstName, lastName, pet, occupation}){
+  if (occupation==="Teacher" &&pet){
+console.log(`${firstName} ${lastName} has a ${pet}`);
+}
+}
+hogwarts.forEach(teachersWithPets);
