@@ -2,6 +2,7 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
+  console.log(myLibrary)
   render();
 });
 
@@ -16,7 +17,7 @@ function populateStorage() {
     );
     myLibrary.push(book1);
     myLibrary.push(book2);
-    render();
+    
   }
 }
 
@@ -25,21 +26,31 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
+// Event listener for form submission
+document.getElementById("submit-btn").addEventListener("click", function (event) {
+  event.preventDefault();
+  submit();
+});
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    title.value.trim() === "" ||
+    author.value.trim() === "" ||  //adding a check for author input field as well. using trim() to ensure proper input is entered.
+    pages.value.trim() === ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
+    //reset the form after submission
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
+
   }
 }
 
@@ -53,51 +64,46 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+
+  // Delete old rows except the header
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+
+  // Use forEach for safe indexing and event handling
+  myLibrary.forEach((book, index) => {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+    titleCell.innerHTML = book.title;
+    authorCell.innerHTML = book.author;
+    pagesCell.innerHTML = book.pages;
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    // Read toggle button
+    let changeButton = document.createElement("button");
+    changeButton.className = "btn btn-success";
+    changeButton.innerText = book.check ? "Yes" : "No";
+    wasReadCell.appendChild(changeButton);
+
+    changeButton.addEventListener("click", () => {
+      myLibrary[index].check = !myLibrary[index].check;
       render();
     });
 
-    //add delete button to every row and render again
+    // Delete button
     let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+    delButton.className = "btn btn-warning";
+    delButton.innerHTML = "Delete";
+    deleteCell.appendChild(delButton);
+
+    delButton.addEventListener("click", () => {
+      alert(`You've deleted title: ${book.title}`);
+      myLibrary.splice(index, 1);
       render();
     });
-  }
+  });
 }
