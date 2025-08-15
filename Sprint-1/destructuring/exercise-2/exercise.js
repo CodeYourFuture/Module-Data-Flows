@@ -70,3 +70,18 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+function getFullName({firstName, lastName, house}){
+  if(house === "Gryffindor"){
+  return `${firstName} ${lastName}`
+  }
+}
+console.log(hogwarts.map(getFullName).filter(Boolean))
+
+function hasPet({firstName, lastName, pet}){
+  if(typeof pet === "string"){
+    return `${firstName} ${lastName}`
+  }
+}
+console.log(hogwarts.map(hasPet).filter(Boolean))
