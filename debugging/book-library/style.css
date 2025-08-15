@@ -1,19 +1,39 @@
+body {
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  padding-bottom: 30px;
+}
+
 .form-group {
   width: 400px;
   height: 300px;
   align-self: left;
   padding-left: 20px;
 }
-
-.btn {
-  display: block;
+.jumbotron {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
-
+.btn {
+  font-size: 0.9rem;
+}
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
 .form-check-label {
   padding-left: 20px;
   margin: 5px 0px 5px 0px;
 }
-
+#demo {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 button.btn-info {
   margin: 20px;
 }
