@@ -13,3 +13,5 @@ function introduceYourself({name, age, favouriteFood}) {
 }
 
 introduceYourself(personOne);
+
+// the syntax to destructure  is let {name,age, favouriteFood} = personOne
