@@ -70,3 +70,24 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+//Task 1
+//added "hogwarts" as parameter following cjyuan's feedback
+function revelioGryffindor(hogwarts) {
+  for (const { firstName, lastName, house } of hogwarts) {
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName} is a Gryffindor`);
+    }
+  }
+}
+revelioGryffindor(hogwarts)
+
+//Task 2
+function accioPets(){
+  for (const { firstName, lastName, pet, occupation } of hogwarts) {
+    if (occupation === "Teacher" && pet !== null) {
+      console.log(`${firstName} ${lastName} is a teacher who has a pet ${pet}`);
+    }
+  }
+}
+accioPets(hogwarts)
