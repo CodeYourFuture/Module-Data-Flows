@@ -69,4 +69,19 @@ let hogwarts = [
     pet: "Phoenix",
     occupation: "Teacher",
   },
+  
 ];
+
+hogwarts.forEach(({firstName,lastName,house,pet,occupation}) => {
+    if(house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`)
+    }
+  })
+console.log("");
+
+hogwarts.forEach(({firstName,lastName,house,pet,occupation}) => {
+   if(occupation === "Teacher" && pet) {
+      console.log(`${firstName} ${lastName}`)
+    }
+  })
+  
