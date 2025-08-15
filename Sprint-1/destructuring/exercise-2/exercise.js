@@ -70,3 +70,27 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task 1: List Gryffindor Members
+function listGryffindorMembers(personalInfoList) {
+  for( let { firstName, lastName, house} of personalInfoList){
+    if (house === "Gryffindor"){
+      console.log(`${firstName} ${lastName}`)
+    }
+  }
+}
+
+// Task 2: List Teachers Who Have Pets
+function listTeachersWithPets(hogwarts) {
+  for (let { firstName, lastName, occupation, pet } of hogwarts) {
+    if (occupation === "Teacher" && pet) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+console.log("Gryffindor Members:");
+listGryffindorMembers(hogwarts);
+
+console.log("\nTeachers with Pets:");
+listTeachersWithPets(hogwarts);
