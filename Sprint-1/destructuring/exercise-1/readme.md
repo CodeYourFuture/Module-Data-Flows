@@ -30,4 +30,5 @@ console.log(`Batman is ${firstName}, ${lastName}`);
 # Exercise
 
 - What is the syntax to destructure the object `personOne` in exercise.js?
+Object destructure syntax it will allow us to extract specific properties(name, age, favouriteFood) directly from the object into variables. 
 - Update the parameter of the function `introduceYourself` to use destructuring on the object that gets passed in.
