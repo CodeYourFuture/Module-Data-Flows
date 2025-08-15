@@ -70,3 +70,19 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task 1: Print names of people in Gryffindor house
+console.log("Gryffindor House Members:");
+hogwarts.forEach(({ firstName, lastName, house }) => {
+  if (house === "Gryffindor") {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
+
+// Task 2: Print names of teachers who have pets
+console.log("\nTeachers with Pets:");
+hogwarts.forEach(({ firstName, lastName, pet, occupation }) => {
+  if (occupation === "Teacher" && pet) {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
