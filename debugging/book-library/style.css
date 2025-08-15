@@ -1,19 +1,25 @@
 .form-group {
   width: 400px;
   height: 300px;
-  align-self: left;
+  text-align: left;
   padding-left: 20px;
 }
 
 .btn {
   display: block;
+  width: 150px;
+  margin-bottom: 10px;
 }
 
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0;
 }
 
 button.btn-info {
   margin: 20px;
+}
+
+.table button {
+  margin-right: 5px;
 }
