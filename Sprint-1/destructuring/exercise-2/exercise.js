@@ -70,3 +70,19 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+// Task 1 ---> List all Gryffindor house members
+hogwarts                                             
+  .filter(({ house }) => house === "Gryffindor")                            // Filter the array and keep only objects with 'house' matching 'Gryffindor' 
+  .forEach(({ firstName, lastName }) => {                                   // Loop through each filtered object in filtered array, and extract first and last names
+    console.log(`${firstName} ${lastName}`);
+  });
+
+
+// Task 2 ---> names of teachers who have pets
+for (const { firstName, lastName, occupation, pet } of hogwarts) {          // Loop through array, destructuring 4 properties from each object
+  if (occupation === "Teacher" && pet) {                                    // condition to check person's occupation and pet status
+    console.log(`${firstName} ${lastName}`);
+  }
+}
