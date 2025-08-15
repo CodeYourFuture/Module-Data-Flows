@@ -1,19 +1,25 @@
 .form-group {
-  width: 400px;
-  height: 300px;
-  align-self: left;
-  padding-left: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
 }
 
 .btn {
-  display: block;
+  margin: 10px 0;
 }
 
 .form-check-label {
-  padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
 }
 
 button.btn-info {
-  margin: 20px;
+  margin: 20px auto;
+  display: block;
 }
