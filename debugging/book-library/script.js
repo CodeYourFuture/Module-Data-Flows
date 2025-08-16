@@ -1,10 +1,13 @@
 let myLibrary = [];
 
 window.addEventListener("load", function (e) {
-  populateStorage();
+if (localStorage.getItem("myLibrary")) {
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+  } else {
+    populateStorage();
+  }
   render();
 });
-
 function populateStorage() {
   if (myLibrary.length == 0) {
     let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
