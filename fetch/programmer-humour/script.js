@@ -24,7 +24,6 @@ async function fetchRandomComic() {
 
     // Fetch the random comic
     const data = await fetchJson(`https://xkcd.now.sh/?comic=${randomNum}`);
-    console.log('Fetched comic data:', data);
 
     // Render comic
     container.innerHTML = '';
