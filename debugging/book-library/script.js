@@ -2,17 +2,13 @@ let myLibrary = [];
 
 window.addEventListener("load", function () {
   populateStorage();
+  render();
 });
 
 function populateStorage() {
   if (myLibrary.length == 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
+    let book2 = new Book("The Old Man and the Sea","Ernest Hemingway","127", true );
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
