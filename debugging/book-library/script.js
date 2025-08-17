@@ -18,22 +18,21 @@ function populateStorage() {
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
-const read = document.getElementById("read");
+const check = document.getElementById("check");
 
 document.getElementById("submitBtn").addEventListener("click", addBook);
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function addBook() {
-  if (!title.value || !author.value || !pages.value) {
-    alert("Please fill all fields!");
+  if (!title.value.trim() || !author.value.trim() || !pages.value.trim()) {
+    alert("Please fill all fields with valide values (no empty spaces)!");
     return;
   }
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title.value.trim(), author.value.trim(), pages.value.trim(), check.checked);
     myLibrary.push(book);
     render();
     document.getElementById("bookForm").reset();
-
   }
 
 function Book(title, author, pages, read) {
