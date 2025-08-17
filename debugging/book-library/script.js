@@ -31,14 +31,16 @@ function submit() {
   if (
     title.value == null ||
     title.value == "" ||
+    author.value == null ||
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
     render();
   }
 }
@@ -77,9 +79,9 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
     if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
@@ -94,7 +96,7 @@ function render() {
     deleteCell.appendChild(delBut);
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
