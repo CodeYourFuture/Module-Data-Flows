@@ -77,10 +77,16 @@ let hogwarts = [
 // Use object destructuring to extract the values you need out of each element in the array.
 
 function displayGryffindors({ firstName, lastName, house, pet, occupation }) {
-   if (house !== "Gryffindor") return;
-  console.log(`Hello, my name is ${firstName} ${lastName}. I am a ${occupation} at Hogwarts and I belong to the ${house} house. My pet is a ${pet ? pet : 'none'}.`);
+  if (house !== "Gryffindor") return;
+
+  let petSentence = pet 
+    ? ` I have a ${pet}.`
+    : "";
+
+  console.log(
+    `Hello, my name is ${firstName} ${lastName}. I am a ${occupation} at Hogwarts and I belong to the ${house} house.${petSentence}`
+  );
 }
-hogwarts.forEach(displayGryffindors);
 
 // Write a function named displayGryffindors that takes an object 
 // with properties `firstName`, `lastName`, `house`, `pet`, and `occupation`
