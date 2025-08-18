@@ -1,9 +1,16 @@
 let myLibrary = [];
 
-window.addEventListener("load", function () {
-  populateStorage();
-  render();
-});
+window.onload = function(){
+   // Cache DOM elements with clear suffixes
+  const titleInputEl = document.getElementById("title");
+  const authorInputEl = document.getElementById("author");
+  const pagesInputEl = document.getElementById("pages");
+  const readCheckEl = document.getElementById("check");
+  const submitBtnEl = document.getElementById("submitBtn");
+  const bookFormEl = document.getElementById("bookForm");
+  const tbodyEl = document.querySelector("#display tbody");
+
+}
 
 function populateStorage() {
   if (myLibrary.length == 0) {
