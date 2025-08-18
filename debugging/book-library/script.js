@@ -54,7 +54,6 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 function render() {
-  let tbody = document.querySelector("#display tbody");
   tbody.innerHTML = "";
 
   myLibrary.forEach((book, i) => {
@@ -81,10 +80,10 @@ function render() {
     delButton.className = "delete-btn";
     delButton.textContent = "Delete";
     delButton.addEventListener("click", () => {
-      alert(`You've deleted title: ${book.title}`);
-      myLibrary.splice(i, 1);
-      render();
+        myLibrary.splice(i, 1);
+        render();
+        alert(`The book "${book.title}" has been deleted successfully.`);
     });
-    deleteCell.appendChild(delButton);
+    deleteCell.appendChild(delBtnEl);
   });
 }
