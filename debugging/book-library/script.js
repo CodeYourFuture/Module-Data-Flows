@@ -41,7 +41,7 @@ function submit() {
   const bookNumberOfPages = bookNumberOfPagesInput.value.trim();
   const isBookRead = isBookReadCheckBox.checked;
   if (  bookTitle == "" || bookAuthor == "" || bookNumberOfPages == "" ) {
-    alert("Please fill all fields!");
+    alert("Please fill all fields with correct input!");
     return false;
   } else if (
     !isValidInteger(Number(bookNumberOfPages)) ||
@@ -88,7 +88,7 @@ function render() {
     changeReadStatusButton.className = "btn btn-success";
     wasReadCell.appendChild(changeReadStatusButton);
     let readStatus = "";
-    !myLibrary[i].check ? readStatus = "No" : readStatus = "Yes";
+    readStatus = !myLibrary[i].check ? "No" : "Yes";
     changeReadStatusButton.innerText = readStatus;
 
     changeReadStatusButton.addEventListener("click", function () {
