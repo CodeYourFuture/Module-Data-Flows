@@ -28,9 +28,11 @@ const check = document.getElementById("check");
 function submit() {
   if (
     title.value == null ||
-    title.value == "" ||
+    title.value.trim() === "" ||
+    author.value == null ||
+    author.value.trim() === "" ||
     pages.value == null ||
-    pages.value == ""
+    pages.value === ""
   ) {
     alert("Please fill all fields!");
     return false;
@@ -38,6 +40,11 @@ function submit() {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
+
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
   }
 }
 
