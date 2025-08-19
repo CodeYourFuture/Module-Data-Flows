@@ -36,16 +36,22 @@ function submit() {
   ) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
-
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
   }
+
+  // Prevent numbers in Author field
+  if (/\d/.test(author.value)) {
+    alert("Author name cannot contain numbers!");
+    return false;
+  }
+
+  let book = new Book(title.value, author.value, pages.value, check.checked);
+  myLibrary.push(book);
+  render();
+
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  check.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -81,7 +87,6 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
 
-    // render function
     let readStatus = "";
     if (myLibrary[i].check === true) {
       readStatus = "Yes";
@@ -108,3 +113,8 @@ function render() {
     });
   }
 }
+
+// Make header row toggle the form
+document.querySelector(".thead-dark").addEventListener("click", function () {
+  $("#demo").collapse("toggle");
+});
