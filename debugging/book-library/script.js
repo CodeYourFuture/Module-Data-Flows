@@ -115,6 +115,6 @@ function render() {
 }
 
 // Make header row toggle the form
-document.querySelector(".thead-dark").addEventListener("click", function () {
+document.querySelector(".thead-dark tr").addEventListener("click", function (e) {
   $("#demo").collapse("toggle");
 });
