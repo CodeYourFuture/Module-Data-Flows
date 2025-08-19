@@ -6,11 +6,11 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", Number("252"), true);
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      parseInt("127"),
+      127,
       true
     );
     myLibrary.push(book1);
@@ -24,13 +24,6 @@ const bookAuthorInput = document.getElementById("author");
 const bookNumberOfPagesInput = document.getElementById("pages");
 const isBookReadCheckBox = document.getElementById("check");
 
-// Strip out HTML tags (to prevent XSS)
-function sanitizeInput(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
-
 // To check if pages input can be safely converted to integer
 function isValidInteger(input) {
   return Number.isInteger(input);
@@ -43,26 +36,24 @@ function isHexadecimal(input) {
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    bookTitleInput.value.trim() == "" ||
-    bookAuthorInput.value.trim() == "" ||
-    bookNumberOfPagesInput.value.trim() == ""
-  ) {
+  const bookTitle = bookTitleInput.value.trim();
+  const bookAuthor = bookAuthorInput.value.trim();
+  const bookNumberOfPages = bookNumberOfPagesInput.value.trim();
+  const isBookRead = isBookReadCheckBox.checked;
+  if (  bookTitle == "" || bookAuthor == "" || bookNumberOfPages == "" ) {
     alert("Please fill all fields!");
     return false;
   } else if (
-    isNaN(Number(bookNumberOfPagesInput.value.trim())) ||
-    !isValidInteger(Number(bookNumberOfPagesInput.value.trim())) ||
-    isHexadecimal(bookNumberOfPagesInput.value.trim()) ||
-    Number(bookNumberOfPagesInput.value.trim()) <= 0
+    !isValidInteger(Number(bookNumberOfPages)) ||
+    // if input hexadecimal (true) it will ask user to type correct number of pages format
+    isHexadecimal(bookNumberOfPages) ||
+    Number(bookNumberOfPages) <= 0
   ) {
     alert("Invalid number of pages format!");
     return false;
   }  else {
-    const bookTitle = sanitizeInput(bookTitleInput.value.trim());
-    const bookAuthor = sanitizeInput(bookAuthorInput.value.trim());
-    const bookNumberOfPages = parseInt(sanitizeInput(bookNumberOfPagesInput.value.trim()), 10);
-    let book = new Book(bookTitle, bookAuthor, bookNumberOfPages, isBookReadCheckBox.checked);
+    const bookNumberOfPagesInt = parseInt(bookNumberOfPagesInput.value.trim(), 10);
+    let book = new Book(bookTitle, bookAuthor, bookNumberOfPagesInt, isBookRead);
     myLibrary.push(book);
     render();
   }
@@ -97,11 +88,7 @@ function render() {
     changeReadStatusButton.className = "btn btn-success";
     wasReadCell.appendChild(changeReadStatusButton);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    !myLibrary[i].check ? readStatus = "No" : readStatus = "Yes";
     changeReadStatusButton.innerText = readStatus;
 
     changeReadStatusButton.addEventListener("click", function () {
