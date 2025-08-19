@@ -26,7 +26,6 @@ function populateStorage() {
     render();
   }
  }
-}
 
  function addBook() {
     // Preprocess & validate input
@@ -86,4 +85,6 @@ function render() {
     });
     deleteCell.appendChild(delBtnEl);
   });
+}
+  // --- End of functions ---
 }
