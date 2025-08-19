@@ -17,3 +17,7 @@
 button.btn-info {
   margin: 20px;
 }
+
+.clickable {
+  cursor: pointer;
+}
