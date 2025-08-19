@@ -63,28 +63,27 @@ function render() {
     row.insertCell(2).textContent = book.pages;
 
     // read/unread button
-    let wasReadCell = row.insertCell(3);
-    let changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.textContent = book.read ? "Yes" : "No";
-    changeBut.addEventListener("click", () => {
+   let wasReadCell = row.insertCell(3);
+      let changeBtnEl = document.createElement("button");
+      changeBtnEl.className = "btn btn-success";
+      changeBtnEl.textContent = book.read ? "Yes" : "No";
+      changeBtnEl.addEventListener("click", () => {
       book.read = !book.read;
       render();
     });
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(changeBtnEl);
 
-    // delete button
-    let deleteCell = row.insertCell(4);
-    let delButton = document.createElement("button");
-    delButton.className = "delete-btn";
-    delButton.textContent = "Delete";
-    delButton.addEventListener("click", () => {
+      // delete button
+      let deleteCell = row.insertCell(4);
+      let delBtnEl = document.createElement("button");
+      delBtnEl.className = "delete-btn";
+      delBtnEl.textContent = "Delete";
+      delBtnEl.addEventListener("click", () => {
         myLibrary.splice(i, 1);
         render();
         alert(`The book "${book.title}" has been deleted successfully.`);
     });
     deleteCell.appendChild(delBtnEl);
-  });
-}
-  // --- End of functions ---
-}
+   });
+ }
+};
