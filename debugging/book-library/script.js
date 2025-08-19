@@ -1,7 +1,7 @@
 let myLibrary = [];
 
-window.onload = function(){
-   // Cache DOM elements with clear suffixes
+window.onload = function () {
+  // Cache DOM elements with clear suffixes
   const titleInputEl = document.getElementById("title");
   const authorInputEl = document.getElementById("author");
   const pagesInputEl = document.getElementById("pages");
@@ -10,7 +10,7 @@ window.onload = function(){
   const bookFormEl = document.getElementById("bookForm");
   const tbodyEl = document.querySelector("#display tbody");
 
- // Initial setup
+  // Initial setup
   populateStorage();
   render();
 
@@ -18,16 +18,16 @@ window.onload = function(){
   submitBtnEl.addEventListener("click", addBook);
 
   // --- Functions ---
-function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book("The Old Man and the Sea","Ernest Hemingway","127", true );
-    myLibrary.push(book1, book2);
-    render();
+  function populateStorage() {
+    if (myLibrary.length === 0) {
+      let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+      let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true);
+      myLibrary.push(book1, book2);
+      render();
+    }
   }
- }
 
- function addBook() {
+  function addBook() {
     // Preprocess & validate input
     const title = titleInputEl.value.trim();
     const author = authorInputEl.value.trim();
@@ -46,32 +46,33 @@ function populateStorage() {
     bookFormEl.reset();
   }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-function render() {
-  tbody.innerHTML = "";
+  function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-  myLibrary.forEach((book, i) => {
-    let row = tbody.insertRow();
+  function render() {
+    tbodyEl.innerHTML = "";
 
-    row.insertCell(0).textContent = book.title;
-    row.insertCell(1).textContent = book.author;
-    row.insertCell(2).textContent = book.pages;
+    myLibrary.forEach((book, i) => {
+      let row = tbodyEl.insertRow();
 
-    // read/unread button
-   let wasReadCell = row.insertCell(3);
+      row.insertCell(0).textContent = book.title;
+      row.insertCell(1).textContent = book.author;
+      row.insertCell(2).textContent = book.pages;
+
+      // read/unread button
+      let wasReadCell = row.insertCell(3);
       let changeBtnEl = document.createElement("button");
       changeBtnEl.className = "btn btn-success";
       changeBtnEl.textContent = book.read ? "Yes" : "No";
       changeBtnEl.addEventListener("click", () => {
-      book.read = !book.read;
-      render();
-    });
-    wasReadCell.appendChild(changeBtnEl);
+        book.read = !book.read;
+        render();
+      });
+      wasReadCell.appendChild(changeBtnEl);
 
       // delete button
       let deleteCell = row.insertCell(4);
@@ -82,8 +83,8 @@ function render() {
         myLibrary.splice(i, 1);
         render();
         alert(`The book "${book.title}" has been deleted successfully.`);
+      });
+      deleteCell.appendChild(delBtnEl);
     });
-    deleteCell.appendChild(delBtnEl);
-   });
- }
+  }
 };
