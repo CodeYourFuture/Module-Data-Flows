@@ -38,6 +38,19 @@ window.onload = function () {
       alert("Please fill all fields with valid values (no empty spaces, pages must be a positive number).");
       return;
     }
+    if (!title || title.length < 2) {
+  alert("Title must be at least 2 characters long.");
+  return;
+}
+if (!author || author.length < 2) {
+  alert("Author must be at least 2 characters long.");
+  return;
+}
+const pageNum = Number(pages);
+if (!Number.isInteger(pageNum) || pageNum <= 0 || pageNum > 10000) {
+  alert("Pages must be a positive whole number (1–10,000).");
+  return;
+}
 
     // Add book
     let book = new Book(title, author, pages, read);
