@@ -85,12 +85,7 @@ function render() {
     toggleReadBTN.id = i;
     toggleReadBTN.className = "btn btn-success";
     wasReadCell.appendChild(toggleReadBTN);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     toggleReadBTN.innerText = readStatus;
 
     toggleReadBTN.addEventListener("click", function () {
