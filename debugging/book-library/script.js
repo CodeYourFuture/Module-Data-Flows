@@ -66,17 +66,8 @@ function render() {
     row.insertCell(1).textContent = book.author;
     row.insertCell(2).textContent = book.pages;
 
-    // Read/unread button
-    const wasReadCell = row.insertCell(3);
-    const readToggleButton = document.createElement("button");
-    readToggleButton.className = "btn btn-success";
-    readToggleButton.textContent = book.check ? "Yes" : "No";
-    wasReadCell.appendChild(readToggleButton);
-
-    readToggleButton.addEventListener("click", () => {
-      myLibrary[i].check = !myLibrary[i].check;
-      render();
-    });
+    // Read column (static)
+    row.insertCell(3).textContent = book.check ? "Yes" : "No";
 
     // Delete button
     const deleteCell = row.insertCell(4);
