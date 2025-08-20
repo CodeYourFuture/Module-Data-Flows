@@ -18,6 +18,22 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
+// Notification function
+function showNotification(message) {
+  let notification = document.getElementById("notification");
+  if (!notification) {
+    notification = document.createElement("div");
+    notification.id = "notification";
+    notification.className = "notification";
+    document.body.insertBefore(notification, document.body.firstChild);
+  }
+  notification.textContent = message;
+  notification.style.display = "block";
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000); // 3 seconds
+}
+
 function submit() {
   const titleValue = title.value.trim();
   const authorValue = author.value.trim();
@@ -29,8 +45,14 @@ function submit() {
   }
 
   // Prevent numbers in Author field
-  if (/\d/.test(authorValue)) {
-    alert("Author name cannot contain numbers!");
+  if (!/^[a-zA-Z\s.'-]+$/.test(authorValue)) {
+    alert("Author name can only contain letters, spaces, apostrophes, periods, or hyphens.");
+    return false;
+  }
+  // pages must be a positive number
+  const pagesNumber = Number(pagesValue);
+  if (!Number.isInteger(pagesNumber) || pagesNumber <= 0) {
+    alert("Number of pages must be a positive whole number.");
     return false;
   }
 
@@ -88,7 +110,7 @@ function render() {
     deleteButton.addEventListener("click", () => {
       myLibrary.splice(i, 1);  // delete immediately
       render();                 // update the table
-      alert(`Deleted "${book.title}" successfully.`); // optional confirmation
+      showNotification(`Deleted "${book.title}" successfully.`);
     });
   });
 }
