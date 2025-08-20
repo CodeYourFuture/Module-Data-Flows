@@ -6,8 +6,9 @@ function factorial(int) {
     result *= i;
   }
 
-  return result;
+  return result; 
 }
 
 module.exports = factorial;
+
 

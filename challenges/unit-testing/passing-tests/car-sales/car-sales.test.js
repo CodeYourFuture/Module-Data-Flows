@@ -1,4 +1,4 @@
-const sales = require("../car-sales/car-sales.js");
+const sales = require("./car-sales");
 
 test("Car sales", () => {
   const carsSold = [

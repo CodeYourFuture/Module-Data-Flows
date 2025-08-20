@@ -13,7 +13,8 @@ function sales(carsSold) {
     totals[make] += price;
   }
 
-  return totals;
+  return totals; 
 }
 
 module.exports = sales;
+
