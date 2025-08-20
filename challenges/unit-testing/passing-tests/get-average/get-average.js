@@ -1,7 +1,13 @@
-// the input is an array of numbers and strings
-// return the average of all the numbers
-// be sure to exclude the strings
+function average(numbers) {
+  const numsOnly = numbers.filter(n => typeof n === "number");
 
-function average(numbers) {}
+  if (numsOnly.length === 0) return 0;
+
+  const sum = numsOnly.reduce((acc, n) => acc + n, 0);
+
+  return Math.floor(sum / numsOnly.length); 
+}
 
 module.exports = average;
+
+
