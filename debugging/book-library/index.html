@@ -44,6 +44,8 @@
           id="author"
           name="author"
           required
+          pattern="[a-zA-Z\s.'-]+"
+          title="Only letters, spaces, apostrophes, periods, or hyphens allowed"
         />
         <label for="pages">Pages:</label>
         <input
@@ -58,14 +60,12 @@
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
           />Read
         </label>
         <input
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
         />
       </div>
       </form>
