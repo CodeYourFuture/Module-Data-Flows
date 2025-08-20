@@ -35,6 +35,11 @@ function submit() {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
+    //clear user input data after storing the information
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
   }
 }
 
