@@ -1,14 +1,12 @@
 let myLibrary = [];
 
 window.addEventListener("load", function () {
-  // console.log("Page loaded, initializing library");
   populateStorage();
   render();
 });
 
 // Attach form submit event listener
 document.getElementById("book-form").addEventListener("submit", function (event) {
-  // console.log("Form submit event triggered");
   event.preventDefault(); // Prevent default form submission
   submit();
 });
@@ -16,10 +14,8 @@ document.getElementById("book-form").addEventListener("submit", function (event)
 function populateStorage() {
   const storedLibrary = localStorage.getItem("myLibrary");
   if (storedLibrary) {
-    // console.log("Loading myLibrary from localStorage:", storedLibrary);
     myLibrary = JSON.parse(storedLibrary);
   } else {
-    // console.log("No data in localStorage, initializing with default books");
     let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
     myLibrary.push(book1, book2);
@@ -34,30 +30,41 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  // console.log("submit() function called");
-  // console.log("Input values:", {
-  //   title: title.value,
-  //   author: author.value,
-  //   pages: pages.value,
-  //   read: check.checked
-  // });
+  console.log("submit() function called");
+  console.log("Input values:", {
+    title: title.value,
+    author: author.value,
+    pages: pages.value,
+    read: check.checked
+  });
 
-  if (!title.value.trim() || !author.value.trim() || !pages.value || isNaN(parseInt(pages.value))) {
+  const maxPages = 30000; // Maximum allowed pages
+  const pageCount = parseInt(pages.value);
+  if (
+    !title.value.trim() ||
+    !author.value.trim() ||
+    !pages.value ||
+    isNaN(pageCount) ||
+    pageCount <= 0 ||
+    pageCount > maxPages
+  ) {
     console.log("Validation failed: One or more fields are empty or invalid");
-    alert("Please fill all fields with valid data!");
+    alert(
+      `Please fill all fields with valid data! Pages must be a number between 1 and ${maxPages}.`
+    );
     return;
   }
 
-  let book = new Book(title.value.trim(), author.value.trim(), parseInt(pages.value), check.checked);
-  // console.log("New book created:", book);
+  let book = new Book(title.value.trim(), author.value.trim(), pageCount, check.checked);
+  console.log("New book created:", book);
   myLibrary.push(book);
-  // console.log("myLibrary after push:", myLibrary);
+  console.log("myLibrary after push:", myLibrary);
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   render();
   document.querySelector("form").reset();
-  // console.log("Form reset");
+  console.log("Form reset");
   $("#demo").collapse("hide");
-  // console.log("Form collapsed");
+  console.log("Form collapsed");
 }
 
 function Book(title, author, pages, check) {
@@ -68,7 +75,6 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  // console.log("render() called, myLibrary:", myLibrary);
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   for (let n = rowsNumber - 1; n > 0; n--) {
