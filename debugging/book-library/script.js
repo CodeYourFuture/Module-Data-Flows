@@ -1,20 +1,15 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
+  render();
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
+  if (myLibrary.length === 0) {
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
+    myLibrary.push(book1, book2);
   }
 }
 
@@ -23,30 +18,27 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-// Check the right input from forms and add the new book
 function submit() {
-  if (
-    title.value == null ||
-    title.value.trim() === "" ||
-    author.value == null ||
-    author.value.trim() === "" ||
-    pages.value == null ||
-    pages.value === ""
-  ) {
+  const titleValue = title.value.trim();
+  const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
+
+  if (!titleValue || !authorValue || !pagesValue) {
     alert("Please fill all fields!");
     return false;
   }
 
   // Prevent numbers in Author field
-  if (/\d/.test(author.value)) {
+  if (/\d/.test(authorValue)) {
     alert("Author name cannot contain numbers!");
     return false;
   }
 
-  let book = new Book(title.value, author.value, pages.value, check.checked);
+  let book = new Book(titleValue, authorValue, Number(pagesValue), check.checked);
   myLibrary.push(book);
   render();
 
+  // Reset form
   title.value = "";
   author.value = "";
   pages.value = "";
@@ -61,59 +53,47 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  // Delete old table rows
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-  // Insert updated rows
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  const table = document.getElementById("display");
+  const tbody = table.querySelector("tbody");
 
-    // Add read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+  // Clear all existing rows
+  tbody.innerHTML = "";
 
-    let readStatus = "";
-    if (myLibrary[i].check === true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  myLibrary.forEach((book, i) => {
+    const row = tbody.insertRow();
 
-    changeBut.addEventListener("click", function () {
+    row.insertCell(0).textContent = book.title;
+    row.insertCell(1).textContent = book.author;
+    row.insertCell(2).textContent = book.pages;
+
+    // Read/unread button
+    const wasReadCell = row.insertCell(3);
+    const readToggleButton = document.createElement("button");
+    readToggleButton.className = "btn btn-success";
+    readToggleButton.textContent = book.check ? "Yes" : "No";
+    wasReadCell.appendChild(readToggleButton);
+
+    readToggleButton.addEventListener("click", () => {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    // Add delete button
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
+    // Delete button
+    const deleteCell = row.insertCell(4);
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-warning";
+    deleteButton.textContent = "Delete";
+    deleteCell.appendChild(deleteButton);
+
+    deleteButton.addEventListener("click", () => {
+      myLibrary.splice(i, 1);  // delete immediately
+      render();                 // update the table
+      alert(`Deleted "${book.title}" successfully.`); // optional confirmation
     });
-  }
+  });
 }
 
 // Make header row toggle the form
-document.querySelector(".thead-dark tr").addEventListener("click", function (e) {
+document.querySelector(".thead-dark tr").addEventListener("click", function () {
   $("#demo").collapse("toggle");
 });
