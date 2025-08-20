@@ -21,12 +21,6 @@ const check = document.getElementById("check");
 // Notification function
 function showNotification(message) {
   let notification = document.getElementById("notification");
-  if (!notification) {
-    notification = document.createElement("div");
-    notification.id = "notification";
-    notification.className = "notification";
-    document.body.insertBefore(notification, document.body.firstChild);
-  }
   notification.textContent = message;
   notification.style.display = "block";
   setTimeout(() => {
@@ -34,29 +28,25 @@ function showNotification(message) {
   }, 3000); // 3 seconds
 }
 
+// Listen for form submission
+document.getElementById("bookForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  submit();
+});
+
 function submit() {
   const titleValue = title.value.trim();
   const authorValue = author.value.trim();
   const pagesValue = pages.value.trim();
 
-  if (!titleValue || !authorValue || !pagesValue) {
-    alert("Please fill all fields!");
-    return false;
-  }
-
-  // Prevent numbers in Author field
-  if (!/^[a-zA-Z\s.'-]+$/.test(authorValue)) {
-    alert("Author name can only contain letters, spaces, apostrophes, periods, or hyphens.");
-    return false;
-  }
-  // pages must be a positive number
+  // Additional validation for pages
   const pagesNumber = Number(pagesValue);
   if (!Number.isInteger(pagesNumber) || pagesNumber <= 0) {
-    alert("Number of pages must be a positive whole number.");
-    return false;
+    showNotification("Number of pages must be a positive whole number.");
+    return;
   }
 
-  let book = new Book(titleValue, authorValue, Number(pagesValue), check.checked);
+  let book = new Book(titleValue, authorValue, pagesNumber, check.checked);
   myLibrary.push(book);
   render();
 
