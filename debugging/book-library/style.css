@@ -21,3 +21,20 @@ button.btn-info {
 .clickable {
   cursor: pointer;
 }
+.notification {
+  display: none;
+  position: fixed;       
+  top: 230px;             
+  left: 50%;             
+  transform: translateX(-50%);
+  padding: 15px 20px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 1000;         
+}
+
