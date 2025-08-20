@@ -42,11 +42,11 @@ function submit() {
   //   read: check.checked
   // });
 
-  // if (!title.value.trim() || !author.value.trim() || !pages.value || isNaN(parseInt(pages.value))) {
-  //   console.log("Validation failed: One or more fields are empty or invalid");
-  //   alert("Please fill all fields with valid data!");
-  //   return;
-  // }
+  if (!title.value.trim() || !author.value.trim() || !pages.value || isNaN(parseInt(pages.value))) {
+    console.log("Validation failed: One or more fields are empty or invalid");
+    alert("Please fill all fields with valid data!");
+    return;
+  }
 
   let book = new Book(title.value.trim(), author.value.trim(), parseInt(pages.value), check.checked);
   // console.log("New book created:", book);
