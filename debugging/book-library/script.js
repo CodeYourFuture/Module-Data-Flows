@@ -11,7 +11,7 @@ function populateStorage() {
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
