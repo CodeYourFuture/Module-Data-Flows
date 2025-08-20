@@ -1,7 +1,7 @@
-let sales = require("./car-sales");
+const sales = require("../car-sales/car-sales.js");
 
-test("Car sales", function () {
-  let carsSold = [
+test("Car sales", () => {
+  const carsSold = [
     { make: "Ford", model: "Fiesta", colour: "Red", price: 5999 },
     { make: "Land Rover", model: "Defender", colour: "Muddy", price: 12000 },
     { make: "Toyota", model: "Prius", colour: "Silver", price: 6500 },
@@ -11,14 +11,14 @@ test("Car sales", function () {
     { make: "Ford", model: "Fiesta", colour: "Green", price: 2000 },
   ];
 
-  let totals = {
+  const totals = {
     Ford: 22999,
     Honda: 8000,
     "Land Rover": 21000,
     Toyota: 6500,
   };
 
-  let output = sales(carsSold);
+  const output = sales(carsSold);
 
   expect(output).toEqual(totals);
 });
