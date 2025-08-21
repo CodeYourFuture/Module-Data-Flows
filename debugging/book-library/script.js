@@ -27,32 +27,31 @@ const checkInput = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    !titleInput.value.trim() ||
-    !authorInput.value.trim() ||
-    !pagesInput.value.trim()
-  ) {
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = pagesInput.value.trim();
+  const pagesNumber = Number(pagesValue);
+  const isRead = checkInput.checked;
+  if (!titleValue || !authorValue || !pagesValue) {
     alert("Please fill all fields!");
     return false;
-  } else {
-    myLibrary.push(
-      new Book(
-        titleInput.value.trim(),
-        authorInput.value.trim(),
-        Number(pagesInput.value),
-        checkInput.checked
-      )
-    );
-
-    render();
-    //clear user input data after storing the information
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
-    checkInput.checked = false;
-    return true;
   }
+  if (!Number.isInteger(pagesNumber) || pagesNumber <= 0) {
+    alert("Pages can be only whole number greater than 0!");
+    return false;
+  }
+
+  myLibrary.push(new Book(titleValue, authorValue, pagesNumber, isRead));
+
+  render();
+  //clear user input data after storing the information
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
+  return true;
 }
+
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
