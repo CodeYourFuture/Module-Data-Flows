@@ -15,25 +15,24 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleEl = document.getElementById("title");
+const authorEl = document.getElementById("author");
+const pagesEl = document.getElementById("pages");
+const checkEl = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    !titleEl.value ||
+    !pagesEl.value ||
+    !authorEl.value
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     //fix: change title.value to author.value
-    let book = new Book(title.value, author.value, Number(pages.value), check.checked);
+    let book = new Book(titleEl.value, authorEl.value, Number(pagesEl.value), checkEl.checked);
     //Fix: change library.push(book) to myLibrary.push(book).
     myLibrary.push(book);
     render();
@@ -70,10 +69,10 @@ function render() {
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    let readBtn = document.createElement("button");
+    readBtn.id = `readBtn-${i}`;
+    readBtn.className = "btn btn-success";
+    wasReadCell.appendChild(readBtn);
     let readStatus = "";
     // Fix: change myLibrary[i].check to myLibrary[i].check == true
     // to check if the book is read or not.
@@ -82,9 +81,9 @@ function render() {
     } else {
       readStatus = "No";
     }
-    changeBut.innerText = readStatus;
+    readBtn.innerText = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    readBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
@@ -93,12 +92,12 @@ function render() {
     // Fix : 
     // change delBut to delButton because we declare it.
     // The event listener is "clicks" instead of "click".
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
+    let deleteBtn = document.createElement("button");
+    deleteBtn.id = `deleteBtn-${i}`;
+    deleteCell.appendChild(deleteBtn);
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.innerHTML = "Delete";
+    deleteBtn.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
