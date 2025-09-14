@@ -7,13 +7,8 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea","Ernest Hemingway",127,true);
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
@@ -38,7 +33,7 @@ function submit() {
     return false;
   } else {
     //fix: change title.value to author.value
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title.value, author.value, Number(pages.value), check.checked);
     //Fix: change library.push(book) to myLibrary.push(book).
     myLibrary.push(book);
     render();
