@@ -20,7 +20,8 @@ const checkEl = document.getElementById("check");
 
 // Add book from form
 function submitBook(event) {
-  event.preventDefault(); // Prevent page reload
+  // Prevent page reload
+  event.preventDefault(); 
 
   const titleVal = titleEl.value.trim();
   const authorVal = authorEl.value.trim();
@@ -52,7 +53,8 @@ function Book(title, author, pages, check) {
 function render() {
   const table = document.getElementById("display");
   const tbody = table.querySelector("tbody");
-  tbody.innerHTML = ""; // clear old rows
+  // clear old rows
+  tbody.innerHTML = ""; 
 
   myLibrary.forEach((book, i) => {
     const row = tbody.insertRow();
