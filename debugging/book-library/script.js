@@ -55,9 +55,8 @@ function render() {
   //delete old table
   // Fix : add a ) to the end of the for loop condition
   // to avoid syntax error.
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  const tbody = table.querySelector("tbody");
+  tbody.innerHTML = "";
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
@@ -67,9 +66,9 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.innerText = myLibrary[i].title;
+    authorCell.innerText = myLibrary[i].author;
+    pagesCell.innerText = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let readBtn = document.createElement("button");
