@@ -23,16 +23,19 @@ const checkEl = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  const titleVal = titleEl.value.trim();
+  const authorVal = authorEl.value.trim();
+  const pagesVal = Number(pagesEl.value);
   if (
-    !titleEl.value ||
-    !pagesEl.value ||
-    !authorEl.value
+    !titleVal ||
+    !pagesVal ||
+    !authorVal
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
     //fix: change title.value to author.value
-    let book = new Book(titleEl.value, authorEl.value, Number(pagesEl.value), checkEl.checked);
+    let book = new Book(titleVal, authorVal, pagesVal, checkEl.checked);
     //Fix: change library.push(book) to myLibrary.push(book).
     myLibrary.push(book);
     render();
