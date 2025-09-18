@@ -27,10 +27,16 @@ function submitBook(event) {
   const authorVal = authorEl.value.trim();
   const pagesVal = Number(pagesEl.value);
 
-  if (!titleVal || !authorVal || !pagesVal) {
+  if (!titleVal || !authorVal) {
     alert("Please fill all fields!");
     return;
   }
+  if (isNaN(pagesVal) || pagesVal <= 0) {
+    alert("Please enter a valid number of pages!");
+    return;
+  }
+
+  // Add book to library
 
   const book = new Book(titleVal, authorVal, pagesVal, checkEl.checked);
   myLibrary.push(book);
