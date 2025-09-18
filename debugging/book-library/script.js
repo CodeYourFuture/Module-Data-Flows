@@ -64,7 +64,7 @@ function render() {
   tbody.innerHTML = "";
 
   myLibrary.forEach((book, i) => {
-    const row = table.insertRow();
+    const row = tbody.insertRow();
 
     // keep all cells in one place
     const titleCell = row.insertCell(0);
@@ -76,19 +76,30 @@ function render() {
     titleCell.textContent = book.title;
     authorCell.textContent = book.author;
     pagesCell.textContent = book.pages;
-    checkCell.textContent = book.check ? "Read" : "Not Read";
+    
+    const readBtn = document.createElement("button");
+    readBtn.textContent = book.check ? "Read" : "Not Read";
+    readBtn.className = book.check ? "btn btn-success" : "btn btn-secondary";
+    readBtn.addEventListener("click", () => {
+      book.check = !book.check; // toggle
+      render(); // re-render table
+    });
+    checkCell.appendChild(readBtn);
 
     // use helper function for delete button
-    createDeleteCell(delCell, i);
+    createDeleteCell(delCell, book);
   });
 }
 
-function createDeleteCell(cell, index) {
+function createDeleteCell(cell, book) {
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.addEventListener("click", () => {
+    const index = myLibrary.indexOf(book);
+    if (index > -1){
     myLibrary.splice(index, 1);
     render();
+    }
   });
   cell.appendChild(deleteBtn);
 }
