@@ -58,39 +58,35 @@ function Book(title, author, pages, check) {
 
 function render() {
   const table = document.getElementById("display");
-  const tbody = table.querySelector("tbody");
-  // clear old rows
-  tbody.innerHTML = ""; 
+  table.innerHTML = "";
 
   myLibrary.forEach((book, i) => {
-    const row = tbody.insertRow();
-    row.insertCell(0).textContent = book.title;
-    row.insertCell(1).textContent = book.author;
-    row.insertCell(2).textContent = book.pages;
+    const row = table.insertRow();
 
-    // Read/Unread button
-    const readCell = row.insertCell(3);
-    const readBtn = document.createElement("button");
-    readBtn.className = "btn btn-success";
-    readBtn.textContent = book.check ? "Yes" : "No";
-    readBtn.addEventListener("click", () => {
-      book.check = !book.check;
-      render();
-    });
-    readCell.appendChild(readBtn);
+    // keep all cells in one place
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const checkCell = row.insertCell(3);
+    const delCell = row.insertCell(4); // delete button cell
 
-    // Delete button
-    const delCell = row.insertCell(4);
-    const delBtn = document.createElement("button");
-    delBtn.className = "btn btn-warning";
-    delBtn.textContent = "Delete";
-    delBtn.addEventListener("click", () => {
-      if (confirm(`Are you sure you want to delete "${book.title}"?`)) {
-        myLibrary.splice(i, 1);
-        render();
-      }
-    });
-    delCell.appendChild(delBtn);
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
+    checkCell.textContent = book.check ? "Read" : "Not Read";
+
+    // use helper function for delete button
+    createDeleteCell(delCell, i);
   });
+}
+
+function createDeleteCell(cell, index) {
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => {
+    myLibrary.splice(index, 1);
+    render();
+  });
+  cell.appendChild(deleteBtn);
 }
 
