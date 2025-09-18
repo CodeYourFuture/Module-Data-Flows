@@ -58,7 +58,10 @@ function Book(title, author, pages, check) {
 
 function render() {
   const table = document.getElementById("display");
-  table.innerHTML = "";
+  const tbody = table.querySelector("tbody");
+
+  // Clear existing rows
+  tbody.innerHTML = "";
 
   myLibrary.forEach((book, i) => {
     const row = table.insertRow();
@@ -89,4 +92,3 @@ function createDeleteCell(cell, index) {
   });
   cell.appendChild(deleteBtn);
 }
-
