@@ -96,15 +96,14 @@ function render() {
     checkCell.appendChild(readBtn);
 
     // use helper function for delete button
-    createDeleteCell(delCell, book);
+    createDeleteCell(delCell, i);
   });
 }
 
-function createDeleteCell(cell, book) {
+function createDeleteCell(cell, index) {
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.addEventListener("click", () => {
-    const index = myLibrary.indexOf(book);
     if (index > -1){
     myLibrary.splice(index, 1);
     render();
