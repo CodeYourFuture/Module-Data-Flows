@@ -25,15 +25,24 @@ function submitBook(event) {
 
   const titleVal = titleEl.value.trim();
   const authorVal = authorEl.value.trim();
-  const pagesVal = Number(pagesEl.value);
+  const pagesRaw = pagesEl.value.trim();
+
+  // Check if pages input is a positive whole number
+  if (!/^\d+$/.test(pagesRaw)) {
+  alert("Please enter a valid positive whole number for pages!");
+  return;
+  }
+
+  const pagesVal = Number(pagesRaw);
 
   if (!titleVal || !authorVal) {
-    alert("Please fill all fields!");
-    return;
+  alert("Please fill all fields!");
+  return;
   }
-  if (isNaN(pagesVal) || pagesVal <= 0) {
-    alert("Please enter a valid number of pages!");
-    return;
+
+  if (pagesVal <= 0) {
+  alert("Please enter a realistic positive number of pages!");
+  return;
   }
 
   // Add book to library
