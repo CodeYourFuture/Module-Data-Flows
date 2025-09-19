@@ -85,15 +85,9 @@ function render() {
     titleCell.textContent = book.title;
     authorCell.textContent = book.author;
     pagesCell.textContent = book.pages;
-    
-    const readBtn = document.createElement("button");
-    readBtn.textContent = book.check ? "Read" : "Not Read";
-    readBtn.className = book.check ? "btn btn-success" : "btn btn-secondary";
-    readBtn.addEventListener("click", () => {
-      book.check = !book.check; // toggle
-      render(); // re-render table
-    });
-    checkCell.appendChild(readBtn);
+
+    // use helper function for read button
+    createReadButton(checkCell, i);
 
     // use helper function for delete button
     createDeleteCell(delCell, i);
@@ -110,4 +104,18 @@ function createDeleteCell(cell, index) {
     }
   });
   cell.appendChild(deleteBtn);
+}
+
+// helper function for read button
+function createReadButton(cell, index) {
+  const readBtn = document.createElement("button");
+  readBtn.textContent = myLibrary[index].check ? "Read" : "Not Read";
+  readBtn.className = myLibrary[index].check ? "btn btn-success" : "btn btn-secondary";
+
+  readBtn.addEventListener("click", () => {
+    myLibrary[index].check = !myLibrary[index].check;
+    render();
+  });
+
+  cell.appendChild(readBtn);
 }
