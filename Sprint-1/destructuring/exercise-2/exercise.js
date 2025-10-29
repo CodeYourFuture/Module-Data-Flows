@@ -70,3 +70,23 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+
+function gryffindorHouse(hogwarts) {
+  return hogwarts.reduce((memberList, {firstName, lastName, house}) => {
+    if (house === 'Gryffindor') {
+      memberList.push(`${firstName} ${lastName}`)
+    }
+    return memberList
+  }, []).join("\n")
+}
+
+function teachersWithPets(hogwarts) {
+  return hogwarts.reduce((nameList, {firstName, lastName, pet, occupation}) => {
+    if (occupation === "Teacher" && pet !== null) {
+      nameList.push(`${firstName} ${lastName}`)
+    }
+    return nameList;
+  }, []).join("\n")
+}
+
