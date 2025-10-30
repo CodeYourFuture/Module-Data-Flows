@@ -10,14 +10,26 @@ let order = [
 
 function receiptAndCosts(order) {
   let total = 0;
-  const quantitySpace = 8;
-  const itemSpace = 20;
-  const costSpace = 5
-  let receipt = [`${'QTY'.padEnd(quantitySpace, " ")}${'ITEM'.padEnd(itemSpace, " ")}${'TOTAL'.padEnd(costSpace, " ")}`]
-  order.map(({itemName, quantity, unitPricePence}) => {
-    receipt.push(`${String(quantity).padEnd(quantitySpace, " ")}${itemName.padEnd(itemSpace, " ")}${String(Number(unitPricePence / 100 * quantity).toFixed(2)).padEnd(costSpace, " ")}`)
+
+  let receipt = []
+
+  function orderLineFormatting(...args) {
+    const orderLineSpacing = [8, 20, 5]
+    let formattedOrderLine = ''
+    for (let index = 0; index < args.length; index++) {
+      formattedOrderLine += `${String(args[index]).padEnd(orderLineSpacing[index], " ")}`
+    }
+    return formattedOrderLine
+  }
+
+  receipt.push(orderLineFormatting("QTY", "ITEM", "TOTAL"));
+
+  order.forEach(({itemName, quantity, unitPricePence}) => {
+    const subTotal = (unitPricePence / 100 * quantity).toFixed(2)
+    receipt.push(orderLineFormatting(quantity, itemName, subTotal))
     total += unitPricePence / 100 * quantity
   })
+
   receipt.push(" ")
   receipt.push(`Total: ${total.toFixed(2)}`)
   return receipt.join("\n")

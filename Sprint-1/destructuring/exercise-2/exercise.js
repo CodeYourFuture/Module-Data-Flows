@@ -73,12 +73,7 @@ let hogwarts = [
 
 
 function gryffindorHouse(hogwarts) {
-  return hogwarts.reduce((memberList, {firstName, lastName, house}) => {
-    if (house === 'Gryffindor') {
-      memberList.push(`${firstName} ${lastName}`)
-    }
-    return memberList
-  }, []).join("\n")
+  return hogwarts.filter(({house}) => house === 'Gryffindor').map(({firstName, lastName}) => `${firstName} ${lastName}`).join("\n")
 }
 
 function teachersWithPets(hogwarts) {
@@ -90,3 +85,4 @@ function teachersWithPets(hogwarts) {
   }, []).join("\n")
 }
 
+console.log(gryffindorHouse(hogwarts));
