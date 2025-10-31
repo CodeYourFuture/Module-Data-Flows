@@ -73,16 +73,18 @@ let hogwarts = [
 
 
 function gryffindorHouse(hogwarts) {
-  return hogwarts.filter(({house}) => house === 'Gryffindor').map(({firstName, lastName}) => `${firstName} ${lastName}`).join("\n")
+  return hogwarts
+    .filter(({house}) => house === 'Gryffindor')
+    .map(({firstName, lastName}) => `${firstName} ${lastName}`)
+    .join("\n")
 }
 
 function teachersWithPets(hogwarts) {
-  return hogwarts.reduce((nameList, {firstName, lastName, pet, occupation}) => {
-    if (occupation === "Teacher" && pet !== null) {
-      nameList.push(`${firstName} ${lastName}`)
-    }
-    return nameList;
-  }, []).join("\n")
+  return hogwarts
+    .filter(({occupation, pet}) => occupation === "Teacher" && pet !== null)
+    .map(({firstName, lastName}) => `${firstName} ${lastName}`)
+    .join("\n")
 }
 
 console.log(gryffindorHouse(hogwarts));
+console.log(teachersWithPets(hogwarts))

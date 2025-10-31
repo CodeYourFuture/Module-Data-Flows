@@ -14,6 +14,9 @@ function receiptAndCosts(order) {
   let receipt = []
 
   function orderLineFormatting(...args) {
+    if (args.length !== 3) {
+      throw new Error("expecting 3 arguments in order of quantity, itemName, and subTotal")
+    }
     const orderLineSpacing = [8, 20, 5]
     let formattedOrderLine = ''
     for (let index = 0; index < args.length; index++) {
