@@ -13,6 +13,9 @@ function receiptAndCosts(order) {
 
   let receipt = []
 
+  /* This function orderLineFormatting requires 3 arguments in strict order
+      1: quantity, 2: itemName, 3: subTotal
+  */
   function orderLineFormatting(...args) {
     if (args.length !== 3) {
       throw new Error("expecting 3 arguments in order of quantity, itemName, and subTotal")
