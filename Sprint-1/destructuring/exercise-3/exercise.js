@@ -15,6 +15,7 @@ function receiptAndCosts(order) {
 
   /* This function orderLineFormatting requires 3 arguments in strict order
       1: quantity, 2: itemName, 3: subTotal
+     and will return a string
   */
   function orderLineFormatting(...args) {
     if (args.length !== 3) {
