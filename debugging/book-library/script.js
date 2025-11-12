@@ -44,10 +44,6 @@ function handleSubmit(event) {
 }
 
 function resetAddNewBook() {
-  // titleInput.value = '';
-  // authorInput.value = '';
-  // pagesInput.value = 0;
-  // checkInput.checked = false;
   document.getElementById("book-form").reset()
 }
 
