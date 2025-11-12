@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
+    <title>Virtual library</title>
+    <meta charset="utf-8" />
     <meta
-      charset="utf-8"
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
@@ -28,10 +28,10 @@
     </button>
 
     <div id="demo" class="collapse">
-      <div class="form-group">
+      <form class="form-group" id="book-form" onsubmit="handleSubmit(event)" >
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +39,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -66,9 +66,8 @@
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
         />
-      </div>
+      </form>
     </div>
 
     <table class="table" id="display">
@@ -81,14 +80,8 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+      <tbody id="display-body">
+        
       </tbody>
     </table>
 
