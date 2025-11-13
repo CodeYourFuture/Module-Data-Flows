@@ -28,20 +28,28 @@ const checkInput = document.getElementById("check");
 //via Book function and start render function
 function handleSubmit(event) {
   event.preventDefault();
+  let titleValue = titleInput.value.trim();
+  let authorValue = authorInput.value.trim();
+  let pagesValue = Number(pagesInput.value.trim());
+  let read = checkInput.checked;
   if (
-    !titleInput.value.trim() ||
-    !authorInput.value.trim() ||
-    pagesInput.value <= 0
+    !titleValue||
+    !authorValue ||
+    !Number.isInteger(pagesValue) ||
+    Number(pagesValue) <= 0 
   ) {
-    alert("Please fill all fields!");
+    alert("Please fill all fields! Page count must be a whole number above 0.");
     return false;
   } else {
-    let book = new Book(String(titleInput.value), String(authorInput.value), Number(pagesInput.value), checkInput.checked);
+    let book = new Book(titleValue, authorValue, pagesValue, read);
     myLibrary.push(book);
     resetAddNewBook()
     render();
   }
 }
+
+const bookForm = document.getElementById("book-form")
+bookForm.addEventListener("submit", (event) => handleSubmit(event));
 
 function resetAddNewBook() {
   document.getElementById("book-form").reset()
@@ -58,7 +66,7 @@ class Book {
 
 function render() {
   //delete old table
-  let tableBody = document.getElementById("display-body")
+  const tableBody = document.getElementById("display-body")
   tableBody.innerHTML = '';
   //insert updated row and cells
   myLibrary.forEach((book, index) => {
