@@ -79,9 +79,10 @@ function getGryffindorMembers(arr) {
       gryffindorMembers.push(`${firstName} ${lastName}`);
     }
   });
-  return gryffindorMembers;
+  console.log(gryffindorMembers.join('\n'));
 }
-console.log(getGryffindorMembers(hogwarts));
+
+getGryffindorMembers(hogwarts);
 
 //task 2
 function getTeachersWithPets(arr) {
@@ -91,6 +92,7 @@ function getTeachersWithPets(arr) {
       teachersWithPets.push(`${firstName} ${lastName}`);
     }
   });
-  return teachersWithPets;
+  console.log(teachersWithPets.join('\n'));
 }
-console.log(getTeachersWithPets(hogwarts));
+
+getTeachersWithPets(hogwarts);
