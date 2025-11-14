@@ -70,3 +70,27 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+//task 1
+function getGryffindorMembers(arr) {
+  let gryffindorMembers = [];
+  arr.forEach(({ firstName, lastName, house }) => {
+    if (house === "Gryffindor") {
+      gryffindorMembers.push(`${firstName} ${lastName}`);
+    }
+  });
+  return gryffindorMembers;
+}
+console.log(getGryffindorMembers(hogwarts));
+
+//task 2
+function getTeachersWithPets(arr) {
+  let teachersWithPets = [];
+  arr.forEach(({ firstName, lastName, occupation, pet }) => {
+    if (occupation === "Teacher" && pet) {
+      teachersWithPets.push(`${firstName} ${lastName}`);
+    }
+  });
+  return teachersWithPets;
+}
+console.log(getTeachersWithPets(hogwarts));
