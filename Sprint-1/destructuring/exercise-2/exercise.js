@@ -73,26 +73,21 @@ let hogwarts = [
 
 //task 1
 function getGryffindorMembers(arr) {
-  let gryffindorMembers = [];
-  arr.forEach(({ firstName, lastName, house }) => {
-    if (house === "Gryffindor") {
-      gryffindorMembers.push(`${firstName} ${lastName}`);
-    }
-  });
-  console.log(gryffindorMembers.join('\n'));
+  const gryffindorMembers = arr.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`).join('\n');
+    
+  console.log(gryffindorMembers);
 }
 
 getGryffindorMembers(hogwarts);
 
 //task 2
 function getTeachersWithPets(arr) {
-  let teachersWithPets = [];
-  arr.forEach(({ firstName, lastName, occupation, pet }) => {
-    if (occupation === "Teacher" && pet) {
-      teachersWithPets.push(`${firstName} ${lastName}`);
-    }
-  });
-  console.log(teachersWithPets.join('\n'));
+  const teachersWithPets = arr.filter(({ occupation, pet }) => occupation === "Teacher" && pet).map(({ firstName, lastName }) => 
+    `${firstName} ${lastName}`
+  ).join('\n'); 
+  
+  
+  console.log(teachersWithPets);
 }
 
 getTeachersWithPets(hogwarts);
