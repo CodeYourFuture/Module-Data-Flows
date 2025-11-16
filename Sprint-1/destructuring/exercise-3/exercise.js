@@ -8,9 +8,11 @@ let order = [
 ];
 
 function printReceipt(order){
-  let total = 0 , qtyWidthMax = 3, itemWidthMax = 4
+  let total = 0 
+  let qtyWidthMax = 3
+  let itemWidthMax = 4
   const receiptLines = order.map(({itemName, quantity, unitPricePence}) => {
-    const itemTotalPounds = (quantity*unitPricePence/100);
+    const itemTotalPounds = (quantity * (unitPricePence / 100));
     qtyWidthMax = Math.max(qtyWidthMax, String(quantity).length);
     itemWidthMax = Math.max(itemWidthMax, itemName.length);
     return { itemName, quantity, itemTotalPounds };
