@@ -11,7 +11,10 @@ order.map(({ itemName, quantity, unitPricePence }) => {
   let totalPence = quantity * unitPricePence;
   let pence = totalPence % 100;
   let paddedPence = String(pence).padStart(2, "0");
-  let pounds = String(totalPence).substring(0, String(pence).length - 1);
+  let pounds = String(totalPence).substring(0, String(paddedPence).length - 1);
   let priceInPoundsAndPence=`${pounds}.${paddedPence}`
+  console.log(pence,priceInPoundsAndPence);
+  
+  
   
 });
