@@ -70,16 +70,9 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
-//do it for one object
-//
-const one={
-  firstName: "Albus",
-  lastName: "Dumbledore",
-  house: "Gryffindor",
-  pet: "Phoenix",
-  occupation: "Teacher",
-}
-const {firstName,lastName,house}=one
-console.log(firstName,lastName,house);
 
-
+hogwarts.map(({ firstName, lastName, house }) => {
+  if (house === "Gryffindor") {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
