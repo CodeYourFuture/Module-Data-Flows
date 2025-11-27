@@ -76,3 +76,9 @@ hogwarts.map(({ firstName, lastName, house }) => {
     console.log(`${firstName} ${lastName}`);
   }
 });
+
+hogwarts.map(({ occupation, pet, firstName, lastName }) => {
+  if (occupation === "Teacher" && pet !== null) {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
