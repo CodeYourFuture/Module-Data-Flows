@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title> </title>
+    <title>My Book Library</title>
     <meta
       charset="utf-8"
       name="viewport"
@@ -31,7 +31,7 @@
       <div class="form-group">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -53,20 +53,20 @@
           name="pages"
           required
         />
-        <label class="form-check-label">
+        <div class="form-check-label">
           <input
             type="checkbox"
             class="form-check-input"
             id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
+          /><span>Read</span>
+        </div>
+        <button
+          type="button"
+          id="submitBtn"
+          class="btn btn-primary mt-2"
+          >
+          Submit
+        </button>
       </div>
     </div>
 
