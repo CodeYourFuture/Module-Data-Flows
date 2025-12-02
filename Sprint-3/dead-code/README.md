@@ -5,7 +5,5 @@ Here are two example of code that has not been built efficiently. Both files hav
 ## Instructions
 
 1. Work through each `exercise` file inside this directory.
-2. Delete the dead code. 
-3. Commit your changes and make a PR when done. 
-
-
+2. Delete the dead code.
+3. Commit your changes and make a PR when done.
