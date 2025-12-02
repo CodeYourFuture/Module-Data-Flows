@@ -6,41 +6,40 @@ window.addEventListener("load", function (e) {
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
-    render();
+  if (myLibrary.length === 0) {
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
+    myLibrary.push(book1, book2);
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+// Use meaningful variable names for DOM elements
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
+// Preprocess input before adding a book
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
-    render();
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = parseInt(pagesInput.value.trim(), 10);
+  const isRead = readCheckbox.checked;
+
+  if (!title || !author || isNaN(pages)) {
+    alert("Please fill all fields correctly!");
+    return;
   }
+
+  let book = new Book(title, author, pages, isRead);
+  myLibrary.push(book);
+  render();
+
+  // Clear input fields after submission
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckbox.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -50,54 +49,67 @@ function Book(title, author, pages, check) {
   this.check = check;
 }
 
+// Efficiently clear table rows
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
+  const table = document.getElementById("display");
+  let tbody = table.querySelector("tbody");
+
+  // If <tbody> doesn't exist, create it
+  if (!tbody) {
+    tbody = document.createElement("tbody");
+    table.appendChild(tbody);
   }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  // Clear existing rows in <tbody>
+  tbody.innerHTML = "";
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+  myLibrary.forEach((book, index) => {
+    const row = tbody.insertRow();
+
+    const titleCell = row.insertCell();
+    titleCell.textContent = book.title; // Escapes special characters
+
+    const authorCell = row.insertCell();
+    authorCell.textContent = book.author; // Escapes special characters
+
+    const pagesCell = row.insertCell();
+    pagesCell.textContent = book.pages;
+
+    const readCell = row.insertCell();
+    readCell.innerHTML = `<button class="btn btn-success toggle-read" data-index="${index}">${book.check ? "Yes" : "No"}</button>`;
+
+    const actionsCell = row.insertCell();
+    actionsCell.innerHTML = `<button class="btn btn-warning delete-book" data-index="${index}">Delete</button>`;
+  });
+
+  // Add event listeners for buttons
+  document.querySelectorAll(".toggle-read").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const index = e.target.dataset.index;
+      myLibrary[index].check = !myLibrary[index].check;
       render();
     });
+  });
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+  document.querySelectorAll(".delete-book").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const index = e.target.dataset.index;
+      myLibrary.splice(index, 1);
       render();
+
+      // Display a non-blocking notification
+      const notification = document.createElement("div");
+      notification.textContent = "Book deleted successfully.";
+      notification.className = "notification";
+      document.body.appendChild(notification);
+
+      // Remove the notification after 3 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
     });
-  }
+  });
 }
+
+// Make the submit function globally accessible
+window.submit = submit;
