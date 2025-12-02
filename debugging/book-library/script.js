@@ -52,17 +52,34 @@ function Book(title, author, pages, check) {
 // Efficiently clear table rows
 function render() {
   const table = document.getElementById("display");
-  table.innerHTML = "<tr><th>Title</th><th>Author</th><th>Pages</th><th>Read</th><th>Actions</th></tr>";
+  let tbody = table.querySelector("tbody");
+
+  // If <tbody> doesn't exist, create it
+  if (!tbody) {
+    tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+  }
+
+  // Clear existing rows in <tbody>
+  tbody.innerHTML = "";
 
   myLibrary.forEach((book, index) => {
-    const row = table.insertRow();
-    row.innerHTML = `
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td>${book.pages}</td>
-      <td><button class="btn btn-success toggle-read" data-index="${index}">${book.check ? "Yes" : "No"}</button></td>
-      <td><button class="btn btn-warning delete-book" data-index="${index}">Delete</button></td>
-    `;
+    const row = tbody.insertRow();
+
+    const titleCell = row.insertCell();
+    titleCell.textContent = book.title; // Escapes special characters
+
+    const authorCell = row.insertCell();
+    authorCell.textContent = book.author; // Escapes special characters
+
+    const pagesCell = row.insertCell();
+    pagesCell.textContent = book.pages;
+
+    const readCell = row.insertCell();
+    readCell.innerHTML = `<button class="btn btn-success toggle-read" data-index="${index}">${book.check ? "Yes" : "No"}</button>`;
+
+    const actionsCell = row.insertCell();
+    actionsCell.innerHTML = `<button class="btn btn-warning delete-book" data-index="${index}">Delete</button>`;
   });
 
   // Add event listeners for buttons
@@ -79,7 +96,17 @@ function render() {
       const index = e.target.dataset.index;
       myLibrary.splice(index, 1);
       render();
-      alert("Book deleted successfully.");
+
+      // Display a non-blocking notification
+      const notification = document.createElement("div");
+      notification.textContent = "Book deleted successfully.";
+      notification.className = "notification";
+      document.body.appendChild(notification);
+
+      // Remove the notification after 3 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
     });
   });
 }
