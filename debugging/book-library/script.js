@@ -1,12 +1,12 @@
 let myLibrary = [];
 
 // DOM refs
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
 const submitBtn = document.getElementById("submitBtn");
-const table = document.getElementById("display");
+const tableContent = document.getElementById("display");
 
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -93,26 +93,22 @@ function render() {
     const changeBut = document.createElement("button");
     changeBut.className = "btn btn-sm btn-outline-success";
     changeBut.textContent = book.read ? "Yes" : "No";
-    changeBut.addEventListener("click", (function (index) {
-      return function () {
-        myLibrary[index].read = !myLibrary[index].read;
-        render();
-      };
-    })(i));
+   changeBut.addEventListener("click", function() {
+      myLibrary[i].read = !myLibrary[i].read;
+      render();
+    });
     wasReadCell.appendChild(changeBut);
 
     // Delete button
     const delBut = document.createElement("button");
     delBut.className = "btn btn-sm btn-warning";
     delBut.textContent = "Delete";
-    delBut.addEventListener("click", (function (index) {
-      return function () {
-        if (confirm(`Delete "${myLibrary[index].title}"?`)) {
-          myLibrary.splice(index, 1);
-          render();
-        }
-      };
-    })(i));
+   delBut.addEventListener("click", function() {
+      if (confirm(`Delete "${myLibrary[i].title}"?`)) {
+        myLibrary.splice(i, 1);
+        render();
+      }
+    });
     deleteCell.appendChild(delBut);
   }
 }
