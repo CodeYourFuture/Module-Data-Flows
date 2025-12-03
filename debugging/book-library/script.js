@@ -76,7 +76,7 @@ function render() {
     pagesCell.textContent = book.pages;
 
     const readCell = row.insertCell();
-    readCell.innerHTML = `<button class="btn btn-success toggle-read" data-index="${index}">${book.check ? "Yes" : "No"}</button>`;
+    readCell.innerHTML = `<button class="btn btn-success toggle-read" data-index="${index}">${book.check ? "Mark Unread" : "Mark Read"}</button>`;
 
     const actionsCell = row.insertCell();
     actionsCell.innerHTML = `<button class="btn btn-warning delete-book" data-index="${index}">Delete</button>`;
