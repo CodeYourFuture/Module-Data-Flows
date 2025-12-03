@@ -1,12 +1,12 @@
 let myLibrary = [];
 
-// DOM refs
+// DOM refs 
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
-const submitBtn = document.getElementById("submitBtn");
-const tableContent = document.getElementById("display");
+const submitBtn = document.getElementById("submitBtn"); 
+const table = document.getElementById("display");
 
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -15,11 +15,11 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    const book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    const book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1, book2);
@@ -32,29 +32,30 @@ submitBtn.addEventListener("click", addBook);
 // validate and add book to library
 function addBook() {
   // trim to avoid spaces-only input
-  const t = title.value.trim();
-  const a = author.value.trim();
-  const p = pages.value.trim();
+  const t = titleInput.value.trim();
+  const a = authorInput.value.trim();
+  const pRaw = pagesInput.value.trim();
 
-  if (!t || !a || !p) {
+  if (!t || !a || !pRaw) {
     alert("Please fill all fields!");
     return;
   }
 
-  // pages should be a positive number
-  if (isNaN(p) || Number(p) <= 0) {
-    alert("Please enter a valid number of pages.");
+  // pages should be a positive integer (prevent "weird" page counts)
+  const pNum = Number(pRaw);
+  if (!Number.isFinite(pNum) || pNum <= 0 || !Number.isInteger(pNum)) {
+    alert("Please enter a valid positive whole number of pages.");
     return;
   }
 
-  const book = new Book(t, a, p, check.checked);
+  const book = new Book(t, a, pNum, checkInput.checked);
   myLibrary.push(book);
 
-  // clear inputs and close the collapse (optional)
-  title.value = "";
-  author.value = "";
-  pages.value = "";
-  check.checked = false;
+  // clear inputs and close the collapse
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
 
   render();
 }
@@ -64,14 +65,11 @@ function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  // store boolean as 'read'
   this.read = !!read;
 }
 
 // render table rows from myLibrary
 function render() {
-  // clear existing tbody rows
-  // keep the thead, clear tbody
   const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";
 
@@ -89,21 +87,21 @@ function render() {
     authorCell.textContent = book.author;
     pagesCell.textContent = book.pages;
 
-    // Read toggle button
+    // Read toggle button 
     const changeBut = document.createElement("button");
     changeBut.className = "btn btn-sm btn-outline-success";
     changeBut.textContent = book.read ? "Yes" : "No";
-   changeBut.addEventListener("click", function() {
+    changeBut.addEventListener("click", function() {
       myLibrary[i].read = !myLibrary[i].read;
       render();
     });
     wasReadCell.appendChild(changeBut);
 
-    // Delete button
+    // Delete button 
     const delBut = document.createElement("button");
     delBut.className = "btn btn-sm btn-warning";
     delBut.textContent = "Delete";
-   delBut.addEventListener("click", function() {
+    delBut.addEventListener("click", function() {
       if (confirm(`Delete "${myLibrary[i].title}"?`)) {
         myLibrary.splice(i, 1);
         render();
