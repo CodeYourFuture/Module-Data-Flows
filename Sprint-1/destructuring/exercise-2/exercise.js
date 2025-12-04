@@ -70,3 +70,24 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+//task 1
+function getGryffindorMembers(arr) {
+  const gryffindorMembers = arr.filter(({ house }) => house === "Gryffindor").map(({ firstName, lastName }) => `${firstName} ${lastName}`).join('\n');
+    
+  console.log(gryffindorMembers);
+}
+
+getGryffindorMembers(hogwarts);
+
+//task 2
+function getTeachersWithPets(arr) {
+  const teachersWithPets = arr.filter(({ occupation, pet }) => occupation === "Teacher" && pet).map(({ firstName, lastName }) => 
+    `${firstName} ${lastName}`
+  ).join('\n'); 
+  
+  
+  console.log(teachersWithPets);
+}
+
+getTeachersWithPets(hogwarts);
