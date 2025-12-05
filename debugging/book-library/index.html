@@ -1,96 +1,88 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
+<!doctype html>
+<html lang="en">
 
-  <body>
-    <div class="jumbotron text-center">
-      <h1>Library</h1>
-      <p>Add books to your virtual library</p>
-    </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Book Library</title>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
-      Add new book
-    </button>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 1.5rem;
+    }
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
+    .btn-small {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <h1 class="display-4">Library</h1>
+    <p class="lead">Add books to your virtual library</p>
+  </div>
+
+  <button class="btn btn-info mb-3" data-toggle="collapse" data-target="#addForm">
+    Add new book
+  </button>
+
+  <div id="addForm" class="collapse">
+    <div class="card card-body mb-4">
+      <div class="form-row">
+
+        <div class="form-group col-md-4">
+          <label for="title">Title</label>
+          <input id="title" class="form-control" type="text" required>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="author">Author</label>
+          <input id="author" class="form-control" type="text" required>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="pages">Pages</label>
+          <input id="pages" class="form-control" type="number" min="1" required>
+        </div>
+
+        <div class="form-group col-md-2 d-flex align-items-end">
+          <div class="form-check">
+            <input id="check" class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="check">Read</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button id="addBtn" class="btn btn-primary">Submit</button>
       </div>
     </div>
+  </div>
 
-    <table class="table" id="display">
-      <thead class="thead-dark">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Number of Pages</th>
-          <th>Read</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+  <table class="table table-striped" id="display">
+    <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>Read</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- books appear here -->
+    </tbody>
+  </table>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <!-- YOUR JS FILE -->
+  <script src="script.js"></script>
+</body>
+
 </html>
