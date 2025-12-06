@@ -1,4 +1,4 @@
-let myLibrary = [];
+const myLibrary = [];
 
 // When page loads, add starter books and render
 window.addEventListener("load", function () {
@@ -8,50 +8,43 @@ window.addEventListener("load", function () {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
+    myLibrary.push(book1, book2);
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
-
+const bookFormEl = document.getElementById("bookForm");
+const titleInputEl = document.getElementById("title");
+const authorInputEl = document.getElementById("author");
+const pagesInputEl = document.getElementById("pages");
+const isReadCheckboxEl = document.getElementById("check");
 // Check the form and, if OK, add a new book and re-render
-function submit() {
-  if (
-    !title.value.trim() ||
-    !author.value.trim() ||
-    !pages.value.trim()
-  ) {
+bookFormEl.addEventListener("submit", handleBookFormSubmit);
+
+function handleBookFormSubmit(event) {
+  event.preventDefault(); // stop page reload
+
+  if (!titleInputEl.value || !pagesInputEl.value) {
     alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(
-      title.value.trim(),
-      author.value.trim(),
-      pages.value.trim(),
-      check.checked
-    );
-    myLibrary.push(book); // ✅ use myLibrary
-    render();
-
-    // Optional: clear form after adding
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
-
-    return false;
+    return;
   }
+
+  const newBook = new Book(
+    titleInputEl.value,
+    authorInputEl.value,
+    Number(pagesInputEl.value),
+    isReadCheckboxEl.checked
+  );
+
+  myLibrary.push(newBook);
+  render();
+  bookFormEl.reset();
 }
 
 // Book constructor
