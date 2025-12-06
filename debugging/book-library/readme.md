@@ -12,12 +12,13 @@ My website should be able to:
 
 ## Bugs to be fixed
 
-1. Website loads but doesn't show any books
-2. Error in console when you try to add a book
-3. It uses the title name as the author name
-4. Delete button is broken
-5. When I add a book that I say I've read - it saves the wrong answer
+1. Website loads but doesn't show any books - fixed
+2. Error in console when you try to add a book - fixed
+3. It uses the title name as the author name - fixed
+4. Delete button is broken - fixed
+5. When I add a book that I say I've read - it saves the wrong answer - fixed
 
 I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
+- unsure if ive caught all the bugs but have made changes I thought were pertinent and ensure full lighthouse score
 
 I wish somebody would help me!

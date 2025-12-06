@@ -1,19 +1,30 @@
+.collapse.show{
+  display: flex;
+}
+
 .form-group {
   width: 400px;
   height: 300px;
-  align-self: left;
+  align-self: flex-start;
   padding-left: 20px;
 }
 
 .btn {
-  display: block;
+  font-weight: 600;
+  color: black;
 }
 
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  padding-top: 10px;
+  margin: 5px ;
 }
 
-button.btn-info {
+button[data-toggle="collapse"] {
   margin: 20px;
+}
+
+#add-book-btn {
+  display: block;
+  margin-top: 10px;
 }
