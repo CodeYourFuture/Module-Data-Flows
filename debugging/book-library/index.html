@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Book Library</title>
 
+  <!-- FEEDBACK APPLIED: HTML validated and cleaned -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
   <style>
     body {
       padding: 1.5rem;
@@ -33,25 +35,26 @@
     <div class="card card-body mb-4">
       <div class="form-row">
 
+        <!-- FEEDBACK APPLIED: clearer input IDs and names -->
         <div class="form-group col-md-4">
-          <label for="title">Title</label>
-          <input id="title" class="form-control" type="text" required>
+          <label for="titleInput">Title</label>
+          <input id="titleInput" class="form-control" type="text" required>
         </div>
 
         <div class="form-group col-md-4">
-          <label for="author">Author</label>
-          <input id="author" class="form-control" type="text" required>
+          <label for="authorInput">Author</label>
+          <input id="authorInput" class="form-control" type="text" required>
         </div>
 
         <div class="form-group col-md-2">
-          <label for="pages">Pages</label>
-          <input id="pages" class="form-control" type="number" min="1" required>
+          <label for="pagesInput">Pages</label>
+          <input id="pagesInput" class="form-control" type="number" min="1" required>
         </div>
 
         <div class="form-group col-md-2 d-flex align-items-end">
           <div class="form-check">
-            <input id="check" class="form-check-input" type="checkbox">
-            <label class="form-check-label" for="check">Read</label>
+            <input id="readCheckbox" class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="readCheckbox">Read</label>
           </div>
         </div>
       </div>
@@ -73,7 +76,7 @@
       </tr>
     </thead>
     <tbody>
-      <!-- books appear here -->
+      <!-- Books appear here -->
     </tbody>
   </table>
 
@@ -81,8 +84,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-  <!-- YOUR JS FILE -->
-  <script src="script.js"></script>
+  <!-- FEEDBACK APPLIED: load JS as module -->
+  <script src="script.js" type="module"></script>
 </body>
 
 </html>
