@@ -1,103 +1,125 @@
-let myLibrary = [];
+const myLibrary = [];
 
-window.addEventListener("load", function (e) {
+// When page loads, add starter books and render
+window.addEventListener("load", function () {
   populateStorage();
   render();
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
+  if (myLibrary.length === 0) {
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
-    render();
+    myLibrary.push(book1, book2);
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+// === DOM elements ===
+const bookFormEl = document.getElementById("bookForm");
+const titleInputEl = document.getElementById("title");   // .value is a string
+const authorInputEl = document.getElementById("author"); // .value is a string
+const pagesInputEl = document.getElementById("pages");   // .value is a string
+const isReadCheckboxEl = document.getElementById("check"); // .checked is boolean
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
-    render();
+// Check the form and, if OK, add a new book and re-render
+bookFormEl.addEventListener("submit", handleBookFormSubmit);
+
+function handleBookFormSubmit(event) {
+  event.preventDefault(); // stop page reload
+
+  // 🔹 Normalise / preprocess input
+  const title = titleInputEl.value.trim();
+  const author = authorInputEl.value.trim();
+  const pages = Number(pagesInputEl.value);
+  const isRead = isReadCheckboxEl.checked;
+
+  // 🔹 Validation
+  if (!title || !author) {
+    alert("Title and author are required.");
+    return;
   }
+
+  if (!Number.isFinite(pages) || pages <= 0) {
+    alert("Pages must be a positive number.");
+    return;
+  }
+
+  // 🔹 Create and store the new book
+  const newBook = new Book(title, author, pages, isRead);
+  myLibrary.push(newBook);
+
+  render();
+  bookFormEl.reset();
 }
 
+// Book constructor
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  this.check = check; // true = read, false = not read
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  const table = document.getElementById("display");
+  const tbody = table.querySelector("tbody");
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  // 🔹 Clear previous rows in one go (keep header)
+  tbody.innerHTML = "";
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+  // insert updated rows and cells
+  myLibrary.forEach((book, index) => {
+    const row = document.createElement("tr");
+
+    const titleCell = document.createElement("td");
+    const authorCell = document.createElement("td");
+    const pagesCell = document.createElement("td");
+    const wasReadCell = document.createElement("td");
+    const deleteCell = document.createElement("td");
+
+    // 🔹 Use textContent (safe & fast)
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
+
+    // Read/unread button
+    const readBtn = document.createElement("button");
+    readBtn.type = "button";
+    readBtn.className = "btn btn-success btn-sm";
+    readBtn.textContent = book.check ? "Yes" : "No";
+    readBtn.addEventListener("click", () => {
+      myLibrary[index].check = !myLibrary[index].check;
+      render();
+    });
+    wasReadCell.appendChild(readBtn);
+
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "btn btn-warning btn-sm";
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", () => {
+      const confirmed = confirm(`Delete "${book.title}"?`);
+      if (!confirmed) return;
+
+      myLibrary.splice(index, 1);
       render();
     });
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
-    });
-  }
+    deleteCell.appendChild(deleteBtn);
+
+    row.appendChild(titleCell);
+    row.appendChild(authorCell);
+    row.appendChild(pagesCell);
+    row.appendChild(wasReadCell);
+    row.appendChild(deleteCell);
+
+    tbody.appendChild(row);
+  });
 }
