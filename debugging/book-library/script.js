@@ -26,9 +26,9 @@ submitBtn.addEventListener("click", () => {
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() { 
-  let titleInput    = document.getElementById("title").value;
+  let titleInput    = document.getElementById("title").value.trim();
   let authorInput   = document.getElementById("author").value.trim();
-  const pagesInput  = Number(document.getElementById("pages").value.trim());
+  const pagesInput  = Number(document.getElementById("pages").value);
   const checkBtn    = document.getElementById("check");
 
   titleInput  = titleInput.replace(/</g, "");
@@ -71,21 +71,16 @@ function render() {
     let pagesCell   = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell  = row.insertCell(4);
-    titleCell.innerHTML  = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML  = myLibrary[i].pages;
+    titleCell.textContent  = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent  = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeButton.innerText = readStatus;
+
+    changeButton.innerText = myLibrary[i].check ? "Yes" : "No";
 
     changeButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
