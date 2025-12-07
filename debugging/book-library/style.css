@@ -17,3 +17,9 @@
 button.btn-info {
   margin: 20px;
 }
+
+@media (min-width: 576px) {
+  .jumbotron {
+      padding: 2rem 32px 2rem; 
+  }
+}

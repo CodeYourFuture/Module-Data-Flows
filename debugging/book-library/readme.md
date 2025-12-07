@@ -12,12 +12,12 @@ My website should be able to:
 
 ## Bugs to be fixed
 
-1. Website loads but doesn't show any books
-2. Error in console when you try to add a book
-3. It uses the title name as the author name
-4. Delete button is broken
-5. When I add a book that I say I've read - it saves the wrong answer
+1. Website loads but doesn't show any books. Done
+2. Error in console when you try to add a book. Done
+3. It uses the title name as the author name. Done
+4. Delete button is broken. Done
+5. When I add a book that I say I've read - it saves the wrong answer. Done
 
-I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
+I think there are some other small bugs in my code...but I'm lazy so I can't fix them all.
 
 I wish somebody would help me!
