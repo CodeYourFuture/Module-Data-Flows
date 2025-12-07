@@ -34,7 +34,6 @@ function submit() {
   titleInput  = titleInput.replace(/</g, "");
   authorInput = authorInput.replace(/</g, "");
 
-  console.log(titleInput);
   if (  titleInput  == ""  || authorInput == ""  || pagesInput  == ""  ) {
     alert("Please fill all fields!");
     return false;
