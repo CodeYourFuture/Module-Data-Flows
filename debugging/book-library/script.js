@@ -6,7 +6,7 @@ window.addEventListener("load", function (e) {
   form?.addEventListener("submit", e => {
     e.preventDefault();
   });
-  const addBookBtn = document.getElementById("addBookBtn");
+  const addBookBtn = document.getElementById("add-book-btn");
   addBookBtn?.addEventListener("click", addBook);
 });
 
