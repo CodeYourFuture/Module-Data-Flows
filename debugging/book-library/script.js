@@ -80,7 +80,7 @@ function render() {
     toggleReadButton.type = "button";
     wasReadCell.appendChild(toggleReadButton);
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    toggleReadButton.innerText = readStatus;
+    toggleReadButton.textContent = readStatus;
     toggleReadButton.className = 'btn ' + (myLibrary[i].check ? 'btn-success' : 'btn-danger');
 
     toggleReadButton.addEventListener("click", function () {
@@ -93,7 +93,7 @@ function render() {
     deleteButton.type = "button";
     deleteCell.appendChild(deleteButton);
     deleteButton.className = "btn btn-danger";
-    deleteButton.innerText = "Delete";
+    deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function () {
       const deletedTitle = myLibrary[i].title; 
       myLibrary.splice(i, 1);
