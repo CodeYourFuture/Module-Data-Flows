@@ -17,6 +17,8 @@ Take a look at the following code:
 
 Explain why line 5 and line 8 output different numbers.
 
+Due to x holding different values in global scope and functional scope
+
 ## Question 2
 
 Take a look at the following code:
@@ -34,6 +36,9 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+The first console.log will log 10 to the console, while the second will log undefined and throw a reference error due to y only being available in the function 
+
 
 ## Question 3
 
@@ -62,3 +67,6 @@ console.log(y);
 ```
 
 What will be the output of this code. Explain your answer in 50 words or less.
+
+First console.log outputs 9 as x is passed and the f1 call doesn't alter its value outside the fn.
+Second console.log prints the object {x:10} as f2 increments y.x by 1

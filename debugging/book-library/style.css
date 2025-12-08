@@ -1,19 +1,45 @@
+.collapse.show{
+  display: flex;
+}
+
 .form-group {
   width: 400px;
   height: 300px;
-  align-self: left;
+  align-self: flex-start;
   padding-left: 20px;
 }
 
-.btn {
-  display: block;
+.table .btn,
+.form-group .btn {
+  color: white;
 }
 
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  padding-top: 10px;
+  margin: 5px ;
 }
 
-button.btn-info {
+button[data-toggle="collapse"] {
   margin: 20px;
+}
+
+#add-book-btn {
+  display: block;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: blue;
+  border-color: blue;
+}
+
+.btn-success {
+  background-color: green;
+  border-color: green;
+}
+
+.btn-danger {
+  background-color: rgb(199, 0, 0);
+  border-color: rgb(199, 0, 0);
 }
