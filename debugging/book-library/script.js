@@ -87,25 +87,25 @@ function render() {
     pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.type = "button";
-    wasReadCell.appendChild(changeBut);
+    let toggleReadButton = document.createElement("button");
+    toggleReadButton.type = "button";
+    wasReadCell.appendChild(toggleReadButton);
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
-    changeBut.className = 'btn ' + (myLibrary[i].check ? 'btn-success' : 'btn-danger');
+    toggleReadButton.innerText = readStatus;
+    toggleReadButton.className = 'btn ' + (myLibrary[i].check ? 'btn-success' : 'btn-danger');
 
-    changeBut.addEventListener("click", function () {
+    toggleReadButton.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delButton.type = "button";
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-danger";
-    delButton.innerText = "Delete";
-    delButton.addEventListener("click", function () {
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteCell.appendChild(deleteButton);
+    deleteButton.className = "btn btn-danger";
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", function () {
       const deletedTitle = myLibrary[i].title; 
       myLibrary.splice(i, 1);
       render();
