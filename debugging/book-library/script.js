@@ -31,30 +31,23 @@ function addBook() {
   const authorInput = document.getElementById("author");
   const pagesInput = document.getElementById("pages");
   const checkInput = document.getElementById("check");
-  
- 
   const titleValue = titleInput.value.trim();
   const authorValue = authorInput.value.trim();
   const pagesValue = Number(pagesInput.value);
-
   if (!titleValue || !authorValue) {
     alert("Please fill in all the fields!");
     return;
   }
-  
   if (pagesValue < 1 || !Number.isInteger(pagesValue)) {
     alert("Pages must be a positive integer!");
     return;
   }
-  
   let book = new Book(titleValue, authorValue, pagesValue, checkInput.checked);
   myLibrary.push(book);
-  
   titleInput.value = "";
   authorInput.value = "";
   pagesInput.value = "";
   checkInput.checked = false;
-  
   alert(`You've added ${book.title} to your library.`);
   render();
 }
@@ -69,14 +62,12 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   const tbody = table.querySelector('tbody');
-  // delete old rows
   if (tbody) {
     tbody.innerHTML = '';
   }
-  //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow(); 
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -85,8 +76,6 @@ function render() {
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
-
-    //add and wait for action for read/unread button
     let toggleReadButton = document.createElement("button");
     toggleReadButton.type = "button";
     wasReadCell.appendChild(toggleReadButton);
