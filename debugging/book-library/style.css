@@ -9,10 +9,10 @@
   padding-left: 20px;
 }
 
-/* .table .btn,
+.table .btn,
 .form-group .btn {
-  font-weight: 600;
-} */
+  color: white;
+}
 
 .form-check-label {
   padding-left: 20px;
