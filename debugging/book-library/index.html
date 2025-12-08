@@ -1,96 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library App</title>
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-
   <body>
     <div class="jumbotron text-center">
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
     </div>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
+    <button data-toggle="collapse" data-target="#formCollapse" class="btn btn-info">
       Add new book
     </button>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
+    <div id="formCollapse" class="collapse mt-3">
+      <form id="bookForm" class="form-group">
+        <label for="titleInput">Title:</label>
+        <input id="titleInput" class="form-control" required />
+
+        <label for="authorInput">Author:</label>
+        <input id="authorInput" class="form-control" required />
+
+        <label for="pagesInput">Pages:</label>
+        <input id="pagesInput" type="number" class="form-control" required />
+
+        <label class="form-check-label mt-2">
+          <input type="checkbox" class="form-check-input" id="readCheckbox" /> Read
         </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
-      </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      </form>
     </div>
 
-    <table class="table" id="display">
+    <table class="table" id="displayTable">
       <thead class="thead-dark">
         <tr>
           <th>Title</th>
           <th>Author</th>
-          <th>Number of Pages</th>
+          <th>Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
 
-    <script src="script.js"></script>
+    <script type="module">
+      class Book {
+        constructor(title, author, pages, read) {
+          this.title = title;
+          this.author = author;
+          this.pages = pages;
+          this.read = read;
+        }
+      }
+
+      const library = [
+        new Book("Robinson Crusoe", "Daniel Defoe", 252, true),
+        new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true)
+      ];
+
+      const bookForm = document.getElementById("bookForm");
+      const titleInput = document.getElementById("titleInput");
+      const authorInput = document.getElementById("authorInput");
+      const pagesInput = document.getElementById("pagesInput");
+      const readCheckbox = document.getElementById("readCheckbox");
+      const tableBody = document.querySelector("#displayTable tbody");
+
+      bookForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const title = titleInput.value.trim();
+        const author = authorInput.value.trim();
+        const pages = Number(pagesInput.value);
+        const read = readCheckbox.checked;
+
+        if (!title || !author || !Number.isInteger(pages) || pages <= 0) {
+          alert("Please enter valid book details.");
+          return;
+        }
+
+        library.push(new Book(title, author, pages, read));
+
+        bookForm.reset();
+        render();
+      });
+
+      function render() {
+        tableBody.innerHTML = "";
+
+        library.forEach((book, index) => {
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.pages}</td>
+            <td>
+              <button class="btn btn-sm ${book.read ? 'btn-success' : 'btn-secondary'}" data-index="${index}" data-action="toggle">
+                ${book.read ? 'Yes' : 'No'}
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-danger" data-index="${index}" data-action="delete">Delete</button>
+            </td>
+          `;
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      tableBody.addEventListener("click", (e) => {
+        const button = e.target.closest("button");
+        if (!button) return;
+
+        const index = Number(button.dataset.index);
+        const action = button.dataset.action;
+
+        if (action === "toggle") {
+          library[index].read = !library[index].read;
+          render();
+        }
+
+        if (action === "delete") {
+          const title = library[index].title;
+          library.splice(index, 1);
+          render();
+          alert(`Deleted: ${title}`);
+        }
+      });
+
+      render();
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   </body>
 </html>
