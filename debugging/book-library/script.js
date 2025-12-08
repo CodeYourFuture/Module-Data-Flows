@@ -36,7 +36,7 @@ function addBook() {
   if (!title.value || !author.value || !pages.value) {
     alert("Please fill all fields!");
   } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
+    let book = new Book(title.value, author.value, Number(pages.value), check.checked);
     myLibrary.push(book);
     title.value = "";
     author.value = "";
