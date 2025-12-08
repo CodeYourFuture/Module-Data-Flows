@@ -62,9 +62,8 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   const tbody = table.querySelector('tbody');
-  if (tbody) {
-    tbody.innerHTML = '';
-  }
+  if (!tbody) return; 
+  tbody.innerHTML = '';
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = tbody.insertRow(); 
