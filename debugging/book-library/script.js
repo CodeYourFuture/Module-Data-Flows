@@ -25,7 +25,6 @@ function populateStorage() {
   }
 }
 
-
 function addBook() {
   const titleInput = document.getElementById("title");
   const authorInput = document.getElementById("author");
@@ -87,7 +86,7 @@ function render() {
       render();
     });
 
-    //add delete button to every row and render again
+    
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteCell.appendChild(deleteButton);
