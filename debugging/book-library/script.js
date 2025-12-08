@@ -2,7 +2,7 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  const form = document.getElementById("bookForm");
+  const form = document.querySelector('form');
   form?.addEventListener("submit", e => {
     e.preventDefault();
   });
