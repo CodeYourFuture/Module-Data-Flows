@@ -70,3 +70,14 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function getGryffindors(arr) {
+  let Gryffindors = []
+  for (let person of arr) {
+    if (person["house"] === "Gryffindor") {
+      Gryffindors.push(`${person["firstName"]} ${person.lastName}`);
+    }
+  }
+  return Gryffindors;
+}
+console.log(getGryffindors(hogwarts));
