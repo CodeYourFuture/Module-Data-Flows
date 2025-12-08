@@ -30,15 +30,16 @@ button[data-toggle="collapse"] {
 }
 
 .btn-primary {
-  background-color: #0a3c8c;
-  border-color: #0a3c8c;
+  background-color: blue;
+  border-color: blue;
 }
 
 .btn-success {
-  background-color: #1a6b2a;
+  background-color: green;
+  border-color: green;
 }
 
 .btn-danger {
-  background-color: #8b0000;
-  border-color: #8b0000;
+  background-color: rgb(199, 0, 0);
+  border-color: rgb(199, 0, 0);
 }
