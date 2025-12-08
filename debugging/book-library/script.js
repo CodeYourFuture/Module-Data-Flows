@@ -29,19 +29,19 @@ function populateStorage() {
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function addBook() {
-  const title = document.getElementById("title");
-  const author = document.getElementById("author");
-  const pages = document.getElementById("pages");
-  const check = document.getElementById("check");
-  if (!title.value || !author.value || !pages.value) {
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const pagesInput = document.getElementById("pages");
+  const checkInput = document.getElementById("check");
+  if (!titleInput.value || !authorInput.value || !pagesInput.value) {
     alert("Please fill all fields!");
   } else {
-    let book = new Book(title.value, author.value, Number(pages.value), check.checked);
+    let book = new Book(titleInput.value, authorInput.value, Number(pagesInput.value), checkInput.checked);
     myLibrary.push(book);
-    title.value = "";
-    author.value = "";
-    pages.value = "";
-    check.checked = false;
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+    checkInput.checked = false;
     alert (`You've added ${book.title} to your library.`);
     render();
   }
