@@ -26,25 +26,37 @@ function populateStorage() {
 }
 
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
 function addBook() {
   const titleInput = document.getElementById("title");
   const authorInput = document.getElementById("author");
   const pagesInput = document.getElementById("pages");
   const checkInput = document.getElementById("check");
-  if (!titleInput.value || !authorInput.value || !pagesInput.value) {
-    alert("Please fill all fields!");
-  } else {
-    let book = new Book(titleInput.value, authorInput.value, Number(pagesInput.value), checkInput.checked);
-    myLibrary.push(book);
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = "";
-    checkInput.checked = false;
-    alert (`You've added ${book.title} to your library.`);
-    render();
+  
+ 
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = Number(pagesInput.value);
+
+  if (!titleValue || !authorValue) {
+    alert("Please fill in all the fields!");
+    return;
   }
+  
+  if (pagesValue < 1 || !Number.isInteger(pagesValue)) {
+    alert("Pages must be a positive integer!");
+    return;
+  }
+  
+  let book = new Book(titleValue, authorValue, pagesValue, checkInput.checked);
+  myLibrary.push(book);
+  
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
+  
+  alert(`You've added ${book.title} to your library.`);
+  render();
 }
 
 function Book(title, author, pages, check) {
@@ -80,7 +92,7 @@ function render() {
     wasReadCell.appendChild(changeBut);
     let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.innerText = readStatus;
-    changeBut.className = 'btn '+ (myLibrary[i].check ? 'btn-success' : 'btn-danger');
+    changeBut.className = 'btn ' + (myLibrary[i].check ? 'btn-success' : 'btn-danger');
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
