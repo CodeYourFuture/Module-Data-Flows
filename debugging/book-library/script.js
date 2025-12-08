@@ -23,12 +23,6 @@ class Book {
   }
 }
 
-// Load library when page starts
-window.addEventListener("DOMContentLoaded", () => {
-  loadLibrary(); // Called once — no duplicated calls
-  render();
-});
-
 // Load from localStorage
 function loadLibrary() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -62,26 +56,35 @@ function clearForm() {
 function submitBook() {
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
-  const pages = pagesInput.value;
+  const rawPages = pagesInput.value.trim();
 
-  // FEEDBACK APPLIED: improved validation and normalization
-  if (!title || !author || !pages || Number(pages) <= 0) {
-    alert("Please fill all fields correctly.");
+  // --- STRICT & SAFE PAGE VALIDATION ---
+  const pagesNum = Number(rawPages);
+
+  if (
+    !title ||
+    !author ||
+    !rawPages ||
+    !Number.isInteger(pagesNum) ||
+    pagesNum <= 0 ||
+    pagesNum > 10000 ||           // reject unrealistic values
+    !isFinite(pagesNum)           // rejects Infinity and NaN
+  ) {
+    alert("Please enter a valid page count (1–10,000).");
     return;
   }
 
-  const book = new Book(title, author, pages, readCheckbox.checked);
+  const book = new Book(title, author, pagesNum, readCheckbox.checked);
 
   myLibrary.push(book);
   saveLibrary();
   render();
   clearForm();
 
-  // Collapse form
-  $("#addForm").collapse("hide");
+  // Collapse form using Bootstrap 5 JS API (plain JS, no jQuery)
+  const collapse = bootstrap.Collapse.getOrCreateInstance(document.getElementById("addForm"));
+  collapse.hide();
 }
-
-addBtn.addEventListener("click", submitBook);
 
 // Render the table
 function render() {
@@ -113,14 +116,11 @@ function render() {
     readCell.appendChild(readBtn);
 
     const deleteCell = document.createElement("td");
-
-    // FEEDBACK APPLIED: consistent naming (deleteBtn)
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.className = "btn btn-sm btn-warning btn-small";
 
     deleteBtn.addEventListener("click", () => {
-      // FEEDBACK APPLIED: confirmation before delete (acceptable)
       if (confirm(`Delete "${book.title}"?`)) {
         myLibrary.splice(index, 1);
         saveLibrary();
@@ -135,3 +135,12 @@ function render() {
     displayBody.appendChild(row);
   });
 }
+
+// ---------------------------
+// PAGE LOAD SETUP (all in one place)
+// ---------------------------
+window.addEventListener("DOMContentLoaded", () => {
+  loadLibrary();   // load saved books or defaults
+  render();        // display books
+  addBtn.addEventListener("click", submitBook);  // set up add button
+});
