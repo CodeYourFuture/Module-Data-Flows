@@ -9,10 +9,10 @@
   padding-left: 20px;
 }
 
-.btn {
+/* .table .btn,
+.form-group .btn {
   font-weight: 600;
-  color: black;
-}
+} */
 
 .form-check-label {
   padding-left: 20px;
@@ -27,4 +27,18 @@ button[data-toggle="collapse"] {
 #add-book-btn {
   display: block;
   margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: #0a3c8c;
+  border-color: #0a3c8c;
+}
+
+.btn-success {
+  background-color: #1a6b2a;
+}
+
+.btn-danger {
+  background-color: #8b0000;
+  border-color: #8b0000;
 }
