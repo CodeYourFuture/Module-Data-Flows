@@ -3,6 +3,9 @@ let myLibrary = [];
 window.addEventListener("load", function () {
   populateStorage();
   render();
+
+  // changed from form submit to button click
+  document.getElementById("addBookBtn").addEventListener("click", addBook);
 });
 
 function populateStorage() {
