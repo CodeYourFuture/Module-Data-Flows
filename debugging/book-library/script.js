@@ -49,16 +49,15 @@ function Book(bookTitle, author, pages, check) {
   this.check = check;
 }
 
+
 function render() {
   const table = document.getElementById("display");
 
-  // remove all rows except the header
-  while (table.rows.length > 1) {
-    table.deleteRow(1);
-  }
-
+  const tbody = table.querySelector('tbody');
+  tbody.innerHTML = ''; // clears all rows efficiently
+  
   myLibrary.forEach((book, i) => {
-    const row = table.insertRow(1);
+    const row = tbody.insertRow(); // insert row into tbody
 
     row.insertCell(0).textContent = book.bookTitle;
     row.insertCell(1).textContent = book.author;
