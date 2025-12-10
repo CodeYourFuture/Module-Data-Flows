@@ -22,31 +22,40 @@ const check = document.getElementById("check");
 
 // renamed so we don’t conflict with form.submit()
 function addBook() {
-  if (
-    !bookTitle.value.trim() ||
-    !author.value.trim() ||
-    !pages.value.trim()
-  ) {
+  // Get and sanitize values once
+  const titleValue = bookTitle.value.trim();
+  const authorValue = author.value.trim();
+  const pagesValue = pages.value.trim();
+  const isRead = check.checked;
+
+  // Basic empty validation
+  if (!titleValue || !authorValue || !pagesValue) {
     alert("Please fill all fields!");
     return;
   }
 
-  const book = new Book(
-    bookTitle.value.trim(),
-    author.value.trim(),
-    pages.value.trim(),
-    check.checked
-  );
+  // Validate page number properly
+  const pagesNumber = Number(pagesValue);
+  if (!Number.isInteger(pagesNumber) || pagesNumber <= 0) {
+    alert("Please enter a valid positive page count!");
+    return;
+  }
 
+  // Create the book with sanitized values
+  const book = new Book(titleValue, authorValue, pagesNumber, isRead);
+
+  // Save to library
   myLibrary.push(book);
+
+  // Re-render UI
   render();
 }
 
-function Book(bookTitle, author, pages, check) {
-  this.bookTitle = bookTitle;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
+function Book(titleValue, authorValue, pagesNumber, isRead) {
+  this.bookTitle = titleValue;
+  this.author = authorValue;
+  this.pages = pagesNumber;
+  this.check = isRead;
 }
 
 
