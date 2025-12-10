@@ -60,52 +60,46 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
+  const table = document.getElementById("display");
+  const tbody = table.tBodies[0] || table.createTBody();
 
-  // Efficiently clear old tables
-  table.tBodies[0].innerHTML = "";
+  // Clear all data rows while preserving the header
+  tbody.innerHTML = "";
 
-  //insert updated row and cells
-  let length = myLibrary.length;
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    const book = myLibrary[i];
+    const row = tbody.insertRow();
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
 
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
+
+    // Read/unread toggle button
+    const changeBut = document.createElement("button");
     changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
-    changeBut.innerText = readStatus;
-
+    changeBut.textContent = book.check ? "Yes" : "No";
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
+    wasReadCell.appendChild(changeBut);
 
-    //add delete button to every row and render again
-    let delBut = document.createElement("button");
-
-    deleteCell.appendChild(delBut);
+    // Delete button
+    const delBut = document.createElement("button");
     delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
+    delBut.textContent = "Delete";
     delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      alert(`You've deleted title: ${book.title}`);
       myLibrary.splice(i, 1);
       render();
     });
+    deleteCell.appendChild(delBut);
   }
 }
