@@ -27,6 +27,24 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readCheckbox = document.getElementById("check");
 
+// Non-blocking success message (appears briefly and fades out)
+function showSuccess(message) {
+  const alertEl = document.createElement("div");
+  alertEl.className = "alert alert-success";
+  alertEl.textContent = message;
+  alertEl.style.position = "fixed";
+  alertEl.style.top = "1rem";
+  alertEl.style.right = "1rem";
+  alertEl.style.zIndex = "1050";
+  document.body.appendChild(alertEl);
+
+  setTimeout(() => {
+    alertEl.style.transition = "opacity 0.3s";
+    alertEl.style.opacity = "0";
+    setTimeout(() => alertEl.remove(), 300);
+  }, 2500);
+}
+
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
@@ -91,14 +109,16 @@ function render() {
     });
     wasReadCell.appendChild(changeBut);
 
-    // Delete button
+    // Delete button (confirm before deleting, then show non-blocking success)
     const delBut = document.createElement("button");
     delBut.className = "btn btn-warning";
     delBut.textContent = "Delete";
     delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${book.title}`);
-      myLibrary.splice(i, 1);
-      render();
+      if (confirm(`Are you sure you want to delete "${book.title}"?`)) {
+        myLibrary.splice(i, 1);
+        render();
+        showSuccess(`Deleted "${book.title}"`);
+      }
     });
     deleteCell.appendChild(delBut);
   }
