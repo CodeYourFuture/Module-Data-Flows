@@ -61,19 +61,25 @@ function Book(titleValue, authorValue, pagesNumber, isRead) {
 
 function render() {
   const table = document.getElementById("display");
+  const tbody = table.querySelector("tbody");
+  tbody.innerHTML = ""; // clear previous rows
 
-  const tbody = table.querySelector('tbody');
-  tbody.innerHTML = ''; // clears all rows efficiently
-  
   myLibrary.forEach((book, i) => {
-    const row = tbody.insertRow(); // insert row into tbody
+    const row = tbody.insertRow();
 
-    row.insertCell(0).textContent = book.bookTitle;
-    row.insertCell(1).textContent = book.author;
-    row.insertCell(2).textContent = book.pages;
-
-    // read/unread toggle
+    // Create ALL CELLS first (like original code)
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
     const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
+
+    // Fill text cells
+    titleCell.textContent = book.bookTitle;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
+
+    // --- Read/Unread Button ---
     const changeBut = document.createElement("button");
     changeBut.className = "btn btn-success";
     changeBut.textContent = book.check ? "Yes" : "No";
@@ -84,8 +90,7 @@ function render() {
       render();
     });
 
-    // delete button
-    const deleteCell = row.insertCell(4);
+    // --- Delete Button ---
     const delBut = document.createElement("button");
     delBut.className = "btn btn-warning";
     delBut.textContent = "Delete";
