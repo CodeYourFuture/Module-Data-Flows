@@ -4,8 +4,14 @@ window.addEventListener("load", function (e) {
   populateStorage();
   render();
 
-  // Attach submit listener
-  document.getElementById("submitBtn").addEventListener("click", submit);
+  // Attach submit listener (prevent default form submission)
+  const submitBtn = document.getElementById("submitBtn");
+  if (submitBtn) {
+    submitBtn.addEventListener("click", function (evt) {
+      evt.preventDefault();
+      submit();
+    });
+  }
 });
 
 function populateStorage() {
