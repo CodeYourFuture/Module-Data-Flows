@@ -7,22 +7,23 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-// Print the receipt header
-console.log("QTY     ITEM                TOTAL");
+// Define column spacing for consistent formatting
+const columnSpacing = 8;
 
-// Initialize total cost
+// Print the receipt header with aligned columns
+console.log("QTY".padEnd(columnSpacing) + "ITEM".padEnd(20) + "TOTAL");
+
 let totalCost = 0;
 
-// Loop through the order and log each item
 order.forEach(({ itemName, quantity, unitPricePence }) => {
   const totalItemCost = (unitPricePence * quantity) / 100; // Convert pence to pounds
-  totalCost += totalItemCost; // Add to total cost
+  totalCost += totalItemCost;
 
-  // Log the item details with proper formatting
+  // Log each item's details with proper alignment
   console.log(
-    `${quantity.toString().padEnd(8)}${itemName.padEnd(20)}${totalItemCost.toFixed(2)}`
+    `${quantity.toString().padEnd(columnSpacing)}${itemName.padEnd(20)}${totalItemCost.toFixed(2)}`
   );
 });
 
-// Log the total cost
+// Print the total cost at the end
 console.log(`\nTotal: ${totalCost.toFixed(2)}`);
