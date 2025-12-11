@@ -7,11 +7,20 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-// Define column spacing for consistent formatting
-const columnSpacing = 8;
+// Define constants for column formatting
+const COLUMN_SPACING = 8;
+const ITEM_COLUMN_WIDTH = 20;
+
+function formatColumn(content, width) {
+  return content.toString().padEnd(width);
+}
 
 // Print the receipt header with aligned columns
-console.log("QTY".padEnd(columnSpacing) + "ITEM".padEnd(20) + "TOTAL");
+console.log(
+  formatColumn("QTY", COLUMN_SPACING) +
+    formatColumn("ITEM", ITEM_COLUMN_WIDTH) +
+    "TOTAL"
+);
 
 let totalCost = 0;
 
@@ -19,11 +28,12 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
   const totalItemCost = (unitPricePence * quantity) / 100; // Convert pence to pounds
   totalCost += totalItemCost;
 
-  // Log each item's details with proper alignment
+  // Log each item's details
   console.log(
-    `${quantity.toString().padEnd(columnSpacing)}${itemName.padEnd(20)}${totalItemCost.toFixed(2)}`
+    formatColumn(quantity, COLUMN_SPACING) +
+      formatColumn(itemName, ITEM_COLUMN_WIDTH) +
+      totalItemCost.toFixed(2)
   );
 });
 
-// Print the total cost at the end
 console.log(`\nTotal: ${totalCost.toFixed(2)}`);
