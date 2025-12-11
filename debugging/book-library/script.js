@@ -33,7 +33,7 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readCheckbox = document.getElementById("check");
 
-// Non-blocking success message using CSS animation; no inline styles, no setTimeout
+// Non-blocking success message using CSS animation; JS only toggles classes
 function showSuccess(message) {
   const root = document.getElementById("alerts");
   if (!root) return;
@@ -56,12 +56,11 @@ function showSuccess(message) {
   root.appendChild(alertEl);
 }
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
+// Check the right input from forms and if it's ok -> add the new book (object in array)
+// via Book function and start render function
 function submit() {
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
-  const pages = Number(pagesInput.value);
 
   // Validate title and author
   if (title === "" || author === "") {
@@ -69,9 +68,21 @@ function submit() {
     return;
   }
 
-  // Validate pages
-  if (Number.isNaN(pages) || pages <= 0) {
-    alert("Pages must be a positive number.");
+  // Read and validate pages as a positive integer
+  const pages = pagesInput.valueAsNumber;
+  const v = pagesInput.validity;
+
+  if (v.valueMissing || !Number.isFinite(pages)) {
+    alert("Pages is required and must be a number.");
+    return;
+  }
+  if (v.rangeUnderflow || pages < 1) {
+    alert("Pages must be at least 1.");
+    return;
+  }
+  // Enforce whole numbers only (reject decimals like 3.5)
+  if (v.stepMismatch || !Number.isInteger(pages)) {
+    alert("Pages must be a whole number.");
     return;
   }
 
@@ -108,7 +119,7 @@ function render() {
 
     titleCell.textContent = book.title;
     authorCell.textContent = book.author;
-    pagesCell.textContent = book.pages;
+    pagesCell.textContent = String(book.pages);
 
     // Read/unread toggle button
     const changeBut = document.createElement("button");
