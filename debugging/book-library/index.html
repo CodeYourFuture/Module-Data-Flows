@@ -5,11 +5,6 @@
     <title>Library — Add books to your virtual library</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Dependencies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <!-- Styles -->
     <link
       rel="stylesheet"
@@ -93,7 +88,13 @@
       <tbody></tbody>
     </table>
 
-    <!-- Load script at end of body; modules are deferred automatically -->
+    <!-- Designated notice container controlled via style.css -->
+    <div id="alerts" class="notice-root" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts loaded at end of body -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="script.js" type="module"></script>
   </body>
 </html>
