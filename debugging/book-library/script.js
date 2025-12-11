@@ -15,7 +15,7 @@ window.addEventListener("load", function (e) {
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
+  if (myLibrary.length === 0) {
     let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -33,22 +33,27 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readCheckbox = document.getElementById("check");
 
-// Non-blocking success message (appears briefly and fades out)
+// Non-blocking success message using CSS animation; no inline styles, no setTimeout
 function showSuccess(message) {
-  const alertEl = document.createElement("div");
-  alertEl.className = "alert alert-success";
-  alertEl.textContent = message;
-  alertEl.style.position = "fixed";
-  alertEl.style.top = "1rem";
-  alertEl.style.right = "1rem";
-  alertEl.style.zIndex = "1050";
-  document.body.appendChild(alertEl);
+  const root = document.getElementById("alerts");
+  if (!root) return;
 
-  setTimeout(() => {
-    alertEl.style.transition = "opacity 0.3s";
-    alertEl.style.opacity = "0";
-    setTimeout(() => alertEl.remove(), 300);
-  }, 2500);
+  const alertEl = document.createElement("div");
+  // Use Bootstrap alert styling + our notice classes
+  alertEl.className = "alert alert-success notice notice--auto-hide";
+  alertEl.setAttribute("role", "status");
+  alertEl.textContent = message;
+
+  // Remove the element after the CSS animation completes (no setTimeout)
+  alertEl.addEventListener(
+    "animationend",
+    () => {
+      alertEl.remove();
+    },
+    { once: true }
+  );
+
+  root.appendChild(alertEl);
 }
 
 //check the right input from forms and if its ok -> add the new book (object in array)

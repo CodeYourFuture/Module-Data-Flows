@@ -17,3 +17,47 @@
 button.btn-info {
   margin: 20px;
 }
+
+/* --- Notices (toast) styles --- */
+
+/* Container to control placement of notices */
+.notice-root {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none; /* allow clicks to pass through container */
+}
+
+/* Each notice uses Bootstrap alert styles, plus these */
+.notice {
+  pointer-events: auto; /* allow focus/click on the notice itself if needed */
+}
+
+/* Pure-CSS lifecycle: fade in, hold, fade out */
+@keyframes notice-life {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* Apply the animation */
+.notice--auto-hide {
+  animation: notice-life 2500ms ease-in-out forwards;
+}
