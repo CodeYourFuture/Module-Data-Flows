@@ -48,12 +48,15 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
+
   //delete old table
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
+
   //insert updated row and cells
   let length = myLibrary.length;
+
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
     let titleCell = row.insertCell(0);
@@ -61,6 +64,7 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
+
     titleCell.innerHTML = myLibrary[i].title;
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
@@ -91,7 +95,8 @@ function render() {
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
-    delButton.addEventListener("clicks", function () {
+
+    delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
