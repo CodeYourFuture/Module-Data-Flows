@@ -64,9 +64,9 @@ function render() {
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
 
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
@@ -93,7 +93,7 @@ function render() {
     delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
+    delButton.textContent = "Delete";
 
     delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
