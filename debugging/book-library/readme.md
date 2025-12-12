@@ -12,12 +12,20 @@ My website should be able to:
 
 ## Bugs to be fixed
 
-1. Website loads but doesn't show any books
-2. Error in console when you try to add a book
-3. It uses the title name as the author name
-4. Delete button is broken
+1. Website loads but doesn't show any books 
+    |Ans: fixed to show books
+2. Error in console when you try to add a book 
+    Ans: We can add now.
+3. It uses the title name as the author name 
+    Ans: has been fixed
+4. Delete button is broken 
+    ANs: has been functional 
 5. When I add a book that I say I've read - it saves the wrong answer
+   Ans: it is working normal
 
 I think there are other some other small bugs in my code...but I'm lazy so I can't fix them all.
+ -- Page number used to accept 0 or even negative numbers. Now it only accept >=1 
 
 I wish somebody would help me!
+
+I think I have tried something. 
