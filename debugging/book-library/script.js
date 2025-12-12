@@ -68,8 +68,13 @@ function render() {
     `;
 
     const readButton = document.createElement("button");
-    readButton.className = "btn btn-success";
-    readButton.textContent = book.hasRead ? "Yes" : "No";
+    if (book.hasRead) {
+      readButton.className = "btn btn-success";
+      readButton.textContent = "Yes";
+    } else {
+      readButton.className = "btn btn-danger";
+      readButton.textContent = "No";
+    }
     readButton.addEventListener("click", () => {
       book.hasRead = !book.hasRead;
       render();
