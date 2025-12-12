@@ -1,4 +1,4 @@
-/* Global styles */
+/* Global Styles */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f7f7fb;
@@ -6,7 +6,7 @@ body {
   padding: 20px;
 }
 
-/* Header */
+/* Header / Jumbotron */
 .jumbotron {
   background: linear-gradient(135deg, #3c8dbc, #5fa7d9);
   color: white;
@@ -15,22 +15,22 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Main Button */
-button.btn-info {
+/* "Add New Book" Button */
+.btn-info {
   background: #3c8dbc;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 16px;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
-button.btn-info:hover {
+.btn-info:hover {
   background: #337aa5;
   transform: translateY(-2px);
 }
 
-/* Form Collapse Panel */
+/* Form Collapse Box */
 #demo {
   background: white;
   margin-top: 20px;
@@ -57,7 +57,7 @@ button.btn-info:hover {
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 16px;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
 #submitBtn:hover {
@@ -74,13 +74,14 @@ button.btn-info:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
+/* Table Header */
 .thead-dark th {
   background: #3c3f46;
   color: white;
   border: none;
 }
 
-/* Table Row Hover Effect */
+/* Row Hover */
 .table tbody tr {
   transition: 0.2s;
 }
@@ -89,13 +90,13 @@ button.btn-info:hover {
   background: #f0f4ff;
 }
 
-/* Buttons Inside Table */
+/* Buttons in Table */
 .btn-success,
 .btn-warning {
   font-size: 14px;
   padding: 6px 12px;
   border-radius: 8px;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
 .btn-success:hover {
@@ -106,12 +107,4 @@ button.btn-info:hover {
 .btn-warning:hover {
   background: #d39e00;
   transform: scale(1.05);
-}
-.read-yes {
-  background-color: #166629;
-  color: white;
-}
-.read-no {
-  background-color: #5c2329;
-  color: white;
 }
