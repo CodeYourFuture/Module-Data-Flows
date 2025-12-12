@@ -2,6 +2,7 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
+  document.getElementById("submit").addEventListener("click", submit);
 });
 
 function populateStorage() {
