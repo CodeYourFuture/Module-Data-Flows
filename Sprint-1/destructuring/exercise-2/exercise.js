@@ -71,8 +71,8 @@ let hogwarts = [
   },
 ];
 function gryffindorHouse(hogwarts){
-return hogwarts.filter(({house})=>house==="Gryffindor");
+
+  hogwarts.filter(({house})=>house==="Gryffindor")
+.forEach(({firstName,lastName})=>
+   console.log(`${firstName} ${lastName}`))
 }
-console.log(gryffindorHouse(hogwarts))
-//and display the names of the people who belong to the Gryffindor house.
-//- Use object destructuring to extract the values you need out of each element in the array.
