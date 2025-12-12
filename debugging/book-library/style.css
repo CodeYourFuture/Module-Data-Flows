@@ -1,19 +1,117 @@
-.form-group {
-  width: 400px;
-  height: 300px;
-  align-self: left;
-  padding-left: 20px;
+/* Global styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f7f7fb;
+  margin: 0;
+  padding: 20px;
 }
 
-.btn {
-  display: block;
+/* Header */
+.jumbotron {
+  background: linear-gradient(135deg, #3c8dbc, #5fa7d9);
+  color: white;
+  border-radius: 12px;
+  padding: 40px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.form-check-label {
-  padding-left: 20px;
-  margin: 5px 0px 5px 0px;
-}
-
+/* Main Button */
 button.btn-info {
-  margin: 20px;
+  background: #3c8dbc;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+button.btn-info:hover {
+  background: #337aa5;
+  transform: translateY(-2px);
+}
+
+/* Form Collapse Panel */
+#demo {
+  background: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.form-group label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Submit Button */
+#submitBtn {
+  margin-top: 20px;
+  background: #28a745;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+#submitBtn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+/* Table */
+.table {
+  margin-top: 40px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.thead-dark th {
+  background: #3c3f46;
+  color: white;
+  border: none;
+}
+
+/* Table Row Hover Effect */
+.table tbody tr {
+  transition: 0.2s;
+}
+
+.table tbody tr:hover {
+  background: #f0f4ff;
+}
+
+/* Buttons Inside Table */
+.btn-success,
+.btn-warning {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.btn-success:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+.btn-warning:hover {
+  background: #d39e00;
+  transform: scale(1.05);
+}
+.read-yes {
+  background-color: #166629;
+  color: white;
+}
+.read-no {
+  background-color: #5c2329;
+  color: white;
 }
