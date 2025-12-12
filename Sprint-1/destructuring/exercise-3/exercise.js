@@ -11,16 +11,17 @@ let order = [
 const COLUMN_SPACING = 8;
 const ITEM_COLUMN_WIDTH = 20;
 
-function formatColumn(content, width) {
-  return content.toString().padEnd(width);
+// Function to format multiple columns
+function formatColumns(quantity, item, total) {
+  return (
+    quantity.toString().padEnd(COLUMN_SPACING) +
+    item.padEnd(ITEM_COLUMN_WIDTH) +
+    total
+  );
 }
 
 // Print the receipt header with aligned columns
-console.log(
-  formatColumn("QTY", COLUMN_SPACING) +
-    formatColumn("ITEM", ITEM_COLUMN_WIDTH) +
-    "TOTAL"
-);
+console.log(formatColumns("QTY", "ITEM", "TOTAL"));
 
 let totalCost = 0;
 
@@ -29,11 +30,8 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
   totalCost += totalItemCost;
 
   // Log each item's details
-  console.log(
-    formatColumn(quantity, COLUMN_SPACING) +
-      formatColumn(itemName, ITEM_COLUMN_WIDTH) +
-      totalItemCost.toFixed(2)
-  );
+  console.log(formatColumns(quantity, itemName, totalItemCost.toFixed(2)));
 });
 
+// Print the total cost at the end
 console.log(`\nTotal: ${totalCost.toFixed(2)}`);
