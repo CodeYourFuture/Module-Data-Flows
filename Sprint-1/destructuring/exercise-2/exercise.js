@@ -70,3 +70,9 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+function gryffindorHouse(hogwarts){
+return hogwarts.filter(({house})=>house==="Gryffindor");
+}
+console.log(gryffindorHouse(hogwarts))
+//and display the names of the people who belong to the Gryffindor house.
+//- Use object destructuring to extract the values you need out of each element in the array.
