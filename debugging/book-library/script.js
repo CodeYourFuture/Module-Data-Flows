@@ -48,16 +48,16 @@ function Book(titleInput, authorInput, pagesInput, checkInput) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
+  let tableEl = document.getElementById("display");
+  let rowsNumber = tableEl.rows.length;
+  //delete old tableEl
   for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+    tableEl.deleteRow(n);
   }
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tableEl.insertRow(1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesInputCell = row.insertCell(2);
