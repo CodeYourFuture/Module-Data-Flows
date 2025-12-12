@@ -11,7 +11,6 @@ let order = [
 const COLUMN_SPACING = 8;
 const ITEM_COLUMN_WIDTH = 20;
 
-// Function to format multiple columns
 function formatColumns(quantity, item, total) {
   return (
     quantity.toString().padEnd(COLUMN_SPACING) +
@@ -33,5 +32,4 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
   console.log(formatColumns(quantity, itemName, totalItemCost.toFixed(2)));
 });
 
-// Print the total cost at the end
 console.log(`\nTotal: ${totalCost.toFixed(2)}`);
