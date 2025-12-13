@@ -84,7 +84,6 @@ function render() {
 
     // Add and wait for action for read/unread button
     let changeButton = document.createElement("button");
-    changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
@@ -104,7 +103,6 @@ function render() {
 
     // Add delete button to every row and render again
     let deleteButton = document.createElement("button");
-    deleteButton.id = i + 5;
     deleteCell.appendChild(deleteButton);
     deleteButton.className = "btn btn-warning";
     deleteButton.textContent = "Delete";
