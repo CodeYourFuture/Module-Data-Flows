@@ -110,9 +110,10 @@ function render() {
     deleteButton.textContent = "Delete";
 
     deleteButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const bookTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${bookTitle}`);
     });
   }
 }
