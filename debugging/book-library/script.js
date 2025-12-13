@@ -20,28 +20,32 @@ function populateStorage() {
   }
 }
 
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const checkInput = document.getElementById("check");
-
 // Check the right input from forms and if its ok -> add the new book (object in array)
 // via Book function and start render function
 function submit() {
-  if (
-    titleInput.value == "" ||
-    authorInput.value == "" ||
-    pagesInput.value == ""
-  ) {
-    alert("Please fill all fields!");
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const pagesInput = document.getElementById("pages");
+  const isReadInput = document.getElementById("check");
+
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = Number(pagesInput.value);
+
+  if (titleValue.length === 0 || authorValue.length === 0) {
+    alert("Title or author cannot be blank!");
+    return false;
+  } else if (Number.isNaN(pagesValue) || pagesValue < 1) {
+    alert("Pages must be a number and not a negative number or zero!");
     return false;
   } else {
     let book = new Book(
-      titleInput.value,
-      authorInput.value,
-      pagesInput.value,
-      checkInput.checked
+      titleValue,
+      authorValue,
+      pagesValue,
+      isReadInput.checked
     );
+
     myLibrary.push(book);
     render();
   }
