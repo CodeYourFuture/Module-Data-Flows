@@ -43,7 +43,7 @@ function submit() {
       titleValue,
       authorValue,
       pagesValue,
-      isReadInput.checked
+      isReadInput.isRead
     );
 
     myLibrary.push(book);
@@ -51,27 +51,26 @@ function submit() {
   }
 }
 
-function Book(title, author, pages, check) {
+function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  this.isRead = isRead;
 }
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  const tableBody = table.querySelector("tbody");
 
   // Delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  if (!tableBody) return;
+  tableBody.innerHTML = "";
 
   // Insert updated row and cells
   let length = myLibrary.length;
 
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tableBody.insertRow(0);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -88,7 +87,7 @@ function render() {
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
 
-    if (myLibrary[i].check == false) {
+    if (myLibrary[i].isRead === false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
@@ -97,7 +96,7 @@ function render() {
     changeButton.innerText = readStatus;
 
     changeButton.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+      myLibrary[i].isRead = !myLibrary[i].isRead;
       render();
     });
 
