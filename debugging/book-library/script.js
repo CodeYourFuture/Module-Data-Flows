@@ -1,19 +1,19 @@
 let myLibrary = [];
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
+  if (myLibrary.length === 0) {
+    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
+
     myLibrary.push(book1);
     myLibrary.push(book2);
     render();
@@ -25,50 +25,32 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
 function submit() {
-  // Letters + spaces only (authors)
-  const lettersOnly = /^[A-Za-z\s]+$/;
+  // Step 1: store preprocessed raw input in variables
+  const titleVal = title.value.trim();
+  const authorVal = author.value.trim();
+  const pagesVal = pages.value.trim();
+  const readVal = check.checked;
 
-  // Title: letters + numbers + spaces (no special characters)
-  const titleAllowed = /^[A-Za-z0-9\s]+$/;
-
-  // Empty field check
-  if (
-    title.value.trim() === "" ||
-    author.value.trim() === "" ||
-    pages.value.trim() === ""
-  ) {
+  // Step 2: validate values
+  if (!titleVal || !authorVal || !pagesVal) {
     alert("Please fill all fields!");
-    return false;
+    return;
   }
 
-  // Title validation
-  if (!titleAllowed.test(title.value)) {
-    alert("Title must contain only letters, numbers, and spaces!");
-    return false;
+  // Pages validation (must be integer >= 1)
+  const pagesNum = Number(pagesVal);
+  if (!Number.isInteger(pagesNum) || pagesNum < 1) {
+    alert("Pages must be an integer greater than or equal to 1!");
+    return;
   }
 
-  // Author validation
-  if (!lettersOnly.test(author.value)) {
-    alert("Author name must contain only letters!");
-    return false;
-  }
+  // Step 3: create Book using validated variables
+  const book = new Book(titleVal, authorVal, pagesNum, readVal);
 
-  // Pages >= 1
-  let pagesNum = Number(pages.value);
-
-  if (isNaN(pagesNum) || pagesNum < 1) {
-    alert("Pages must be a number greater than or equal to 1!");
-    return false;
-  }
-
-  // Create and save the book
-  let book = new Book(title.value, author.value, pages.value, check.checked);
   myLibrary.push(book);
 
-  // Clear inputs (optional)
+  // Clear inputs
   title.value = "";
   author.value = "";
   pages.value = "";
@@ -76,7 +58,6 @@ function submit() {
 
   render();
 }
-
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -88,56 +69,54 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  // delete old table rows (keep header row 0)
+
+  // Delete old rows (keep header)
   for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+
+  // Insert updated rows
+  for (let i = 0; i < myLibrary.length; i++) {
     let row = table.insertRow(1);
+
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
+
+    // Read / unread button
     let changeBut = document.createElement("button");
     changeBut.id = "read-btn-" + i;
     changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    // show "Yes" when check is true (read), otherwise "No"
-    if (myLibrary[i].check === true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+    changeBut.textContent = myLibrary[i].check ? "Yes" : "No";
 
     changeBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    //add delete button to every row and render again
+    wasReadCell.appendChild(changeBut);
+
+    // Delete button
     let delBut = document.createElement("button");
     delBut.id = "del-btn-" + i;
     delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    deleteCell.appendChild(delBut);
+    delBut.textContent = "Delete";
 
     delBut.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
     });
+
+    deleteCell.appendChild(delBut);
   }
 }
 
 
-// Book Library bugs fixed and Book Library working normal. 
+// Book Library script updated. 
