@@ -43,7 +43,7 @@ function submit() {
       titleValue,
       authorValue,
       pagesValue,
-      isReadInput.isRead
+      isReadInput.checked
     );
 
     myLibrary.push(book);
@@ -85,15 +85,7 @@ function render() {
     let changeButton = document.createElement("button");
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
-    let readStatus = "";
-
-    if (myLibrary[i].isRead === false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
-
-    changeButton.innerText = readStatus;
+    changeButton.innerText = myLibrary[i].isRead ? "Yes" : "No";
 
     changeButton.addEventListener("click", function () {
       myLibrary[i].isRead = !myLibrary[i].isRead;
