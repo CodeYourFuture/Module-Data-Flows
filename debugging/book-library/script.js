@@ -30,13 +30,14 @@ function submit() {
 
   const titleValue = titleInput.value.trim();
   const authorValue = authorInput.value.trim();
-  const pagesValue = Number(pagesInput.value);
+  const pagesRaw = pagesInput.value.trim();
+  const pagesValue = Number(pagesRaw);
 
   if (titleValue.length === 0 || authorValue.length === 0) {
     alert("Title or author cannot be blank!");
     return false;
-  } else if (Number.isNaN(pagesValue) || pagesValue < 1) {
-    alert("Pages must be a number and not a negative number or zero!");
+  } else if (!Number.isInteger(pagesValue) || pagesRaw < 1) {
+    alert("Pages must be a positive whole number!");
     return false;
   } else {
     let book = new Book(
