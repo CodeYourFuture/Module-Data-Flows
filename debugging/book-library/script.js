@@ -58,7 +58,7 @@ function validateInputs(title, author, pages) {
 
   const pagesNum = Number(pages);
 
-  if (isNaN(pagesNum) || pagesNum <= 0) {
+  if (!Number.isInteger(pagesNum) || pagesNum <= 0) {
     alert("Please enter a valid number of pages!");
     return false;
   }
@@ -82,13 +82,23 @@ function renderLibrary() {
   myLibrary.forEach((book, index) => {
     const row = document.createElement("tr");
 
-    row.innerHTML = `
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td>${book.pages}</td>
-      <td></td>
-      <td></td>
-    `;
+    const titleCell = document.createElement("td");
+    titleCell.textContent = book.title;
+    row.appendChild(titleCell);
+
+    const authorCell = document.createElement("td");
+    authorCell.textContent = book.author;
+    row.appendChild(authorCell);
+
+    const pagesCell = document.createElement("td");
+    pagesCell.textContent = book.pages;
+    row.appendChild(pagesCell);
+
+    const readCell = document.createElement("td");
+    row.appendChild(readCell);
+
+    const deleteCell = document.createElement("td");
+    row.appendChild(deleteCell);
 
     //  Read Button
     const readButton = document.createElement("button");
@@ -118,7 +128,10 @@ function toggleReadStatus(index) {
 
 // Delete a book from the library
 function deleteBook(index) {
-  alert(`You deleted: ${myLibrary[index].title}`);
-  myLibrary.splice(index, 1);
-  renderLibrary();
+const confirmed = confirm( `Are you sure you want to delete "${myLibrary[index].title}"?` );
+if (!confirmed) return;
+const deletedBook  = myLibrary[index].title;
+myLibrary.splice(index, 1);
+renderLibrary();
+alert(`"${deletedBook}" has been deleted from your library.`);
 }
