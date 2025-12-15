@@ -29,18 +29,34 @@ document.getElementById('submit-btn').addEventListener('click', submit);
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
+  const title = sanitize(titleDom.value.trim());
+  const author = sanitize(authorDom.value.trim());
+  const pages = sanitize(pagesDom.value.trim());
   if (
-    titleDom.value == "" || 
-    authorDom.value == "" ||
-    pagesDom.value == 0
+    title == "" || 
+    author == "" ||
+    pages == "" || 
+    parseInt(pages) < 0
   ) {
-    alert("Please fill all fields!");
+    alert("Please fill all fields or enter valid values!");
     return false;
   } else {
-    let book = new Book(titleDom.value.trim(), authorDom.value.trim(), pagesDom.value, checkDom.checked);
+    let book = new Book(title, author, pages, checkDom.checked);
     myLibrary.push(book);
     render();
   }
+}
+function sanitize(string) {
+  const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match)=>(map[match]));
 }
 
 function Book(title, author, pages, check) {
