@@ -30,12 +30,11 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   //if any of the information is missing show an alert
-  if (
-    title.value == null ||    // == checks both null and undefined . === only null 
-    title.value == "" ||         // why you use the way and where author check??
-    pages.value == null ||     // if(!title.value||author.value|| page.value) is more clear and readable 
-    pages.value == ""
-  )
+  if (!title.value || !author.value ||!pages.value)
+      // == checks both null and undefined . === only null 
+            // why you use this way and where author check??
+         // if(!title.value||author.value|| page.value) is more clear and readable 
+  
    {
     alert("Please fill all fields!");  // alert is a built-in JS function
     return false; 
