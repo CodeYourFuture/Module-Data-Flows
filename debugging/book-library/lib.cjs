@@ -11,7 +11,7 @@ class Book {
 }
 
 function validateTitle(title) {
-  return typeof title === 'string' && title.trim().length > 0;
+  return typeof title === "string" && title.trim().length > 0;
 }
 
 function validatePages(pages) {
