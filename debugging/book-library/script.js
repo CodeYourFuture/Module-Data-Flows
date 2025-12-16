@@ -2,7 +2,6 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
@@ -76,10 +75,10 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
+    if (myLibrary[i].check === false) {
       readStatus = "No";
+    } else {
+      readStatus = "Yes";
     }
     changeBut.innerText = readStatus;
 
