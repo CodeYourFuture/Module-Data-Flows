@@ -37,17 +37,24 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
+    const alreadyExists = myLibrary.some(
+     (book) => book.title === title.value);
+    if (alreadyExists) {
+      alert("This book is already in your library!");
+      return;
+    }
+  }
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
-    
+
     //clear the form after submit
     title.value = "";
     author.value = "";
     pages.value = "";
     check.checked = false;
   }
-}
+
 
 function Book(title, author, pages, check) {
   this.title = title;
