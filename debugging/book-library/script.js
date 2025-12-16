@@ -27,12 +27,11 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  console.log(title.value, author.value, pages.value, check.value)
   if (
-    title.value == null ||
     title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    author.value == "" ||
+    pages.value == ""||
+    pages.value <= 0 
   ) {
     alert("Please fill all fields!");
     return false;
