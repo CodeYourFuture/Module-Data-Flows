@@ -40,7 +40,7 @@ function submit() {
     alert("Please fill all fields!");  // alert is a built-in JS function
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);   // ???? the var called MyLibrary bro  
     render();             // tell now where as submit event maybe later I will check
   }
