@@ -1,13 +1,13 @@
 let myLibrary = [];
 
 window.addEventListener("load", function (e) {
-  populateStorage(); // just if myLibrary is empty put two book on it with a specific details
+  populateStorage();
   render();
 });
 
 //just one thing need to check 
 function populateStorage() {
-  if (myLibrary.length == 0) {   //why there is just == not ===
+  if (myLibrary.length === 0) {   //why there is just == not ===
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -20,8 +20,8 @@ function populateStorage() {
     render();
   }
 }
-// clear associated with HTML
-const title = document.getElementById("title");   
+
+const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
@@ -30,24 +30,18 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   //if any of the information is missing show an alert
-  if (!title.value || !author.value ||!pages.value)
-      // == checks both null and undefined . === only null 
-            // why you use this way and where author check??
-         // if(!title.value||author.value|| page.value) is more clear and readable 
-  
-   {
-    alert("Please fill all fields!");  // alert is a built-in JS function
-    return false; 
+  if (!title.value || !author.value || !pages.value) {
+    alert("Please fill all fields!");
+
+    return false;
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);   // ???? the var called MyLibrary bro  
-    render();             // tell now where as submit event maybe later I will check
+    myLibrary.push(book);
+    render();
   }
 }
- let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true); ///why i have this in populteStorage and here
 
-//function to create a new book as an object 
- function Book(title, author, pages, check) {
+function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -58,8 +52,8 @@ function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {  //n>0 because we will delete all rows except the first one header
-    table.deleteRow(n);     //.deleteRow is a built-in JS function it remove the row by index 
+  for (let n = rowsNumber - 1; n > 0; n--) {
+    table.deleteRow(n);
   }
   //insert updated row and cells
   let length = myLibrary.length;
@@ -67,7 +61,7 @@ function render() {
     let row = table.insertRow(1);    // why (1) not i+1 insert <tr> with four <td>
     let titleCell = row.insertCell(0);   // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
     let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);  
+    let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);          // it is like insert for <td> </td> 
     titleCell.innerHTML = myLibrary[i].title;    //filling the cells    why innerHTML
@@ -78,24 +72,24 @@ function render() {
     let changeBut = document.createElement("button");
     changeBut.id = i;                            // give the button the index of the book object
     changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);  
+    wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == true) {  // why not ===
+    if (myLibrary[i].check === true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
     }
-    changeBut.innerText = readStatus;  // fill the button with yes or no
+    changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;            //when we click will change yes to no and no to yes
+      myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again 
-    //delButton
+
     let delButton = document.createElement("button");
-    delButton.id = i + 5;       // I think there is an issue here if we have more than five books
+    delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
@@ -103,7 +97,7 @@ function render() {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
-      //we do rendering after each change to UI
+
     });
   }
 }
