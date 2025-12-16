@@ -31,12 +31,21 @@ document.getElementById('submit-btn').addEventListener('click', submit);
 function submit() {
   const title = sanitize(titleDom.value.trim());
   const author = sanitize(authorDom.value.trim());
-  const pages = sanitize(pagesDom.value.trim());
+  let pages = sanitize(pagesDom.value.trim());
+  if (isNaN(pages)){
+    alert("Enter valid value for page number!");
+    return false;
+  }
+  pages = parseInt(pages);
+  if (!isValueInteger(pages)){
+    alert("Enter valid value for page number!");
+    return false;
+  }
+  
   if (
     title == "" || 
     author == "" ||
-    pages == "" || 
-    parseInt(pages) < 0
+    pages < 0
   ) {
     alert("Please fill all fields or enter valid values!");
     return false;
@@ -46,17 +55,13 @@ function submit() {
     render();
   }
 }
+
+function isValueInteger(value) {
+  return Number.isInteger(value);
+}
+
 function sanitize(string) {
-  const map = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      "/": '&#x2F;',
-  };
-  const reg = /[&<>"'/]/ig;
-  return string.replace(reg, (match)=>(map[match]));
+  return string.replace(/[^\w\s]/gi, '');
 }
 
 function Book(title, author, pages, check) {
@@ -74,7 +79,7 @@ function render() {
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tableBody.insertRow(0);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -89,12 +94,7 @@ function render() {
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     changeBut.textContent = readStatus;
 
     changeBut.addEventListener("click", function () {
