@@ -1,16 +1,35 @@
 let myLibrary = [];
+const STORAGE_KEY = 'bookLibrary_v1';
+
+function loadStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return false;
+    myLibrary = parsed.map((o) => new Book(o.title, o.author, Number(o.pages), !!o.check));
+    return true;
+  } catch (e) {
+    console.warn('Failed to load storage', e);
+    return false;
+  }
+}
+
+function saveStorage() {
+  try {
+    const plain = myLibrary.map((b) => ({ title: b.title, author: b.author, pages: b.pages, check: b.check }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(plain));
+  } catch (e) {
+    console.warn('Failed to save storage', e);
+  }
+}
 
 function populateStorage() {
-  if (myLibrary.length === 0) {
-    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
-    const book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      127,
-      true
-    );
-    myLibrary.push(book1, book2);
-  }
+  if (loadStorage()) return;
+  const book1 = new Book('Robinson Crusoe', 'Daniel Defoe', 252, true);
+  const book2 = new Book('The Old Man and the Sea', 'Ernest Hemingway', 127, true);
+  myLibrary.push(book1, book2);
+  saveStorage();
 }
 
 // DOM elements (suffix "El" to indicate element)
@@ -21,7 +40,7 @@ const readEl = document.getElementById("check");
 const formEl = document.getElementById("bookForm");
 const tableEl = document.getElementById("display");
 
-formEl.addEventListener("submit", function (ev) {
+formEl.addEventListener('submit', function (ev) {
   ev.preventDefault();
   handleSubmit();
 });
@@ -34,17 +53,18 @@ function handleSubmit() {
   const isRead = readEl.checked;
 
   if (!title || !author) {
-    alert("Please provide both title and author.");
+    showToast('Please provide both title and author.');
     return;
   }
 
   if (!pagesRaw || !Number.isFinite(pages) || pages <= 0) {
-    alert("Please provide a valid positive number for pages.");
+    showToast('Please provide a valid positive number for pages.');
     return;
   }
 
   const book = new Book(title, author, pages, isRead);
   myLibrary.push(book);
+  saveStorage();
 
   // clear form
   formEl.reset();
@@ -52,11 +72,58 @@ function handleSubmit() {
   render();
 }
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = Boolean(check);
+class Book {
+  constructor(title, author, pages, check) {
+    this.title = title;
+    this.author = author;
+    this.pages = Number(pages);
+    this.check = Boolean(check);
+  }
+
+  toggleRead() {
+    this.check = !this.check;
+  }
+}
+
+// Modal / notification helpers
+const confirmModalEl = document.getElementById('confirmModal');
+const confirmDescEl = document.getElementById('confirmDesc');
+const confirmYesEl = document.getElementById('confirmYes');
+const confirmNoEl = document.getElementById('confirmNo');
+const notificationEl = document.getElementById('notification');
+
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    confirmDescEl.textContent = message;
+    confirmModalEl.classList.remove('modal-hidden');
+    confirmModalEl.classList.add('modal-visible');
+
+    function cleanup() {
+      confirmYesEl.removeEventListener('click', onYes);
+      confirmNoEl.removeEventListener('click', onNo);
+      confirmModalEl.classList.remove('modal-visible');
+      confirmModalEl.classList.add('modal-hidden');
+    }
+
+    function onYes() {
+      cleanup();
+      resolve(true);
+    }
+
+    function onNo() {
+      cleanup();
+      resolve(false);
+    }
+
+    confirmYesEl.addEventListener('click', onYes);
+    confirmNoEl.addEventListener('click', onNo);
+  });
+}
+
+function showToast(message, ms = 2500) {
+  notificationEl.textContent = message;
+  notificationEl.classList.add('show');
+  setTimeout(() => notificationEl.classList.remove('show'), ms);
 }
 
 function render() {
@@ -78,11 +145,12 @@ function render() {
     authorCell.textContent = book.author;
     pagesCell.textContent = String(book.pages);
 
-    const toggleReadBtn = document.createElement("button");
-    toggleReadBtn.className = "btn btn-success";
-    toggleReadBtn.textContent = book.check ? "Yes" : "No";
-    toggleReadBtn.addEventListener("click", () => {
-      myLibrary[index].check = !myLibrary[index].check;
+    const toggleReadBtn = document.createElement('button');
+    toggleReadBtn.className = 'btn btn-success';
+    toggleReadBtn.textContent = book.check ? 'Yes' : 'No';
+    toggleReadBtn.addEventListener('click', () => {
+      myLibrary[index].toggleRead();
+      saveStorage();
       render();
     });
 
@@ -91,14 +159,13 @@ function render() {
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-warning";
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", () => {
-      const confirmDelete = confirm(
-        `Delete "${book.title}" from your library?`
-      );
-      if (!confirmDelete) return;
+    deleteBtn.addEventListener('click', async () => {
+      const confirmed = await showConfirm(`Delete "${book.title}" from your library?`);
+      if (!confirmed) return;
       myLibrary.splice(index, 1);
+      saveStorage();
       render();
-      alert(`Deleted "${book.title}"`);
+      showToast(`Deleted "${book.title}"`);
     });
 
     actionsCell.appendChild(deleteBtn);
@@ -114,7 +181,15 @@ function render() {
 }
 
 // Initialization
-document.addEventListener("DOMContentLoaded", () => {
+// Accessibility: update aria-expanded on collapse show/hide
+const toggleBtn = document.getElementById('toggleFormBtn');
+const demoEl = document.getElementById('demo');
+if (demoEl && toggleBtn) {
+  demoEl.addEventListener('shown.bs.collapse', () => toggleBtn.setAttribute('aria-expanded', 'true'));
+  demoEl.addEventListener('hidden.bs.collapse', () => toggleBtn.setAttribute('aria-expanded', 'false'));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
   populateStorage();
   render();
 });

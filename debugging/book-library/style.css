@@ -16,3 +16,37 @@
 button.btn-info {
   margin: 20px;
 }
+
+/* Simple modal styling */
+.modal-hidden { display: none; }
+.modal-visible {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+.modal-content-custom {
+  background: #fff;
+  padding: 16px;
+  border-radius: 6px;
+  max-width: 420px;
+  width: 90%;
+}
+.modal-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+
+/* Notification */
+.notification {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+  z-index: 1060;
+}
+.notification.show { display: block; }

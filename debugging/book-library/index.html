@@ -20,7 +20,7 @@
       <p>Add books to your virtual library</p>
     </div>
 
-    <button class="btn btn-info" data-toggle="collapse" data-target="#demo">
+    <button id="toggleFormBtn" class="btn btn-info" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
       Add new book
     </button>
 
@@ -63,6 +63,21 @@
         </button>
       </form>
     </div>
+
+    <!-- Confirmation modal (in-page) -->
+    <div id="confirmModal" class="modal-hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmDesc">
+      <div class="modal-content-custom">
+        <h5 id="confirmTitle">Confirm action</h5>
+        <p id="confirmDesc"></p>
+        <div class="modal-actions">
+          <button id="confirmYes" class="btn btn-danger">Yes</button>
+          <button id="confirmNo" class="btn btn-secondary">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification area -->
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
 
     <table class="table" id="display">
       <thead class="thead-dark">
