@@ -7,7 +7,7 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-// Define constants for column formatting
+
 const COLUMN_SPACING = 8;
 const ITEM_COLUMN_WIDTH = 20;
 
@@ -19,16 +19,15 @@ function formatColumns(quantity, item, total) {
   );
 }
 
-// Print the receipt header with aligned columns
+
 console.log(formatColumns("QTY", "ITEM", "TOTAL"));
 
 let totalCost = 0;
 
 order.forEach(({ itemName, quantity, unitPricePence }) => {
-  const totalItemCost = (unitPricePence * quantity) / 100; // Convert pence to pounds
+  const totalItemCost = (unitPricePence * quantity) / 100; 
   totalCost += totalItemCost;
 
-  // Log each item's details
   console.log(formatColumns(quantity, itemName, totalItemCost.toFixed(2)));
 });
 
