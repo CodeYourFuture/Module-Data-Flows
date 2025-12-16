@@ -38,7 +38,7 @@ function submit() {
   )
    {
     alert("Please fill all fields!");  // alert is a built-in JS function
-    return false;
+    return false; 
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);   // ???? the var called MyLibrary bro  
@@ -81,7 +81,7 @@ function render() {
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);  
     let readStatus = "";
-    if (myLibrary[i].check == false) {  // why not ===
+    if (myLibrary[i].check == true) {  // why not ===
       readStatus = "Yes";
     } else {
       readStatus = "No";
