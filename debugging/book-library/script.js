@@ -13,9 +13,9 @@ window.addEventListener("load", function (e) {
   render();
 });
 
-//just one thing need to check 
+//just one thing need to check
 function populateStorage() {
-  if (myLibrary.length === 0) {   
+  if (myLibrary.length === 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -32,12 +32,19 @@ function populateStorage() {
 //via Book function and start render function
 function submit() {
   //if any of the information is missing show an alert
-
-  if (!titleInput.value || !authorInput.value || !pagesInput.value) {
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = Number(pagesInput.value);
+  if (!titleValue || !authorValue || !pagesValue || pagesValue < 0) {
     alert("Please fill all fields!");
-    return ;
+    return;
   } else {
-    let book = new Book(titleInput.value, authorInput.value,Number(pagesInput.value), isReadInput.checked);
+    let book = new Book(
+      titleValue,
+      authorValue,
+      pagesValue,
+      isReadInput.checked
+    );
     myLibrary.push(book);
     render();
   }
@@ -52,27 +59,24 @@ function Book(title, author, pages, check) {
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
+  const tableBody = document.getElementById("tbody");
+  tableBody.textContent = "";
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);    // why (1) not i+1 insert <tr> with four <td>
-    let titleCell = row.insertCell(0);   // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
+    let row = tableBody.insertRow(); // why (1) not i+1 insert <tr> with four <td>
+    let titleCell = row.insertCell(0); // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);          // it is like insert for <td> </td> 
-    titleCell.innerHTML = myLibrary[i].title;    //filling the cells    why innerHTML
+    let deleteCell = row.insertCell(4); // it is like insert for <td> </td>
+    titleCell.innerHTML = myLibrary[i].title; //filling the cells    why innerHTML
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
-    changeBut.id = i;                            // give the button the index of the book object
+    changeBut.id = i; // give the button the index of the book object
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
@@ -88,19 +92,18 @@ function render() {
       render();
     });
 
-    //add delete button to every row and render again 
+    //add delete button to every row and render again
 
     let delButton = document.createElement("button");
     delButton.id = i + 5;
     deleteCell.appendChild(delButton);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {    // 
+    delButton.addEventListener("click", function () {
+      //
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
-
     });
   }
 }
-
