@@ -1,9 +1,9 @@
 let myLibrary = [];
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const isReadInput = document.getElementById("check");
 
 const submitBtn = document.getElementById("submitBtn");
 submitBtn.addEventListener("click", submit);
@@ -33,11 +33,11 @@ function populateStorage() {
 function submit() {
   //if any of the information is missing show an alert
 
-  if (!title.value || !author.value || !pages.value) {
+  if (!titleInput.value || !authorInput.value || !pagesInput.value) {
     alert("Please fill all fields!");
     return ;
   } else {
-    let book = new Book(title.value, author.value,Number(pages.value), check.checked);
+    let book = new Book(titleInput.value, authorInput.value,Number(pagesInput.value), isReadInput.checked);
     myLibrary.push(book);
     render();
   }
