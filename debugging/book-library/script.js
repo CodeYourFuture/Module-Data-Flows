@@ -70,39 +70,38 @@ function render() {
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4); // it is like insert for <td> </td>
-    titleCell.innerHTML = myLibrary[i].title; //filling the cells    why innerHTML
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+    titleCell.textContent = myLibrary[i].title; //filling the cells    why innerHTML
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i; // give the button the index of the book object
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    let changeReadBut = document.createElement("button");
+    changeReadBut.className = "btn btn-success";
+    wasReadCell.appendChild(changeReadBut);
     let readStatus = "";
     if (myLibrary[i].check === true) {
       readStatus = "Yes";
     } else {
       readStatus = "No";
     }
-    changeBut.innerText = readStatus;
+    changeReadBut.textContent = readStatus;
 
-    changeBut.addEventListener("click", function () {
+    changeReadBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
     //add delete button to every row and render again
 
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
+    let deleteBut = document.createElement("button");
+    deleteCell.appendChild(deleteBut);
+    deleteBut.className = "btn btn-warning";
+    deleteBut.textContent = "Delete";
+    deleteBut.addEventListener("click", function () {
       //
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      
       myLibrary.splice(i, 1);
+      alert(`You've deleted title: ${myLibrary[i].title}`);
       render();
     });
   }
