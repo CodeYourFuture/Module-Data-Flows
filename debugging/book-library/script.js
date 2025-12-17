@@ -25,20 +25,26 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
 function submit() {
+  // correct author validation
   if (
     title.value == null ||
     title.value == "" ||
+    author.value == null ||
+    author.value == "" ||
     pages.value == null ||
     pages.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    //correct changed second title.value to author.value
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    
+   
+    //correct name is myLibrary
+    myLibrary.push(book);
+    
     render();
   }
 }
@@ -53,11 +59,12 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
+  
+  //correct closing parenthesis
+  for (let n = rowsNumber - 1; n > 0; n--) {
     table.deleteRow(n);
   }
-  //insert updated row and cells
+  
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
@@ -70,16 +77,26 @@ function render() {
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
+    //READ BUTTON
     let changeBut = document.createElement("button");
     changeBut.id = i;
-    changeBut.className = "btn btn-success";
+    
+ 
+    //correct color
+    
     wasReadCell.appendChild(changeBut);
     let readStatus = "";
-    if (myLibrary[i].check == false) {
+    
+
+    //correct If checked is true readStatus Yes
+    if (myLibrary[i].check == true) {   
       readStatus = "Yes";
+      //green class
+      changeBut.className = "btn btn-success";
     } else {
       readStatus = "No";
+      //correctred 
+      changeBut.className = "btn btn-danger";
     }
     changeBut.innerText = readStatus;
 
@@ -88,13 +105,21 @@ function render() {
       render();
     });
 
-    //add delete button to every row and render again
+    //delete btn
     let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
+    
+
+    //correct delButton
+    delButton.id = i + 5;
+  
+    //correct
+    deleteCell.appendChild(delButton);
+     //correct
+    delButton.className = "btn btn-warning";
+       //correct
+    delButton.innerHTML = "Delete";
+       //correct delButtonand click 
+    delButton.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
