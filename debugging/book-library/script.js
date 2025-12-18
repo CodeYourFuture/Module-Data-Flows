@@ -25,16 +25,16 @@ const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
 
 function submit() {
-  if (!titleInput.value || !authorInput.value || pagesInput.value <= 0) {
-    alert("Please fill all fields!");
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = parseInt(pagesInput.value);
+  const isRead = checkInput.checked;
+
+  if (!title || !author || isNaN(pages) || pages <= 0) {
+    alert("Please fill all fields correctly!");
     return false;
   } else {
-    let book = new Book(
-      titleInput.value,
-      authorInput.value,
-      pagesInput.value,
-      checkInput.checkInputed
-    );
+    let book = new Book(title, author, pages, isRead);
     myLibrary.push(book);
     render();
   }
