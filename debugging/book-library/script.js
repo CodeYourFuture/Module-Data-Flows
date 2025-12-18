@@ -84,6 +84,8 @@ function render() {
     } else {
       readStatus = "No";
     }
+    readStatus= myLibrary[i].check===true? "yes":"no";
+    
     changeReadBut.textContent = readStatus;
 
     changeReadBut.addEventListener("click", function () {
@@ -98,9 +100,9 @@ function render() {
     deleteBut.className = "btn btn-warning";
     deleteBut.textContent = "Delete";
     deleteBut.addEventListener("click", function () {
-      const DeletedTitle = myLibrary[i].title;
+      const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
-      alert(`You've deleted title: ${DeletedTitle}`);
+      alert(`You've deleted title: ${deletedTitle}`);
       render();
     });
   }
