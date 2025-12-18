@@ -35,7 +35,7 @@ function submit() {
   const titleValue = titleInput.value.trim();
   const authorValue = authorInput.value.trim();
   const pagesValue = Number(pagesInput.value);
-  if (!titleValue || !authorValue || !pagesValue || pagesValue < 0) {
+  if (!titleValue || !authorValue || Number.isFinite(!pagesValue) || pagesValue <= 0) {
     alert("Please fill all fields!");
     return;
   } else {
