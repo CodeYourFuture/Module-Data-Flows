@@ -64,12 +64,12 @@ function render() {
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = tableBody.insertRow(); // why (1) not i+1 insert <tr> with four <td>
-    let titleCell = row.insertCell(0); // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4); // it is like insert for <td> </td>
+    const row = tableBody.insertRow(); // why (1) not i+1 insert <tr> with four <td>
+    const titleCell = row.insertCell(0); // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4); // it is like insert for <td> </td>
     titleCell.textContent = myLibrary[i].title; //filling the cells    why innerHTML
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
