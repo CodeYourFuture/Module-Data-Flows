@@ -35,7 +35,7 @@ function submit() {
   const titleValue = titleInput.value.trim();
   const authorValue = authorInput.value.trim();
   const pagesValue = Number(pagesInput.value);
-  if (!titleValue || !authorValue || !Number.isFinite(pagesValue) || pagesValue <= 0) {
+  if (!titleValue || !authorValue || !Number.isInteger(pagesValue) || pagesValue <= 0) {
     alert("Please fill all fields!");
     return;
   } else {
@@ -89,7 +89,7 @@ function render() {
 
     //add delete button to every row and render again
 
-    let deleteBut = document.createElement("button");
+    const deleteBut = document.createElement("button");
     deleteCell.appendChild(deleteBut);
     deleteBut.className = "btn btn-warning";
     deleteBut.textContent = "Delete";
