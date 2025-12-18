@@ -16,8 +16,8 @@ window.addEventListener("load", function (e) {
 //just one thing need to check
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
-    let book2 = new Book(
+    const book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
       127,
@@ -35,11 +35,11 @@ function submit() {
   const titleValue = titleInput.value.trim();
   const authorValue = authorInput.value.trim();
   const pagesValue = Number(pagesInput.value);
-  if (!titleValue || !authorValue || Number.isFinite(!pagesValue) || pagesValue <= 0) {
+  if (!titleValue || !authorValue || !Number.isFinite(pagesValue) || pagesValue <= 0) {
     alert("Please fill all fields!");
     return;
   } else {
-    let book = new Book(
+    const book = new Book(
       titleValue,
       authorValue,
       pagesValue,
@@ -58,11 +58,10 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
   const tableBody = document.getElementById("tbody");
   tableBody.textContent = "";
   //insert updated row and cells
-  let length = myLibrary.length;
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     const row = tableBody.insertRow(); // why (1) not i+1 insert <tr> with four <td>
     const titleCell = row.insertCell(0); // the table.rows and row.cells are HTMLCollection,not a real array, but they behave like array(indexed,length) . they are DOM collections
@@ -75,15 +74,10 @@ function render() {
     pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeReadBut = document.createElement("button");
+    const changeReadBut = document.createElement("button");
     changeReadBut.className = "btn btn-success";
     wasReadCell.appendChild(changeReadBut);
     let readStatus = "";
-    if (myLibrary[i].check === true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
     readStatus= myLibrary[i].check===true? "yes":"no";
     
     changeReadBut.textContent = readStatus;
