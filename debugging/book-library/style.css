@@ -1,132 +1,19 @@
-/* Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
-
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-}
-
-.jumbotron {
-  background-color: #343a40;
-  color: white;
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  border-radius: 0;
-}
-
-.jumbotron h1 {
-  font-weight: 700;
-}
-
-/* Button Styling */
-.btn {
-  border-radius: 20px;
-  padding: 8px 20px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
-  color: white;
-}
-
-.btn-info:hover {
-  background-color: #138496;
-  border-color: #117a8b;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Form Styling */
-#demo.collapse.show {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
 .form-group {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+  width: 400px;
+  height: 300px;
+  align-self: left;
+  padding-left: 20px;
 }
 
-.form-control {
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-}
-
-.form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
-  border-color: #17a2b8;
-}
-
-label {
-  font-weight: 500;
-  margin-top: 10px;
+.btn {
+  display: block;
 }
 
 .form-check-label {
-  display: flex;
-  align-items: center;
-  margin: 15px 0;
-  cursor: pointer;
+  padding-left: 20px;
+  margin: 5px 0px 5px 0px;
 }
 
-.form-check-input {
-  margin-right: 10px;
-  margin-top: 0;
-}
-
-/* Table Styling */
-.table-responsive {
-  margin-top: 20px;
-  padding: 0 15px;
-}
-
-.table {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.thead-dark th {
-  background-color: #343a40;
-  border-color: #454d55;
-  color: white;
-}
-
-.table td,
-.table th {
-  vertical-align: middle;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 576px) {
-  .jumbotron {
-    padding: 1.5rem 1rem;
-  }
-
-  .btn {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .form-group {
-    padding: 1rem;
-  }
-
-  button.btn-info {
-    margin: 10px auto;
-    display: block;
-    width: 90%;
-  }
+button.btn-info {
+  margin: 20px;
 }
