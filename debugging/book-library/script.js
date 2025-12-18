@@ -40,11 +40,13 @@ function submit() {
   }
 }
 
-function Book(titleInput, authorInput, pagesInput, checkInput) {
-  this.titleInput = titleInput;
-  this.authorInput = authorInput;
-  this.pagesInput = pagesInput;
-  this.checkInput = checkInput;
+class Book {
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 }
 
 function render() {
