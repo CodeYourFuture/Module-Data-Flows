@@ -100,3 +100,5 @@ function render() {
     });
   }
 }
+
+window.submit = submit;
