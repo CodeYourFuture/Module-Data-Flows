@@ -39,8 +39,9 @@ function addBook() {
     return;
   }
 
-  if (isNaN(Number(pages)) || Number(pages) <= 0) {
-    showError("Pages must be a positive number.");
+  const pageNum = Number(pages);
+  if (!Number.isInteger(pageNum) || pageNum <= 0) {
+    showError("Pages must be a positive whole number.");
     return;
   }
 
@@ -49,11 +50,12 @@ function addBook() {
     return;
   }
 
-  const book = new Book(title, author, Number(pages), read);
+  const book = new Book(title, author, pageNum, read);
   myLibrary.push(book);
   clearForm();
   render();
 }
+
 
 document.getElementById("submitBtn").addEventListener("click", addBook);
 
