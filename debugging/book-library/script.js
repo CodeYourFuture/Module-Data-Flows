@@ -1,14 +1,18 @@
 let myLibrary = [];
 const STORAGE_KEY = "bookLibrary_v1";
 
+/* ---------- Storage ---------- */
+
 function loadStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return false;
+
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return false;
+
     myLibrary = parsed.map(
-      (o) => new Book(o.title, o.author, Number(o.pages), !!o.check)
+      (o) => new Book(o.title, o.author, o.pages, o.check)
     );
     return true;
   } catch (e) {
@@ -18,78 +22,33 @@ function loadStorage() {
 }
 
 function saveStorage() {
-  try {
-    const plain = myLibrary.map((b) => ({
-      title: b.title,
-      author: b.author,
-      pages: b.pages,
-      check: b.check,
-    }));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(plain));
-  } catch (e) {
-    console.warn("Failed to save storage", e);
-  }
+  const plain = myLibrary.map((b) => ({
+    title: b.title,
+    author: b.author,
+    pages: b.pages,
+    check: b.check,
+  }));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(plain));
 }
 
 function populateStorage() {
   if (loadStorage()) return;
-  const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
-  const book2 = new Book(
-    "The Old Man and the Sea",
-    "Ernest Hemingway",
-    127,
-    true
+
+  myLibrary.push(
+    new Book("Robinson Crusoe", "Daniel Defoe", 252, true),
+    new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true)
   );
-  myLibrary.push(book1, book2);
   saveStorage();
 }
 
-// DOM elements (suffix "El" to indicate element)
-const titleEl = document.getElementById("title");
-const authorEl = document.getElementById("author");
-const pagesEl = document.getElementById("pages");
-const readEl = document.getElementById("check");
-const formEl = document.getElementById("bookForm");
-const tableEl = document.getElementById("display");
-
-formEl.addEventListener("submit", function (ev) {
-  ev.preventDefault();
-  handleSubmit();
-});
-
-function handleSubmit() {
-  const title = titleEl.value.trim();
-  const author = authorEl.value.trim();
-  const pagesRaw = pagesEl.value.trim();
-  const pages = Number(pagesRaw);
-  const isRead = readEl.checked;
-
-  if (!title || !author) {
-    showToast("Please provide both title and author.");
-    return;
-  }
-
-  if (!pagesRaw || !Number.isFinite(pages) || pages <= 0) {
-    showToast("Please provide a valid positive number for pages.");
-    return;
-  }
-
-  const book = new Book(title, author, pages, isRead);
-  myLibrary.push(book);
-  saveStorage();
-
-  // clear form
-  formEl.reset();
-
-  render();
-}
+/* ---------- Book Model ---------- */
 
 class Book {
   constructor(title, author, pages, check) {
     this.title = title;
     this.author = author;
-    this.pages = Number(pages);
-    this.check = Boolean(check);
+    this.pages = pages;
+    this.check = check;
   }
 
   toggleRead() {
@@ -97,40 +56,17 @@ class Book {
   }
 }
 
-// Modal / notification helpers
-const confirmModalEl = document.getElementById("confirmModal");
-const confirmDescEl = document.getElementById("confirmDesc");
-const confirmYesEl = document.getElementById("confirmYes");
-const confirmNoEl = document.getElementById("confirmNo");
+/* ---------- DOM ---------- */
+
+const titleEl = document.getElementById("title");
+const authorEl = document.getElementById("author");
+const pagesEl = document.getElementById("pages");
+const readEl = document.getElementById("check");
+const formEl = document.getElementById("bookForm");
+const tableEl = document.getElementById("display");
 const notificationEl = document.getElementById("notification");
 
-function showConfirm(message) {
-  return new Promise((resolve) => {
-    confirmDescEl.textContent = message;
-    confirmModalEl.classList.remove("modal-hidden");
-    confirmModalEl.classList.add("modal-visible");
-
-    function cleanup() {
-      confirmYesEl.removeEventListener("click", onYes);
-      confirmNoEl.removeEventListener("click", onNo);
-      confirmModalEl.classList.remove("modal-visible");
-      confirmModalEl.classList.add("modal-hidden");
-    }
-
-    function onYes() {
-      cleanup();
-      resolve(true);
-    }
-
-    function onNo() {
-      cleanup();
-      resolve(false);
-    }
-
-    confirmYesEl.addEventListener("click", onYes);
-    confirmNoEl.addEventListener("click", onNo);
-  });
-}
+/* ---------- Helpers ---------- */
 
 function showToast(message, ms = 2500) {
   notificationEl.textContent = message;
@@ -138,74 +74,84 @@ function showToast(message, ms = 2500) {
   setTimeout(() => notificationEl.classList.remove("show"), ms);
 }
 
+function showConfirm(message) {
+  return window.confirm(message);
+}
+
+/* ---------- Form ---------- */
+
+formEl.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const title = titleEl.value.trim();
+  const author = authorEl.value.trim();
+  const pages = Number(pagesEl.value);
+  const isRead = readEl.checked;
+
+  if (!title || !author) {
+    showToast("Title and author are required");
+    return;
+  }
+
+  if (!Number.isFinite(pages) || pages <= 0) {
+    showToast("Pages must be a positive number");
+    return;
+  }
+
+  myLibrary.push(new Book(title, author, pages, isRead));
+  saveStorage();
+  formEl.reset();
+  render();
+});
+
+/* ---------- Render ---------- */
+
 function render() {
   const tbody = tableEl.querySelector("tbody");
-
-  // Clear existing rows in one operation
   tbody.innerHTML = "";
 
   myLibrary.forEach((book, index) => {
     const row = document.createElement("tr");
 
     const titleCell = document.createElement("td");
-    const authorCell = document.createElement("td");
-    const pagesCell = document.createElement("td");
-    const readCell = document.createElement("td");
-    const actionsCell = document.createElement("td");
-
     titleCell.textContent = book.title;
-    authorCell.textContent = book.author;
-    pagesCell.textContent = String(book.pages);
 
-    const toggleReadBtn = document.createElement("button");
-    toggleReadBtn.className = "btn btn-success";
-    toggleReadBtn.textContent = book.check ? "Yes" : "No";
-    toggleReadBtn.addEventListener("click", () => {
-      myLibrary[index].toggleRead();
+    const authorCell = document.createElement("td");
+    authorCell.textContent = book.author;
+
+    const pagesCell = document.createElement("td");
+    pagesCell.textContent = book.pages;
+
+    const readCell = document.createElement("td");
+    const readBtn = document.createElement("button");
+    readBtn.className = "btn btn-success";
+    readBtn.textContent = book.check ? "Yes" : "No";
+    readBtn.onclick = () => {
+      book.toggleRead();
       saveStorage();
       render();
-    });
+    };
+    readCell.appendChild(readBtn);
 
-    readCell.appendChild(toggleReadBtn);
-
+    const actionsCell = document.createElement("td");
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-warning";
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", async () => {
-      const confirmed = await showConfirm(
-        `Delete "${book.title}" from your library?`
-      );
-      if (!confirmed) return;
+    deleteBtn.onclick = () => {
+      if (!showConfirm(`Delete "${book.title}"?`)) return;
       myLibrary.splice(index, 1);
       saveStorage();
       render();
-      showToast(`Deleted "${book.title}"`);
-    });
-
+      showToast("Book deleted");
+    };
     actionsCell.appendChild(deleteBtn);
 
-    row.appendChild(titleCell);
-    row.appendChild(authorCell);
-    row.appendChild(pagesCell);
-    row.appendChild(readCell);
-    row.appendChild(actionsCell);
-
+    row.append(titleCell, authorCell, pagesCell, readCell, actionsCell);
     tbody.appendChild(row);
   });
 }
 
-// Initialization
-// Accessibility: update aria-expanded on collapse show/hide
-const toggleBtn = document.getElementById("toggleFormBtn");
-const demoEl = document.getElementById("demo");
-if (demoEl && toggleBtn) {
-  demoEl.addEventListener("shown.bs.collapse", () =>
-    toggleBtn.setAttribute("aria-expanded", "true")
-  );
-  demoEl.addEventListener("hidden.bs.collapse", () =>
-    toggleBtn.setAttribute("aria-expanded", "false")
-  );
-}
+/* ---------- Init ---------- */
 
 document.addEventListener("DOMContentLoaded", () => {
   populateStorage();

@@ -4,14 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Library</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -32,93 +34,39 @@
     </button>
 
     <div id="demo" class="collapse">
-      <form id="bookForm" class="form-group" novalidate>
-        <label for="title">Title:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
+      <form id="bookForm" class="form-group">
+        <label>Title:</label>
+        <input type="text" class="form-control" id="title" />
 
-        <label for="author">Author:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
+        <label>Author:</label>
+        <input type="text" class="form-control" id="author" />
 
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          min="1"
-          required
-        />
+        <label>Pages:</label>
+        <input type="number" class="form-control" id="pages" min="1" />
 
         <label class="form-check-label">
           <input type="checkbox" class="form-check-input" id="check" /> Read
         </label>
 
-        <button type="submit" id="submitBtn" class="btn btn-primary">
-          Submit
-        </button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
 
-    <!-- Confirmation modal (in-page) -->
-    <div
-      id="confirmModal"
-      class="modal-hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="confirmTitle"
-      aria-describedby="confirmDesc"
-    >
-      <div class="modal-content-custom">
-        <h5 id="confirmTitle">Confirm action</h5>
-        <p id="confirmDesc"></p>
-        <div class="modal-actions">
-          <button id="confirmYes" class="btn btn-danger">Yes</button>
-          <button id="confirmNo" class="btn btn-secondary">No</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Notification area -->
-    <div
-      id="notification"
-      class="notification"
-      role="status"
-      aria-live="polite"
-    ></div>
+    <div id="notification" class="notification"></div>
 
     <table class="table" id="display">
       <thead class="thead-dark">
         <tr>
           <th>Title</th>
           <th>Author</th>
-          <th>Number of Pages</th>
+          <th>Pages</th>
           <th>Read</th>
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
 
-    <script src="script.js" type="module"></script>
+    <script src="script.js"></script>
   </body>
 </html>
