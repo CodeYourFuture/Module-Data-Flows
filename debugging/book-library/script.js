@@ -27,20 +27,30 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function addBook() {
-  if (!title.value.trim() || !author.value.trim() || !pages.value.trim()) {
-  alert("Please fill all fields!");
-  return false;
+  const sanitizedTitle = title.value.trim();
+  const sanitizedAuthor = author.value.trim();
+  const sanitizedPages = Number(pages.value);
+  const isRead = check.checked;
+
+  if (!sanitizedTitle || !sanitizedAuthor) {
+    alert("Title and author cannot be empty.");
+    return;
   }
-  
-  let pagesNumber = parseInt(pages.value, 10);
-  if (isNaN(pagesNumber)) {
-    alert("Page count must be a number!");
-    return false;
+
+  if (!Number.isInteger(sanitizedPages) || sanitizedPages <= 0) {
+    alert("Pages must be a positive whole number.");
+    return;
   }
-    let book = new Book(title.value.trim(), author.value.trim(), pagesNumber, check.checked);
+
+  const book = new Book(
+    sanitizedTitle,
+    sanitizedAuthor,
+    sanitizedPages,
+    isRead
+  );
+
   myLibrary.push(book);
   render();
-
 }
 
 function Book(title, author, pages, check) {
@@ -76,13 +86,11 @@ function render() {
     toggleReadBtn.dataset.index = i;
     toggleReadBtn.className = "btn btn-success";
     wasReadCell.appendChild(toggleReadBtn);
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
+    
+    let readStatus = myLibrary[i].check ? "Yes" : "No";
     toggleReadBtn.innerText = readStatus;
+    changeBut.innerText = readStatus;
+
 
     toggleReadBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
