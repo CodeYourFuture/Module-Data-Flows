@@ -42,6 +42,12 @@ function addBook(e) {
   myLibrary.push(book);
   saveStorage();
   render();
+
+  // Resets the entry form after adding a book
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckbox.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -84,16 +90,18 @@ function render() {
       render();
     });
 
-    // Deletes the book from the library
+    // Deletes the book and notifies the user
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "btn btn-danger btn-sm";
     deleteBtn.textContent = "Delete";
     deleteCell.appendChild(deleteBtn);
 
     deleteBtn.addEventListener("click", () => {
+      const deletedTitle = book.title;
       myLibrary.splice(i, 1);
       saveStorage();
       render();
+      alert(`Success: "${deletedTitle}" has been removed.`);
     });
   });
 }
