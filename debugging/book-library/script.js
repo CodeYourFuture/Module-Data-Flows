@@ -29,16 +29,16 @@ function saveStorage() {
 function addBook(e) {
   if (e) e.preventDefault();
 
-  if (!titleInput.value || !authorInput.value || !pagesInput.value) {
+  // Trims input whitespace to sanitise entries
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = pagesInput.value.trim();
+
+  if (!title || !author || !pages) {
     alert("Please fill all fields!");
-    return false;
+    return;
   }
-  const book = new Book(
-    titleInput.value,
-    authorInput.value,
-    pagesInput.value,
-    readCheckbox.checked
-  );
+  const book = new Book(title, author, pages, readCheckbox.checked);
   myLibrary.push(book);
   saveStorage();
   render();
