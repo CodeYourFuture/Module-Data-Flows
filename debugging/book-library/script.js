@@ -7,7 +7,7 @@ const submitBtn = document.getElementById("submit-book-btn");
 
 let myLibrary = [];
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
   populateStorage();
   render();
 });
@@ -25,7 +25,7 @@ function saveStorage() {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
-// Validates input and adds new book
+// Trims input values and prevents empty submissions
 function addBook(e) {
   if (e) e.preventDefault();
 
@@ -33,7 +33,7 @@ function addBook(e) {
     alert("Please fill all fields!");
     return false;
   }
-  let book = new Book(
+  const book = new Book(
     titleInput.value,
     authorInput.value,
     pagesInput.value,
@@ -52,52 +52,48 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  // Clears table body efficiently
   const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";
 
-  // Inserts updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    // Insert at the end of the table
-    let row = tbody.insertRow(-1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+  myLibrary.forEach((book, i) => {
+    const row = tbody.insertRow(-1);
 
-    // Uses textContent to prevent XSS
-    titleCell.textContent = myLibrary[i].title;
-    authorCell.textContent = myLibrary[i].author;
-    pagesCell.textContent = myLibrary[i].pages;
+    // Inserts new cells into the table row
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
 
-    // Toggles read status
-    let readBtn = document.createElement("button");
+    // Prevents XSS by inserting data as textContent
+    titleCell.textContent = book.title;
+    authorCell.textContent = book.author;
+    pagesCell.textContent = book.pages;
+
+    // Toggles the read status with a ternary operator
+    const readBtn = document.createElement("button");
+    readBtn.className = book.check
+      ? "btn btn-success"
+      : "btn btn-outline-secondary";
+    readBtn.textContent = book.check ? "Yes" : "No";
     wasReadCell.appendChild(readBtn);
 
-    let readStatus = "";
-    if (myLibrary[i].check === false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
-    readBtn.textContent = readStatus;
-
-    readBtn.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    readBtn.addEventListener("click", () => {
+      book.check = !book.check;
       saveStorage();
       render();
     });
 
-    // Deletes book
-    let deleteBtn = document.createElement("button");
-    deleteCell.appendChild(deleteBtn);
+    // Deletes the book from the library
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-danger btn-sm";
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", function () {
+    deleteCell.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener("click", () => {
       myLibrary.splice(i, 1);
       saveStorage();
       render();
     });
-  }
+  });
 }
