@@ -88,8 +88,8 @@ function render() {
     wasReadCell.appendChild(toggleReadBtn);
     
     let readStatus = myLibrary[i].check ? "Yes" : "No";
-    toggleReadBtn.innerText = readStatus;
-    changeBut.innerText = readStatus;
+    toggleReadBtn.textContent = readStatus;
+    changeBut.textContent = readStatus;
 
 
     toggleReadBtn.addEventListener("click", function () {
@@ -102,7 +102,7 @@ function render() {
     deleteBtn.dataset.index = i;
     deleteCell.appendChild(deleteBtn);
     deleteBtn.className = "btn btn-warning";
-    deleteBtn.innerHTML = "Delete";
+    deleteBtn.textContent = "Delete";
     deleteBtn.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
