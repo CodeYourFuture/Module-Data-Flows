@@ -70,7 +70,7 @@ function render() {
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tbody.insertRow();
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
@@ -81,7 +81,6 @@ function render() {
    pagesCell.textContent = myLibrary[i].pages;
 
 
-    //add and wait for action for read/unread button
    let toggleReadBtn = document.createElement("button");
    toggleReadBtn.className = "btn btn-success";
    toggleReadBtn.innerText = myLibrary[i].check ? "Yes" : "No"; // ternary operator
@@ -89,8 +88,9 @@ function render() {
 
    toggleReadBtn.addEventListener("click", function () {
    myLibrary[i].check = !myLibrary[i].check;
-   render();
+  render();
 });
+
 
     //add delete button to every row and render again
     let deleteBtn = document.createElement("button");
