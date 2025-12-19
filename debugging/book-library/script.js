@@ -25,12 +25,11 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  const titleValue = title.value.trim();
-  const authorValue = author.value.trim();
-  const pagesValue = pages.value.trim();
-  const pagesNumber = Number(pagesValue);
+  const titleText = title.value.trim();
+  const authorText = author.value.trim();
+  const pagesNumber = Number(pages.value.trim());
 
-  if (!titleValue || !authorValue || !pagesValue) {
+  if (!titleText || !authorText || !pages.value.trim()) {
     alert("Please fill all fields!");
     return;
   }
@@ -41,14 +40,14 @@ function submit() {
   }
 
   const alreadyExists = myLibrary.some(
-    (book) => book.title.toLowerCase() === titleValue.toLowerCase()
+    (book) => book.title.toLowerCase() === titleText.toLowerCase()
   );
   if (alreadyExists) {
     alert("This book is already in your library!");
     return;
   }
 
-  let book = new Book(titleValue, authorValue, pagesNumber, check.checked);
+  const book = new Book(titleText, authorText, pagesNumber, check.checked);
   myLibrary.push(book);
   render();
 
@@ -84,19 +83,19 @@ function render() {
     authorCell.textContent = book.author;
     pagesCell.textContent = book.pages;
 
-    const changeBut = document.createElement("button");
-    changeBut.className = "btn btn-success";
-    changeBut.textContent = book.check ? "Yes" : "No";
-    changeBut.addEventListener("click", function () {
+    const changeBtn = document.createElement("button");
+    changeBtn.className = "btn btn-success";
+    changeBtn.textContent = book.check ? "Yes" : "No";
+    changeBtn.addEventListener("click", function () {
       book.check = !book.check;
       render();
     });
-    wasReadCell.appendChild(changeBut);
+    wasReadCell.appendChild(changeBtn);
 
-    let delBut = document.createElement("button");
-    delBut.className = "btn btn-warning";
-    delBut.textContent = "Delete";
-    delBut.addEventListener("click", function () {
+    let delBtn = document.createElement("button");
+    delBtn.className = "btn btn-warning";
+    delBtn.textContent = "Delete";
+    delBtn.addEventListener("click", function () {
       const bookIndex = myLibrary.indexOf(book);
       if (bookIndex === -1) return;
 
@@ -104,6 +103,6 @@ function render() {
       render();
       alert(`You've deleted title: ${book.title}`);
     });
-    deleteCell.appendChild(delBut);
+    deleteCell.appendChild(delBtn);
   }
 }
