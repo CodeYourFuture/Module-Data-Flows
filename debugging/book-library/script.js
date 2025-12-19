@@ -82,20 +82,15 @@ function render() {
 
 
     //add and wait for action for read/unread button
-    let toggleReadBtn = document.createElement("button");
-    toggleReadBtn.dataset.index = i;
-    toggleReadBtn.className = "btn btn-success";
-    wasReadCell.appendChild(toggleReadBtn);
-    
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
-    toggleReadBtn.textContent = readStatus;
-    changeBut.textContent = readStatus;
+   let toggleReadBtn = document.createElement("button");
+   toggleReadBtn.className = "btn btn-success";
+   toggleReadBtn.innerText = myLibrary[i].check ? "Yes" : "No"; // ternary operator
+   wasReadCell.appendChild(toggleReadBtn);
 
-
-    toggleReadBtn.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
-      render();
-    });
+   toggleReadBtn.addEventListener("click", function () {
+   myLibrary[i].check = !myLibrary[i].check;
+   render();
+});
 
     //add delete button to every row and render again
     let deleteBtn = document.createElement("button");
