@@ -48,6 +48,8 @@
           class="form-control"
           id="pages"
           name="pages"
+          min="1"
+          step="1"
           required
         >
         <label class="form-check-label">
@@ -61,8 +63,8 @@
         <input
           type="submit"
           value="Submit"
+          id="submit-btn"
           class="btn btn-primary"
-          onclick="submitBook();"
         >
       </div>
     </div>
@@ -88,6 +90,6 @@
       </tbody>
     </table>
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
