@@ -14,10 +14,26 @@ window.addEventListener("load", () => {
 
 submitBtn.addEventListener("click", addBook);
 
+// Initialises data and seeds default books if storage is empty
 function populateStorage() {
   const storedLibrary = localStorage.getItem("myLibrary");
+
   if (storedLibrary) {
-    myLibrary = JSON.parse(storedLibrary);
+    const rawData = JSON.parse(storedLibrary);
+    // Rehydrates plain data back into Book objects
+    myLibrary = rawData.map(
+      (data) =>
+        new Book(data.title, data.author, Number(data.pages), data.check)
+    );
+  } else {
+    // Seeds data for new users
+    myLibrary = [
+      new Book("The Hobbit", "J.R.R. Tolkien", 295, false),
+      new Book("1984", "George Orwell", 328, true),
+      new Book("Robinson Crusoe", "Daniel Defoe", 252, true),
+      new Book("The Old Man and the Sea", "Ernest Hemingway", 127, false),
+    ];
+    saveStorage();
   }
 }
 
@@ -32,10 +48,11 @@ function addBook(e) {
   // Trims input whitespace to sanitise entries
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
-  const pages = pagesInput.value.trim();
+  const pages = Number(pagesInput.value);
 
-  if (!title || !author || !pages) {
-    alert("Please fill all fields!");
+  // Validates input: checks for empty strings, non-numbers, or negative values
+  if (!title || !author || isNaN(pages) || pages <= 0) {
+    alert("Please enter valid book details. Pages must be a positive number.");
     return;
   }
   const book = new Book(title, author, pages, readCheckbox.checked);
