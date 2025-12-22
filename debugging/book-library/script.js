@@ -6,11 +6,11 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
@@ -19,29 +19,32 @@ function populateStorage() {
   }
 }
 
-const titleElem = document.getElementById("title");
-const authorElem = document.getElementById("author");
-const pagesElem = document.getElementById("pages");
-const checkBox = document.getElementById("check");
+const titleElem = document.querySelector(".title");
+const authorElem = document.querySelector(".author");
+const pagesElem = document.querySelector(".pages");
+const checkBox = document.querySelector(".check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 export function submit() {
+  const bookTitle = titleElem.value.toString().trim();
+  const bookAuthor = authorElem.value.toString().trim();
+  const bookPages = Number(pagesElem.value);
   
   if (!Number.isInteger(Number(pagesElem.value))){
     alert("Pages must be an integer !");
     return false;
   }
   else if (
-    titleElem.value.trim() == "" ||
-    authorElem.value.trim() == "" ||
-    pagesElem.value == ""||
-    pagesElem.value <= 0 
+    bookTitle == "" ||
+    bookAuthor == "" ||
+    bookPages == ""||
+    bookPages <= 0 
   ) {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(titleElem.value.toString().trim(), authorElem.value.trim(), Number(pagesElem.value), checkBox.checked);
+    let book = new Book(bookTitle, bookAuthor, bookPages, checkBox.checked);
     myLibrary.push(book);
     render();
     titleElem.value = "";
@@ -87,11 +90,8 @@ function render() {
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     let readStatus = "";
-    if (myLibrary[i].check === false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    readStatus = myLibrary[i].check ? "yes":"no";
+    
     changeButton.innerText = readStatus;
 
     changeButton.addEventListener("click", function () {

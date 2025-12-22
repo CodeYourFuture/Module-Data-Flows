@@ -31,32 +31,30 @@
         <label for="title">Title:</label>
         <input
           type="text"
-          class="form-control"
-          id="title"
+          class="form-control title"
           name="title"
           required
         />
         <label for="author">Author: </label>
         <input
           type="text"
-          class="form-control"
-          id="author"
+          class="form-control author"
           name="author"
           required
         />
         <label for="pages">Pages:</label>
         <input
           type="number"
-          class="form-control"
-          id="pages"
+          class="form-control pages"
           name="pages"
+          min = "1"
+          max = "1000"
           required
         />
         <label class="form-check-label">
           <input
             type="checkbox"
-            class="form-check-input"
-            id="check"
+            class="form-check-input check"
             value=""
           />Read
         </label>
