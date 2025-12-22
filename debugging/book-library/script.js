@@ -27,18 +27,17 @@ const checkBox = document.querySelector(".check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 export function submit() {
-  const bookTitle = titleElem.value.toString().trim();
-  const bookAuthor = authorElem.value.toString().trim();
+  const bookTitle = titleElem.value.trim();
+  const bookAuthor = authorElem.value.trim();
   const bookPages = Number(pagesElem.value);
   
-  if (!Number.isInteger(Number(pagesElem.value))){
+  if (!Number.isInteger(bookPages)){
     alert("Pages must be an integer !");
     return false;
   }
   else if (
     bookTitle == "" ||
     bookAuthor == "" ||
-    bookPages == ""||
     bookPages <= 0 
   ) {
     alert("Please fill all fields!");
