@@ -70,3 +70,28 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+// write your function here; Use Destructuring !!!!
+
+// Its much easier with destructuring. (first exercise)
+function residentsOfGryffindor(hogwarts) {
+  let result = [];
+  for (let { firstName, lastName, house } of hogwarts) {
+    if (house === "Gryffindor") {
+      result.push(`${firstName} ${lastName}`);
+    }
+  }
+  return result.join("\n");
+}
+
+// second exercise;
+function teacherWithPet(hogwarts) {
+  let result2 = [];
+  for (let { firstName, lastName, pet, occupation } of hogwarts) {
+    if (pet !== null && occupation === "Teacher") {
+      result2.push(`${firstName} ${lastName}`);
+    }
+  }
+  return result2.join("\n");
+}
+console.log(residentsOfGryffindor(hogwarts));
+console.log(teacherWithPet(hogwarts));
