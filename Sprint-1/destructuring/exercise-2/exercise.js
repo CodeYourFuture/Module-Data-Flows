@@ -70,3 +70,12 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+function getFilteredNames(hogwarts)
+{
+  
+  let filterName  =hogwarts.filter(({house})=>house==="Gryffindor").map(({firstName,lastName})=> `${firstName} ${lastName}`);
+  console.log(filterName);
+  let teachersWithPet = hogwarts.filter(({pet,occupation})=> pet!==null && occupation === "Teacher").map(({firstName,lastName})=>`${firstName} ${lastName}`);
+  console.log(teachersWithPet)
+}
+   getFilteredNames(hogwarts);
