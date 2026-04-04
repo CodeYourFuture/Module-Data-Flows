@@ -34,11 +34,12 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function submit() {
-  if (
-    title.value.trim() === "" ||
-    author.value.trim() === "" ||
-    pages.value === ""
-  ) {
+ if (
+  title.value.trim() === "" ||
+  author.value.trim() === "" ||
+  pages.value === "" ||
+  Number(pages.value) <= 0
+) {
     alert("Please fill all fields!");
     return false;
   } else {
