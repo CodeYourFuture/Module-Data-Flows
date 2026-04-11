@@ -2,7 +2,6 @@ let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
@@ -29,9 +28,9 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == "" ||
-    author.value == "" ||
-    pages.value == ""
+    title.value === "" ||
+    author.value === "" ||
+    pages.value === ""
   ) {
     alert("Please fill all fields!");
     return false;
