@@ -29,8 +29,12 @@ for (const { itemName, quantity, unitPricePence } of order) {
   // Print the row with aligned columns using padEnd.
   // String(quantity) converts the number to a string so we can call padEnd on it.
   // toFixed(2) formats the number to always show exactly 2 decimal places.
+  // We also apply padEnd(10) to the TOTAL column so that values like 10.00 or
+  // 100.00 do not break the alignment — the column is always 10 characters wide.
   console.log(
-    String(quantity).padEnd(8) + itemName.padEnd(20) + itemTotal.toFixed(2)
+    String(quantity).padEnd(8) +
+      itemName.padEnd(20) +
+      itemTotal.toFixed(2).padEnd(10)
   );
 }
 
