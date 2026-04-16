@@ -6,3 +6,15 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+console.log("QTY\tITEM\t\t\tTOTAL");
+
+let total = 0;
+
+for (let { quantity, itemName, unitPricePence } of order) {
+  const lineTotal = (quantity * unitPricePence) / 100; // Convert pence to pounds
+  total += lineTotal;
+  console.log(`${quantity}\t${itemName}\t\t${lineTotal.toFixed(2)}`);
+}
+
+console.log(`\nTotal: ${total.toFixed(2)}`);
