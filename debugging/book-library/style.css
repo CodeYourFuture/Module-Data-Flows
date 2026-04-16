@@ -8,46 +8,63 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
+
 .header h1 {
   color: white;
   font-size: 50px;
-  padding: 20px;
+  margin: 10px 0;
 }
+
 .header p {
   color: white;
   font-size: 30px;
-  padding: 20px;
+  margin: 10px 0;
 }
 
 .form-group {
   background-color: #2f2e57;
   color: whitesmoke;
   width: 400px;
-  height: 350px;
-  align-self: left;
-  padding: 20px;
+  height: auto;
   margin: 20px auto;
+  padding: 20px;
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
 .btn {
-  background-color: skyblue;
-  display: flex;
+  background-color: #4b4a7a;
+  color: white;
   margin: 20px auto;
-  padding: 10px;
+  padding: 10px 20px;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: none;
-  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
+
 .btn:focus {
   outline: none;
   box-shadow: none;
 }
 
+.btn-read {
+  background-color: #4b4a7a;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #a94442;
+  color: white;
+}
+
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0;
 }

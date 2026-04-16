@@ -4,6 +4,7 @@
     <title>Book Library</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -12,19 +13,21 @@
   </head>
 
   <body>
-    <div class="header">
+    <header class="header">
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
+
       <button
         id="add-btn"
         data-toggle="collapse"
         data-target="#demo"
-        class="btn"
+        class="btn btn-primary"
       >
         Add new book
       </button>
-    </div>
+    </header>
 
+    <!-- FORM -->
     <div id="demo" class="collapse">
       <form id="book-form">
         <div class="form-group">
@@ -36,7 +39,8 @@
             name="title"
             required
           />
-          <label for="author">Author: </label>
+
+          <label for="author">Author:</label>
           <input
             type="text"
             class="form-control"
@@ -44,6 +48,7 @@
             name="author"
             required
           />
+
           <label for="pages">Pages:</label>
           <input
             type="number"
@@ -52,19 +57,20 @@
             name="pages"
             required
           />
-          <label for="check" class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="check"
-              value=""
-            />Read
+
+          <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="check" />
+            Read
           </label>
-          <button id="submit-btn" class="btn" type="submit">submit</button>
+
+          <button id="submit-btn" class="btn btn-success" type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>
 
+    <!-- TABLE -->
     <table class="table" id="display">
       <thead class="thead-dark">
         <tr>
@@ -72,21 +78,18 @@
           <th>Author</th>
           <th>Number of Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <!-- JS will insert rows here -->
       </tbody>
     </table>
 
+    <!-- SCRIPTS -->
     <script src="script.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
