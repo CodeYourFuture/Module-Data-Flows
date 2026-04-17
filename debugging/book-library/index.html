@@ -1,12 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <!-- lang="en" is required for accessibility — screen readers use it -->
+    <title>My Book Library</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -29,22 +27,25 @@
 
     <div id="demo" class="collapse">
       <div class="form-group">
+        <!-- type="text" is the correct value — "title" and "author" are not valid types -->
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
           required
         />
-        <label for="author">Author: </label>
+
+        <label for="author">Author:</label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
           required
         />
+
         <label for="pages">Pages:</label>
         <input
           type="number"
@@ -53,19 +54,19 @@
           name="pages"
           required
         />
+
         <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
+          <input type="checkbox" class="form-check-input" id="check" />
+          Read
         </label>
+
+        <!-- onclick now calls addBook() instead of submit() -->
+        <!-- submit() is a reserved browser function name — using it can cause bugs -->
         <input
-          type="submit"
+          type="button"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit()"
+          onclick="addBook()"
         />
       </div>
     </div>
@@ -80,15 +81,7 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
 
     <script src="script.js"></script>

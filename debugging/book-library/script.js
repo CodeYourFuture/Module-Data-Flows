@@ -1,122 +1,136 @@
 // myLibrary is the main array — like a shelf that holds all book objects
 let myLibrary = [];
 
+// Use const for DOM references because these elements never change
+// "const" means: this variable will always point to the same element
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
+
 // Wait for the page to fully load before running any code
-window.addEventListener("load", function (e) {
-  populateStorage(); // Add default books if the library is empty
-  render(); // Draw the table on screen
+// addEventListener is safer than window.onload because it allows
+// multiple listeners to be registered without overwriting each other
+window.addEventListener("load", function () {
+  addDefaultBooks();
+  render();
 });
 
 // Add two default books so the page is not empty on first load
-function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
+// Renamed from "populateStorage" — that name implied localStorage usage
+function addDefaultBooks() {
+  if (myLibrary.length === 0) {
+    myLibrary.push(new Book("Robinson Crusoe", "Daniel Defoe", "252", true));
+    myLibrary.push(
+      new Book("The Old Man and the Sea", "Ernest Hemingway", "127", true)
     );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
   }
 }
 
-// Read the form input elements from the HTML
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
-
-// Called when the user clicks Submit — validates input then adds a new book
-function submit() {
-  // BUG 2 FIX: also check author field is not empty
-  if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    // BUG 3 FIX: was title.value twice — now correctly uses author.value
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    // BUG 2 FIX: was "library" (undefined) — corrected to "myLibrary"
-    myLibrary.push(book);
-    render();
-  }
-}
-
-// Book is a constructor function — like a template for creating book objects
-// Think of it as a blank form: every book fills in the same four fields
-function Book(title, author, pages, check) {
+// Book is a constructor function — a template for creating book objects
+// Think of it as a blank contact card: every book fills in the same four fields
+function Book(title, author, pages, hasBeenRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  // Renamed "check" to "hasBeenRead" — much clearer what this field means
+  this.hasBeenRead = hasBeenRead;
 }
 
-// Redraws the entire table from scratch using the current myLibrary array
-function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-
-  // Delete all existing rows except the header row (row 0)
-  // BUG 1 FIX: was "n-- {" — missing closing parenthesis, caused total JS failure
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
+// Called when the user clicks Submit
+// Renamed from "submit" to avoid conflict with the browser's built-in submit behaviour
+function addBook() {
+  // Validate that all fields are filled before adding the book
+  if (
+    titleInput.value === "" ||
+    authorInput.value === "" ||
+    pagesInput.value === ""
+  ) {
+    alert("Please fill all fields!");
+    return;
   }
 
-  // Loop through every book in myLibrary and build one table row per book
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1); // Insert a new row after the header
-    let titleCell = row.insertCell(0); // First column: Title
-    let authorCell = row.insertCell(1); // Second column: Author
-    let pagesCell = row.insertCell(2); // Third column: Pages
-    let wasReadCell = row.insertCell(3); // Fourth column: Read button
-    let deleteCell = row.insertCell(4); // Fifth column: Delete button
+  // Create a new Book object from the form values
+  const newBook = new Book(
+    titleInput.value,
+    authorInput.value,
+    pagesInput.value,
+    readCheckbox.checked
+  );
 
-    // Fill the text cells with data from the book object
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  myLibrary.push(newBook);
 
-    // Create the Read/Unread toggle button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+  // Clear the form fields after adding the book
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readCheckbox.checked = false;
 
-    // BUG 5 FIX: logic was inverted — true (read) now correctly shows "Yes"
-    let readStatus = "";
-    if (myLibrary[i].check == true) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  render();
+}
 
-    // Clicking the button flips the read status and redraws the table
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
-      render();
-    });
+// createReadButton builds and returns a toggle button for a single book
+// Extracting this into its own function makes render() easier to read
+function createReadButton(index) {
+  const button = document.createElement("button");
+  button.className = "btn btn-success";
 
-    // BUG 4 FIX: variable was named "delButton" then used as "delBut"
-    // Now consistently named "delBut" throughout
-    // Also fixed: "clicks" event name changed to "click"
-    let delBut = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("click", function () {
-      myLibrary.splice(i, 1); // Remove 1 book at index i from the array
-      render(); // Redraw the table without the deleted book
-    });
+  // Use textContent instead of innerHTML for safety
+  // textContent never runs any HTML or scripts — innerHTML can be dangerous
+  // if the text comes from user input
+  button.textContent = myLibrary[index].hasBeenRead ? "Yes" : "No";
+
+  button.addEventListener("click", function () {
+    // Flip the read status: true becomes false, false becomes true
+    myLibrary[index].hasBeenRead = !myLibrary[index].hasBeenRead;
+    render();
+  });
+
+  return button;
+}
+
+// createDeleteButton builds and returns a delete button for a single book
+function createDeleteButton(index) {
+  const button = document.createElement("button");
+  button.className = "btn btn-warning";
+  button.textContent = "Delete";
+
+  button.addEventListener("click", function () {
+    // splice(index, 1) removes exactly 1 item at position "index"
+    myLibrary.splice(index, 1);
+    render();
+  });
+
+  return button;
+}
+
+// render() redraws the entire table from the current myLibrary array
+function render() {
+  const table = document.getElementById("display");
+  const rowCount = table.rows.length;
+
+  // Delete all rows except the header row (row 0)
+  for (let i = rowCount - 1; i > 0; i--) {
+    table.deleteRow(i);
+  }
+
+  // Build one row per book using helper functions
+  for (let i = 0; i < myLibrary.length; i++) {
+    const row = table.insertRow();
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const readCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
+
+    // Use textContent for user data — never innerHTML — to prevent XSS attacks
+    // XSS (Cross-Site Scripting) is when a malicious script gets injected into a page
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
+
+    // Append the buttons created by the helper functions
+    readCell.appendChild(createReadButton(i));
+    deleteCell.appendChild(createDeleteButton(i));
   }
 }
