@@ -1,4 +1,8 @@
-let myLibrary = [];
+const myLibrary = [];
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const pages = document.getElementById("pages");
+const check = document.getElementById("check");
 
 window.addEventListener("load", function () {
   populateStorage();
@@ -20,22 +24,22 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+function addBook() {
+  const cleanedTitle = title.value.trim();
+  const cleanedAuthor = author.value.trim();
+  const cleanedPages = pages.value.trim();
 
-function submit() {
-  if (
-    title.value.trim() === "" ||
-    author.value.trim() === "" ||
-    pages.value.trim() === ""
-  ) {
+  if (cleanedTitle === "" || cleanedAuthor === "" || cleanedPages === "") {
     alert("Please fill all fields!");
     return;
   }
 
-  let book = new Book(title.value, author.value, pages.value, check.checked);
+  let book = new Book(
+    cleanedTitle,
+    cleanedAuthor,
+    Number(cleanedPages),
+    check.checked
+  );
   myLibrary.push(book);
   render();
 
@@ -54,7 +58,6 @@ function Book(title, author, pages, check) {
 
 function render() {
   let tbody = document.querySelector("#display tbody");
-
   tbody.innerHTML = "";
 
   for (let i = 0; i < myLibrary.length; i++) {
@@ -88,9 +91,10 @@ function render() {
     delButton.innerHTML = "Delete";
 
     delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedTitle = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
+      alert(`You've deleted title: ${deletedTitle}`);
     });
 
     deleteCell.appendChild(delButton);
