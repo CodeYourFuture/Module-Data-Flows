@@ -31,11 +31,11 @@ function submit() {
   if (title.value == "" || author.value == "" || pages.value == "") {
     alert("Please fill all fields!");
     return false;
-
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
   }
+
+  let book = new Book(title.value, author.value, pages.value, check.checked);
+  myLibrary.push(book);
+  render();
 }
 
 function Book(title, author, pages, check) {
