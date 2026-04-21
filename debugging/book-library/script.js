@@ -57,69 +57,34 @@ function render() {
     table.deleteRow(n);
   }
 
-  //add and wait for action for read/unread button
-  let changeBut = document.createElement("button");
-  changeBut.id = i;
-  changeBut.className = "btn btn-success";
-  wasReadCell.appendChild(changeBut);
-  let readStatus = "";
-  if (myLibrary[i].check == true) {
-    readStatus = "Yes";
-  } else {
-    readStatus = "No";
-  }
-  changeBut.innerText = readStatus;
+    //add and wait for action for read/unread button
+    let changeBut = document.createElement("button");
+    changeBut.id = i;
+    changeBut.className = "btn btn-success";
+    wasReadCell.appendChild(changeBut);
+    let readStatus = "";
+    if (myLibrary[i].check == true) {
+      readStatus = "Yes";
+    } else {
+      readStatus = "No";
+    }
+    changeBut.innerText = readStatus;
 
   changeBut.addEventListener("click", function () {
     myLibrary[i].check = !myLibrary[i].check;
     render();
   });
 
-  //add delete button to every row and render again
-  let delButton = document.createElement("button");
-  delButton.id = i + 5;
-  deleteCell.appendChild(delButton);
-  delButton.className = "btn btn-warning";
-  delButton.innerHTML = "Delete";
-  delButton.addEventListener("click", function () {
-    alert(`You've deleted title: ${myLibrary[i].title}`);
-    myLibrary.splice(i, 1);
-    render();
-  });
+    //add delete button to every row and render again
+    let delButton = document.createElement("button");
+    delButton.id = i + 5;
+    deleteCell.appendChild(delButton);
+    delButton.className = "btn btn-warning";
+    delButton.innerHTML = "Delete";
+    delButton.addEventListener("click", function () {
+      alert(`You've deleted title: ${myLibrary[i].title}`);
+      myLibrary.splice(i, 1);
+      render();
+    });
+  }
 }
-changeBut.innerText = readStatus;
-
-const titleCell = row.insertCell(0);
-const authorCell = row.insertCell(1);
-const pagesCell = row.insertCell(2);
-const wasReadCell = row.insertCell(3);
-const deleteCell = row.insertCell(4);
-
-titleCell.textContent = myLibrary[i].title;
-authorCell.textContent = myLibrary[i].author;
-pagesCell.textContent = myLibrary[i].pages;
-
-const toggleButton = document.createElement("button");
-toggleButton.className = "btn btn-success";
-toggleButton.textContent = myLibrary[i].check ? "Yes" : "No";
-
-toggleButton.addEventListener("click", function () {
-  myLibrary[i].check = !myLibrary[i].check;
-  render();
-});
-
-//add delete button to every row and render again
-let delButton = document.createElement("button");
-delButton.id = i + 5;
-deleteCell.appendChild(delButton);
-delButton.className = "btn btn-warning";
-delButton.innerHTML = "Delete";
-delButton.addEventListener("click", function () {
-  alert(`You've deleted title: ${myLibrary[i].title}`);
-  myLibrary.splice(i, 1);
-  render();
-
-  alert(`You've deleted title: ${deletedTitle}`);
-});
-
-deleteCell.appendChild(deleteButton);
