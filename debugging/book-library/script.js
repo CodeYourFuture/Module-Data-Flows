@@ -30,14 +30,9 @@ function submit() {
   if (title.value == "" || author.value == "" || pages.value == "") {
     alert("Please fill all fields!");
     return false;
-
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
   }
 
-  const book = new Book(title, author, pages, readCheckbox.checked);
-
+  let book = new Book(title.value, author.value, pages.value, check.checked);
   myLibrary.push(book);
   render();
 }
