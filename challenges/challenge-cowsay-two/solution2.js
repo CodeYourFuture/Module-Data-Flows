@@ -11,8 +11,23 @@
 // 3. Make a cow that takes a string
 
 const cow = (saying) => {
-    // how did you make the cow before?
-}
+    let line = "_".repeat(saying.length + 2);
+    let bottom = "-".repeat(saying.length + 2);
+
+    console.log(` ${line} `);
+    console.log(`< ${saying} >`);
+    console.log(` ${bottom} `);
+    console.log(`        \\   ^__^`);
+    console.log(`         \\  (oo)\\_______`);
+    console.log(`            (__)\\       )\\/\\`);
+    console.log(`                ||----w |`);
+    console.log(`                ||     ||`);
+  
+};
+rl.question("What would you like the cow to say? ", function(answer) {
+  cow(answer || "Mooooo");
+  rl.close();
+});
 
 // 4. Use readline to get a string from the terminal 
 // (with a prompt so it's clearer what we want)
