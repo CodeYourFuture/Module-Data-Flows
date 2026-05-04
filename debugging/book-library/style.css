@@ -1,17 +1,17 @@
 .form-group {
   width: 400px;
-  height: 300px;
-  align-self: left;
   padding-left: 20px;
 }
 
-.btn {
+/* Only target your specific button */
+#demo .btn {
   display: block;
+  margin-top: 10px;
 }
 
 .form-check-label {
   padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0;
 }
 
 button.btn-info {
