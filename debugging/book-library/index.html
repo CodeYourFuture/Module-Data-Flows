@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <title>Book library app</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -14,7 +9,10 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="module" src="script.js"></script>
   </head>
 
   <body>
@@ -29,20 +27,24 @@
 
     <div id="demo" class="collapse">
       <div class="form-group">
-        <label for="title">Title:</label>
+        <label for="book-title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
-          id="title"
-          name="title"
+          id="book-title"
+          name="book-title"
+          minlength="1"
+          maxlength="255"
           required
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
+          minlength="1"
+          maxlength="255"
           required
         />
         <label for="pages">Pages:</label>
@@ -51,6 +53,8 @@
           class="form-control"
           id="pages"
           name="pages"
+          min="1"
+          max="10000"
           required
         />
         <label class="form-check-label">
@@ -59,13 +63,13 @@
             class="form-check-input"
             id="check"
             value=""
-          />Read
+          />completed
         </label>
         <input
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
+          id="submit-btn"
         />
       </div>
     </div>
@@ -76,7 +80,7 @@
           <th>Title</th>
           <th>Author</th>
           <th>Number of Pages</th>
-          <th>Read</th>
+          <th>Completed</th>
           <th></th>
         </tr>
       </thead>
@@ -90,7 +94,5 @@
         </tr>
       </tbody>
     </table>
-
-    <script src="script.js"></script>
   </body>
 </html>
