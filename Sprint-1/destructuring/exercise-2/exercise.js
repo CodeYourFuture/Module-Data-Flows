@@ -87,3 +87,23 @@ function gryffindorOccupiers(obj) {
 }
 
 console.log(gryffindorOccupiers(hogwarts));
+
+
+// task 2
+
+function teachersWithPets(hogwarts) {
+  const result = [];
+
+  for (let person of hogwarts) {
+    const { firstName, lastName, occupation, pet } = person;
+
+    if (occupation === "Teacher" && pet) {
+      result.push(`${firstName} ${lastName}`);
+    }
+  }
+
+  return result;
+}
+
+console.log(teachersWithPets(hogwarts));
+
