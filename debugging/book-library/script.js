@@ -5,7 +5,6 @@ const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
-
 const submitBtn = document.getElementById("submit-btn");
 
 window.addEventListener("load", function () {
