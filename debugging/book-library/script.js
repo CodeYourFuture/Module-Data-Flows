@@ -6,6 +6,8 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
 
+const submitBtn = document.getElementById("submit-btn");
+
 window.addEventListener("load", function () {
   populateStorage();
 });
@@ -55,6 +57,8 @@ function submit() {
   resetForm();
   render();
 }
+
+submitBtn.addEventListener("click", submit);
 
 function resetForm() {
   titleInput.value = "";
