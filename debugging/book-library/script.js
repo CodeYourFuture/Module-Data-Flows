@@ -5,6 +5,7 @@ const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
+
 const submitBtn = document.getElementById("submit-btn");
 
 window.addEventListener("load", function () {
@@ -45,8 +46,8 @@ function submit() {
     return false;
   }
 
-  if (isNaN(pagesNum) || pagesNum <= 0) {
-    alert("Please enter a valid page count greater than 0.");
+  if (isNaN(pagesNum) || pagesNum <= 0 || !Number.isInteger(pagesNum)) {
+    alert("Please enter a positive whole number for page count.");
     return false;
   }
 
