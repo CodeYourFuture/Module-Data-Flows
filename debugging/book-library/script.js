@@ -31,12 +31,18 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
+    myLibrary.push(book);
+
+    // Add these lines to clear the text boxes after adding:
+    title.value = "";
+    author.value = "";
+    pages.value = "";
+    check.checked = false;
+
     render();
   }
 }
-
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
