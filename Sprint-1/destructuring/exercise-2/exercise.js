@@ -70,3 +70,13 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+let listOfGryffindorResident = [];
+function findGryffindorHouseNames(persons) {
+  persons.forEach(({ firstName, lastName, house }) => {
+    if (house === "Gryffindor") {
+      listOfGryffindorResident.push(`${firstName} ${lastName}`);
+    }
+  });
+  return listOfGryffindorResident;
+}
+console.log(findGryffindorHouseNames(hogwarts));
