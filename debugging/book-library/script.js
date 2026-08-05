@@ -1,103 +1,128 @@
-let myLibrary = [];
+// Data store
+const myLibrary = [];
 
-window.addEventListener("load", function (e) {
-  populateStorage();
-  render();
-});
+// DOM Element References with clear suffixes
+const bookForm = document.getElementById("book-form");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
+const bookListBody = document.getElementById("book-list");
+const statusMessageEl = document.getElementById("status-message");
 
-function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
-    render();
-  }
-}
-
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
-
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
-    render();
-  }
-}
-
+// Book Constructor
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
-  this.check = check;
+  this.pages = pages; // Stored as Number
+  this.check = check; // Stored as Boolean
 }
 
+// Populate default books once on load
+function initLibrary() {
+  if (myLibrary.length === 0) {
+    myLibrary.push(new Book("Robinson Crusoe", "Daniel Defoe", 252, true));
+    myLibrary.push(
+      new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true)
+    );
+  }
+  render();
+}
+
+// Preprocess and handle form submission
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  // Input Sanitization & Normalization (.trim() and Number conversion)
+  const titleValue = titleInput.value.trim();
+  const authorValue = authorInput.value.trim();
+  const pagesValue = Number(pagesInput.value);
+  const isRead = checkInput.checked;
+
+  // Validation check
+  if (!titleValue || !authorValue || isNaN(pagesValue) || pagesValue <= 0) {
+    showStatus("Please enter valid book details.", "danger");
+    return;
+  }
+
+  // Create and add new book
+  const newBook = new Book(titleValue, authorValue, pagesValue, isRead);
+  myLibrary.push(newBook);
+
+  // Reset form inputs
+  bookForm.reset();
+
+  // Render updated table
+  render();
+}
+
+// Efficient DOM Rendering
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  // Fast clearing of table rows without loops
+  bookListBody.textContent = "";
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  myLibrary.forEach((book, index) => {
+    const row = document.createElement("tr");
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    const titleCell = document.createElement("td");
+    titleCell.textContent = book.title; // Safe textContent preventing XSS
+
+    const authorCell = document.createElement("td");
+    authorCell.textContent = book.author;
+
+    const pagesCell = document.createElement("td");
+    pagesCell.textContent = book.pages;
+
+    // Toggle Read Button
+    const wasReadCell = document.createElement("td");
+    const toggleReadBtn = document.createElement("button");
+    toggleReadBtn.className = book.check
+      ? "btn btn-success btn-sm"
+      : "btn btn-secondary btn-sm";
+    toggleReadBtn.textContent = book.check ? "Yes" : "No"; // Concise ternary operator
+
+    toggleReadBtn.addEventListener("click", () => {
+      book.check = !book.check;
       render();
     });
+    wasReadCell.appendChild(toggleReadBtn);
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+    // Delete Button
+    const deleteCell = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-danger btn-sm";
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", () => {
+      const deletedTitle = book.title;
+
+      // Perform deletion FIRST
+      myLibrary.splice(index, 1);
       render();
+
+      // Display non-blocking feedback AFTER deletion
+      showStatus(`You deleted "${deletedTitle}" from your library.`, "info");
     });
-  }
+    deleteCell.appendChild(deleteBtn);
+
+    // Append cells to row
+    row.append(titleCell, authorCell, pagesCell, wasReadCell, deleteCell);
+    bookListBody.appendChild(row);
+  });
 }
+
+// Non-blocking status message UI helper
+function showStatus(message, type = "info") {
+  statusMessageEl.textContent = message;
+  statusMessageEl.className = `alert alert-${type}`;
+  statusMessageEl.classList.remove("d-none");
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    statusMessageEl.classList.add("d-none");
+  }, 3000);
+}
+
+// Event Listeners (Module compatible)
+bookForm.addEventListener("submit", handleFormSubmit);
+window.addEventListener("DOMContentLoaded", initLibrary);

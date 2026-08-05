@@ -1,73 +1,60 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
+<html lang="en">
 
-  <body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Library</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <!-- ES Module script tag -->
+  <script src="script.js" type="module"></script>
+</head>
+
+<body>
+  <div class="container my-4">
     <div class="jumbotron text-center">
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
     </div>
 
-    <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
+    <!-- Feedback container for delete notifications without window.alert() -->
+    <div id="status-message" class="alert alert-info d-none" role="alert"></div>
+
+    <button data-toggle="collapse" data-target="#demo" class="btn btn-info mb-3">
       Add new book
     </button>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
-      </div>
+    <div id="demo" class="collapse mb-4">
+      <form id="book-form">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" required />
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input type="text" class="form-control" id="author" required />
+        </div>
+
+        <div class="form-group">
+          <label for="pages">Pages:</label>
+          <input type="number" class="form-control" id="pages" min="1" required />
+        </div>
+
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="check" />
+          <label class="form-check-label" for="check">Read</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
 
     <table class="table" id="display">
@@ -77,20 +64,14 @@
           <th>Author</th>
           <th>Number of Pages</th>
           <th>Read</th>
-          <th></th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+      <tbody id="book-list">
+        <!-- Dynamically populated -->
       </tbody>
     </table>
+  </div>
+</body>
 
-    <script src="script.js"></script>
-  </body>
 </html>
