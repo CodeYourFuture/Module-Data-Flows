@@ -2,18 +2,15 @@
 <html lang="en">
   <head>
     <title>Library Books</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
   <body>
@@ -23,7 +20,7 @@
     </header>
 
     <main class="container">
-      <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
+      <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-info">
         Add new book
       </button>
 
@@ -36,7 +33,7 @@
             id="title"
             name="title"
             required
-          />
+          >
 
           <label for="author">Author: </label>
           <input
@@ -45,7 +42,7 @@
             id="author"
             name="author"
             required
-          />
+          >
 
           <label for="pages">Pages:</label>
           <input
@@ -54,7 +51,7 @@
             id="pages"
             name="pages"
             required
-          />
+          >
 
           <div class="form-check my-2">
             <input
@@ -62,7 +59,7 @@
               class="form-check-input"
               id="check"
               value="read"
-            />
+            >
             <label class="form-check-label" for="check">Read</label>
           </div>
 
@@ -71,7 +68,7 @@
             value="Submit"
             class="btn btn-primary"
             onclick="submit();"
-          />
+          >
         </div>
       </div>
 
