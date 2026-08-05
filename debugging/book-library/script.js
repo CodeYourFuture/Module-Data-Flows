@@ -93,7 +93,7 @@ function render() {
 
     //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton = i + 5;
+    delButton.id = i + 5;
     deleteCell.appendChild(delBut);
     delButton.className = "btn btn-warning";
     delButton.innerHTML = "Delete";
