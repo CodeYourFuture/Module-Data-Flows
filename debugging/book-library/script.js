@@ -4,7 +4,6 @@ window.addEventListener("load", () => {
   populateStorage();
   render();
 });
-
 function Book(title, author, pages, check) {
   this.title = title;
   this.author = author;
