@@ -26,13 +26,17 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
 
+const submitButton = document.getElementById("submitButton");
+
+submitButton.addEventListener("click", submit);
+
 function submit() {
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
   const pages = Number(pagesInput.value);
 
-  if (title === "" || author === "" || !pages) {
-    alert("Please fill all fields!");
+  if (title === "" || author === "" || !Number.isInteger(pages) || pages < 1) {
+    alert("Please enter valid book details.");
     return;
   }
 
@@ -45,8 +49,6 @@ function submit() {
 
   render();
 }
-
-window.submit = submit;
 
 function render() {
   const tbody = document.querySelector("#display tbody");
@@ -91,7 +93,10 @@ function render() {
 
       render();
 
-      alert(`You've deleted "${deletedTitle}".`);
+      // Allows the table to update before showing alert
+      setTimeout(() => {
+        alert(`You've deleted "${deletedTitle}".`);
+      }, 0);
     });
 
     deleteCell.appendChild(deleteButton);
