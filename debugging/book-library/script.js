@@ -86,19 +86,8 @@ function loadLibraryFromStorage() {
 }
 
 // -----------------------------------------------------------------------------
-// PREPROCESSING PIPELINE (Sanitization, Normalization, & Validation)
+// PREPROCESSING PIPELINE (Normalization & Validation)
 // -----------------------------------------------------------------------------
-
-function sanitizeString(str) {
-  if (typeof str !== "string") return "";
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;")
-    .replace(/\//g, "&#x2F;");
-}
 
 function normalizeString(str) {
   if (typeof str !== "string") return "";
@@ -106,8 +95,8 @@ function normalizeString(str) {
 }
 
 function preprocessBookInput(rawTitle, rawAuthor, rawPages, rawCheck) {
-  const cleanTitle = sanitizeString(normalizeString(rawTitle));
-  const cleanAuthor = sanitizeString(normalizeString(rawAuthor));
+  const cleanTitle = normalizeString(rawTitle);
+  const cleanAuthor = normalizeString(rawAuthor);
   const cleanPagesNum = Number(rawPages);
   const cleanCheck = Boolean(rawCheck);
 
@@ -125,12 +114,7 @@ function preprocessBookInput(rawTitle, rawAuthor, rawPages, rawCheck) {
     errors.push("Author must be 100 characters or less.");
   }
 
-  if (
-    rawPages === "" ||
-    isNaN(cleanPagesNum) ||
-    cleanPagesNum <= 0 ||
-    !Number.isInteger(cleanPagesNum)
-  ) {
+  if (!Number.isInteger(cleanPagesNum) || cleanPagesNum <= 0) {
     errors.push("Pages must be a whole positive number greater than 0.");
   }
 
@@ -178,7 +162,9 @@ function handleFormSubmit(event) {
   bookForm.reset();
   render();
 
-  showNotification(`"${book.title}" added to your library.`, "success");
+  const tempDiv = document.createElement("div");
+  tempDiv.textContent = book.title;
+  showNotification(`"${tempDiv.innerHTML}" added to your library.`, "success");
 }
 
 function render() {
@@ -226,7 +212,10 @@ function render() {
       myLibrary.splice(index, 1);
       saveLibraryToStorage();
       render();
-      showNotification(`"${deletedTitle}" deleted successfully.`, "info");
+
+      const tempDiv = document.createElement("div");
+      tempDiv.textContent = deletedTitle;
+      showNotification(`"${tempDiv.innerHTML}" deleted successfully.`, "info");
     });
 
     deleteCellEl.appendChild(deleteBtn);
@@ -241,8 +230,11 @@ function render() {
 document.addEventListener("DOMContentLoaded", () => {
   loadLibraryFromStorage();
   render();
-});
 
-if (bookForm) {
-  bookForm.addEventListener("submit", handleFormSubmit);
-}
+  // Guard check placed directly within the listener assignment
+  if (bookForm) {
+    bookForm.addEventListener("submit", (event) => {
+      handleFormSubmit(event);
+    });
+  }
+});
