@@ -70,3 +70,27 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+function gryffindorforStudent() {
+  let allStudents = "";
+  for (let student of hogwarts) {
+    let { firstName, lastName, house } = student;
+    if (house === "Gryffindor") {
+      allStudents += `${firstName} ${lastName}\n`;
+    }
+  }
+  return allStudents;
+}
+
+function teacherWithPet() {
+  let allTeachers = "";
+  for (const person of hogwarts) {
+    let { firstName, lastName, pet, occupation } = person;
+    if (occupation === "Teacher" && pet !== null) {
+      allTeachers += `${firstName} ${lastName}\n`;
+    }
+  }
+  return allTeachers;
+}
+
+console.log(teacherWithPet(hogwarts));
+console.log(gryffindorforStudent(hogwarts));
