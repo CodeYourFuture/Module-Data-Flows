@@ -80,7 +80,7 @@ hogwarts.forEach(({ firstName, lastName, house }) => {
 
 console.log("\n--- Task 2: Teachers with Pets ---");
 hogwarts.forEach(({ firstName, lastName, pet, occupation }) => {
-  if (occupation === "Teacher" && pet !== null) {
+  if (occupation === "Teacher" && pet) {
     console.log(`${firstName} ${lastName}`);
   }
 });
