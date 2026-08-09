@@ -37,7 +37,7 @@ function submitBook() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
+    let book = new Book(title.value, author.value, pages.value, check.checked);
     myLibrary.push(book);
     render();
   }
