@@ -1,6 +1,5 @@
-.form-group {
+#book-form {
   width: 400px;
-  height: 300px;
   align-self: left;
   padding-left: 20px;
 }

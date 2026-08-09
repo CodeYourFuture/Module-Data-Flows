@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en-US">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <title>Book Library</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -28,31 +25,48 @@
     </button>
 
     <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
+      <form id="book-form" novalidate>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            required
+          />
+          <div class="invalid-feedback" id="title-feedback">
+            Please enter a title.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="author">Author: </label>
+          <input
+            type="text"
+            class="form-control"
+            id="author"
+            name="author"
+            required
+          />
+          <div class="invalid-feedback" id="author-feedback">
+            Please enter an author.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pages">Pages:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pages"
+            name="pages"
+            min="1"
+            step="1"
+            required
+          />
+          <div class="invalid-feedback" id="pages-feedback">
+            Please enter a valid positive integer page count.
+          </div>
+        </div>
         <label class="form-check-label">
           <input
             type="checkbox"
@@ -65,9 +79,8 @@
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
         />
-      </div>
+      </form>
     </div>
 
     <table class="table" id="display">
