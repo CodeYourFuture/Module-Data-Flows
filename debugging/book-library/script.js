@@ -33,7 +33,7 @@ function populateStorage() {
 }
 
 // Handle form submission
-function handleSubmit() {
+ window.handleSubmit = function handleSubmit() {
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
   const pages = Number(pagesInput.value);
