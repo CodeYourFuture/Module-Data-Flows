@@ -1,6 +1,25 @@
 // Data store this variable never changes
 const myLibrary = [];
 
+// DOM nodes 
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheck = document.getElementById("check");
+const tableBody = document.querySelector("#display tbody");
+
+
+
+// Book model
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+}
+
 window.addEventListener("load", function (e) {
   populateStorage();
 });
@@ -20,11 +39,6 @@ function populateStorage() {
   }
 }
 
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const readCheck = document.getElementById("check");
-const tableBody = document.querySelector("#display tbody");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
