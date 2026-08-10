@@ -1,4 +1,5 @@
-let myLibrary = [];
+// Data store this variable never changes
+const myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
