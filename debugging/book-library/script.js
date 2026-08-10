@@ -19,22 +19,15 @@ class Book {
     this.read = read;
   }
 }
-
+// initial load 
 window.addEventListener("load", function (e) {
   populateStorage();
 });
-
+// Add default books only once
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
+  if (myLibrary.length === 0) {
+    myLibrary.push(new Book("Robinson Crusoe", "Daniel Defoe", 252, true));
+    myLibrary.push(new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true));
     render();
   }
 }
