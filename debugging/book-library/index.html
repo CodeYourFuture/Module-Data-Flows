@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title> </title>
+    <title>Book Library </title>
     <meta
-      charset="utf-8"
-      name="viewport"
+      charset="utf-8">
+      <meta name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,10 +28,10 @@
     </button>
 
     <div id="demo" class="collapse">
-      <div class="form-group">
+      <form id="bookForm" class="form-group">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text" 
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +39,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -65,10 +65,10 @@
           type="submit"
           value="Submit"
           class="btn btn-primary"
-          onclick="submit();"
+          onclick="handlesubmit();"
         />
+       </form>
       </div>
-    </div>
 
     <table class="table" id="display">
       <thead class="thead-dark">
@@ -80,9 +80,10 @@
           <th></th>
         </tr>
       </thead>
+      <tbody></tbody>
       
     </table>
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
