@@ -21,10 +21,11 @@ function populateStorage() {
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheck = document.getElementById("check");
+const tableBody = document.querySelector("#display tbody");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
