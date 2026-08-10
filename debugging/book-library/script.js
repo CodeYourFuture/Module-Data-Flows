@@ -32,35 +32,24 @@ function populateStorage() {
   }
 }
 
+// Handle form submission
+function handleSubmit() {
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = Number(pagesInput.value);
 
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-
-    render();
+  if (!title || !author || !pages || pages <= 0) {
+    showMessage("Please enter valid book details.");
+    return;
   }
-}
 
-function Book(title, author, pages, check) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.check = check;
-}
+  const book = new Book(title, author, pages, readCheckbox.checked);
+  myLibrary.push(book);
 
+  render();
+  showMessage(`Added "${title}" to your library.`);
+}
+ 
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
