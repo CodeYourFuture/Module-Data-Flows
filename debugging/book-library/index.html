@@ -26,6 +26,7 @@
     <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
       Add new book
     </button>
+    <div id="messageBox"></div>
 
     <div id="demo" class="collapse">
       <form id="bookForm" class="form-group">
@@ -62,10 +63,10 @@
           />Read
         </label>
         <input
-          type="submit"
+          type="button"
           value="Submit"
           class="btn btn-primary"
-          onclick="handlesubmit();"
+          onclick="handleSubmit();"
         />
        </form>
       </div>

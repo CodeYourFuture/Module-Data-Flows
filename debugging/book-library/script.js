@@ -43,7 +43,7 @@ function handleSubmit() {
     return;
   }
 
-  const book = new Book(title, author, pages, readCheckbox.checked);
+  const book = new Book(title, author, pages, readCheck.checked);
   myLibrary.push(book);
 
   render();
@@ -85,4 +85,13 @@ function render() {
   });
 }
 
-
+// Non-blocking message
+function showMessage(msg) {
+  const box = document.getElementById("messageBox");
+  box.innerHTML = `
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      ${msg}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+  `;
+}
