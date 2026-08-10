@@ -3,7 +3,6 @@ const myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
