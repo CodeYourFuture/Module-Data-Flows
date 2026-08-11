@@ -1,10 +1,31 @@
-let myLibrary = [];
+const titleInput = document.getElementById("title"); //rename all variable names
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
+const bookForm = document.getElementById("bookForm");
+const library = document.getElementById("library"); //newly created id for cleaning all existing row 
+const message = document.getElementById("message"); //get element for warning message
 
-window.addEventListener("load", function () {
+const myLibrary = []; //use const to avoid reassignment
+
+/*window.addEventListener("load", function () {
   //delete e as it is never used
   populateStorage();
   render();
-});
+}); */
+
+function setup() { // setup () function prepares everything that should happen once 
+  // when the page loads and before user starts doing anything
+  bookForm.addEventListener("submit", function (event) { //after user submits the book form 
+  // this will run submit () function to add book
+    event.preventDefault();
+    submit();
+  });
+
+  populateStorage();
+}
+
+setup();
 
 function populateStorage() {
   if (myLibrary.length == 0) {
@@ -20,12 +41,6 @@ function populateStorage() {
     render();
   }
 }
-
-const titleInput = document.getElementById("title"); //rename all variable names
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const checkInput = document.getElementById("check");
-const bookForm = document.getElementById("bookForm");
 
 
 //check the right input from forms and if its ok -> add the new book (object in array)
@@ -54,11 +69,6 @@ function submit() {
     myLibrary.push(book); //corrected name for original array library > myLibrary
     render();
 }
-bookForm.addEventListener("submit", function (event) { //after user submits the book form 
-// this will run submit () function to add book
-  event.preventDefault();
-  submit();
-});
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -69,8 +79,7 @@ function Book(title, author, pages, check) {
 
 function render() {
  // delete all old row at once
-  const library = document.getElementById("library"); //newly created id for cleaning all existing row 
- 
+  
  library.innerHTML = ""; //clean all old rows
 
   //insert updated row and cells
@@ -88,7 +97,6 @@ function render() {
 
     //add and wait for action for read/unread button
     const changeButton = document.createElement("button"); //correct changeBut > changeButton
-    changeButton.id = i;
     changeButton.className = "btn btn-success";
     wasReadCell.appendChild(changeButton);
     const readStatus = myLibrary[i].check ? "Yes" : "No";
@@ -98,6 +106,8 @@ function render() {
       render();
     });
 
+     
+
     //add delete button to every row and render again
     let deleteButton = document.createElement("button");
     deleteCell.appendChild(deleteButton);
@@ -105,10 +115,20 @@ function render() {
     deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", function () {
       // correct clicks > click
-      const deletedTitle = myLibrary[i].title; //save the book title which should have to delete
-      myLibrary.splice(i, 1);
-      render();
-      alert(`You've deleted title: ${deletedTitle}`);
-    });
+      const deletedTitle = myLibrary[i].title; // store the title which book will delete
+
+       const confirmed = confirm( //use confirm () to handle popup message for ok/cancel
+      `Are you sure you want to delete "${deletedTitle}"?`
+       );
+
+   if (confirmed) { //if confirm then user click ok and book will delete
+    myLibrary.splice(i, 1);
+    render(); //updates page 
+
+    message.textContent = `Book "${deletedTitle}" was deleted.`; //after clicking ok, th book delete
+    // and the message shows immediately
   }
+  });
+  }
+  
 }
