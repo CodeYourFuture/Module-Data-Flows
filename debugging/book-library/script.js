@@ -1,9 +1,15 @@
-let myLibrary = [];
+const myLibrary = [];
 
 window.addEventListener("load", function () {
   populateStorage();
   render();
 });
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
+const bookForm = document.getElementById("bookForm");
+const bookList = document.getElementById("bookList");
 
 function populateStorage() {
   if (myLibrary.length == 0) {
@@ -18,13 +24,6 @@ function populateStorage() {
     myLibrary.push(book2);
   }
 }
-
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const readCheckbox = document.getElementById("check");
-const bookForm = document.getElementById("bookForm");
-const bookList = document.getElementById("bookList");
 
 bookForm.addEventListener("submit", function (e) {
   e.preventDefault();
