@@ -7,7 +7,7 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readCheck = document.getElementById("check");
 const tableBody = document.querySelector("#display tbody");
-
+document.getElementById("submit-btn").addEventListener("click", handleSubmit);
 
 
 // Book model
