@@ -1,18 +1,25 @@
-// =================
-// Stripped down cowsayer CLI, 
-// no libraries or arguments
-// https://nodejs.dev/learn/accept-input-from-the-command-line-in-nodejs
-// =================
+// solution2.js - cowsay using readline prompt
 
-// 1. Make  a command line interface.
+const readline = require("readline");
 
-// 2. Make supplies for our speech bubble
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// 3. Make a cow that takes a string
-
-const cow = (saying) => {
-    // how did you make the cow before?
+function cowsay(text) {
+  const line = "-".repeat(text.length + 2);
+  return ` ${line}
+< ${text} >
+ ${line}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`;
 }
 
-// 4. Use readline to get a string from the terminal 
-// (with a prompt so it's clearer what we want)
+rl.question("What should the cow say? ", function (answer) {
+  console.log(cowsay(answer || "Moooo!"));
+  rl.close();
+});
