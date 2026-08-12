@@ -7,7 +7,7 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readCheck = document.getElementById("check");
 const tableBody = document.querySelector("#display tbody");
-document.getElementById("submit-btn").addEventListener("click", handleSubmit);
+
 
 
 // Book model
@@ -33,7 +33,9 @@ function populateStorage() {
 }
 
 // Handle form submission
- window.handleSubmit = function handleSubmit() {
+ function handleSubmit(e) {
+  e.preventDefault();//stop the form from reloading the page
+
   const title = titleInput.value.trim();
   const author = authorInput.value.trim();
   const pages = Number(pagesInput.value);
@@ -49,6 +51,9 @@ function populateStorage() {
   render();
   showMessage(`Added "${title}" to your library.`);
 }
+
+// attach listener 
+document.getElementById("submit-btn").addEventListener("click", handleSubmit);
  
 // Render table
 function render() {
