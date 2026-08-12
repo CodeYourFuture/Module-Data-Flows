@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
+    <title>Virtual Library</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -28,10 +26,11 @@
     </button>
 
     <div id="demo" class="collapse">
+     <form id="book-form"> 
       <div class="form-group">
         <label for="title">Title:</label>
         <input
-          type="title"
+          type="text"
           class="form-control"
           id="title"
           name="title"
@@ -39,7 +38,7 @@
         />
         <label for="author">Author: </label>
         <input
-          type="author"
+          type="text"
           class="form-control"
           id="author"
           name="author"
@@ -51,6 +50,8 @@
           class="form-control"
           id="pages"
           name="pages"
+          min="1"
+          step="1"
           required
         />
         <label class="form-check-label">
@@ -64,10 +65,11 @@
         <input
           type="submit"
           value="Submit"
+          id="submitBtn"
           class="btn btn-primary"
-          onclick="submit();"
-        />
+          />
       </div>
+     </form>  
     </div>
 
     <table class="table" id="display">
@@ -80,7 +82,7 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tableBody">
         <tr>
           <td></td>
           <td></td>
