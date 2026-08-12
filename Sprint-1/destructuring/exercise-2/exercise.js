@@ -70,17 +70,3 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
-
-// Task 1: Gryffindor members
-hogwarts.forEach(function ({ firstName, lastName, house }) {
-  if (house === "Gryffindor") {
-    console.log(`${firstName} ${lastName}`);
-  }
-});
-
-// Task 2: Teachers with pets
-hogwarts.forEach(function ({ firstName, lastName, occupation, pet }) {
-  if (occupation === "Teacher" && pet) {
-    console.log(`${firstName} ${lastName}`);
-  }
-});

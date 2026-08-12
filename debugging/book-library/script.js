@@ -25,6 +25,8 @@ const author = document.getElementById("author");
 const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
+//check the right input from forms and if its ok -> add the new book (object in array)
+//via Book function and start render function
 function submit() {
   if (
     title.value == null ||
@@ -35,10 +37,8 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    // Bug 3 fixed: was using title.value twice instead of author.value
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    // Bug 2 fixed: was using undefined `library` instead of `myLibrary`
-    myLibrary.push(book);
+    let book = new Book(title.value, title.value, pages.value, check.checked);
+    library.push(book);
     render();
   }
 }
@@ -53,10 +53,11 @@ function Book(title, author, pages, check) {
 function render() {
   let table = document.getElementById("display");
   let rowsNumber = table.rows.length;
-  // Bug 1 fixed: missing closing parenthesis on for loop
-  for (let n = rowsNumber - 1; n > 0; n--) {
+  //delete old table
+  for (let n = rowsNumber - 1; n > 0; n-- {
     table.deleteRow(n);
   }
+  //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
@@ -69,12 +70,17 @@ function render() {
     authorCell.innerHTML = myLibrary[i].author;
     pagesCell.innerHTML = myLibrary[i].pages;
 
+    //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
     changeBut.id = i;
     changeBut.className = "btn btn-success";
     wasReadCell.appendChild(changeBut);
-    // Bug 5 fixed: inverted read status (true means read, show "Yes"; false means not read, show "No")
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
+    let readStatus = "";
+    if (myLibrary[i].check == false) {
+      readStatus = "Yes";
+    } else {
+      readStatus = "No";
+    }
     changeBut.innerText = readStatus;
 
     changeBut.addEventListener("click", function () {
@@ -82,13 +88,13 @@ function render() {
       render();
     });
 
-    // Bug 4 fixed: variable name was `delBut` but declared as `delButton`; also event was "clicks" not "click"
+    //add delete button to every row and render again
     let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
+    delBut.id = i + 5;
+    deleteCell.appendChild(delBut);
+    delBut.className = "btn btn-warning";
+    delBut.innerHTML = "Delete";
+    delBut.addEventListener("clicks", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
