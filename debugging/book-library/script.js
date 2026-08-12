@@ -8,7 +8,7 @@ window.addEventListener("load", function (e) {
 function populateStorage() {
   if (myLibrary.length === 0) {
     // strict Equality
-    let book1 = new libraryBook("Robison Crusoe", "Daniel Defoe", "252", true);
+    let book1 = new libraryBook("Robinson Crusoe", "Daniel Defoe", "252", true); // name fixed
     let book2 = new libraryBook(
       "The Old Man and the Sea",
       "Ernest Hemingway",
@@ -37,67 +37,70 @@ function submit() {
     alert("Please fill all fields!");
     return false;
   } else {
-    let book = new libraryBook(
-      title.value,
-      author.value, // i think it was meant to author and title was duplicated
-      pages.value,
-      check.checked
+    let newBook = new libraryBook(
+      titleInput.value,
+      authorInput.value, // i think it was meant to author and title was duplicated
+      pagesInput.value,
+      readCheckbox.checked
     );
-    myLibrary.push(book);
+    myLibrary.push(newBook);
     render();
   }
 }
 // fixing naming issue
-function libraryBook(title, author, pages, check) {
+function libraryBook(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  this.isRead = isRead;
 }
 
 function render() {
   let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
+  let totalRows = table.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
+  for (let n = totalRows - 1; n > 0; n--) {
     table.deleteRow(n);
   }
   //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
+  let libraryLength = myLibrary.length;
+  for (let i = 0; i < libraryLength; i++) {
     let row = table.insertRow(-1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
+    let readStatusCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     // fixing naming issue
-    let changeBut = document.createElement("button");
-    changeBut.id = `readBtn-${i}`; // to avoid confusion.
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
+    let toggleReadBtn = document.createElement("button");
+    toggleReadBtn.id = `readBtn-${i}`; // to avoid confusion.
+    toggleReadBtn.className = "btn btn-success";
 
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
+    readStatusCell.appendChild(toggleReadBtn);
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+    let readStatus = myLibrary[i].isRead ? "Yes" : "No";
+    toggleReadBtn.textContent = readStatus;
+
+    toggleReadBtn.addEventListener("click", function () {
+      myLibrary[i].isRead = !myLibrary[i].isRead;
       render();
     });
 
     //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delButton.id = `delBtn${i}`; //to avoid confusion
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
+    let deleteBtn = document.createElement("button");
+    deleteBtn.id = `delBtn${i}`; //to avoid confusion
 
-    delButton.addEventListener("click", function () {
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.textContent = "Delete";
+    deleteCell.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener("click", function () {
       alert(`You've deleted title: ${myLibrary[i].title}`);
       myLibrary.splice(i, 1);
       render();
