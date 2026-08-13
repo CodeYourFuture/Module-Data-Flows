@@ -1,46 +1,47 @@
-let myLibrary = [];
+const myLibrary = [];
 
-window.addEventListener("load", function (e) {
+// Refactor: Removed duplicate render() execution on load. populateStorage() handles initial render.
+window.addEventListener("load", function () {
   populateStorage();
-  render();
 });
 
 function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
+  if (myLibrary.length === 0) {
+    // Refactor: Stored "page count" data type explicitly as numbers instead of strings
+    let book1 = new Book("Robison Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127, true);
+    myLibrary.push(book1, book2);
     render();
   }
 }
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
+// Refactor: Updated variable names with descriptive suffixes to clearly reflect that they store DOM nodes
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
 
 function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
+  // Refactor: Preprocessing input through trim validation and numerical parsing (no need to check for null on values)
+  const formattedTitle = titleInput.value.trim();
+  const formattedAuthor = authorInput.value.trim();
+  const pageCount = parseInt(pagesInput.value, 10);
+
+  // Input validation constraint check
+  if (!formattedTitle || !formattedAuthor || isNaN(pageCount) || pageCount <= 0) {
+    alert("Please fill all fields with valid information!");
     return false;
-  } else {
-    // Bug 3 fixed: was using title.value twice instead of author.value
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    // Bug 2 fixed: was using undefined `library` instead of `myLibrary`
-    myLibrary.push(book);
-    render();
   }
+
+  let book = new Book(formattedTitle, formattedAuthor, pageCount, checkInput.checked);
+  myLibrary.push(book);
+  render();
+
+  // Clear inputs on success
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  checkInput.checked = false;
 }
 
 function Book(title, author, pages, check) {
@@ -51,47 +52,53 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  // Bug 1 fixed: missing closing parenthesis on for loop
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-  let length = myLibrary.length;
+  // Refactor: Targets the new clean semantic table body ID from your index.html
+  const tableBody = document.getElementById("book-table-body");
+  
+  // Refactor: Efficient batch approach to delete table rows at once by clearing container instead of looping one-by-one
+  tableBody.innerHTML = "";
+
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
+    let row = tableBody.insertRow(-1); // Inserts cleanly sequentially at the end
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
     let wasReadCell = row.insertCell(3);
     let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
 
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    // Bug 5 fixed: inverted read status (true means read, show "Yes"; false means not read, show "No")
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
+    // Refactor: Replaced unsafe innerHTML with secure textContent to prevent cross-site scripting
+    titleCell.textContent = myLibrary[i].title;
+    authorCell.textContent = myLibrary[i].author;
+    pagesCell.textContent = myLibrary[i].pages;
 
-    changeBut.addEventListener("click", function () {
+    // Refactor: Naming consistency (statusBtn & deleteBtn) and dropped redundant tracking IDs
+    const statusBtn = document.createElement("button");
+    statusBtn.className = "btn btn-success btn-sm";
+    wasReadCell.appendChild(statusBtn);
+
+    // Refactor: Simplified verbose if-else block to one statement using the ternary ? : operator
+    statusBtn.textContent = myLibrary[i].check ? "Yes" : "No";
+
+    statusBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    // Bug 4 fixed: variable name was `delBut` but declared as `delButton`; also event was "clicks" not "click"
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+    const deleteBtn = document.createElement("button");
+    deleteCell.appendChild(deleteBtn);
+    deleteBtn.className = "btn btn-warning btn-sm";
+    deleteBtn.textContent = "Delete";
+    
+    deleteBtn.addEventListener("click", function () {
+      const targetTitle = myLibrary[i].title;
+      // Refactor: Resolved timing bug. Data mutation and UI render occur safely BEFORE the blocking window.alert runs
       myLibrary.splice(i, 1);
       render();
+      alert(`You've successfully deleted title: ${targetTitle}`);
     });
   }
 }
+
+// Bind submission trigger securely to the window instance for internal module routing
+window.submit = submit;
