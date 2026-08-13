@@ -70,3 +70,23 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function printStudents(arr) {
+  for (const { firstName, lastName, house } of arr) {
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+printStudents(hogwarts);
+
+function printTeachers(arr) {
+  for (const { firstName, lastName, house, pet } of arr) {
+    if (pet !== null) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+printTeachers(hogwarts);
