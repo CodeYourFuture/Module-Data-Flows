@@ -75,7 +75,14 @@ let hogwarts = [
 // - Use object destructuring to extract the values you need out of each element in the array.
 
 function findGryffindorMembers(array) {
-  for (character of array) {
-    let { house } = character;
+  let pplInGryffindor = [];
+
+  for (const character of array) {
+    const { firstName, lastName, house } = character;
+    const fullName = `${firstName} ${lastName}`;
+    if (house === "Gryffindor") {
+      pplInGryffindor.push(fullName);
+    }
   }
+  return pplInGryffindor;
 }
