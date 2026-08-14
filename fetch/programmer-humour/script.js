@@ -8,6 +8,7 @@ async function fetchData(endpointAPI) {
 
     const data = await response.json();
 
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Could not fetch data", error);
