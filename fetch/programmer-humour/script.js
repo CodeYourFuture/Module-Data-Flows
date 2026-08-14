@@ -13,3 +13,22 @@ async function fetchData(endpointAPI) {
     console.error("Could not fetch data", error);
   }
 }
+
+async function loadComic() {
+  try {
+    const data = await fetchData(endpointAPI);
+    if (!data) {
+      throw new Error("No data received from the API.");
+    }
+    const imgEl = document.querySelector("img");
+    imgEl.src = data.img;
+    imgEl.title = data.title;
+    imgEl.alt = data.alt;
+  } catch (error) {
+    console.error("Error loading comic:", error);
+    document.querySelector("h1").textContent =
+      "Image failed loading. Please try again later";
+  }
+}
+
+loadComic();
