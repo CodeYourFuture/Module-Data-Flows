@@ -7,19 +7,32 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
-function printReceipt(order) {  
+function printReceipt(order) {
   console.log("QTY      ITEM                 TOTAL");
 
+  let grandTotalPence = 0;
+
   for (const item of order) {
-    const {itemName, quantity, unitPricePence} = item;
+    const { itemName, quantity, unitPricePence } = item;
+
     const itemTotalPence = quantity * unitPricePence;
+
+    grandTotalPence += itemTotalPence;
+
     const itemTotal = (itemTotalPence / 100).toFixed(2);
     const quantityText = quantity.toString();
-    
 
-
-    console.log(quantityText.padEnd(8), itemName.padEnd(20), itemTotal);
+    console.log(
+      quantityText.padEnd(8),
+      itemName.padEnd(20),
+      itemTotal
+    );
   }
+
+  const grandTotal = (grandTotalPence / 100).toFixed(2);
+
+  console.log("--------------------------------");
+  console.log("TOTAL".padEnd(29), grandTotal);
 }
 
 printReceipt(order);

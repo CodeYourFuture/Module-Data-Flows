@@ -76,9 +76,7 @@ let hogwarts = [
 function studentsGryffindor(arr) {
   const gryffindorStudents = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    const { firstName, lastName, house } = arr[i];
-
+  for (const { firstName, lastName, house } of arr) {
     if (house === "Gryffindor") {
       gryffindorStudents.push(`${firstName} ${lastName}`);
     }
@@ -93,15 +91,12 @@ for (const student of gryffindorStudents) {
   console.log(student);
 }
 
-
 // Task 2 - Display teachers who have pets
 
 function teachersWithPets(arr) {
   const teachers = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    const { firstName, lastName, pet, occupation } = arr[i];
-
+  for (const { firstName, lastName, pet, occupation } of arr) {
     if (occupation === "Teacher" && pet !== null) {
       teachers.push(`${firstName} ${lastName}`);
     }
