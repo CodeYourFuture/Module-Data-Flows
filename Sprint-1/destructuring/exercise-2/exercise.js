@@ -70,3 +70,43 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// Task 1 - Display people who belong to Gryffindor
+
+function studentsGryffindor(arr) {
+  const gryffindorStudents = [];
+
+  for (const { firstName, lastName, house } of arr) {
+    if (house === "Gryffindor") {
+      gryffindorStudents.push(`${firstName} ${lastName}`);
+    }
+  }
+
+  return gryffindorStudents;
+}
+
+const gryffindorStudents = studentsGryffindor(hogwarts);
+
+for (const student of gryffindorStudents) {
+  console.log(student);
+}
+
+// Task 2 - Display teachers who have pets
+
+function teachersWithPets(arr) {
+  const teachers = [];
+
+  for (const { firstName, lastName, pet, occupation } of arr) {
+    if (occupation === "Teacher" && pet !== null) {
+      teachers.push(`${firstName} ${lastName}`);
+    }
+  }
+
+  return teachers;
+}
+
+const teachers = teachersWithPets(hogwarts);
+
+for (const teacher of teachers) {
+  console.log(teacher);
+}
