@@ -1,29 +1,42 @@
 const myLibrary = [];
 
-// Get elements from HTML
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const checkInput = document.getElementById("check");
-const submitBtn = document.getElementById("submitBtn");
-const bookList = document.getElementById("bookList");
-const messageEl = document.getElementById("message");
+let titleInput;
+let authorInput;
+let pagesInput;
+let checkInput;
+let submitBtn;
+let bookList;
+let messageEl;
 
-// Listen for Submit button click
-submitBtn.addEventListener("click", submitBook);
+function init() {
+  // Get elements from HTML
+  titleInput = document.getElementById("title");
+  authorInput = document.getElementById("author");
+  pagesInput = document.getElementById("pages");
+  checkInput = document.getElementById("check");
+  submitBtn = document.getElementById("submitBtn");
+  bookList = document.getElementById("bookList");
+  messageEl = document.getElementById("message");
 
-// Add initial books
-const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
-const book2 = new Book(
-  "The Old Man and the Sea",
-  "Ernest Hemingway",
-  127,
-  true
-);
+  // Listen for Submit button click
+  submitBtn.addEventListener("click", submitBook);
 
-myLibrary.push(book1);
-myLibrary.push(book2);
-render();
+  // Add initial books
+  const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+  const book2 = new Book(
+    "The Old Man and the Sea",
+    "Ernest Hemingway",
+    127,
+    true
+  );
+
+  myLibrary.push(book1);
+  myLibrary.push(book2);
+
+  render();
+}
+
+init();
 
 // Check the right input from forms and if it's okay,
 // add the new book object to the array and render
