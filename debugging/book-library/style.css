@@ -1,17 +1,7 @@
-.form-group {
-  width: 400px;
-  height: 300px;
-  align-self: left;
+#bookForm {
+  max-width: 400px;
   padding-left: 20px;
-}
-
-.btn {
-  display: block;
-}
-
-.form-check-label {
-  padding-left: 20px;
-  margin: 5px 0px 5px 0px;
+  margin-bottom: 20px;
 }
 
 button.btn-info {
