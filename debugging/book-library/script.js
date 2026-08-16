@@ -52,7 +52,7 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  const bookTableBody = document.getElementByID("book-table-body");
+  const bookTableBody = document.getElementById("book-table-body");
   bookTableBody.innerHTML = "";
 
   //insert updated row and cells
@@ -74,7 +74,7 @@ function render() {
     toggleReadBtn.textContent = myLibrary[i].check ? "yes" : "no";
     wasReadCell.appendChild(toggleReadBtn);
 
-    toggleReadBut.addEventListener("click", function () {
+    toggleReadBtn.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
