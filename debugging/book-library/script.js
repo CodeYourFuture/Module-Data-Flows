@@ -34,8 +34,8 @@ bookForm.addEventListener("submit", function (e) {
   const pages = Number(pagesInput.value);
   const wasRead = checkInput.checked;
 
-  if (!title || !author || !pages) {
-    alert("Please fill all fields!");
+  if (!title || !author || !Number.isInteger(pages) || pages <= 0) {
+    alert("Please fill all fields with valid information!");
     return;
   }
   const book = new Book(title, author, pages, wasRead);
