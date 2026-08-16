@@ -27,12 +27,12 @@ const checkInput = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    title.value == null ||
-    title.value == "" ||
-    author.value == null ||
-    author.value == "" ||
-    pages.value == null ||
-    pages.value == ""
+    titleInput.value == null ||
+    titleInput.value == "" ||
+    authorInput.value == null ||
+    authorInput.value == "" ||
+    pagesInput.value == null ||
+    pagesInput.value == ""
   ) {
     alert("Please fill all fields!");
     return false;
