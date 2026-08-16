@@ -18,6 +18,7 @@ function populateStorage() {
   }
 }
 
+const bookForm = document.getElementById("book-form");
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
