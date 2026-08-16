@@ -1,4 +1,4 @@
-let myLibrary = [];
+const myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -56,14 +56,14 @@ function render() {
   bookTableBody.innerHTML = "";
 
   //insert updated row and cells
-  let length = myLibrary.length;
+  const length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = bookTableBody.insertRow();
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = bookTableBody.insertRow();
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
