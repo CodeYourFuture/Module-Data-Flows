@@ -53,7 +53,6 @@ function Book(title, author, pages, check) {
 
 function render() {
   const bookTableBody = document.getElementByID("book-table-body");
-
   bookTableBody.innerHTML = "";
 
   //insert updated row and cells
@@ -69,29 +68,31 @@ function render() {
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = myLibrary[i].check ? "Yes" : "No";
-    changeBut.innerText = readStatus;
+    //read/unread toggle button
+    const toggleReadBtn = document.createElement("button");
+    toggleReadBtn.className = "btn btn-success";
+    toggleReadBtn.textContent = myLibrary[i].check ? "yes" : "no";
+    wasReadCell.appendChild(toggleReadBtn);
 
-    changeBut.addEventListener("click", function () {
+    toggleReadBut.addEventListener("click", function () {
       myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delButton.id = i + 5;
-    deleteCell.appendChild(delButton);
-    delButton.className = "btn btn-warning";
-    delButton.innerHTML = "Delete";
-    delButton.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
-      render();
+    //delete button with confirmation prompt
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-warning";
+    deleteBtn.textContent = "Delete";
+    deleteCell.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener("click", function () {
+      const confirmDel = confirm(
+        `Are you sure you want to delete "${myLibrary[i].title}"?`
+      );
+      if (confirmDel) {
+        myLibrary.splice(i, 1);
+        render();
+      }
     });
   }
 }
