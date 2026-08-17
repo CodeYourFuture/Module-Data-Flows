@@ -1,6 +1,11 @@
-let myLibrary = [];
+// 1 & 3. Constant array and top-level DOM element declarations
+const myLibrary = [];
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const readCheckbox = document.getElementById("check");
 
-window.addEventListener("load", function (e) {
+window.addEventListener("load", function () {
   populateStorage();
 
   const bookForm = document.getElementById("bookForm");
@@ -11,11 +16,12 @@ window.addEventListener("load", function (e) {
 
 function populateStorage() {
   if (myLibrary.length === 0) {
-    let book1 = new libraryBook("Robinson Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new libraryBook(
+    // 2. Constructor called with PascalCase
+    let book1 = new LibraryBook("Robinson Crusoe", "Daniel Defoe", 252, true);
+    let book2 = new LibraryBook(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
@@ -24,38 +30,33 @@ function populateStorage() {
   }
 }
 
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const pagesInput = document.getElementById("pages");
-const readCheckbox = document.getElementById("check");
-
 function addBook(e) {
   e.preventDefault();
 
-  if (
-    !titleInput.value.trim() ||
-    !authorInput.value.trim() ||
-    !pagesInput.value.trim()
-  ) {
-    alert("Please fill all fields!");
-    return false;
+  // 4. Input preprocessing and consistent usage of cleaned values
+  const cleanTitle = titleInput.value.trim();
+  const cleanAuthor = authorInput.value.trim();
+  const cleanPages = parseInt(pagesInput.value, 10);
+
+  if (!cleanTitle || !cleanAuthor || isNaN(cleanPages) || cleanPages < 1) {
+    alert("Please provide a valid title, author, and positive page count!");
+    return;
   }
 
-  let newBook = new libraryBook(
-    titleInput.value,
-    authorInput.value,
-    pagesInput.value,
+  const newBook = new LibraryBook(
+    cleanTitle,
+    cleanAuthor,
+    cleanPages,
     readCheckbox.checked
   );
 
   myLibrary.push(newBook);
-
   document.getElementById("bookForm").reset();
-
   render();
 }
 
-function libraryBook(title, author, pages, isRead) {
+// 2. PascalCase constructor function
+function LibraryBook(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -63,32 +64,28 @@ function libraryBook(title, author, pages, isRead) {
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let totalRows = table.rows.length;
+  // 5. Efficient single-operation clearing of <tbody>
+  const tableBody = document.querySelector("#display tbody");
+  tableBody.textContent = "";
 
-  for (let n = totalRows - 1; n > 0; n--) {
-    table.deleteRow(n);
-  }
-
-  let libraryLength = myLibrary.length;
+  const libraryLength = myLibrary.length;
   for (let i = 0; i < libraryLength; i++) {
-    let row = table.insertRow(-1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let readStatusCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = tableBody.insertRow();
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const readStatusCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
 
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
 
-    let toggleReadBtn = document.createElement("button");
-    toggleReadBtn.id = `readBtn-${i}`;
+    // Read status toggle button
+    const toggleReadBtn = document.createElement("button");
+    // 6. No unnecessary ID attribute assignment
     toggleReadBtn.className = "btn btn-success";
-
-    let readStatus = myLibrary[i].isRead ? "Yes" : "No";
-    toggleReadBtn.textContent = readStatus;
+    toggleReadBtn.textContent = myLibrary[i].isRead ? "Yes" : "No";
 
     toggleReadBtn.addEventListener("click", function () {
       myLibrary[i].isRead = !myLibrary[i].isRead;
@@ -96,15 +93,23 @@ function render() {
     });
     readStatusCell.appendChild(toggleReadBtn);
 
-    let deleteBtn = document.createElement("button");
-    deleteBtn.id = `delBtn-${i}`;
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    // 6. No unnecessary ID attribute assignment
     deleteBtn.className = "btn btn-warning";
     deleteBtn.textContent = "Delete";
 
     deleteBtn.addEventListener("click", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      const deletedTitle = myLibrary[i].title;
+
+      // 7. Delete from array and re-render DOM BEFORE triggering the alert
       myLibrary.splice(i, 1);
       render();
+
+      // Defer alert so the browser completes its UI repaint first
+      setTimeout(() => {
+        alert(`You've deleted title: ${deletedTitle}`);
+      }, 0);
     });
     deleteCell.appendChild(deleteBtn);
   }
