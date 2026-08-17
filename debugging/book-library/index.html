@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title> </title>
-    <meta
-      charset="utf-8"
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <title>Book library</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -16,60 +13,64 @@
     />
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-
   <body>
     <div class="jumbotron text-center">
       <h1>Library</h1>
       <p>Add books to your virtual library</p>
     </div>
-
     <button data-toggle="collapse" data-target="#demo" class="btn btn-info">
       Add new book
     </button>
 
-    <div id="demo" class="collapse">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <input
-          type="title"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
-        <label for="author">Author: </label>
-        <input
-          type="author"
-          class="form-control"
-          id="author"
-          name="author"
-          required
-        />
-        <label for="pages">Pages:</label>
-        <input
-          type="number"
-          class="form-control"
-          id="pages"
-          name="pages"
-          required
-        />
-        <label class="form-check-label">
+    <form>
+      <div id="demo" class="collapse">
+        <div class="form-group" id="bookForm">
+          <label for="title">Title:</label>
           <input
-            type="checkbox"
-            class="form-check-input"
-            id="check"
-            value=""
-          />Read
-        </label>
-        <input
-          type="submit"
-          value="Submit"
-          class="btn btn-primary"
-          onclick="submit();"
-        />
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            minlength="1"
+            maxlength="100"
+            required
+          />
+          <label for="author">Author: </label>
+          <input
+            type="text"
+            class="form-control"
+            id="author"
+            name="author"
+            minlength="1"
+            maxlength="100"
+            required
+          />
+          <label for="pages">Pages:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pages"
+            name="pages"
+            min="1"
+            max="20000"
+            step="1"
+            required
+          />
+          <label class="form-check-label">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check"
+              name="read"
+              value="true"
+            />Read
+          </label>
+          <button type="submit" id="addBook" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
       </div>
-    </div>
-
+    </form>
     <table class="table" id="display">
       <thead class="thead-dark">
         <tr>
@@ -90,7 +91,6 @@
         </tr>
       </tbody>
     </table>
-
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
