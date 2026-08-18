@@ -1,103 +1,129 @@
-let myLibrary = [];
+const myLibrary = [];
 
-window.addEventListener("load", function (e) {
-  populateStorage();
-  render();
-});
+const bookForm = document.getElementById("bookForm");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const checkInput = document.getElementById("check");
 
-function populateStorage() {
-  if (myLibrary.length == 0) {
-    let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
-    let book2 = new Book(
-      "The Old Man and the Sea",
-      "Ernest Hemingway",
-      "127",
-      true
-    );
-    myLibrary.push(book1);
-    myLibrary.push(book2);
-    render();
-  }
-}
-
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const check = document.getElementById("check");
-
-//check the right input from forms and if its ok -> add the new book (object in array)
-//via Book function and start render function
-function submit() {
-  if (
-    title.value == null ||
-    title.value == "" ||
-    pages.value == null ||
-    pages.value == ""
-  ) {
-    alert("Please fill all fields!");
-    return false;
-  } else {
-    let book = new Book(title.value, title.value, pages.value, check.checked);
-    library.push(book);
-    render();
-  }
-}
-
-function Book(title, author, pages, check) {
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.check = check;
+  this.read = !!read;
+}
+
+function populateStorage() {
+  if (myLibrary.length === 0) {
+    const book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
+    const book2 = new Book(
+      "The Old Man and the Sea",
+      "Ernest Hemingway",
+      127,
+      true
+    );
+    myLibrary.push(book1, book2);
+  }
+}
+
+function addBook() {
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pagesRaw = pagesInput.value.trim();
+  const pages = Number(pagesRaw);
+
+  // Native "required"/"min"/"step" already ran before this handler fires
+  // (see bookForm's submit listener below), so this is a second layer
+  // for things HTML attributes can't express, like whitespace-only text.
+  if (!title || !author || !pagesRaw || !Number.isFinite(pages) || pages <= 0) {
+    alert("Please fill all fields with valid values!");
+    return false;
+  }
+
+  const book = new Book(title, author, pages, checkInput.checked);
+  myLibrary.push(book);
+
+  bookForm.reset();
+
+  render();
+  return true;
 }
 
 function render() {
-  let table = document.getElementById("display");
-  let rowsNumber = table.rows.length;
-  //delete old table
-  for (let n = rowsNumber - 1; n > 0; n-- {
-    table.deleteRow(n);
-  }
-  //insert updated row and cells
-  let length = myLibrary.length;
-  for (let i = 0; i < length; i++) {
-    let row = table.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
-    titleCell.innerHTML = myLibrary[i].title;
-    authorCell.innerHTML = myLibrary[i].author;
-    pagesCell.innerHTML = myLibrary[i].pages;
+  const table = document.getElementById("display");
+  const tbody = table.getElementsByTagName("tbody")[0];
 
-    //add and wait for action for read/unread button
-    let changeBut = document.createElement("button");
-    changeBut.id = i;
-    changeBut.className = "btn btn-success";
-    wasReadCell.appendChild(changeBut);
-    let readStatus = "";
-    if (myLibrary[i].check == false) {
-      readStatus = "Yes";
-    } else {
-      readStatus = "No";
-    }
-    changeBut.innerText = readStatus;
+  tbody.innerHTML = "";
 
-    changeBut.addEventListener("click", function () {
-      myLibrary[i].check = !myLibrary[i].check;
+  myLibrary.forEach((book) => {
+    const row = document.createElement("tr");
+
+    const titleCell = document.createElement("td");
+    titleCell.textContent = book.title;
+    row.appendChild(titleCell);
+
+    const authorCell = document.createElement("td");
+    authorCell.textContent = book.author;
+    row.appendChild(authorCell);
+
+    const pagesCell = document.createElement("td");
+    pagesCell.textContent = book.pages;
+    row.appendChild(pagesCell);
+
+    const readCell = document.createElement("td");
+    const toggleReadBtn = document.createElement("button");
+    toggleReadBtn.className = "btn btn-sm btn-outline-primary";
+    toggleReadBtn.textContent = book.read ? "Yes" : "No";
+    toggleReadBtn.addEventListener("click", () => {
+      book.read = !book.read;
       render();
     });
+    readCell.appendChild(toggleReadBtn);
+    row.appendChild(readCell);
 
-    //add delete button to every row and render again
-    let delButton = document.createElement("button");
-    delBut.id = i + 5;
-    deleteCell.appendChild(delBut);
-    delBut.className = "btn btn-warning";
-    delBut.innerHTML = "Delete";
-    delBut.addEventListener("clicks", function () {
-      alert(`You've deleted title: ${myLibrary[i].title}`);
-      myLibrary.splice(i, 1);
+    const deleteCell = document.createElement("td");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "btn btn-sm btn-danger";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+      const idx = myLibrary.indexOf(book);
+      if (idx === -1) return;
+
+      myLibrary.splice(idx, 1);
       render();
+      showToast(`Deleted "${book.title}"`);
     });
-  }
+    deleteCell.appendChild(deleteBtn);
+    row.appendChild(deleteCell);
+
+    tbody.appendChild(row);
+  });
 }
+
+function showToast(message, duration = 2000) {
+  const toast = document.getElementById("toast");
+  if (!toast) {
+    console.log(message);
+    return;
+  }
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, duration);
+}
+
+bookForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addBook();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  populateStorage();
+  render();
+});
+ 
+   
+   
+
