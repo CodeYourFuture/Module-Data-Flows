@@ -1,5 +1,5 @@
 let myLibrary = [];
-
+//event listener
 window.addEventListener("load", function (e) {
   populateStorage();
   render();
@@ -98,3 +98,4 @@ function render() {
     });
   }
 }
+
