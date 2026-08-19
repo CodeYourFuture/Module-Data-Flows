@@ -81,9 +81,18 @@ function render() {
     
     deleteBtn.addEventListener("click", function () {
       const targetTitle = myLibrary[i].title;
+      
+      // 1. Remove item from memory array
       myLibrary.splice(i, 1);
+      
+      // 2. Force DOM row structure updates
       render();
-      alert(`You've successfully deleted title: ${targetTitle}`);
+      
+      // 3. Advanced Fix: Defer alert thread-blocking to the next event loop tick.
+      // This forces the browser to physically clear the table row BEFORE freezing.
+      setTimeout(() => {
+        alert(`You've successfully deleted title: ${targetTitle}`);
+      }, 0);
     });
   }
 }
