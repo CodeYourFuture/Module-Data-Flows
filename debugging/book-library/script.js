@@ -6,9 +6,15 @@ const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const checkInput = document.getElementById("check");
 
-window.addEventListener("load", function () {
+// 2. Clear app initialization entry point
+window.addEventListener("load", init);
+
+function init() {
   populateStorage();
-});
+  
+  // Grouping event listener registration inside initialization function
+  bookForm.addEventListener("submit", handleFormSubmit);
+}
 
 function populateStorage() {
   if (myLibrary.length === 0) {
@@ -19,8 +25,8 @@ function populateStorage() {
   }
 }
 
-// 2. Attach event listener in JS via .addEventListener() instead of HTML inline
-bookForm.addEventListener("submit", function (event) {
+// 3. Extracted "on submit" logic into a clean named callback function
+function handleFormSubmit(event) {
   event.preventDefault(); // Stop native page reload
 
   const formattedTitle = titleInput.value.trim();
@@ -36,9 +42,9 @@ bookForm.addEventListener("submit", function (event) {
   myLibrary.push(book);
   render();
 
-  // 3. Use the form's native method to reset all fields cleanly
+  // Use the form's native method to reset all fields cleanly
   bookForm.reset();
-});
+}
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -81,15 +87,9 @@ function render() {
     
     deleteBtn.addEventListener("click", function () {
       const targetTitle = myLibrary[i].title;
-      
-      // 1. Remove item from memory array
       myLibrary.splice(i, 1);
-      
-      // 2. Force DOM row structure updates
       render();
       
-      // 3. Advanced Fix: Defer alert thread-blocking to the next event loop tick.
-      // This forces the browser to physically clear the table row BEFORE freezing.
       setTimeout(() => {
         alert(`You've successfully deleted title: ${targetTitle}`);
       }, 0);
