@@ -1,4 +1,4 @@
-let myLibrary = [];
+const myLibrary = [];
 //event listener
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -10,7 +10,7 @@ function populateStorage() {
     let book2 = new Book(
       "The Old Man and the Sea",
       "Ernest Hemingway",
-      "127",
+      127,
       true
     );
     myLibrary.push(book1);
@@ -25,14 +25,24 @@ const checkInput = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function submit() {
-  if (title.value === "" || author.value === "" || pages.value === "") {
+function processbook() {
+  const trimmedTitle = title.value.trim();
+  const trimmedAuthor = author.value.trim();
+  const pagesNum = Number(pages.value);
+
+  if (
+    !trimmedTitle ||
+    !trimmedAuthor ||
+    !Number.isInteger(pagesNum) ||
+    pagesNum <= 0
+  ) {
+    alert("Please enter a valid title, author, and a whole number of pages.");
     return false;
-  } else {
-    let book = new Book(title.value, author.value, pages.value, check.checked);
-    myLibrary.push(book);
-    render();
   }
+
+  let book = new Book(trimmedTitle, trimmedAuthor, pagesNum, check.checked);
+  myLibrary.push(book);
+  render();
 }
 
 function Book(title, author, pages, check) {
@@ -82,6 +92,7 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.textContent = "Delete";
     delBut.addEventListener("click", function () {
+      alert("Are you sure you want to delete the book ?");
       myLibrary.splice(i, 1);
       render();
     });
