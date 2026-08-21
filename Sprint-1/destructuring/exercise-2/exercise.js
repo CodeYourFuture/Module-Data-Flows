@@ -80,7 +80,7 @@ function displayNames(names){
   }
 }
 //task 2
-function displayTecherNames(names){
+function displayTeacherNames(names){
   for (let person of names) {
     const { firstName, lastName, pet, occupation } = person;
     if (occupation === "Teacher" && pet !== null) {
@@ -88,3 +88,5 @@ function displayTecherNames(names){
     }
   }
 }
+displayNames(hogwarts);
+displayTeacherNames(hogwarts);
