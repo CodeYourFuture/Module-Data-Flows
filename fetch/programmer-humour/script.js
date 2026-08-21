@@ -6,12 +6,23 @@ function getLatestComic() {
     })
     .then(function (data) {
       console.log(data);
-      document.getElementById("comic-img").src = data.img;
-      document.getElementById("comic-img").alt = data.title;
+      
+      // Cache the element to avoid repeating the selector
+      const comicImg = document.getElementById("comic-img");
+      
+      // Guard clause to ensure the element exists before using it
+      if (comicImg) {
+        comicImg.src = data.img;
+        comicImg.alt = data.title;
+      }
     })
     .catch(function (error) {
-      document.getElementById("error").textContent =
-        "Failed to load comic: " + error.message;
+      // Cache and guard check for the error element
+      const errorElement = document.getElementById("error");
+      
+      if (errorElement) {
+        errorElement.textContent = "Failed to load comic: " + error.message;
+      }
     });
 }
 
