@@ -25,7 +25,11 @@ const checkInput = document.getElementById("check");
 
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
-function processbook() {
+const submitBtn = document.getElementById("submit-btn");
+function processbook(event) {
+  // Prevent the form from refreshing the page
+  event.preventDefault();
+
   const trimmedTitle = title.value.trim();
   const trimmedAuthor = author.value.trim();
   const pagesNum = Number(pages.value);
@@ -44,6 +48,7 @@ function processbook() {
   myLibrary.push(book);
   render();
 }
+submitBtn.addEventListener("click", processbook);
 
 function Book(title, author, pages, check) {
   this.title = title;
@@ -55,10 +60,6 @@ function Book(title, author, pages, check) {
 function render() {
   const table = document.getElementById("display");
   table.innerHTML = "";
-  let rowsNumber = table.rows.length;
-  //delete old table
-  const tobody = table.querySelector("tbody") || table;
-  tobody.innerHTML = "";
 
   //insert updated row and cells
   let length = myLibrary.length;
@@ -92,9 +93,13 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.textContent = "Delete";
     delBut.addEventListener("click", function () {
-      alert("Are you sure you want to delete the book ?");
-      myLibrary.splice(i, 1);
-      render();
+      const bookTitle = myLibrary[i].title;
+
+      // 2. Ask for confirmation with 'OK' and 'Cancel' options
+      if (confirm(`Are you sure you want to delete "${bookTitle}"?`)) {
+        myLibrary.splice(i, 1);
+        render();
+      }
     });
   }
 }
