@@ -9,7 +9,12 @@ function addDefaultBooks() {
   if (myLibrary.length === 0) {
     let book1 = new Book("Robinson Crusoe", "Daniel Defoe", 252, true);
 
-    let book2 = new Book("The Old Man and the Sea", "Ernest Hemingway", 127);
+    let book2 = new Book(
+      "The Old Man and the Sea",
+      "Ernest Hemingway",
+      127,
+      true
+    );
 
     myLibrary.push(book1);
     myLibrary.push(book2);
@@ -22,19 +27,21 @@ const pages = document.getElementById("pages");
 const check = document.getElementById("check");
 
 function addBook() {
+  // Check that all required information has been entered
   if (
     title.value.trim() === "" ||
     author.value.trim() === "" ||
-    pages.value.trim() === ""
+    pages.value.trim() === "" ||
+    Number(pages.value) <= 0
   ) {
-    alert("Please fill all fields!");
+    alert("Please enter a title, author, and a valid number of pages!");
     return;
   }
 
   let book = new Book(
     title.value.trim(),
     author.value.trim(),
-    pages.value,
+    Number(pages.value),
     check.checked
   );
 
@@ -64,7 +71,7 @@ function render() {
     table.deleteRow(1);
   }
 
-  // Add each book
+  // Add each book to the table
   for (let i = 0; i < myLibrary.length; i++) {
     let row = table.insertRow(-1);
 
