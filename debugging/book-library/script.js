@@ -58,13 +58,13 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  const table = document.getElementById("display");
-  table.innerHTML = "";
+  const tbody = document.querySelector("#display tbody");
+  tbody.innerHTML = "";
 
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = table.insertRow(-1);
+    let row = tbody.insertRow(-1);
     let titleCell = row.insertCell(0);
     let authorCell = row.insertCell(1);
     let pagesCell = row.insertCell(2);
