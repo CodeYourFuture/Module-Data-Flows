@@ -1,7 +1,7 @@
 const endpointAPI = "https://xkcd.now.sh/?comic=latest";
-async function fetchData(endpointAPI) {
+async function fetchData(url) {
   try {
-    const response = await fetch(endpointAPI);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error! Status: ${response.status}`);
     }
