@@ -77,3 +77,11 @@ hogwarts.forEach(({ firstName, lastName, house }) => {
     console.log(`${firstName} ${lastName}`);
   }
 });
+
+// display the names of the teachers who have pets
+
+hogwarts.forEach(({ firstName, lastName, occupation, pet }) => {
+  if (occupation === "teacher" && pet !== null) {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
