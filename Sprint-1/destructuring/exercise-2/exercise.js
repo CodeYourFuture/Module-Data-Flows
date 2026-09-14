@@ -70,3 +70,10 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+// display the names of the people who belong to the Gryffindor house
+hogwarts.forEach(({ firstName, lastName, house }) => {
+  if (house === "Gryffindor") {
+    console.log(`${firstName} ${lastName}`);
+  }
+});
