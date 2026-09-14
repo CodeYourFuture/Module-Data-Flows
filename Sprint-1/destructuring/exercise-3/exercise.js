@@ -6,3 +6,11 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+console.log("QTY     ITEM                TOTAL");
+let basketTotal = 0;
+order.forEach(({ itemName, quantity, unitPricePence }) => {
+  itemTotal = quantity * unitPricePence;
+  basketTotal += itemTotal;
+  console.log(`${quantity}     ${itemName}                ${itemTotal}`);
+});
+console.log(`\nTotal: ${(basketTotal / 100).toFixed(2)} `);
