@@ -70,3 +70,23 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+//task 1
+function displayNames(names){
+  for (let person of names) {
+    const { firstName, lastName, house } = person;
+    if (house === "Gryffindor") {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+//task 2
+function displayTeacherNames(names){
+  for (let person of names) {
+    const { firstName, lastName, pet, occupation } = person;
+    if (occupation === "Teacher" && pet !== null) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+displayNames(hogwarts);
+displayTeacherNames(hogwarts);
