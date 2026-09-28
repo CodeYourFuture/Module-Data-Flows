@@ -70,3 +70,6 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+  hogwarts.forEach(function({firstName, lastName}){
+  console.log(`${firstName} ${lastName}`)
+});
