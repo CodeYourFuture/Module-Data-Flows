@@ -90,3 +90,13 @@ function findTeachersWithPets(characters) {
 }
 console.log("\n" + "Teachers with pets:");
 findTeachersWithPets(hogwarts);
+
+function findTeachersWithPets(characters) {
+  for ({ firstName, lastName, occupation, pet } of characters) {
+    if (occupation === "Teacher" && pet !== null) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+console.log("\n" + "Teachers with pets:");
+findTeachersWithPets(hogwarts);
