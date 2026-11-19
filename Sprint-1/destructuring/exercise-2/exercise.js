@@ -91,10 +91,12 @@ function getTeachersWithPets(people) {
   let teacherName = [];
 
   for (const element of people) {
-    let { firstName, lastName, pet, occupation } = person;
+    let { firstName, lastName, pet, occupation } = element;
     if (occupation === "Teacher" && pet !== null) {
       teacherName.push(firstName + " " + lastName);
     }
   }
   return teacherName;
 }
+
+console.log(getTeachersWithPets(hogwarts).join("\n"))
