@@ -70,3 +70,19 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function getGryffindorNames(people) {
+  let gryffindorNames = [];
+
+  for (const element of people) {
+    let person = element;
+
+    if (person.house === "Gryffindor");
+    {
+      let fullName = person.firstName + " " + person.lastName;
+      gryffindorNames.push(fullName);
+    }
+  }
+  return gryffindorNames;
+}
+let names = gryffindorNames(hogwarts);
