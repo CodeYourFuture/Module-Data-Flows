@@ -85,6 +85,5 @@ function getGryffindorNames(people) {
   }
   return gryffindorNames;
 }
-// let names = getGryffindorNames(hogwarts);
 
 console.log(getGryffindorNames(hogwarts).join("\n"))
