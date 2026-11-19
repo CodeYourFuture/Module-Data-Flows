@@ -86,3 +86,15 @@ function getGryffindorNames(people) {
 }
 
 console.log(getGryffindorNames(hogwarts).join("\n"));
+
+function getTeachersWithPets(people) {
+  let teacherName = [];
+
+  for (const element of people) {
+    let { firstName, lastName, pet, occupation } = person;
+    if (occupation === "Teacher" && pet !== null) {
+      teacherName.push(firstName + " " + lastName);
+    }
+  }
+  return teacherName;
+}
