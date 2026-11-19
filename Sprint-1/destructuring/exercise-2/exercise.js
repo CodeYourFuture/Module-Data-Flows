@@ -75,9 +75,21 @@ function displayGryffindorStudents(hogwarts) {
   for (const student of hogwarts) {
     const { firstName, lastName, house } = student;
 
-    if (student.house === "Gryffindor") {
+    if (house === "Gryffindor") {
       console.log(`${firstName} ${lastName}`);
     }
   }
 }
 displayGryffindorStudents(hogwarts);
+
+function displayTeachersWithPets(hogwarts) {
+  for (const teacher of hogwarts) {
+    const { firstName, lastName, pet } = teacher;
+
+    if (pet) {
+      console.log(`${firstName} ${lastName}`);
+    }
+  }
+}
+
+displayTeachersWithPets(hogwarts);
