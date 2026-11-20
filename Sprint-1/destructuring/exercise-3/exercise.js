@@ -11,4 +11,7 @@ let totalPence = 0;
 
 for (const item of order) {
   const { itemName, quantity, unitPricePence } = item;
+
+  const Pence = quantity * unitPricePence;
+  totalPence += Pence;
 }
