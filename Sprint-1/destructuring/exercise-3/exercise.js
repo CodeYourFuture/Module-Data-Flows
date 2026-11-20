@@ -7,6 +7,8 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
+console.log("QTY".padEnd(8) + "ITEM".padEnd(20) + "TOTAL");
+
 let totalPence = 0;
 
 for (const item of order) {
