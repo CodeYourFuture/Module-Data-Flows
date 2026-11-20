@@ -19,3 +19,6 @@ for (const item of order) {
 
   console.log(String(quantity).padEnd(8) + itemName.padEnd(20) + Total);
 }
+
+console.log();
+console.log(`Total: ${(totalPence / 100).toFixed(2)}`);
