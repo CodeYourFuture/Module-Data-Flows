@@ -14,4 +14,6 @@ for (const item of order) {
 
   const Pence = quantity * unitPricePence;
   totalPence += Pence;
+
+  const Total = (Pence / 100).toFixed(2);
 }
