@@ -16,4 +16,6 @@ for (const item of order) {
   totalPence += Pence;
 
   const Total = (Pence / 100).toFixed(2);
+
+  console.log(String(quantity).padEnd(8) + itemName.padEnd(20) + Total);
 }
