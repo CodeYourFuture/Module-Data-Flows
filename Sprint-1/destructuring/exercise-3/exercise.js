@@ -18,3 +18,4 @@ order.forEach(({ itemName, quantity, unitPricePence }) => {
   );
   totalPence += lineTotalPence;
 });
+console.log("\nTotal:" + (totalPence / 100).toFixed(2));
