@@ -74,3 +74,9 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+hogwarts
+  .filter(function ({ house }) {
+    return house === "Gryffindor";
+  })
+  .forEach(displayName);
