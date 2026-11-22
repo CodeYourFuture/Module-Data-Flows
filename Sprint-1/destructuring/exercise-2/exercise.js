@@ -80,3 +80,9 @@ hogwarts
     return house === "Gryffindor";
   })
   .forEach(displayName);
+
+hogwarts
+  .filter(function ({ pet, occupation }) {
+    return occupation === "Teacher" && pet !== null;
+  })
+  .forEach(displayName);
