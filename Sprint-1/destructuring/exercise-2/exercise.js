@@ -1,3 +1,7 @@
+function displayName({ firstName, lastName }) {
+  console.log(`${firstName} ${lastName}`);
+}
+
 let hogwarts = [
   {
     firstName: "Harry",
