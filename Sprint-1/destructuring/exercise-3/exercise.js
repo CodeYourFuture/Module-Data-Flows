@@ -6,3 +6,16 @@ let order = [
   { itemName: "Hot Coffee", quantity: 2, unitPricePence: 100 },
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
+
+let totalPence = 0;
+for (const food of order) {
+  const { itemName, quantity, unitPricePence } = food;
+  const itemTotalPence = quantity * unitPricePence;
+  const itemTotal = (itemTotalPence / 100).toFixed(2);
+
+  totalPence += itemTotalPence;
+
+  console.log(`${quantity}   ${itemName}  ${itemTotal}`);
+}
+
+console.log(`Total: ${(totalPence / 100).toFixed(2)}`);
