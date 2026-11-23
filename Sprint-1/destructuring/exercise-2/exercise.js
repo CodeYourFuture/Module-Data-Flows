@@ -1,3 +1,7 @@
+function displayName({ firstName, lastName }) {
+  console.log(`${firstName} ${lastName}`);
+}
+
 let hogwarts = [
   {
     firstName: "Harry",
@@ -70,3 +74,15 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+hogwarts
+  .filter(function ({ house }) {
+    return house === "Gryffindor";
+  })
+  .forEach(displayName);
+
+hogwarts
+  .filter(function ({ pet, occupation }) {
+    return occupation === "Teacher" && pet !== null;
+  })
+  .forEach(displayName);
