@@ -7,20 +7,18 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
+function receipt(orders) {
+  let total = 0;
+  console.log(`${"QTY"}    ${"ITEM"}               ${"Total"}`);
 
+  for ({ itemName, quantity, unitPricePence } of orders) {
+    total += quantity * unitPricePence;
 
-function receipt(orders){
-  let total=0;
-       console.log(`${ "QTY"}    ${"ITEM"}               ${"Total"}`)
-  
-  for({itemName,quantity,unitPricePence} of orders){
-    
-    total+= quantity*unitPricePence
-  
-    console.log(`${quantity.toString().padEnd(4)} ${(itemName).toString().padEnd(21)}${(unitPricePence/100).toFixed(2)}` )
-   
-    }
+    console.log(
+      `${quantity.toString().padEnd(4)} ${itemName.toString().padEnd(21)}${(unitPricePence / 100).toFixed(2)}`
+    );
+  }
 
-console.log(`\nTotal:${(total).toFixed(2)}`)
+  console.log(`\nTotal:${total.toFixed(2)}`);
 }
-receipt(order)
+receipt(order);
