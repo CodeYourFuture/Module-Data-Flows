@@ -70,3 +70,13 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function GryffindorHouse(hogwart){
+  for({firstName,lastName,house} of hogwart){ 
+  if ( house==="Gryffindor")
+    console.log(firstName,lastName)
+
+  }
+}
+
+GryffindorHouse(hogwarts)
