@@ -71,21 +71,17 @@ let hogwarts = [
   },
 ];
 
-function gryffindorHouse(hogwart){
-  for({firstName,lastName,house} of hogwart){ 
-  if ( house==="Gryffindor")
-    console.log(firstName,lastName)
-
+function gryffindorHouse(hogwart) {
+  for ({ firstName, lastName, house } of hogwart) {
+    if (house === "Gryffindor") console.log(firstName, lastName);
   }
 }
 
-gryffindorHouse(hogwarts)
+gryffindorHouse(hogwarts);
 
-function findPet(hogwart){
-  for({firstName,lastName,pet} of hogwart){
-    
-    if (pet==="Phoenix")
-console.log(firstName,lastName)
+function findPet(hogwart) {
+  for ({ firstName, lastName, pet } of hogwart) {
+    if (pet === "Phoenix") console.log(firstName, lastName);
   }
 }
-findPet(hogwarts)
+findPet(hogwarts);
