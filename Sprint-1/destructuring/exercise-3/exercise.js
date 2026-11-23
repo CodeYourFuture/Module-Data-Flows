@@ -7,6 +7,8 @@ let order = [
   { itemName: "Hash Brown", quantity: 4, unitPricePence: 40 },
 ];
 
+console.log("QTY".padEnd(8) + "ITEM".padEnd(20) + "TOTAL");
+
 let totalPence = 0;
 for (const food of order) {
   const { itemName, quantity, unitPricePence } = food;
@@ -15,7 +17,8 @@ for (const food of order) {
 
   totalPence += itemTotalPence;
 
-  console.log(`${quantity}   ${itemName}  ${itemTotal}`);
+  console.log(String(quantity).padEnd(8) + itemName.padEnd(20) + itemTotal);
 }
 
+console.log("");
 console.log(`Total: ${(totalPence / 100).toFixed(2)}`);
