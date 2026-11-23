@@ -1,7 +1,6 @@
 .form-group {
   width: 400px;
   height: 300px;
-  align-self: left;
   padding-left: 20px;
 }
 
@@ -16,4 +15,22 @@
 
 button.btn-info {
   margin: 20px;
+}
+
+.btn-info {
+  background-color: #006978;
+  border-color: #006978;
+  color: white;
+}
+
+.btn-success {
+  background-color: #17692b;
+  border-color: #17692b;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #8a5900;
+  border-color: #8a5900;
+  color: white;
 }
