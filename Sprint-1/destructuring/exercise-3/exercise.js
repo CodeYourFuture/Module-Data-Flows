@@ -14,12 +14,12 @@ let totalPence = 0;
 for (const item of order) {
   const { itemName, quantity, unitPricePence } = item;
 
-  const Pence = quantity * unitPricePence;
-  totalPence += Pence;
+  const pence = quantity * unitPricePence;
+  totalPence += pence;
 
-  const Total = (Pence / 100).toFixed(2);
+  const total = (pence / 100).toFixed(2);
 
-  console.log(String(quantity).padEnd(8) + itemName.padEnd(20) + Total);
+  console.log(String(quantity).padEnd(8) + itemName.padEnd(20) + total);
 }
 
 console.log();
