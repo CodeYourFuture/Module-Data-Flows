@@ -72,24 +72,21 @@ let hogwarts = [
 ];
 
 function displayGryffindorStudents(hogwarts) {
-  for (const student of hogwarts) {
-    const { firstName, lastName, house } = student;
-
+  for (const { firstName, lastName, house } of hogwarts) {
     if (house === "Gryffindor") {
       console.log(`${firstName} ${lastName}`);
     }
   }
 }
-displayGryffindorStudents(hogwarts);
 
 function displayTeachersWithPets(hogwarts) {
-  for (const teacher of hogwarts) {
-    const { firstName, lastName, pet } = teacher;
-
-    if (pet) {
-      console.log(`${firstName} ${lastName}`);
+  for (const { firstName, lastName, pet, occupation } of hogwarts) {
+    if (occupation === "Teacher" && pet) {
+      console.log(`\n${firstName} ${lastName}`);
     }
   }
 }
+
+displayGryffindorStudents(hogwarts);
 
 displayTeachersWithPets(hogwarts);
