@@ -74,12 +74,9 @@ let hogwarts = [
 function getGryffindorNames(people) {
   let gryffindorNames = [];
 
-  for (const element of people) {
-    let person = element;
-
-    if (person.house === "Gryffindor") {
-      let fullName = person.firstName + " " + person.lastName;
-      gryffindorNames.push(fullName);
+  for (let { firstName, lastName, house } of people) {
+    if (house === "Gryffindor") {
+      gryffindorNames.push(firstName + " " + lastName);
     }
   }
   return gryffindorNames;
@@ -99,4 +96,4 @@ function getTeachersWithPets(people) {
   return teacherName;
 }
 
-console.log(getTeachersWithPets(hogwarts).join("\n"))
+console.log(getTeachersWithPets(hogwarts).join("\n"));
