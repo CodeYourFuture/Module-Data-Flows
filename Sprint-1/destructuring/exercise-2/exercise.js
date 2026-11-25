@@ -87,8 +87,7 @@ console.log(getGryffindorNames(hogwarts).join("\n"));
 function getTeachersWithPets(people) {
   let teacherName = [];
 
-  for (const element of people) {
-    let { firstName, lastName, pet, occupation } = element;
+  for (let { firstName, lastName, pet, occupation } of people) {
     if (occupation === "Teacher" && pet !== null) {
       teacherName.push(firstName + " " + lastName);
     }
