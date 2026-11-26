@@ -15,7 +15,7 @@ function receipt(orders) {
     total += quantity * unitPricePence;
 
     console.log(
-      `${quantity.toString().padEnd(4)} ${itemName.toString().padEnd(21)}${(unitPricePence / 100).toFixed(2)}`
+      `${quantity.toString().padEnd(4)} ${itemName.toString().padEnd(21)}${((quantity * unitPricePence) / 100).toFixed(2)}`
     );
   }
 
