@@ -9,16 +9,16 @@ let order = [
 
 function receipt(orders) {
   let total = 0;
-  console.log(`${"QTY"}    ${"ITEM"}               ${"Total"}`);
+  console.log("QTY".padEnd(7), "ITEM".padEnd(21), "TOTAL");
 
   for ({ itemName, quantity, unitPricePence } of orders) {
     total += quantity * unitPricePence;
 
     console.log(
-      `${quantity.toString().padEnd(4)} ${itemName.toString().padEnd(21)}${((quantity * unitPricePence) / 100).toFixed(2)}`
+      `${quantity.toString().padEnd(7)} ${itemName.padEnd(22)}${((quantity * unitPricePence) / 100).toFixed(2)}`
     );
   }
 
-  console.log(`\nTotal:${total.toFixed(2)}`);
+  console.log(`\nTotal: ${(total / 100).toFixed(2)}`);
 }
 receipt(order);
