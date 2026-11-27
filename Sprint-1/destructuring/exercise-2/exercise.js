@@ -82,8 +82,7 @@ gryffindorHouse(hogwarts);
 
 function findPet(hogwart) {
   for (const { firstName, lastName, pet, occupation } of hogwart) {
-    if (pet && occupation === "Teacher")
-      console.log(`name of a teacher who has pet ${firstName} ${lastName}`);
+    if (pet && occupation === "Teacher") console.log(firstName, lastName);
   }
 }
 findPet(hogwarts);
