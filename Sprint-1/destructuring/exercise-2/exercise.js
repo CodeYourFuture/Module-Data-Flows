@@ -1,3 +1,4 @@
+"use strict";
 let hogwarts = [
   {
     firstName: "Harry",
@@ -70,3 +71,18 @@ let hogwarts = [
     occupation: "Teacher",
   },
 ];
+
+function gryffindorHouse(hogwart) {
+  for (const { firstName, lastName, house } of hogwart) {
+    if (house === "Gryffindor") console.log(firstName, lastName);
+  }
+}
+
+gryffindorHouse(hogwarts);
+
+function findPet(hogwart) {
+  for (const { firstName, lastName, pet, occupation } of hogwart) {
+    if (pet && occupation === "Teacher") console.log(firstName, lastName);
+  }
+}
+findPet(hogwarts);
